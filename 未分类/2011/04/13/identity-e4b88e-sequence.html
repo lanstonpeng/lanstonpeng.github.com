@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>identity 与 sequence</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Lanston Peng's idea</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>identity 与 sequence</h2>
+<p class="meta">13 Apr 2011</p>
+
+<div class="post">
+<p>之前一直在用M$的Sql Server ，一般在设置id自动增长的时候会在类似这样做
+create table Poll(
+id int primary key identity(1,1)
+)
+或者直接点击那些可恶的按钮什么的，设置什么标识规范
+一直没有为此继续追问下去了</p>
+
+<p>直到最近在用PostgreSQL，什么都得敲代码，什么都得在shell里面完成（虽然有想过装个pgAdmin啦）
+当我查看我的数据库的时候，才发现里面的东西究竟是如何的</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"> public | polls_poll                        | table    | postgres
+ public | polls_poll_id_seq                 | sequence | postgres
+
+
+
+
+mysite=# select * from polls_poll_id_seq
+mysite-# \g
+   sequence_name   | last_value | start_value | increment_by |      max_value      | min_value | cache_value | log_cnt | is_cycled | is_called
+-------------------+------------+-------------+--------------+---------------------+-----------+-------------+---------+-----------+-----------
+ polls_poll_id_seq |          2 |           1 |            1 | 9223372036854775807 |         1 |           1 |      32 | f         | t
+(1 row)
+</code></pre></div>
+<p>这个自动增长就这么直白在出现了眼前了</p>
+
+<p><strong>需要注意的是，identity和sequence是不同的东西，但是功能还是差不多的(base on 我现阶段的知识[2011-4])，只是sequence可以作用于整个数据库，而identity所指定是仅仅限制在你所指定的这个表格当中而已</strong></p>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Lanston Peng<br />
+                Life Hacker<br />
+                lanstonpeng[AT]gmail.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
+                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

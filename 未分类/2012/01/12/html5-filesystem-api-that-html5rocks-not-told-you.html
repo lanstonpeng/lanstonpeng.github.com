@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>HTML5 FileSystem API that HTML5Rocks didn't tell you</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Lanston Peng's idea</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>HTML5 FileSystem API that HTML5Rocks didn't tell you</h2>
+<p class="meta">12 Jan 2012</p>
+
+<div class="post">
+<p>很久之前在HTML5Rocks里面看到的一个Terminal Demo ，当时有点震惊，不是因为其它的，是因为感觉到其实自己也是可以实现的，不像<a href="http://bellard.org/jslinux/">Javascript PC Emulator</a>那样，强大到无奈的地步,具体的实现可以看看他的<a href="http://bellard.org/jslinux/tech.html">Technical Notes</a>,因为期末要做操作系统的课程设计，所以我在<a href="http://www.html5rocks.com/en/tutorials/file/filesystem/terminal.html">HTML5 Terminal</a>的基础上作了一些基础性的修改以及命令的增加。</p>
+
+<p>Ok,Let&#39;s be back.</p>
+
+<p>I think you guys who&#39;re interested in <a href="http://dev.w3.org/2009/dap/file-system/pub/FileSystem/">HTML5 File API</a>should have read <a href="http://www.html5rocks.com/en/tutorials/file/filesystem/">this</a> in <a href="http://www.html5rocks.com">html5 rocks</a>,I&#39;ve done so,but when you dive into it,you probably found it can&#39;t meet your aims.</p>
+
+<p><strong>How to update my file not just appending data ?</strong></p>
+
+<p>We can use  <a href="http://www.w3.org/TR/file-writer-api/#widl-FileWriter-truncate">truncate</a> ,this spec is to change your file&#39;s length,that means when you want to update file ,you &quot;cut&quot; the content of your file to length 0 or some other length you want and write your new content,here&#39;s my code snippet of implementing the
+_echo newcontent &gt; myfile _:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">cwd_.getFile(cwd_.fullPath+fileName,{create:false},function(fileEntry){
+        fileEntry.createWriter(function(fileWriter){
+                fileWriter.onwriteend=function(trunc){
+                     var bb=new WebKitBlobBuilder();
+                     bb.append(content);
+                     fileWriter.write(bb.getBlob());
+                     fileWriter.onwriteend=null;//or we may recursively trigger the FileCallback
+                        };
+                       fileWriter.seek(0);
+                       fileWriter.truncate(0);
+        },errorHandler_);
+},errorHandler_);
+</code></pre></div>
+<p>&lt;!-- more --&gt;we can see that it&#39;s quite simple here,note that we should set fileWriter.onwriteend to null or we may trigger it recursively since we write something into a file in the writeend event</p>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Lanston Peng<br />
+                Life Hacker<br />
+                lanstonpeng[AT]gmail.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
+                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

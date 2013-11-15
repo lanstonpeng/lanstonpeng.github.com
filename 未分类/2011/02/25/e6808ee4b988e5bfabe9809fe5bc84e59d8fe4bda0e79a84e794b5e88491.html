@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>怎么快速弄坏你的电脑</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Lanston Peng's idea</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>怎么快速弄坏你的电脑</h2>
+<p class="meta">25 Feb 2011</p>
+
+<div class="post">
+<p>物理伤害不在计算范围之内。</p>
+
+<p>今天，可恶redhat终于让我下定了决心将它消灭了。与其让他被覆盖而死，不如来让它作为我的实验品（｜｜｜）</p>
+
+<p>以前一直想试试一些危险的命令，一直没有机会，今天终于等到了～</p>
+
+<p>本来想在/目录下面一个一个地删除，慢慢地折磨他（太残忍了我）</p>
+
+<p>后来觉得不爽，就直接</p>
+
+<blockquote>
+<p>rm -rf *</p>
+</blockquote>
+
+<p>接下来的情况太精彩了，看这终端刷刷地下，屏幕首先变白了&lt;!-- more --&gt;</p>
+
+<p><a href="http://www.lantonspeng.blog.cd/files/2011/02/DSC01137.jpg"><img src="http://www.lantonspeng.blog.cd/files/2011/02/DSC01137-1024x768.jpg" alt=""></a></p>
+
+<p>接着菜单，图标全没了，什么都点不到，在/下面ls什么都没有</p>
+
+<p>PS：上面可以隐约的看到，有些操作是不允许的，这里可能有人就会发出疑问了，既然是全能的root，为什么却不能删除这些东西呢？</p>
+
+<p>答案应该是这样的，文件除了有rwx这几个基本的属性（当然还有其它），还有所谓的隐藏属性，一共是9个，其中那个i属性就厉害，</p>
+
+<p>就是“不能被删除，建个连接都不行，并且只有root才能这么干”</p>
+
+<p>那些显示“不允许操作”的文件大概类似于</p>
+
+<blockquote>
+<p>lsattr  somefile</p>
+</blockquote>
+
+<p>类似这样
+<a href="http://www.lantonspeng.blog.cd/files/2011/02/DSC01139.jpg"><img src="http://www.lantonspeng.blog.cd/files/2011/02/DSC01139-1024x768.jpg" alt=""></a></p>
+
+<p>再接下去进入任意一个终端，太奇妙了，什么情况都有，美妙的竖条中夹着这符号</p>
+
+<p><a href="http://www.lantonspeng.blog.cd/files/2011/02/DSC01143.jpg"><img src="http://www.lantonspeng.blog.cd/files/2011/02/DSC01143-1024x768.jpg" alt=""></a><a href="http://www.lantonspeng.blog.cd/files/2011/02/DSC01137.jpg"></a></p>
+
+<p>也有不断变化的彩色东西～</p>
+
+<p><a href="http://www.lantonspeng.blog.cd/files/2011/02/DSC01141.jpg"><img src="http://www.lantonspeng.blog.cd/files/2011/02/DSC01141-1024x768.jpg" alt=""></a><a href="http://www.lantonspeng.blog.cd/files/2011/02/DSC01139.jpg">
+</a></p>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Lanston Peng<br />
+                Life Hacker<br />
+                lanstonpeng[AT]gmail.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
+                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

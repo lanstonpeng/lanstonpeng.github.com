@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Backbone.JS与Knockout.JS  View基于Model/ViewModel更新方式实现思想</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Lanston Peng's idea</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>Backbone.JS与Knockout.JS  View基于Model/ViewModel更新方式实现思想</h2>
+<p class="meta">06 Jan 2012</p>
+
+<div class="post">
+<p>引言：最近遇到一个问题，关于变量监测，即当我可以注册一handler到该变量值的改变的事件上，想到Backbone,KO,但是他们这种我姑且称为 <strong>主动设置</strong> 方式，实际用到生产环境当中，先介绍这种方式，再介绍我想要的效果，姑且称为 <strong>被动设置</strong> 方式，主要用在测试环境</p>
+
+<p>先来看看ko的MVVM模式,
+<strong>Model:</strong></p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">var model={name:&#39;lanstonpeng&#39;}  //Usually from Server-Side
+</code></pre></div>
+<p><strong>ViewModel:</strong></p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">var viewModleConstructor=function(name){
+  this.name=ko.&lt;strong&gt;observable&lt;/strong&gt;(name);
+};
+var obj=new viewModleConstructor(model.name);
+</code></pre></div>
+<p><strong>View:</strong></p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">&lt;div data-bind=&quot;{value:name}&quot;&gt;&lt;/div&gt;
+</code></pre></div>
+<p>Activate KO:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">ko.applyBindings(obj);
+</code></pre></div>
+<p>当<strong>obj.name(newName)</strong>，那么<strong>view</strong>会对应着改变，同样,Backbone也有着类似的功能，但是实现方式稍有不同，这里也不全部粘贴了，主要是这么一个做法：
+在对应model的view上绑定一个事件，譬如*<em>change&lt;!-- more --&gt;
+*</em></p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">this.model.bind(&quot;change&quot;,this.render,this)
+</code></pre></div>
+<p>那么，当model改变的时候，如：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">model.set({ name: &#39;lanstonpeng&#39; });
+</code></pre></div>
+<p>view的<strong>render</strong>方法就会执行
+好了，之所以从KO切入，是因为KO看起来更简单，实际上它也就做这个东西，而BackboneJS可以实现这种方式，他的书写方式个人认为基本上是从原理上出发的
+In fact,There&#39;s no magic in databings,只是从简单的custom Event出发而已
+But how?
+简单来说，建立一个自定义事件的机制,下面省略removeListener以及一些杂项，从简说明：</p>
+
+<p><code></code></p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">&lt;code&gt;var EventContainer=function(){
+    this.&lt;strong&gt;_listenerPool&lt;/strong&gt;={}
+}
+EventContainer.prototype.addListener=function(type,handler){
+    if( !this._listenerPool[type]){
+        this._listenerPool[type]=[]
+     }
+     this._listenerPool[type].push(handler);
+}
+EventContainer.prototype.trigger=function(type,args){
+    var handlers=this._listenerPool[type.toString()]
+    for(var i=0,len=handlers.length;i ++){
+        &lt;strong&gt;handlers[i].apply(this,[args])&lt;/strong&gt;
+    }
+}&lt;/code&gt;
+</code></pre></div>
+<p>So simple ,isn&#39;t it ?
+添加事件监听其实就是在内部维护一个的 _listenerPool 的数组，添加相应的handler，触发事件的时候就是找到这些方法，然后依次执行，那么接下来怎么做</p>
+
+<p><code></code></p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">&lt;code&gt;var obj=function(){
+         EventContainer.call(this);
+   }
+obj.prototype=new EventContainer();
+
+obj.prototype.jump=function(meter){
+         this.&lt;strong&gt;trigger&lt;/strong&gt;(&quot;jump&quot;,meter);
+   }
+o=new obj();
+o.addListener(&quot;jump&quot;,function(meter){
+        console.log(&quot;o Jump &quot;,meter);
+    });
+o.addListener(&quot;jump&quot;,function(o){
+        console.log(&quot;o another jump&quot;);
+    });
+o.jump(5);&lt;/code&gt;
+</code></pre></div>
+<p><code></code>
+我所做的就是这么多了，在我可以被监听的方法内部触发该事件响应的trigger方法即可，理解上不难。当然，这个是一个非常非常简单的版本，更多的检测扩充，这里仅仅是为了从简说明。
+好了，说了这么多，现在要介绍所谓的 *<em>被动设置 *</em>方式了：
+在FF中，可能有人会遇到</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">object.watch(prop, handler)
+</code></pre></div>
+<p>这个方法，他就是要我想要的效果</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">a={
+  b:1;
+}
+a.watch(&quot;b&quot;,function(prop, oldval, newval){
+  console.log(prop, oldval, newval)
+})
+</code></pre></div>
+<p>当a.b改变的时候，控制台立马打出相应信息,But,这个方法只是在Gecko中，并非标准的方法,So,let&#39;s standardize it:
+以下用到一些可能不太常用的方法:</p>
+
+<p><code></code></p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">&lt;code&gt;Object.prototype.watch=function(prop,handler){
+        var val=this[prop],
+            getter=function(){
+                return val;
+                },
+            setter=function(newval){
+                handler.call(this,prop,val,newval);
+                return val=newval
+                }
+
+        if(Object.defineProperty){
+             Object.defineProperty(this,prop,{
+                        get:getter,
+                        set:setter
+
+                    });
+        }else if(Object.prototype.__defineGetter__ &amp;&amp; Object.prototype.__defineSetter__){
+                    Object.prototype.__defineGetter__.call(this,prop,getter);
+                    Object.prototype.__defineSetter__.call(this,prop,setter);
+            }
+        }&lt;/code&gt;
+</code></pre></div>
+<p><code></code>
+这两个方法有点纠结，defineProperty是ES5的方法，<strong>defineGetter/Setter</strong>已经是比较旧的方法
+defineProperty比较强大，涉及到的东西比较多，这里仅仅就设置get，set方法说说，
+设置getter与setter也有其简单的方法直接在对象属性前面加上 get 或者 set</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">  var obj={
+     get name(){......}
+  }
+</code></pre></div>
+<p>有过其它一些编程语言的同学应该会遇到过在Model里面设置
+getter与setter,譬如在setter里面设置变量超过范围既不可赋值，
+那么这两个方法就是做类似的工作，他们将我们要运行的handler插入到指定变量的getter,setter里面，使得我们能达到监听的目的。</p>
+
+<p>Ref:
+<a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/defineProperty">MDN defineProperty</a>
+<a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/defineGetter"> MDN <strong>difineGetter</strong></a>
+<a href="http://www.csser.com/tools/backbone/backbone.js.html#Events-bind">Backbone.js bind</a>
+<a href="http://www.nczonline.net/blog/2010/03/09/custom-events-in-javascript/">Custom events in JavaScript</a>
+<a href="http://stackoverflow.com/questions/1759987/detect-variable-change-in-javascript">detect variable change in javascript</a></p>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Lanston Peng<br />
+                Life Hacker<br />
+                lanstonpeng[AT]gmail.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
+                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

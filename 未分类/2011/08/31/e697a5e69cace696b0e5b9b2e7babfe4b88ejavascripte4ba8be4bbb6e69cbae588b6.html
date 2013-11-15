@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>日本新干线与javascript事件机制</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Lanston Peng's idea</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>日本新干线与javascript事件机制</h2>
+<p class="meta">31 Aug 2011</p>
+
+<div class="post">
+<p><a href="http://files.blogcn.com/wp05/M00/01/D7/wKgKDU5eOecAAAAAAAGjOVdMLi0207.jpg"><img src="http://files.blogcn.com/wp03/M00/02/14/wKgKCk5eOegAAAAAAABKDWDvDMc118.jpg" alt=""></a></p>
+
+<p>上课在看《geek》的时候看到了日本新干线为了预防列车追尾的措施以及其系统的一些装置的时候，发现新干线列车的停车是一个连锁的反应，我突然就想到了js中的事件冒泡</p>
+
+<ul id="control_center">
+
+
+
+
+<li id="train2"></li>
+
+
+
+
+<li id="train1"></li>
+
+
+
+
+</ul>
+
+<p>当我们对
+<code>document.querySelector(&quot;#train1&quot;).addEventListener(&quot;lighting&quot;,function(){stop_and_crash()},false)</code>
+假设我们的train2也同样设置了在 打雷 的时候停车，那么显然，根据事件冒泡的机制，train2的 打雷 事件也会被触发停车
+如果我们在control<em>center里面设置了lighting事件响应函数的话，那么显然，根据事件冒泡的机制，不管是train1还是train2触发打雷事件的话，control</em>center 都会收到，要实现类似日本列车这种响应事件类型并不难，用类似previousElementSibling就可以了
+说到这里，应该会有人联想到对于结点事件的绑定优化，即在ul那里设置一个Handler,监听来自li的相应的事件，但这里我想稍稍探究一下这个机制&lt;!-- more --&gt;</p>
+
+<p>大家都知道，除了bubble，当然还有capture的触发形式了,
+需要注意的是，事件的触发顺序是先触发capture的再bubble的</p>
+
+<p><body id="body"><br>
+<div id="div"><br>
+<span id="span"></span><br>
+</div><br>
+<ul id="ul"><br>
+<li id="li1"></li><br>
+<li id="li2"></li><br>
+</ul><br>
+</body>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+先设置一点点东西：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">​addEvent(body,&quot;click​​​​​&quot;,function(){console.log(&quot;body click bubble&quot;);},false)​​​​​​​​​​​;
+addEvent(body,&quot;click&quot;,function(){console.log(&quot;body click capture&quot;);},true);
+addEvent(ul,&quot;click&quot;,function(){console.log(&quot;ul click capture&quot;);},true);
+addEvent(ul,&quot;click&quot;,function(){console.log(&quot;ul click bubble&quot;);},false);
+addEvent(li2,&quot;click&quot;,function(){console.log(&quot;li2 click capture&quot;);},true);
+addEvent(li2,&quot;click&quot;,function(){console.log(&quot;li2 click bubble&quot;);},false);
+</code></pre></div>
+<p>那么，当我点击li2的时候，结果很简单,就是</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">body click capture
+ul click capture
+li2 click capture
+li2 click bubble
+ul click bubble
+body click bubble
+</code></pre></div>
+<p>究其事件触发这种模型的底层实现，我想应该是cpu的中断
+没有研究过，这里仅仅是猜想罢了
+那么，这种机制的实现大概是长个什么样子的？
+没错，正如dom的结构一般，最简单最容易想到的就是树了
+每次触发某元素事件的时候，
+我想都会生成一个相应的响应路径，这里涉及到树的查找问题
+执行系统内置函数然（譬如一些渲染什么的）后执行用户定义函数</p>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Lanston Peng<br />
+                Life Hacker<br />
+                lanstonpeng[AT]gmail.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
+                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

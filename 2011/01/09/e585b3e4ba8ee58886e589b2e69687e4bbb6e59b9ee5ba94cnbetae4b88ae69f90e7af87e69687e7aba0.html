@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>linux分割文件(回应cnbeta上某篇文章)</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Lanston Peng's idea</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>linux分割文件(回应cnbeta上某篇文章)</h2>
+<p class="meta">09 Jan 2011</p>
+
+<div class="post">
+<p>不知道为什么看了那篇文件觉得很不爽(<a href="http://www.cnbeta.com/articles/131501.htm">http://www.cnbeta.com/articles/131501.htm</a>)</p>
+
+<p>首先使用split来分割文件,确实用来作为传输是不错的选择</p>
+
+<p>split -l500 android.pdf  android<em>part</em>* (每500行分割,显然这是看不到的)</p>
+
+<p>split -b20M android.pdf android<em>part</em>*( 每20M分割,还是显然看不到的)</p>
+
+<p>用ghostscript合并pdf文件:     gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=merged<em>file.pdf pdf</em>file<em>1.pdf pdf</em>file_2.pdf</p>
+
+<p>更多是查文档的,man什么都有,我承认,我不懂分割.....</p>
+
+<p>败给了它...</p>
+
+<p>于是,向其他大陆的人求救去:(to be continued)</p>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Lanston Peng<br />
+                Life Hacker<br />
+                lanstonpeng[AT]gmail.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
+                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

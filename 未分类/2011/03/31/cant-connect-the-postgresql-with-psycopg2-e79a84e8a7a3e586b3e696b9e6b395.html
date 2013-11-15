@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>psycopg2.OperationalError: could not connect to server: No such file or directory 的解决方法</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Lanston Peng's idea</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>psycopg2.OperationalError: could not connect to server: No such file or directory 的解决方法</h2>
+<p class="meta">31 Mar 2011</p>
+
+<div class="post">
+<p>感谢＠<a href="http://stackoverflow.com/users/15862/tometzky">Tometzky</a> 和psycopg2的作者</p>
+
+<h2><strong>问题的提出：</strong></h2>
+
+<p>当我试图用psycopg2连接postgreSQL的时候出现了异常</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">&gt;&gt;conn=psycopg2.connect(database=&quot;mydb&quot;, user=&quot;postgres&quot;, password=&quot;123&quot;,port=5432)&lt;/code&gt;
+</code></pre></div>
+<p>`</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">&gt;&gt;Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+psycopg2.OperationalError: could not connect to server: No such file or directory
+    Is the server running locally and accepting
+    connections on Unix domain socket &quot;/var/run/postgresql/.s.PGSQL.5432&quot;?
+</code></pre></div>
+<p>`
+&lt;!-- more --&gt;</p>
+
+<h5>要说明的几点：</h5>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">&lt;ol&gt;
+    &lt;li&gt;&lt;span style=&quot;color: #ff6600;&quot;&gt;My postgreSQL is running&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span style=&quot;color: #ff6600;&quot;&gt;My listeningport is 5432 for sure&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span style=&quot;color: #ff6600;&quot;&gt;&gt;&gt;psql -l 是显示如下&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+  List of databases
+         Name      |  Owner   | Encoding | Collation  |   Ctype    |   Access privileges
+    ---------------+----------+----------+------------+------------+-----------------------
+     checkdatabase | postgres | UTF8     | en_US.utf8 | en_US.utf8 |
+     mydb          | postgres | UTF8     | en_US.utf8 | en_US.utf8 |
+     postgres      | postgres | UTF8     | en_US.utf8 | en_US.utf8 |
+     template0     | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+                   |          |          |            |            | postgres=CTc/postgres
+     template1     | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+                   |          |          |            |            | postgres=CTc/postgres
+</code></pre></div>
+<p>恩，这里存在的问题的是
+psycopg2 expects Postgres socket to be in <code>/var/run/postgresql/</code>
+ but when you install Postgres from source it is by default it in <code>/tmp/</code>.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">&lt;span style=&quot;font-family: monospace;&quot;&gt;的即psycopg2默认在/var/run/postgresql 寻找Postgresql端口,但是因为我是通过源码安装的，所以这个socket存在于我的/tmp下面&lt;/span&gt;
+</code></pre></div>
+<h3>解决方法：</h3>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">&lt;span style=&quot;color: #ff6600;&quot;&gt;指定socket路径&lt;/span&gt;
+</code></pre></div>
+<p>`</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">&lt;code&gt;conn=psycopg2.connect(
+  database=&quot;mydb&quot;,
+  user=&quot;postgres&quot;,
+  host=&quot;/tmp&quot;,
+  password=&quot;123&quot;
+)&lt;/code&gt;
+</code></pre></div>
+<p>最后，轻抚<a href="http://stackoverflow.com/questions/5500332/cant-connect-the-postgresql-with-psycopg2">这里</a>访问提问地址</p>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Lanston Peng<br />
+                Life Hacker<br />
+                lanstonpeng[AT]gmail.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
+                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

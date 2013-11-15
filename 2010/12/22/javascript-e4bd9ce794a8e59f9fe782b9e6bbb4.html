@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>javascript 作用域点滴</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Lanston Peng's idea</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>javascript 作用域点滴</h2>
+<p class="meta">22 Dec 2010</p>
+
+<div class="post">
+<ol>
+<li><p>var name = &#39;lanston&#39;;</p></li>
+<li><p>function echo() {</p></li>
+<li><p>alert(name);</p></li>
+<li><p>}</p></li>
+<li><p>function env() {</p></li>
+<li><p>var name = &#39;eve&#39;;</p></li>
+<li><p>echo();</p></li>
+<li><p>}</p></li>
+<li><p>env();</p></li>
+</ol>
+
+<ul>
+<li>JS权威指南中有一句很精辟的描述:　”JavaScript中的函数运行在它们被定义的作用域里,而不是它们被执行的作用域里.”&lt;!-- more --&gt;</li>
+</ul>
+
+<p>具体来说涉及到函数的作用域链的问题以及js的编译（正确来说是预编译）问题，大家可以google一下，内容很多，较为复杂。</p>
+
+<p>上面的例子输出是为lanston</p>
+
+<p>再举一个例子：</p>
+
+<ol>
+<li><p>var name=&quot;lanston&quot;;</p></li>
+<li><p>function checkfun(){</p></li>
+<li><p>alert(name);</p></li>
+<li><p>var name=&quot;othername&quot;;</p></li>
+<li><p>}</p></li>
+</ol>
+
+<p>这里输出的是undefined</p>
+
+<p>你在函数内部任何一个地方定义的变量其作用域都是整个函数体。而在 alert 的时候函数的内部变量 v 已经定义了，并且覆盖掉了同名的全局变量的定义，只是还没有被初始化，所以 alert 出来的是 &quot;undefined&quot;</p>
+
+<p>继续例子：</p>
+
+<ol>
+<li><p>function factory() {</p></li>
+<li><p>var name = &#39;lanston&#39;;</p></li>
+<li><p>var intro = function(){</p></li>
+<li><p>alert(&#39;I am &#39; + name);</p></li>
+<li><p>}</p></li>
+<li><p>return intro;</p></li>
+<li><p>}</p></li>
+<li><p>function app(para){</p></li>
+<li><p>var name = para;</p></li>
+<li><p>var func = factory();</p></li>
+<li><p>func();</p></li>
+<li><p>}</p></li>
+<li><p>app(&#39;eve&#39;);</p></li>
+</ol>
+
+<p>看看这里的输出吧，如果你想到是lanston而不是其他的话，那很有可能你已经明白了。</p>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Lanston Peng<br />
+                Life Hacker<br />
+                lanstonpeng[AT]gmail.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
+                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

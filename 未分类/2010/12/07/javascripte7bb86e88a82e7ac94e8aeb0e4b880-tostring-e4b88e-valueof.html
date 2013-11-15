@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>javascript细节笔记(一)--toString 与 valueOf</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Lanston Peng's idea</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>javascript细节笔记(一)--toString 与 valueOf</h2>
+<p class="meta">07 Dec 2010</p>
+
+<div class="post">
+<p>function check(val){ this.p=val } check.prototype.valueOf=function(){alert(this.p+&#39;valueof&#39;)} check.prototype.toString=function(){alert(this.p+&#39;toString&#39;);}</p>
+
+<p>valueOf主要在对象数值计算时被隐式调用，
+toString则在对象的字符串运算中被隐式调用，
+譬如:
+var b=new check(9);
+var c=new check(10);</p>
+
+<blockquote>
+<p>b+c //弹出两个 valueOf 的 alert
+alert(b)  //先弹出  toString 的 alert，因为其隐式调用了toString
+              //，再弹出调用的alert的框，显示为undefined</p>
+</blockquote>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Lanston Peng<br />
+                Life Hacker<br />
+                lanstonpeng[AT]gmail.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
+                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>

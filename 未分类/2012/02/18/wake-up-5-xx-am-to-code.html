@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Wake up 5.XX am to code </title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Lanston Peng's idea</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>Wake up 5.XX am to code </h2>
+<p class="meta">18 Feb 2012</p>
+
+<div class="post">
+<p>Recently,I decided to redesign PangTingMe--a project I was started while I first learned javascript,I was first inspired by a post from HN,the guy wake up 5 am to start his personal project.So,I try it on my own!</p>
+
+<p><a href="http://files.blogcn.com/wp01/M00/04/F2/wKgKC08_wGkAAAAAAAGYTRF1Wnw835.png"><img src="http://files.blogcn.com/wp06/M00/05/9F/wKgKDE8_wGoAAAAAAACZ1DcHKrs293.png" alt=""></a>check it out from github
+<a href="http://lanstonpeng.github.com/Reindeer/"><strong>Reindeer</strong></a>
+<a href="http://lanstonpeng.github.com/Reindeer/"></a>and check for the static demo :
+<a href="http://pangting.me"><strong>PangTing.me</strong></a></p>
+
+<p>_ A small tech summary of building the prototype of  PangTingMe:_
+About the server side:
+I used Rails to build a simple RESTful Service,return JSON format data by different URL
+It&#39;s simple but I learned a lot these days,rails is awesome!
+About the client side:
+This is where heavy works happen,I make myself a small MVC front-end architeture
+The whole logic can be divided to 4 main object</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">--DataContorller
+--UI
+--Functionality
+--pangting
+</code></pre></div>
+<p>I defined some basic URL router in Funtionality&lt;!-- more --&gt;</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">du.config={
+    router:{
+        domain:&quot;http://localhost:3000/&quot;,
+        course:{
+                        ......
+            gettable:&quot;courses/top/#day&quot;,
+            getallbyday:&quot;courses/all/#day&quot;,
+            getprogress:&quot;courses/progress/#courseid&quot;,
+            ..........
+            addProgressComment:&quot;courses/addprogresscomment&quot;,
+            updateNum:&quot;courses/updateNum&quot;,
+            updateProgress:&quot;courses/updateprogress&quot;,
+            updateCourse:&quot;courses/updatecourse&quot;
+                        .........
+        }
+    },
+</code></pre></div>
+<p>and as you can expected,the DataController is the Controller in MVC pattern,It only provide the UI(View) the data,nothing else it&#39;ll care</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">DataContorller.CourseController
+Object
+  addCourse: function (data,callback){
+  addProgressComment: function (data,callback){
+  addRemark: function (data,callback){
+  addReview: function (data,callback){
+  getAllReviewByCourseId: function (options){
+   ...........
+  updateNum: function (options,callback){
+  updateProgress: function (data,callback){
+</code></pre></div>
+<p>Of course,the UI is the View,I bind data and the component event in it ,and the pangting object is something like the main function
+Additional Tech/Tools Used:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">--Templating by Mustache
+--BootStrap
+--Biolerplate
+--Heavily on HTML5
+--QUnit
+</code></pre></div>
+<p>Like the author ,I also chose AgileZen for quick and small project management
+<a href="http://files.blogcn.com/wp04/M00/03/E7/wKgKDE8_no4AAAAAAAOK1xVwgwU648.png"><img src="http://files.blogcn.com/wp06/M00/05/9F/wKgKDE8_no8AAAAAAADQ43r-gu8311.png" alt=""></a>
+<strong>The above Tech Details are not of the most significant</strong>
+It&#39;s a little bit hard to get up at the very first moment,but when I get used to it , it&#39;s all right then , maybe I&#39;m still young enough ,lol,and I kept sporting ,I sleep for around 5.25 hours a day.
+I found myself <strong>really enjoying</strong> my personal project.
+The moment I was listening to my custom music and coding,I was extremelly exciting,truth to be told,it is.
+But there&#39;s also damn things happened,I get frusted while debuging ,It&#39;s a hard time~
+After these whole new try in 19 days, I found something really interesting:
+** nothing can stop you realizing what you want to do if you deadly love it!**
+I know it&#39;s true before,but when you really gonna to do ,you&#39;ll get an entire new and remarkable feeling,So,the key is that do what you really and things always go well
+Tools I thank for:
+--Sublime Text2 / Gvim
+--Douban.fm
+--Node</p>
+
+<p>TO-DO:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">--finished some details of the prototype
+--improve the UX
+--complete the webwoker
+--use Pusher to make stream page
+--refactor a bit of the architeture
+......
+</code></pre></div>
+<p>[OT]:The moment I listened to music in TangNing with someone is priceless</p>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Lanston Peng<br />
+                Life Hacker<br />
+                lanstonpeng[AT]gmail.com
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
+                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+</html>
