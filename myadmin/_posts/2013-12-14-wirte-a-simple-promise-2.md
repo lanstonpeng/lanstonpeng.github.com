@@ -4,8 +4,7 @@ comments: true
 date: 2013-12-14 23:38:49+00:00
 layout: post
 title: Write A Simple Promise in 100 Lines Part2 
-categories:
-- javascript
+
 ---
 
 We've known a bit about  why we need Promise and start to build our own version of *Promise*  

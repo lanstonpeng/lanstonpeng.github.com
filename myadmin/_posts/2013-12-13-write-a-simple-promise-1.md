@@ -4,8 +4,7 @@ comments: true
 date: 2013-12-13 23:38:49+00:00
 layout: post
 title: Write A Simple Promise in 100 Lines Part1 
-categories:
-- javascript
+
 ---
 
 #### The Problems We May Encounter
