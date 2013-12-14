@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Happy moment around</title>
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
 
         <!-- syntax highlighting CSS -->
         <link rel="stylesheet" href="/css/syntax.css">
@@ -27,7 +27,7 @@
 <div class="post">
 <p><a href="http://www.lanstonpeng.tk/files/2011/03/%E6%97%A0%E6%A0%87%E9%A2%98-e1299983463527.png"></a>可能是热爱生活的缘故，在看到日本地震(God bless Japan)后有一个念头，就是 细化了一下一类社交类网站，提供一个平台让大家分享自己周边(  譬如就在我们大学城了)的Happy moment，<strong>就是让彼此感受到其实快乐就在我们身边</strong>。
 弄了下Google Maps的API，发觉其实挺浅显易懂的。
-<a href="http://files.blogcn.com/wp03/M00/00/CD/wKgKCk3ZAKkAAAAAAAhmuFrZSGY829.png"><img src="http://files.blogcn.com/wp05/M00/00/8F/wKgKDU3ZAH0AAAAAAAfhyQTqnks025.png" alt=""></a>
+<a href="http://files.blogcn.com/wp03/M00/00/CD/wKgKCk3ZAKkAAAAAAAhmuFrZSGY829.png"><img src="http://files.blogcn.com/wp05/M00/00/8F/wKgKDU3ZAH0AAAAAAAfhyQTqnks025.png" alt="" /></a>
 其实看到了就会使用了，任意点击一个地方就会有个红色的点出来，然后你就可以添加你Happy moment信息了，但是我在弄这个原型代码的时候遇到了一些问题，又是一番纠结(marker 里面添加事件钩子有点问题)，弄了我一个上午还是......只能说是我的JS还停留在幼儿园阶段......</p>
 
 <p>--更多的东西--</p>
@@ -38,19 +38,36 @@
 
 </div>
 
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
 
           <div class="footer">
             <div class="contact">
               <p>
                 Lanston Peng<br />
                 Life Hacker<br />
-                lanstonpeng[AT]gmail.com
+                lanstonpeng@gmail.com
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
                 <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>
           </div>

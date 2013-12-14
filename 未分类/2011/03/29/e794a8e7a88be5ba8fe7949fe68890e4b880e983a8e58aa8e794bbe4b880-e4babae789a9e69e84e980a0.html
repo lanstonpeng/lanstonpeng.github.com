@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>用程序生成"一部动画"(一)----人物构造</title>
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
 
         <!-- syntax highlighting CSS -->
         <link rel="stylesheet" href="/css/syntax.css">
@@ -37,9 +37,12 @@
 
 <p>可以看到，这样既可以统一标准（人物构造在每一集中保持不变，不因画家的手感什么的而变化），又可以节约成本（每个人只是各个零件的拼接而已）</p>
 
-<p>好了，说了这么多，到正题了吧？
-&lt;!-- more --&gt;
-行，让我们一起来设计这个人物吧</p>
+<p>好了，说了这么多，到正题了吧？</p>
+
+<!-- more -->
+
+
+<p>行，让我们一起来设计这个人物吧</p>
 
 <p>传统的思维，现建立一个人物脸型的基类
 <code>class Baseface(object)</code>
@@ -51,14 +54,16 @@
 
 <p>有些没头发，有些戴个眼罩，好吧，你可能会想到</p>
 
-<p><em>self.hair=None  self.eyes=eyes</em>data<em>with</em>goggles<em>,对于其他的<strong>装饰</strong>，你可能会想到有一个抽象的东西去封装他们，因为他们总是变化的嘛，恩，的确是这样子的，那反过来问，这些  </em>self.mouth   self.nose    self.eyes_ 岂不也是不断变化的？</p>
+<p><em>self.hair=None  self.eyes=eyes_data_with_goggles</em>,对于其他的<strong>装饰</strong>，你可能会想到有一个抽象的东西去封装他们，因为他们总是变化的嘛，恩，的确是这样子的，那反过来问，这些  <em>self.mouth   self.nose    self.eyes</em> 岂不也是不断变化的？</p>
 
 <p>好吧，这里我将人物的任何一个器官都当作一个组件</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">class Decorator(object):
+
+<pre><code>class Decorator(object):
   def __init__(self,data):
   self.data=data
   mouth=Decorator([ [0,0,0,0],[0,0,0,0],[1,0,0,1],[0,1,1,0]  ])
-</code></pre></div>
+</code></pre>
+
 <p>这个mouth就是下面这个（好吧，我承认这的确很丑，给点想象力吧）</p>
 
 <p>[0, 0, 0, 0]</p>
@@ -71,16 +76,21 @@
 
 <p>重点在于我的mouth是一个组件，眼睛是一个组件。。。。</p>
 
+<h3></h3>
+
 <p>def Decorate(self,obj):</p>
 
 <p>if not isinstance(obj,Decorator):pass  #do something else</p>
 
 <p>else:</p>
 
-<p>return Decorator(splite<em>to</em>2d_array(combine(self.data,obj.data)))</p>
+<p>return Decorator(splite_to_2d_array(combine(self.data,obj.data)))</p>
+
+<h3></h3>
 
 <p>其余函数可以先不管，其实我也实现得太恶心了，也没什么可以讲的了，贴出代码就知道了</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">def display_array(data):
+
+<pre><code>def display_array(data):
    for i in data:
       print i
 def list_or_tuple(x):
@@ -134,7 +144,8 @@ display_array(a.data)
 
 #print splite_to_2d_array([0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0])
 #print eyes.data
-</code></pre></div>
+</code></pre>
+
 <p>(PS:如果看不到，可以访问这里：http://jsfiddle.net/lanston/p6aLs/)
 这个是mouth和eyes放在一起的图样（好吧，继续发挥你的想象力）</p>
 
@@ -148,19 +159,36 @@ BTW:</p>
 
 </div>
 
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
 
           <div class="footer">
             <div class="contact">
               <p>
                 Lanston Peng<br />
                 Life Hacker<br />
-                lanstonpeng[AT]gmail.com
+                lanstonpeng@gmail.com
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
                 <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>
           </div>

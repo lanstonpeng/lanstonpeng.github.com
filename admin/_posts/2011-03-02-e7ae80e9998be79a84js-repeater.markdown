@@ -1,0 +1,92 @@
+---
+author: lanstonpeng
+comments: true
+date: 2011-03-02 12:52:16+00:00
+layout: post
+published: false
+slug: '%e7%ae%80%e9%99%8b%e7%9a%84js-repeater'
+title: 简陋的JS Repeater
+wordpress_id: 397
+categories:
+- 未分类
+tag:
+- javascript
+---
+
+因为做某个项目要用到，用Ajax向Server索要一串信息，且要邦定到页面上
+
+Server返回的是一个数组（要eval）
+
+    
+    
+    <div>var linkdata=[{name:"About",url:"another"},{name:"lanston",url:"lanston's url"}];</div>
+    <div>(扩展性虽然不好，但确实适合实际情况)</div>
+
+
+<!-- more -->写一个超级简陋的函数
+
+    
+    function Template(template,linkdata){  //linkdata为Array
+    
+    // var regex=/(?<={)\w+(?=})/
+    
+    //var str='<a href="#{url}">#{name}</a>';
+    
+    var str=template;
+    
+    var a=str.match(/#{\w+}/g)
+    
+    a=a.toString().match(/\w+/g)
+    
+    var result="";
+    
+    for(i=0;i<linkdata.length;i++){
+    
+    var temp=str;
+    
+    for(j=0;j<a.length;j++){
+    
+    var val=linkdata[i][a[j]]
+    
+    temp=temp.replace(new RegExp(a[j],'g'),val)//使用正则进行替换
+    
+    }
+    
+    result+=temp
+    
+    }
+    
+    //Maybe append some elements like 'div' with this result
+    
+    return result
+    
+    }
+
+
+
+    
+    一开始的正则想用零宽断言，一直报错，后来google了下才发现不支持，只能采用二次RegExp了
+
+
+
+    
+    这里只能repeat到最上面一层，所以简陋，最致命的是，如果我的template里面有跟邦定数据项目名称相同的时候就会出现错误了
+
+
+
+    
+    最后：
+
+
+
+    
+    我一直郁闷为什么
+    <h1><a href="http://alexgorbatchev.com/SyntaxHighlighter">SyntaxHighlighter</a></h1>
+    <div>用不到，希望不会对阅读影响太大</div>
+    <div>
+    
+    
+    (ps:我的牙真的很疼,长大牙真的是那么辛苦)
+
+
+

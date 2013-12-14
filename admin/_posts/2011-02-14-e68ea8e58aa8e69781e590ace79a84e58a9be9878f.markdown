@@ -1,0 +1,58 @@
+---
+author: lanstonpeng
+comments: true
+date: 2011-02-14 06:05:51+00:00
+layout: post
+slug: '%e6%8e%a8%e5%8a%a8%e6%97%81%e5%90%ac%e7%9a%84%e5%8a%9b%e9%87%8f'
+title: 推动旁听的力量
+wordpress_id: 315
+categories:
+- 未分类
+tag:
+- idea
+---
+
+**update:一个alpha版本[旁听么](http://pangting.me)**
+
+大学城这么大，其他学校的我不是很清楚，但是我感觉我们的GDUT貌似没有啥旁听的，原因什么的可能大家都觉得师资都是 ma ma (日文读音),
+
+< 番外话>之前有想过做一个共享课表什么的Android  app，但是没有真机开发起来没那么有劲(苦等Atrix....)</番外话>
+
+我感觉总有一些课程是会有帮助的，本专业的我觉得也十分有必要去听听别的专业的课程，所以就稍微实现了自己的一个想法。
+
+做了一个原型：
+
+[![](http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-4-1024x575.png)](http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-4.png)
+
+整个系统是基于一个课表来做的，这是我学校的课表， 大家可以在不同的时间段内看到别人推荐的课程，有空有兴趣就可以去跑去听听了，最喜欢就是这种由下至上的模式了，大家一起分享最好了(其实我更希望整个大学城有这种东西)。
+
+点击任意一个时间，即蓝色框框，就会有：
+
+[![](http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-5-1024x575.png)](http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-5.png)
+
+这些都是大家一起推荐的，觉得好的课程，别人可以在这里发布，让更多的人一起分享老师的成果什么的 (这些课程的数据都是静态的，服务器那边我完全没有写，这里只是示例,做个原型，当然，样式也完全没弄)
+
+接着,点击那个** ****>>**** ** 会有推荐人的相关说明，当然还有评论什么的，仿制豆瓣，加多些元素。<!-- more -->
+** **
+
+[![](http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-6-1024x575.png)](http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-6.png)
+
+看有没有时间吧，做些接口，敲敲服务器那边的代码，如果您有什么建议，欢迎指示～
+
+(更新－－Feb 16th)
+
+---------
+
+大部分接口已经做好了,还有一些问题需要考虑
+
+//后来，我在想这个课表的形式貌似可以作为一个类似‘九宫格’的日志分享的东西
+
+在UI方面，找了一些可以改装的东西，特别是moomouth
+
+[![](http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-9-1024x575.png)](http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-9.png)
+
+还有jquery-frontier[![](http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-8-1024x575.png)](http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-8.png)
+
+他们本来是日历来的
+
+---------

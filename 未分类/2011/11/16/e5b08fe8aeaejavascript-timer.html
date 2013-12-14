@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>小议javascript timer</title>
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
 
         <!-- syntax highlighting CSS -->
         <link rel="stylesheet" href="/css/syntax.css">
@@ -27,7 +27,7 @@
 <div class="post">
 <p>最近遇到一些关于javascript动画中的小问题，就是设定每帧的时间间隔，于是就稍稍作了一下小总结
 有几种方式去实现：
-** 简单的setInterval**</p>
+<strong> 简单的setInterval</strong></p>
 
 <p>页面逻辑不复杂的时候works well,但是注意到，抛开时间误差这个话题，单单的setInterval 会引起掉帧(Frame),</p>
 
@@ -42,24 +42,27 @@
 <p>一个解决方案：</p>
 
 <p><strong>setTimeout in setTimeout</strong></p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">&lt;span style=&quot;font-size: medium;&quot;&gt;setTimeout(()-&gt;
+
+<pre><code>&lt;span style="font-size: medium;"&gt;setTimeout(()-&gt;
   curWidth=parseInt(ele2.style.width)
-  ele2.style.width=++curWidth + &quot;px&quot;
+  ele2.style.width=++curWidth + "px"
   setTimeout(arguments.callee,10) if curWidth&lt;500
 ,10)&lt;/span&gt;
-</code></pre></div>
+</code></pre>
+
 <p>这种方法可以有效避免掉帧（除非有按键精灵,理论上可行），因为其在一次repaint之后才决定下一次的repaint在哪里</p>
 
-<p>The Problem is:&lt;!-- more --&gt;</p>
+<p>The Problem is:<!-- more --></p>
 
 <p>为了保持帧数<strong>相对</strong>恰当(其实setTimeout in setTimeout已经做得很不错的了)
 此外，也有类似下面的解决方案，即在每次seTimeout中计算时间间隔，达到需要的时候就执行callback，这个需要的时候指的是
 与期望的时间间隔相近
-** Count the timestamp in each setTimeout**</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">                       &lt;span style=&quot;font-size: medium;&quot;&gt;
+<strong> Count the timestamp in each setTimeout</strong></p>
+
+<pre><code>                       &lt;span style="font-size: medium;"&gt;
 var start=+new Date(),
 frame=-1,
-p=document.querySelector(&quot;#process4&quot;),
+p=document.querySelector("#process4"),
 timer=setInterval(change,10)
 function change(){
     var diff=+new Date()-start,
@@ -70,7 +73,8 @@ function change(){
        animate()
     }
 }&lt;/span&gt;
-</code></pre></div>
+</code></pre>
+
 <p>关于上面这个函数 if 判断里面的东西可能有些卡壳，其实，你稍稍console一些变量，看一遍就知道怎么回事了</p>
 
 <p>关于时间间隔，我们无法得知两次repaint的时候的时间间隔，depends on different Browsers
@@ -79,16 +83,18 @@ function change(){
 <p>那么，有没有更为高效优雅的方案呢？嗯，有的</p>
 
 <p><strong>webkitRequestAnimationFrame|| mozRequestAnimationFrame</strong></p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">&lt;span style=&quot;font-size: medium;&quot;&gt;raf = window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame
-ele=document.querySelector(&quot;#process&quot;)
+
+<pre><code>&lt;span style="font-size: medium;"&gt;raf = window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame
+ele=document.querySelector("#process")
 
 change=(timestamp) -&gt;
  curWidth=parseInt(ele.style.width)
- ele.style.width=++curWidth + &quot;px&quot;
+ ele.style.width=++curWidth + "px"
  raf(change) if curWidth &lt;500
 
 raf(change)&lt;/span&gt;
-</code></pre></div>
+</code></pre>
+
 <p>大可抛开上面的代码,先看看其中的webkitRequestAnimationFrame</p>
 
 <p>简单来说就这样：</p>
@@ -105,19 +111,36 @@ raf(change)&lt;/span&gt;
 
 </div>
 
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
 
           <div class="footer">
             <div class="contact">
               <p>
                 Lanston Peng<br />
                 Life Hacker<br />
-                lanstonpeng[AT]gmail.com
+                lanstonpeng@gmail.com
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
                 <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>
           </div>

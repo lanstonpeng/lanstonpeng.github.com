@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>从制作一个自行车公里计数器说方法论</title>
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
 
         <!-- syntax highlighting CSS -->
         <link rel="stylesheet" href="/css/syntax.css">
@@ -37,9 +37,10 @@
 <li><em>路程=周长*转数</em></li>
 </ul>
 
+
 <p>周长直接可得，设置一个记录转数的装置，至于这个装置应该怎么设计呢？</p>
 
-<p><a href="http://files.blogcn.com/wp03/M00/03/EA/wKgKC09siWcAAAAAAATdPBLe55c382.png"><img src="http://files.blogcn.com/wp06/M00/06/00/wKgKDE9siXoAAAAAAACPzFsBXEA401.png" alt=""></a></p>
+<p><a href="http://files.blogcn.com/wp03/M00/03/EA/wKgKC09siWcAAAAAAATdPBLe55c382.png"><img src="http://files.blogcn.com/wp06/M00/06/00/wKgKDE9siXoAAAAAAACPzFsBXEA401.png" alt="" /></a></p>
 
 <p>方式可以有很多，譬如前架上设置一个装置，车轮的杆上也设置一个装置，类似光学接收仪， 每转一圈就会记录一次</p>
 
@@ -55,11 +56,11 @@
 
 <p><strong>可以说是寻找我们需要的变量（这里是公里数）影响到的参数，包括所有周边环境的所有参数、因数，无论是正相关抑或是负相关，又或者是影响我们所求的参数的可能性</strong></p>
 
-<p><strong>&lt;!-- more --&gt;</strong></p>
+<p><strong><!-- more --></strong></p>
 
 <p>正如一个链表那样，找到该节点的前后的部分节点（因为找到大部分或者全部的节点需要很长时间的时间，这取决于实物的复杂程度，而且并非所有都是有用的信息）</p>
 
-<p><a href="http://files.blogcn.com/wp03/M00/03/EF/wKgKC09vNTUAAAAAAATbR0mDX_o137.png"><img src="http://files.blogcn.com/wp02/M00/04/6B/wKgKCk9vNTcAAAAAAABdA0kHJZQ598.png" alt=""></a></p>
+<p><a href="http://files.blogcn.com/wp03/M00/03/EF/wKgKC09vNTUAAAAAAATbR0mDX_o137.png"><img src="http://files.blogcn.com/wp02/M00/04/6B/wKgKCk9vNTcAAAAAAABdA0kHJZQ598.png" alt="" /></a></p>
 
 <p>但是，既然脚踏板与我们的大腿相接，即直观事物有着联系的对等对象，我们是否可以从大腿入手呢？</p>
 
@@ -71,7 +72,7 @@
 
 <p>影响与被影响的因数并非简单的二者的因果关系，并非简单正负相关亦或简单的方程函数的解</p>
 
-<p><a href="http://files.blogcn.com/wp04/M00/04/3D/wKgKDU9vtIgAAAAAAAYbCUC-feE186.png"><img src="http://files.blogcn.com/wp02/M00/03/F5/wKgKC09vtIoAAAAAAAC0rliEq10322.png" alt=""></a></p>
+<p><a href="http://files.blogcn.com/wp04/M00/04/3D/wKgKDU9vtIgAAAAAAAYbCUC-feE186.png"><img src="http://files.blogcn.com/wp02/M00/03/F5/wKgKC09vtIoAAAAAAAC0rliEq10322.png" alt="" /></a></p>
 
 <p>本质上，最核心的观点我已经在上面提出了，无非就是正面与侧面求解的问题</p>
 
@@ -82,6 +83,7 @@
 <ul>
 <li><em>公里数=总发电能/单转发生电能</em></li>
 </ul>
+
 
 <p>记得在OS课上，老师讲到File System的存储问题的时候 ，既然运用几何的方式无法解决问题，那么就采用代数的方式，</p>
 
@@ -104,21 +106,26 @@
 <p>假设让你计算一个数中含有0的个数</p>
 
 <p>你或许会</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">var count=0,num=10086;
+
+<pre><code>var count=0,num=10086;
 while(num&gt;1){
   if(parseInt(num%10)==0){count++}
   num/=10;
 }
-</code></pre></div>
+</code></pre>
+
 <p>或许还可以这样</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">(num+&quot;&quot;).length-(num+&quot;&quot;).replace(/0/g,&quot;&quot;).length
-</code></pre></div>
+
+<pre><code>(num+"").length-(num+"").replace(/0/g,"").length
+</code></pre>
+
 <p>但是，实行起来我认为有两点难点</p>
 
 <ul>
 <li><p><strong>清晰认识到我们所求的那个结点（找到问题的本质）</strong></p></li>
 <li><p><strong>有效找出关系网（寻找到相关因数）</strong></p></li>
 </ul>
+
 
 <p>最后，我还是想重复说说</p>
 
@@ -135,19 +142,36 @@ while(num&gt;1){
 
 </div>
 
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
 
           <div class="footer">
             <div class="contact">
               <p>
                 Lanston Peng<br />
                 Life Hacker<br />
-                lanstonpeng[AT]gmail.com
+                lanstonpeng@gmail.com
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
                 <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>
           </div>

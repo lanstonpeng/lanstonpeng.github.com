@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>javascript继承方案的进化</title>
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
 
         <!-- syntax highlighting CSS -->
         <link rel="stylesheet" href="/css/syntax.css">
@@ -26,31 +26,38 @@
 
 <div class="post">
 <p>在javascript中，继承是一个颇为热门的话题</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">var Human=function(name,age){
+
+<pre><code>var Human=function(name,age){
     this.name=name;
     this.age=age;
 }
 Human.prototype.sayName=function(){ console.log(this.name); }
-</code></pre></div>
+</code></pre>
+
 <p>然后，我们让一个对象继承Human</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">var lanston=function(name,age){
+
+<pre><code>var lanston=function(name,age){
     Human.call(this,name,age);
     this.isVeryBad=true;
 }
 lanston.prototype=new Human();
-var check=new lanston(&quot;lanstonpeng&quot;,21);
-check.name==&quot;lanstonpeng&quot;;
+var check=new lanston("lanstonpeng",21);
+check.name=="lanstonpeng";
 check.sayName(); //lanstonpeng
-</code></pre></div>
+</code></pre>
+
 <p>虽然这种方式比较常见，但是却存在一点效率问题：
 因为其两次调用了Human
 在这种情况下，实际上在 lanston 中与lanston.prototype 中都存在name,age
 一个name，age是在new Human()时创建的
 另一个是在Human.call时创建的</p>
 
-<p>通过翻阅了一些资料，发现了一种比较好的办法，就是取消 new Human() 这一步，用一下方法来替代
-&lt;!-- more --&gt;</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">function beget(obj){
+<p>通过翻阅了一些资料，发现了一种比较好的办法，就是取消 new Human() 这一步，用一下方法来替代</p>
+
+<!-- more -->
+
+
+<pre><code>function beget(obj){
     var f=function(){};
     f.prototype=obj;
     return new f();
@@ -58,24 +65,46 @@ check.sayName(); //lanstonpeng
 function extend(Super,Sub){
    Sub.prototype=beget(Super.prototype);
 }
-</code></pre></div>
+</code></pre>
+
 <p>稍微分析一下代码，beget函数其实就是新建一个对象，起原型指向我们指定的那个需要被继承的父对象（即代码中的obj),
 我相信看过The good parts 的朋友肯定对这个函数名有印象
 至于我们一开始需要</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">lanston.prototype=new Human()
-</code></pre></div>
+
+<pre><code>lanston.prototype=new Human()
+</code></pre>
+
 <p>无非是想继承<strong>Human</strong>的方法，但是带来的弊端就是多余的属性，这里就是name跟age了,
 我们只需要在<strong>lanston</strong>上需要name跟age，不需要在其prototype上面拥有这些属性，我们要的
 仅仅是方法而已
 至于extend方法就是为了解决这个问题的，beget函数在上面已经说明了，其它的也不难理解
 所以，用同样的方法，将上面的代码改改</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">extend(Human,lanston)
-</code></pre></div>
-<p>ref--&gt;
+
+<pre><code>extend(Human,lanston)
+</code></pre>
+
+<p>ref-->
 <a href="http://www.crockford.com/javascript/inheritance.html">Classical Inheritance in JavaScript</a>
 <a href="http://javascript.crockford.com/prototypal.html">Prototypal Inheritance in JavaScript</a></p>
 
 </div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
 
 
           <div class="footer">
@@ -83,13 +112,13 @@ function extend(Super,Sub){
               <p>
                 Lanston Peng<br />
                 Life Hacker<br />
-                lanstonpeng[AT]gmail.com
+                lanstonpeng@gmail.com
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
                 <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>
           </div>

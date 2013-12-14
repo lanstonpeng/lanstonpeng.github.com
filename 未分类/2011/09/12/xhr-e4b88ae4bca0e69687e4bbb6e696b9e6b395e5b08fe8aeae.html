@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>小议 xhr 上传文件</title>
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
 
         <!-- syntax highlighting CSS -->
         <link rel="stylesheet" href="/css/syntax.css">
@@ -33,30 +33,33 @@
 <code>
 var reader=new FileReader()
 reader.onloadend=function(e){
-//var img=document.createElement(&quot;img&quot;)
+//var img=document.createElement("img")
 //img.src=e.target.result
 //document.body.appendChild(img)
 xhr.onload=function(e){
 document.write(xhr.responseText)
 }
 upload=xhr.upload
-upload.addEventListener(&quot;progress&quot;,function(e){
-console.log(&quot;loaded: &quot;+e.loaded)
-console.log(&quot;total: &quot;+e.total)
+upload.addEventListener("progress",function(e){
+console.log("loaded: "+e.loaded)
+console.log("total: "+e.total)
 },false)
-xhr.open(&quot;POST&quot;,&quot;upload2.php&quot;);
-xhr.setRequestHeader(&quot;Cache-Control&quot;, &quot;no-cache&quot;);
-xhr.setRequestHeader(&quot;X-Requested-With&quot;, &quot;XMLHttpRequest&quot;);
-xhr.setRequestHeader(&quot;X-File-Name&quot;, file.name);
-//xhr.setRequestHeader(&quot;X-File-Type&quot;,file.type)
+xhr.open("POST","upload2.php");
+xhr.setRequestHeader("Cache-Control", "no-cache");
+xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+xhr.setRequestHeader("X-File-Name", file.name);
+//xhr.setRequestHeader("X-File-Type",file.type)
 xhr.send(e.target.result.match(/,(.*)$/)[1]) //注意 (1)
 }
 reader.readAsDataURL(file)
 </code></p>
 
-<p>本地使用FileReader API的readAsDataURL获取文件的base64编码，发送给server，server再解码存储
-&lt;!-- more --&gt;
-_ 注意(1)_
+<p>本地使用FileReader API的readAsDataURL获取文件的base64编码，发送给server，server再解码存储</p>
+
+<!-- more -->
+
+
+<p>_ 注意(1)_
 FileReaer.readAsDataURL 获取的并非全是文件的base64编码的内容，其中夹杂着一些其它内容
 data:[<MIME-type>][;charset=<encoding>][;base64],<data>
 <data>
@@ -65,15 +68,15 @@ data:[<MIME-type>][;charset=<encoding>][;base64],<data>
 <p>所以，为了获取其精确的内容，需要将前面内容去掉，留取<data>部分</p>
 
 <p><code>
-$postdata = file_get_contents(&quot;php://input&quot;);
-file_put_contents( $_SERVER[&#39;HTTP_X_FILE_NAME&#39;], base64_decode($postdata));
+$postdata = file_get_contents("php://input");
+file_put_contents( $_SERVER['HTTP_X_FILE_NAME'], base64_decode($postdata));
 </code></p>
 
 <p>在上面的js代码中，大家可以看到注释部分，我打算将拖拉的图片顺便显示在浏览器里面，但是这里存在一个问题，如果图片太大的话， base64会很多，浏览器解析非常慢，经常卡死甚至崩溃（我这里是Ubuntu10.10+chromium14）
 我认为，如果想让用户得知自己所上传的图片的时候，采用本方案比较方便
-** 2.二进制方案**</p>
+<strong> 2.二进制方案</strong></p>
 
-<hr>
+<hr />
 
 <p>这种方式在client端所用的代码比较少
 <code>
@@ -81,7 +84,7 @@ var files=e.dataTransfer.files
 //这里我采用的拖拉的方式将文件上传，若是传统的点击选取文件，则使用e.target.files
 var file=files[0]
 var xhr=new XMLHttpRequest()
-xhr.open(&quot;POST&quot;,&quot;upload.php&quot;);
+xhr.open("POST","upload.php");
 xhr.onload=function(e){
 document.write(xhr.responseText)
 }
@@ -92,26 +95,43 @@ xhr.send(file);
 <code>
 file_put_contents(
 $this-&gt;path . $this-&gt;fileName,
-file_get_contents(&quot;php://input&quot;)
+file_get_contents("php://input")
 );
 </code></p>
 
 <p>采用本方案，高效简单，不用作过多的处理
 网上有许多方案是模拟表单，代码都类似这样：
 <code>
-xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;multipart/form-data, boundary=&quot;+boundary); // simulate a file MIME POST request.
-xhr.setRequestHeader(&quot;Content-Length&quot;, fileSize);
-var body = &#39;&#39;;
-body += &quot;--&quot; + boundary + &quot;\r\n&quot;;
-body += &quot;Content-Disposition: form-data; name=\&quot;&quot;+dropbox.getAttribute(&#39;name&#39;)+&quot;\&quot;; filename=\&quot;&quot; + fileName + &quot;\&quot;\r\n&quot;;
-body += &quot;Content-Type: &quot;+fileType+&quot;\r\n\r\n&quot;;
-body += fileData + &quot;\r\n&quot;;
-body += &quot;--&quot; + boundary + &quot;--\r\n&quot;;
+xhr.setRequestHeader("Content-Type", "multipart/form-data, boundary="+boundary); // simulate a file MIME POST request.
+xhr.setRequestHeader("Content-Length", fileSize);
+var body = '';
+body += "--" + boundary + "\r\n";
+body += "Content-Disposition: form-data; name=\""+dropbox.getAttribute('name')+"\"; filename=\"" + fileName + "\"\r\n";
+body += "Content-Type: "+fileType+"\r\n\r\n";
+body += fileData + "\r\n";
+body += "--" + boundary + "--\r\n";
 xhr.sendAsBinary(body);</code></p>
 
 <p>其实，本质上也不过是跟二进制一样</p>
 
 </div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
 
 
           <div class="footer">
@@ -119,13 +139,13 @@ xhr.sendAsBinary(body);</code></p>
               <p>
                 Lanston Peng<br />
                 Life Hacker<br />
-                lanstonpeng[AT]gmail.com
+                lanstonpeng@gmail.com
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br />
                 <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>
           </div>

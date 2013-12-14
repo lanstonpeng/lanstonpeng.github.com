@@ -1,0 +1,46 @@
+---
+author: lanstonpeng
+comments: true
+date: 2011-01-09 12:28:08+00:00
+layout: post
+slug: linux%e6%8c%82%e8%bd%bdiso%e7%9a%84%e9%97%ae%e9%a2%98
+title: linux挂载iso的问题
+wordpress_id: 216
+categories:
+- 未分类
+tag:
+- linux
+---
+
+[](http://www.lantonspeng.blog.cd/files/2011/01/Screenshot.png)刻了张英语光盘
+
+在linux想用它,
+
+mount Englsih3.iso ../screenshot/
+
+提示:
+
+mount: /home/poc/Desktop/splitcheck/Englsih3.iso 不是块设备 (试试加上参数 `-o loop')  [-o参数最为复杂
+
+这里就遇到了问题了,上网查了查,究竟这个参数是什么意思了
+
+->简单来说就是以回环设备的形式挂载映像文件,使映像文件模拟成一个逻辑块设备,即在不烧录入你的电脑的情况下也能查阅其内容
+
+[![](http://www.lantonspeng.blog.cd/files/2011/01/Screenshot.png-300x168.png)](http://www.lantonspeng.blog.cd/files/2011/01/Screenshot.png)
+
+
+
+
+
+
+
+
+loop
+
+
+挂载回旋设备 经常挂载iso文件用到
+
+
+
+
+

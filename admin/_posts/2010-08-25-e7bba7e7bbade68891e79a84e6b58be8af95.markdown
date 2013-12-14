@@ -1,0 +1,29 @@
+---
+author: lanstonpeng
+comments: true
+date: 2010-08-25 23:38:49+00:00
+layout: post
+slug: '%e7%bb%a7%e7%bb%ad%e6%88%91%e7%9a%84%e6%b5%8b%e8%af%95'
+title: 博客的首篇文章
+wordpress_id: 19
+categories:
+- 未分类
+tag:
+- Understanding of life
+---
+
+本来在百度空间有个的，但是好奇心让我去了Blogger，但是怕别人访问不了，于是弄了个域名绑定，谁知博客有些链接不翻看不到，于是我回到久违的博客园，最后因为css弱爆了，后去到 blog.cd.....
+
+<!-- more -->
+
+既然是第一篇文章，总該有点纪念的东西吧，哈哈
+
+若干年后，当我看到类似这样的照片，是否会有另一番的滋味呢？
+
+[](http://files.blogcn.com/wp03/M00/04/02/wKgKCk8euqoAAAAAAANRJSL6q9Q967.jpg)[![](http://files.blogcn.com/wp03/M00/04/02/wKgKCk8euqoAAAAAAANRJSL6q9Q967.jpg)](http://files.blogcn.com/wp03/M00/04/02/wKgKCk8euqoAAAAAAANRJSL6q9Q967.jpg)
+Picture Updated!Words in it are only applied to Most of them 
+2011－5 Updated
+
+是日本地震问题么，blog.cd 可用率太低了，回到祖国的怀抱 yo2.cn吧
+
+高中时的生活记录就让他存在百度空间里面吧

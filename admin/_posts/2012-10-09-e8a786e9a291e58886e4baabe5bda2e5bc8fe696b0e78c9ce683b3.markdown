@@ -1,0 +1,40 @@
+---
+author: lanstonpeng
+comments: true
+date: 2012-10-09 07:48:59+00:00
+layout: post
+slug: '%e8%a7%86%e9%a2%91%e5%88%86%e4%ba%ab%e5%bd%a2%e5%bc%8f%e6%96%b0%e7%8c%9c%e6%83%b3'
+title: 视频分享形式新猜想
+wordpress_id: 660
+categories:
+- 未分类
+tag:
+- idea
+- javascript
+---
+
+![](http://i.minus.com/inaR2ZgtDejDK.png)
+现在，就我所了解的视频分享形式一般都是一个短链接,如：http://t.cn/a3rKQN
+但是，我所需要的是一种更加精确的分享，即某(几)个片段等，那么，能瞬间想到的大概长这么一个样子
+"t.cn/a3rKQN**#1:01_3:34"**
+实际上，先存的视频网站也有这样的功能，
+如youku也有类似的url：
+"youkuUrl_Prefix?**firsttime**=31"
+
+这种方式简单方便，能满足足够多的用户
+但是，在我看来，如果能精确到一段视频，我们知道，加载视频的时候一般都是一段一段地进行加载，如果有那么一种方式，能让用户自由获取视频的任何部分,
+我所希望的操作流程是这样的：
+用户在看一个视频，他想分享接下来的片段了，点start,继续看视频，然后点end，这样一段视频就已经在客户端“生成”了这段视频了
+
+**关键字:**canvas,video,base64,binary
+
+整体思路很简单，用一个隐藏的canvas获取video的数据，转化成相应的base64编码的数据，再经过decode出原始数据,即binary data(我们知道，base64比原始数据多出33%的数据量，具体看文章最后的ref),
+这样,数据传说方面就少传送33%了，
+但是decode与encode的工作量是巨大的，对于没有类似原生的atob,以及btoa方法的browser来说更加是如此
+(可以看到Utils模块里面有相关的base64 decode 与 encode的方法)<!-- more -->
+**应用场景：**我觉得可以做一些短小精悍的分享,有一点好处是录制的视频的帧数可控，又在一定程度上减少了网络负担(当然，得在视频流畅度允许的情况下)
+**软肋：**显然，没有声音，流畅度欠缺
+具体的代码可以看我的[github](https://github.com/lanstonpeng/SharingVideoHypothesis)
+
+ref:
+[base64笔记](http://www.ruanyifeng.com/blog/2008/06/base64.html)
