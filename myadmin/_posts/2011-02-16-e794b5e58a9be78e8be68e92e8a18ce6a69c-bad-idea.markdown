@@ -1,0 +1,21 @@
+---
+author: lanstonpeng
+comments: true
+date: 2011-02-16 02:43:20+00:00
+layout: post
+slug: '%e7%94%b5%e5%8a%9b%e7%8e%8b%e6%8e%92%e8%a1%8c%e6%a6%9c-bad-idea'
+title: 电力王排行榜--Bad idea
+wordpress_id: 326
+categories:
+- 未分类
+tag:
+- idea
+---
+
+[![](http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-7-e1297823556806-1024x529.png)](http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-7.png)今天在床上躺着想到一个你可能认为很无聊，郁闷的东西----‘电力王排行榜'（我们学校的）
+
+其实我是想到景宏(部长大人)之前暑假做的一个电力查询系统，我在想，水电与社交元素是否存在某种联系呢?
+
+上面的那个图已经比较清晰地展示我想要的功能了，关键是上榜的宿舍可以写下自己的解释，你也可以吐槽什么的。
+
+这种形式貌似更加有趣了，其实我也感觉挺无聊的写到这里.....不过，在旁边弄一个"Good Top 5"就最好了，哈哈～

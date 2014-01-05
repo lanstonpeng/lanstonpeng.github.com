@@ -1,0 +1,176 @@
+---
+author: lanstonpeng
+comments: true
+date: 2011-03-29 10:37:10+00:00
+layout: post
+slug: '%e7%94%a8%e7%a8%8b%e5%ba%8f%e7%94%9f%e6%88%90%e4%b8%80%e9%83%a8%e5%8a%a8%e7%94%bb%e4%b8%80-%e4%ba%ba%e7%89%a9%e6%9e%84%e9%80%a0'
+title: 用程序生成"一部动画"(一)----人物构造
+wordpress_id: 431
+categories:
+- 未分类
+tag:
+- '"geek"'
+- idea
+- python
+---
+
+又是在睡觉的时候乱想东西......
+
+好吧，就将之前学的一点东西放到这个上面吧
+
+漫迷的我对于动画人物的构造有了些心得：特别是《宠物小精灵》，人物的脸部的每一个器官都是
+
+一个组件，动画家只是将他们**组合**在一起。
+
+**为什么要这样呢？**
+
+可以看到，这样既可以统一标准（人物构造在每一集中保持不变，不因画家的手感什么的而变化），又可以节约成本（每个人只是各个零件的拼接而已）
+
+好了，说了这么多，到正题了吧？
+<!-- more -->
+行，让我们一起来设计这个人物吧
+
+传统的思维，现建立一个人物脸型的基类
+`class Baseface(object)`
+好吧，可能有人会想到要有
+
+self.mouth   self.nose    self.eyes....等等这些东西
+
+好吧，这样是没有问题的，仅仅是对于普通人物而言，当你对某些动画譬如《Naruto》《One piece》有些了解的话，那里某些人物都有严重的扭曲....
+
+有些没头发，有些戴个眼罩，好吧，你可能会想到
+
+_self.hair=None  self.eyes=eyes_data_with_goggles_,对于其他的**装饰**，你可能会想到有一个抽象的东西去封装他们，因为他们总是变化的嘛，恩，的确是这样子的，那反过来问，这些  _self.mouth   self.nose    self.eyes_ 岂不也是不断变化的？
+
+好吧，这里我将人物的任何一个器官都当作一个组件
+
+    
+    class Decorator(object):
+      def __init__(self,data):
+      self.data=data
+      mouth=Decorator([ [0,0,0,0],[0,0,0,0],[1,0,0,1],[0,1,1,0]  ])
+
+
+这个mouth就是下面这个（好吧，我承认这的确很丑，给点想象力吧）
+
+
+[0, 0, 0, 0]
+
+
+
+
+[0, 0, 0, 0]
+
+
+
+
+[1, 0, 0, 1]
+
+
+
+
+[0, 1, 1, 0]
+
+
+
+
+重点在于我的mouth是一个组件，眼睛是一个组件。。。。
+
+
+
+
+### 
+
+
+def Decorate(self,obj):
+
+
+
+
+if not isinstance(obj,Decorator):pass  #do something else
+
+
+
+
+else:
+
+
+return Decorator(splite_to_2d_array(combine(self.data,obj.data)))
+
+
+
+
+### 
+
+
+
+其余函数可以先不管，其实我也实现得太恶心了，也没什么可以讲的了，贴出代码就知道了
+
+    
+    
+    def display_array(data):
+       for i in data:
+          print i
+    def list_or_tuple(x):
+      return isinstance(x,(list,tuple))
+    
+    def flatten(seq,is_expandable=list_or_tuple):
+      for item in seq:
+        if is_expandable(item):
+          for subitem in flatten(item,is_expandable):
+            yield subitem
+        else:
+            yield item
+    
+    def splite_to_2d_array(data,num=4):
+      temp=[]
+      i=0
+      a=[]
+      for j in data:
+        if i==num:
+          temp.append(a)
+          a=[]
+          i=0
+        a.append(j)
+        i=i+1
+      else:temp.append(a)
+      return temp
+    
+    def combine(data1,data2):
+      data1=[i for i in flatten(data1)]
+      data2=[i for i in flatten(data2)]
+      temp=zip(data1,data2)
+      result=[]
+      map(lambda x:result.append(max(x)),temp)
+      return result
+    
+    class Decorator(object):
+      def __init__(self,data):
+        self.data=data
+      def Decorate(self,obj):
+        if not isinstance(obj,Decorator):pass
+        else:
+          return Decorator(splite_to_2d_array(combine(self.data,obj.data)))
+    
+    #print splite_to_2d_array(combine([1,2,9,[5]],[1,8,8,6]))
+    
+    eyes=Decorator([ [0,0,0,0],[0,1,1,0],[0,0,0,0],[0,0,0,0] ])
+    mouth=Decorator([ [0,0,0,0],[0,0,0,0],[1,0,0,1],[0,1,1,0]   ])
+    a=eyes.Decorate(mouth)
+    #print a.data
+    display_array(a.data)
+    
+    #print splite_to_2d_array([0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0])
+    #print eyes.data
+
+
+(PS:如果看不到，可以访问这里：http://jsfiddle.net/lanston/p6aLs/)
+这个是mouth和eyes放在一起的图样（好吧，继续发挥你的想象力）
+
+[0, 0, 0, 0]
+[0, 1, 1, 0]
+[1, 0, 0, 1]
+[0, 1, 1, 0]
+BTW:
+
+其实这又牵涉到软件设计思想的地步了，类似[Sexy button ](http://sexybuttons.googlecode.com/svn/tags/1.0/index.html#)那样，组件化的设计具有其灵活性，在其原型上添加新的东西，并且相互可以装饰，接口一致。

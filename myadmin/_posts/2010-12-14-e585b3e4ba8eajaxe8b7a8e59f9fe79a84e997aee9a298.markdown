@@ -1,0 +1,97 @@
+---
+author: lanstonpeng
+comments: true
+date: 2010-12-14 15:39:58+00:00
+layout: post
+published: false
+slug: '%e5%85%b3%e4%ba%8eajax%e8%b7%a8%e5%9f%9f%e7%9a%84%e9%97%ae%e9%a2%98'
+title: 关于Ajax跨域的问题
+wordpress_id: 152
+tag:
+- web tech
+---
+
+首先,这个折腾了我一个晚上了
+
+想法是这样的,我想根据访问者的ip然后到ip.cn那里查询信息,得到其地址,然后返回到博客的首页.
+
+显然,这里存在一个跨域问题,我访问其他ip的主机了
+
+![](http://www.lanstonpeng.tk/files/2010/12/Screenshot-15.png-300x193.png)
+
+于是查看了ip.cn的html以及他的一些script
+
+发现
+
+<!-- more -->function getipdata(action,divname){	var ip_url = document.getElementById("q").value;	var url = "getip.php?action=" + action + "&ip_url=" + ip_url; var divobj = $('#' + divname); $.ajax({ type: 'GET', url: url, beforeSend: function(){ divobj.html('<div align="center"><img src="img/loading.gif" /></div>'); }, success: function(ipdata){ divobj.html(ipdata); if (divname == 'locaIp') {	 $('#share').attr('href', 'http://v.t.sina.com.cn/share/share.php?appkey=3371671481&url=http://ip.cn&title=我正在这里上网：' + divobj.text());	 $('#share').html(' 分享到新浪微博');	 } }, error: function(){ divobj.html('获取本地IP出错,请刷新本页或联系管理员!'); } });}function queryip(){ if ($('#q').val() != '') { getipdata('queryip','queryIp'); }}function getUrlParam(param){ var hrefstr,pos,parastr,para,tempstr;	hrefstr = self.location.href;	pos = hrefstr.indexOf("?");	end = hrefstr.indexOf("#");	if(end<0)end = hrefstr.length;	parastr = hrefstr.substring(pos+1,end);	para = parastr.split("&");	tempstr="";	for(i=0;i<para.length;i++){ tempstr = para[i];	 pos = tempstr.indexOf("=");	 if(tempstr.substring(0,pos) ==param){	 return tempstr.substring(pos+1);	 }	}	return null;}$(document).ready(function(){	$('#q').focus();	var _ip;	if ((_ip = getUrlParam('ip')) != null) {	 $('#q').val(_ip);	 queryip(); }});(function(){ /* bind event */ $('#q').keydown(function(e){ if (e.keyCode == 13) { queryip(); } }); /* query ip */ getipdata('getip', 'locaIp'); /* load banner */ $.ajax({ type: 'GET', url: 'getbanner.php', success: function(banner){ $('#b').append('<img src="' + banner + '" />'); } });})();
+
+大可不必理会上面的那串东西
+
+但是有一个getipdata()函数(在首行),可以看到里面他是用jq封装好的ajax()方法的
+
+于是,我就简化了这个函数,尝试直接使用这个方法对那个getipdata指向的服务器进行异步访问,
+
+下面是简化的核心功能:
+
+
+function getipdata(action){
+
+
+
+
+alert("!");
+
+
+
+
+var ip_url ='222.200.98.151';
+
+
+
+
+//document.getElementById("q").value;
+
+
+
+
+var url = "getip.php?action=" + action + "&ip_url=" + ip_url;
+
+
+
+
+//alert(url);
+
+
+
+
+var divobj = $('#mydiv');
+
+
+
+
+$.ajax({type:'GET',url:url, success:function(ipdata){ alert(ipdata=='')}});
+
+
+
+
+}
+
+
+function getipdata(action){	alert("!");var ip_url ='222.200.98.151';//document.getElementById("q").value;var url = "getip.php?action=" + action + "&ip_url=" + ip_url;  //alert(url);  var divobj = $('#mydiv');    $.ajax({type:'GET',url:url, success:function(ipdata){ alert(ipdata=='')}});
+}
+
+奇怪的事情发生了,返回的ipdata为空,但是在我同学的机子上却正常,
+
+难道..这是传说中的rp....
+
+google 了, 又用龙威人肉搜索引擎了,
+
+于是有了iframe的这个东西了
+
+插入一个iframe
+
+<iframe id="myf" src="http://www.ip.cn/ip=8.8.8.8" ></iframe>
+
+上面是夸域问题的一个解决方法
+
+另外，也可以采用动态添加<script>的方法

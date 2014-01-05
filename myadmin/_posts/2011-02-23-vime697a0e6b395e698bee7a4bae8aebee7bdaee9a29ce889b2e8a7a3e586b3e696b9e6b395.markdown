@@ -1,0 +1,29 @@
+---
+author: lanstonpeng
+comments: true
+date: 2011-02-23 13:44:42+00:00
+layout: post
+slug: vim%e6%97%a0%e6%b3%95%e6%98%be%e7%a4%ba%e8%ae%be%e7%bd%ae%e9%a2%9c%e8%89%b2%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95
+title: vim无法显示设置颜色解决方法
+wordpress_id: 345
+categories:
+- 未分类
+tag:
+- linux
+---
+
+可能你会遇到跟我相同的情况：
+
+在~/.vimrc中输入类似：colorscheme desert
+
+但是依旧没有显示配色，我试过了许多方法，最后有一种方案
+
+去下载一个插件 CSApprox ，它是让在terminal下也能显示GVim 的colorschemes
+
+另外，还用在~/.vimrc设置
+
+set t_Co=256
+
+More:[http://www.alfredrossi.com/?p=49](http://www.alfredrossi.com/?p=49)
+
+[http://forum.ubuntu.org.cn/viewtopic.php?f=68&t=192301&start=0](http://forum.ubuntu.org.cn/viewtopic.php?f=68&t=192301&start=0)

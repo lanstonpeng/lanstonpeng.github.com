@@ -1,0 +1,74 @@
+---
+author: lanstonpeng
+comments: true
+date: 2011-01-25 11:29:15+00:00
+layout: post
+slug: socket-%e7%9a%84%e5%b0%8f%e5%b0%8f%e5%b0%9d%e8%af%95
+title: socket 的小小尝试
+wordpress_id: 262
+categories:
+- 未分类
+tag:
+- my try
+---
+
+[![](http://www.lantonspeng.blog.cd/files/2011/01/Screenshot2.png-1024x575.png)](http://www.lantonspeng.blog.cd/files/2011/01/Screenshot2.png)看着看着那些协议，觉得要动动手才可以的，所以就弄了一个超级简单的demo，没有涉及多线程那些。
+
+Socket编程笼统来说分两个方面,Client ,Server,为了更好的了解Socket，所以写的例子较为简单了（使用java）
+
+
+ServerSocket server=new ServerSocket(6666);
+
+
+
+
+Socket socket=server.accept();
+
+
+__________________________________
+
+Socket client=new Socket("127.0.0.1",6666);
+
+上面分别是服务端与客户端新建一个Socket
+
+其实这里已经是一个最简单的连接了，服务器开通了这个端口号，客户端请求这个端口号上的服务。
+
+**什么是端口号？**
+
+
+简单来说，端口号对应你这台机器上的一个服务，外界向你的飞信发条消息，它不会飞到你QQ里吧，这两个IM用的就是不同的端口，
+
+
+
+
+Socket相当于一个插头，需要什么什么服务，你就将自己的插头插上。。。这里显然已经可以看到，服务器开通6666这个端口的服务，而
+
+
+
+
+我的Client就申请这个服务。
+
+
+
+
+
+<!-- more -->
+
+
+聪明的你可能已经发现了，这里server仅仅是连接了一个client就没了，其它的client请求的时候，server已经关闭了
+
+一种做法是使用while(true),你肯定知道怎么弄。
+
+另外一种方式是用异步的方法，这里不细说。
+
+
+## 那么信息怎么传送呢？
+
+
+有一点注意就是了,Server 端的OutputStream 为Client的InputStream，双方要做的是建立这样的一个管道
+
+举个例子，Server端获取Client的Outputstream：BufferedReader is=new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+Client端的Outpustream：PrintWriter os=new PrintWriter(socket.getOutputStream()); os.flush();  //注意这里的flush，很重要的说
+
+细节的东西先不用管，不同语言有不同封装罢了。
