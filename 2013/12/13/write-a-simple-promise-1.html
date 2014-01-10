@@ -27,6 +27,9 @@
 <div class="post">
 <h4>The Problems We May Encounter</h4>
 
+
+
+
 <ul>
 <li>Manage asynchronize tasks
 
@@ -38,9 +41,17 @@
 </ul>
 
 
+
+
 <h4>We start from a story</h4>
 
+
+
+
 <p>Tony, a boy who loves playing Pokemon,is only allowed to play after cleaning the desk and washing all the dishes</p>
+
+
+
 
 <pre>
     function washDish(cb){
@@ -55,7 +66,12 @@
 </pre>
 
 
+
+
 <p>We may generate some codes as following</p>
+
+
+
 
 <pre>
     cleanDesk(function(){
@@ -66,18 +82,31 @@
 </pre>
 
 
+
+
 <p>that's ok, and imagine we can write something like this</p>
+
+
+
 
 <pre>
     when_all_done(cleanDesk,washDish).call_this(playPokemon);
 </pre>
 
 
+
+
 <p>
 It's not a big deal,why we have to write something like that<br/>
 before giving the answer,let's see in what circumstance can we not use</p>
 
+
+
+
 <h4>if we can solve the following list,we don't have to deal with this problem</h4>
+
+
+
 
 <ul>
 <li>manually handle the callback pyramid well</li>
@@ -85,27 +114,55 @@ before giving the answer,let's see in what circumstance can we not use</p>
 </ul>
 
 
+
+
 <p>You bet,if the code base doesn't scale much and we're clear and smart enough( yeah,we're smart ),we can simply ignore the first piece,But the second point is not so easy to handle,we don't know who will read our code(even we think that the code we wrote is beautiful ) and whether they'll be understood</p>
 
+
+
+
 <h4>What this simple article might offer you</h4>
+
+
+
 
 <ul>
 <li>Give you an intuitive and step by step way of the implementation of Promise in javascript</li>
 </ul>
 
 
+
+
 <h4><em>In a nutshell,  Promise is an abstract pattern helps people to write readable async code and manage them</em></h4>
+
+
+
 
 <hr />
 
+
+
+
 <h4>Let the journey begin</h4>
+
+
+
 
 <p>There're plenty of implementations and I choose an intuitive one to cope with</p>
 
+
+
+
 <p>Say that there's a mystery guy called <em>Guru</em> who promise us that he'll do whatever we want after Tony's finishing something(still remember Tony?)</p>
+
+
+
 
 <p>If Tony can return this <strong>promise</strong> from Guru,and while the thing Tony has to to is fulfilled ,the <em>Guru</em> will notify us and carry out what's inside that <strong>promise</strong>(how nice Guru) ,feel free to do something else
 ,let's alter the code a bit</p>
+
+
+
 
 <pre>
     function cleanDesk(cb){
@@ -116,7 +173,12 @@ before giving the answer,let's see in what circumstance can we not use</p>
 </pre>
 
 
+
+
 <p>Since we the Guru has to know that Tony's finsihing cleaning desk ,and the moment he knows ,he'll let us know,So we may add a little bit code like this</p>
+
+
+
 
 <pre>
     function cleanDesk(){
@@ -129,9 +191,14 @@ before giving the answer,let's see in what circumstance can we not use</p>
 </pre>
 
 
+
+
 <p>Notice that the parameter <code>cb</code> in cleanDesk is gone,since we'll assign it in another way
 As we hold the delicate <em>promise</em> from the Guru, we can put things we want <em>Guru</em> to fullfill after the particular thing is done by calling  <code>when_done_call_this</code><br/>
 So, we may write something like:</p>
+
+
+
 
 <pre>
     var guruPromise = cleanDesk();//return the promise from Guru
@@ -139,12 +206,23 @@ So, we may write something like:</p>
 </pre>
 
 
+
+
 <p>
 what we've done is flattening the callback hell a little bit</p>
 
+
+
+
 <h4>How can we achieve that?</h4>
 
+
+
+
 <p>the skeleton looks like this</p>
+
+
+
 
 <pre>
 function guruGenerator(){
@@ -159,9 +237,14 @@ function guruGenerator(){
 </pre>
 
 
+
+
 <p>Since we can tell whatever we want after the specified thing is done(e.g <code>washDish</code>)
 like <code>guruPromise.when_done_call_this(washDish)</code><br/>
 The Guru has to memory the things(like the <code>washDish</code> here) he has to deal with after the specified thing is done,So , we can add an array inside the Guru's body</p>
+
+
+
 
 <pre>
 function guruGenerator(){
@@ -176,7 +259,12 @@ function guruGenerator(){
 </pre>
 
 
+
+
 <p>And while the guru fulfill that <code>promise</code>,he just fetch the "todo list" from his memory and execute</p>
+
+
+
 
 <pre>
     function guruGenerator(){
@@ -198,7 +286,12 @@ function guruGenerator(){
 </pre>
 
 
+
+
 <p>Now,we can make the following code work</p>
+
+
+
 
 <pre>
     guruPromise.when_done_call_this(playPokemon);
@@ -206,11 +299,18 @@ function guruGenerator(){
 </pre>
 
 
+
+
 <p>The next part ,we'll make the following snippet possible:</p>
+
+
+
 
 <pre>
 guruPromise.when_done_call_this(playPokemon).when_done_call_this(playPokemon);
 </pre>
+
+
 
 
 </div>
@@ -236,14 +336,14 @@ dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
           <div class="footer">
             <div class="contact">
               <p>
-                Lanston Peng<br />
-                Life Hacker<br />
-                lanstonpeng@gmail.com
+                I'm Lanston Peng<br />
+                An on-the-way Life Hacker<br />
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="https://twitter.com/lanstonpeng">@lanstonpeng</a><br />
+                <a href="https://github.com/lanstonpeng">lanstonpeng</a><br />
                 <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>

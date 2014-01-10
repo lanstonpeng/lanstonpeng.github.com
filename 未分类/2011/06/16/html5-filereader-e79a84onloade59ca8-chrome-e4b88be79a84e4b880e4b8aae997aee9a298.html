@@ -27,25 +27,56 @@
 <div class="post">
 <p>我在 chromium12 打算测试一下HTML5的<a href="http://www.w3.org/TR/file-upload/">File API</a>，奇怪的是 <strong>onload</strong> 事件没有fire，FF 3.6,Opera11也是好好的</p>
 
+
+
+
 <p>谷了又栈了，其实这是一个很简单的问题，<a href="http://stackoverflow.com/questions/5749530/html5-and-file-api-in-chrome-problem">stack</a>上一个家伙自问自答，因为我们本地测试的话打开一个html页面是当作一个file，我觉得是因为协议的不同导致某些特性没有“激发”出来,其解决方法就是用http的方式访问这个文件了</p>
+
+
+
 
 <p>如果有装个apache或着什么服务器的话可以直接拖你的文件进入类似htdoc,wwwroot的文件夹中，然后 <strong>localhost:your port </strong> 或者<strong>192.168.0.1:your</strong> port</p>
 
+
+
+
 <p>这里为没有以上装备的朋友提供一个更加简单的方法，就是：</p>
+
+
+
 
 <p>1)你的Terminal中输入 python -m <a href="http://docs.python.org/library/simplehttpserver.html"><strong> SimpleHTTPServer</strong></a></p>
 
+
+
+
 <p>2)将你的测试文件改为index.html</p>
+
+
+
 
 <p>或者装个nginx在win中，很简单的测试，</p>
 
+
+
+
 <p>当然，你也可以不开个Server，在<strong><a href="http://www.html5rocks.com/en/tutorials/file/filesystem/">HTML5Rocks</a></strong>上的教程由这么一句话****</p>
+
+
+
 
 <p><em><em><strong>You may need the </strong>--allow-file-access-from-files<strong> flag if you're debugging your app from </strong>file://<strong> . Not using these flags will result in a </strong>SECURITY_ERR<strong> or </strong>QUOTA_EXCEEDED_ERR<strong> FileError</strong></em></em></p>
 
-<hr />
+
+
 
 <hr />
+
+
+
+
+<hr />
+
 
 </div>
 
@@ -70,14 +101,14 @@ dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
           <div class="footer">
             <div class="contact">
               <p>
-                Lanston Peng<br />
-                Life Hacker<br />
-                lanstonpeng@gmail.com
+                I'm Lanston Peng<br />
+                An on-the-way Life Hacker<br />
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="https://twitter.com/lanstonpeng">@lanstonpeng</a><br />
+                <a href="https://github.com/lanstonpeng">lanstonpeng</a><br />
                 <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>

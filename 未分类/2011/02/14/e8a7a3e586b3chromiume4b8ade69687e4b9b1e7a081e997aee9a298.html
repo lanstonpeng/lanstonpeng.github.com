@@ -27,9 +27,18 @@
 <div class="post">
 <p>1.确认Preference中的font设置为GBK</p>
 
+
+
+
 <p>2.vi /etc/fonts/conf.d/49-sansserif.conf</p>
 
+
+
+
 <p><fontconfig></p>
+
+
+
 
 <!--
 
@@ -44,39 +53,87 @@ If the font still has no generic name, add sans-serif
 -->
 
 
+
+
 <p><match target="pattern"></p>
 
+
+
+
 <p><test qual="all" name="family" compare="not_eq"></p>
+
+
+
 
 <p><string>sans-serif</string></p>
 
+
+
+
 <p></test></p>
 
+
+
+
 <p><test qual="all" name="family" compare="not_eq"></p>
+
+
+
 
 <p><string>serif</string></p>
 
+
+
+
 <p></test></p>
+
+
+
 
 <p><test qual="all" name="family" compare="not_eq"></p>
 
+
+
+
 <p><string>monospace</string></p>
+
+
+
 
 <p></test></p>
 
+
+
+
 <p><edit name="family" mode="append_last"></p>
+
+
+
 
 <p><strong><!--这个为之前的值     <string>sans-serif</string></strong></p>
 
 <p><strong>--></strong></p>
 
+
+
+
 <p><strong><string>sans</string></strong></p>
+
+
+
 
 <p></edit></p>
 
+
+
+
 <p></match></p>
 
+
+
+
 <p></fontconfig></p>
+
 
 </div>
 
@@ -101,14 +158,14 @@ dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
           <div class="footer">
             <div class="contact">
               <p>
-                Lanston Peng<br />
-                Life Hacker<br />
-                lanstonpeng@gmail.com
+                I'm Lanston Peng<br />
+                An on-the-way Life Hacker<br />
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="https://twitter.com/lanstonpeng">@lanstonpeng</a><br />
+                <a href="https://github.com/lanstonpeng">lanstonpeng</a><br />
                 <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>

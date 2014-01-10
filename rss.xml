@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+  <channel>
+    <title>Lanston Peng's ideas</title>
+    <link>http://lanstonpeng.github.io</link>
+    <description>RSS feed for Lanston Peng's ideas</description>
+    <pubDate>Fri, 03 Jan 2014 23:38:49 -0000</pubDate>
+    <item>
+      <title>中央美术展厅中的两件作品</title>
+      <link>http://lanstonpeng.github.io/2014/01/03/art-museum.html</link>
+      <description>&lt;p&gt;这次展览主要是几位在高考恢复后的第一批美术精英的作品，现大都50+,60+岁数这个样子
+一组作品旁边也带有他们各自的调侃，我想他们看到必定能让他们感觉回到那学生时代&lt;/p&gt;
+</description>
+      <pubDate>Fri, 03 Jan 2014 23:38:49 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/2014/01/03/art-museum.html</guid>
+      <dc:date>2014-01-03T23:38:49Z</dc:date>
+    </item>
+    <item>
+      <title>Write A Simple Promise in 100 Lines Part2</title>
+      <link>http://lanstonpeng.github.io/2013/12/14/wirte-a-simple-promise-2.html</link>
+      <description>&lt;p&gt;We've known a bit about  why we need Promise and start to build our own version of &lt;em&gt;Promise&lt;/em&gt;&lt;br/&gt;
+Let's continue,first we get the following work&lt;/p&gt;
+
+&lt;pre&gt;
+guruPromise.when_done_call_this(playPokemon).when_done_call_this(playPokemon);
+&lt;/pre&gt;
+
+
+&lt;p&gt;This is so called &lt;em&gt;chainable&lt;/em&gt;
+we've seen this pattern so much in JQuery
+&lt;code&gt;$(ele).hide().show()&lt;/code&gt;&lt;br/&gt;
+maybe we can get a little bit hints from how JQuery does&lt;br/&gt;
+the &lt;code&gt;$&lt;/code&gt; method, &lt;code&gt;hide&lt;/code&gt;,&lt;code&gt;show&lt;/code&gt; and others that can make chainable are simply just return &lt;code&gt;this&lt;/code&gt; at the end of the function&lt;/p&gt;
+</description>
+      <pubDate>Sat, 14 Dec 2013 23:38:49 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/2013/12/14/wirte-a-simple-promise-2.html</guid>
+      <dc:date>2013-12-14T23:38:49Z</dc:date>
+    </item>
+    <item>
+      <title>Write A Simple Promise in 100 Lines Part1</title>
+      <link>http://lanstonpeng.github.io/2013/12/13/write-a-simple-promise-1.html</link>
+      <description>&lt;h4&gt;The Problems We May Encounter&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Manage asynchronize tasks
+
+&lt;ul&gt;
+&lt;li&gt;invoke a callback while a few independent asynchronize function finish&lt;/li&gt;
+&lt;li&gt;deep async call&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+      <pubDate>Fri, 13 Dec 2013 23:38:49 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/2013/12/13/write-a-simple-promise-1.html</guid>
+      <dc:date>2013-12-13T23:38:49Z</dc:date>
+    </item>
+    <item>
+      <title>风雅颂展之小感</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2013/02/13/e9a38ee99b85e9a282e5b195e4b98be5b08fe6849f.html</link>
+      <description>&lt;p&gt;上一季错过了3年展了，年时有空便去了一趟，
+相对来说，个人不太喜欢平面的作品，
+可能是急功近利的心态，无法比平常更加平静地思考作者的思维，
+细想每次去广美馆便是带着两个心态，一个是寄望能看到不一样的思维，二是希望走出来的时候能稍稍平静那段时间的浮躁，窃喜第一个目的每次都能在一定程度上得逞而第二个目每次都显得有些讽刺。
+说回本展，挑3个作品记录一下，&lt;/p&gt;
+</description>
+      <pubDate>Wed, 13 Feb 2013 12:28:07 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2013/02/13/e9a38ee99b85e9a282e5b195e4b98be5b08fe6849f.html</guid>
+      <dc:date>2013-02-13T12:28:07Z</dc:date>
+    </item>
+    <item>
+      <title>我与显微镜还有一些想法</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2013/01/31/e68891e4b88ee698bee5beaee9959ce8bf98e69c89e4b880e4ba9be683b3e6b395.html</link>
+      <description>&lt;p&gt;&lt;img src=&quot;http://cdn.dropmark.com/32736/352714e1547b2c4b49964fb7b3d28aa9bc518c26/Screen%20Shot%202013-04-27%20at%203.26.52%20PM.png&quot; alt=&quot;&quot; /&gt;
+妈妈一度以为我找伴去了，问我实习的钱怎么这么快败光了
+事实上，一副乐高的NXT系列&quot;玩具&quot;跟一个1200x的渣显微镜便是元凶。&lt;/p&gt;
+</description>
+      <pubDate>Thu, 31 Jan 2013 08:39:46 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2013/01/31/e68891e4b88ee698bee5beaee9959ce8bf98e69c89e4b880e4ba9be683b3e6b395.html</guid>
+      <dc:date>2013-01-31T08:39:46Z</dc:date>
+    </item>
+    <item>
+      <title>视频分享形式新猜想</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/10/09/e8a786e9a291e58886e4baabe5bda2e5bc8fe696b0e78c9ce683b3.html</link>
+      <description>&lt;p&gt;&lt;img src=&quot;http://i.minus.com/inaR2ZgtDejDK.png&quot; alt=&quot;&quot; /&gt;
+现在，就我所了解的视频分享形式一般都是一个短链接,如：http://t.cn/a3rKQN
+但是，我所需要的是一种更加精确的分享，即某(几)个片段等，那么，能瞬间想到的大概长这么一个样子
+&quot;t.cn/a3rKQN&lt;strong&gt;#1:01_3:34&quot;&lt;/strong&gt;
+实际上，先存的视频网站也有这样的功能，
+如youku也有类似的url：
+&quot;youkuUrl_Prefix?&lt;strong&gt;firsttime&lt;/strong&gt;=31&quot;&lt;/p&gt;
+</description>
+      <pubDate>Tue, 09 Oct 2012 07:48:59 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/10/09/e8a786e9a291e58886e4baabe5bda2e5bc8fe696b0e78c9ce683b3.html</guid>
+      <dc:date>2012-10-09T07:48:59Z</dc:date>
+    </item>
+    <item>
+      <title>小议贝叶斯</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/10/06/e5b08fe8aeaee8b49de58fb6e696af.html</link>
+      <description>&lt;p&gt;前段时间写&lt;a href=&quot;https://github.com/lanstonpeng/BabyWordCorrector&quot;&gt;一个简易的单词订正器&lt;/a&gt;，一直想找个机会记录一下关于贝叶斯这个强大美妙的东西，但是苦于没有找到一个比较满意的切入点
+最近发现了一个比较经典的问题,&lt;a href=&quot;http://en.wikipedia.org/wiki/Monty_Hall_Problem&quot;&gt;Monty Hall problem&lt;/a&gt;
+一个颇为有趣的问题，一开始真的被愚弄了一番&lt;/p&gt;
+</description>
+      <pubDate>Sat, 06 Oct 2012 11:24:33 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/10/06/e5b08fe8aeaee8b49de58fb6e696af.html</guid>
+      <dc:date>2012-10-06T11:24:33Z</dc:date>
+    </item>
+    <item>
+      <title>我想要有这么一个农场</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/09/10/e68891e683b3e8a681e69c89e8bf99e4b988e4b880e4b8aae5869ce59cba.html</link>
+      <description>&lt;p&gt;我是一个稍稍反社交的人，我总是喜欢线上的东西能与线下的东西是一个整体&lt;/p&gt;
+</description>
+      <pubDate>Mon, 10 Sep 2012 02:12:51 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/09/10/e68891e683b3e8a681e69c89e8bf99e4b988e4b880e4b8aae5869ce59cba.html</guid>
+      <dc:date>2012-09-10T02:12:51Z</dc:date>
+    </item>
+    <item>
+      <title>从制作一个自行车公里计数器说方法论</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/03/26/e4bb8ee588b6e4bd9ce4b880e4b8aae887aae8a18ce8bda6e585ace9878ce8aea1e695b0e599a8e8afb4e5bc80e58ebb.html</link>
+      <description>&lt;p&gt;我主要想focus在思路上，&lt;/p&gt;
+</description>
+      <pubDate>Mon, 26 Mar 2012 00:34:27 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/03/26/e4bb8ee588b6e4bd9ce4b880e4b8aae887aae8a18ce8bda6e585ace9878ce8aea1e695b0e599a8e8afb4e5bc80e58ebb.html</guid>
+      <dc:date>2012-03-26T00:34:27Z</dc:date>
+    </item>
+    <item>
+      <title>Small snippet code and techni I used for a recent project</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/03/23/small-snippet-code-and-techni-i-used-for-a-recent-project.html</link>
+      <description>&lt;p&gt;&lt;strong&gt;Function Reduction:&lt;/strong&gt;
+Here's a situation,I have to play a sound while 2 objects is in a collision,the problem is that there's plenty of objects in collision at the very same time,We want the sound to be played one by one
+So,I have to cancle the previous(the excuting function)&lt;/p&gt;
+</description>
+      <pubDate>Fri, 23 Mar 2012 13:10:20 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/03/23/small-snippet-code-and-techni-i-used-for-a-recent-project.html</guid>
+      <dc:date>2012-03-23T13:10:20Z</dc:date>
+    </item>
+    <item>
+      <title>Wake up 5.XX am to code </title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/02/18/wake-up-5-xx-am-to-code.html</link>
+      <description>&lt;p&gt;Recently,I decided to redesign PangTingMe--a project I was started while I first learned javascript,I was first inspired by a post from HN,the guy wake up 5 am to start his personal project.So,I try it on my own!&lt;/p&gt;
+</description>
+      <pubDate>Sat, 18 Feb 2012 15:21:20 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/02/18/wake-up-5-xx-am-to-code.html</guid>
+      <dc:date>2012-02-18T15:21:20Z</dc:date>
+    </item>
+    <item>
+      <title>After Guangzhou Triennial Round one ...</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/01/30/after-guangzhou-triennial-round-one.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://files.blogcn.com/wp05/M00/03/BD/wKgKDE8mTikAAAAAAAbpt22GuOg222.png&quot;&gt;&lt;img src=&quot;http://files.blogcn.com/wp05/M00/03/BD/wKgKDE8mTikAAAAAAAbpt22GuOg222.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Mon, 30 Jan 2012 11:19:05 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/01/30/after-guangzhou-triennial-round-one.html</guid>
+      <dc:date>2012-01-30T11:19:05Z</dc:date>
+    </item>
+    <item>
+      <title>HTML5 FileSystem API that HTML5Rocks didn't tell you</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/01/12/html5-filesystem-api-that-html5rocks-not-told-you.html</link>
+      <description>&lt;p&gt;很久之前在HTML5Rocks里面看到的一个Terminal Demo ，当时有点震惊，不是因为其它的，是因为感觉到其实自己也是可以实现的，不像&lt;a href=&quot;http://bellard.org/jslinux/&quot;&gt;Javascript PC Emulator&lt;/a&gt;那样，强大到无奈的地步,具体的实现可以看看他的&lt;a href=&quot;http://bellard.org/jslinux/tech.html&quot;&gt;Technical Notes&lt;/a&gt;,因为期末要做操作系统的课程设计，所以我在&lt;a href=&quot;http://www.html5rocks.com/en/tutorials/file/filesystem/terminal.html&quot;&gt;HTML5 Terminal&lt;/a&gt;的基础上作了一些基础性的修改以及命令的增加。&lt;/p&gt;
+</description>
+      <pubDate>Thu, 12 Jan 2012 15:30:44 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/01/12/html5-filesystem-api-that-html5rocks-not-told-you.html</guid>
+      <dc:date>2012-01-12T15:30:44Z</dc:date>
+    </item>
+    <item>
+      <title>Backbone.JS与Knockout.JS  View基于Model/ViewModel更新方式实现思想</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/01/06/backbone-jse4b88eknockout-js-viewe59fbae4ba8emodelviewmodele69bb4e696b0e696b9e5bc8fe5ae9ee78eb0e6809de683b3.html</link>
+      <description>&lt;p&gt;引言：最近遇到一个问题，关于变量监测，即当我可以注册一handler到该变量值的改变的事件上，想到Backbone,KO,但是他们这种我姑且称为 &lt;strong&gt;主动设置&lt;/strong&gt; 方式，实际用到生产环境当中，先介绍这种方式，再介绍我想要的效果，姑且称为 &lt;strong&gt;被动设置&lt;/strong&gt; 方式，主要用在测试环境&lt;/p&gt;
+</description>
+      <pubDate>Fri, 06 Jan 2012 08:04:03 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2012/01/06/backbone-jse4b88eknockout-js-viewe59fbae4ba8emodelviewmodele69bb4e696b0e696b9e5bc8fe5ae9ee78eb0e6809de683b3.html</guid>
+      <dc:date>2012-01-06T08:04:03Z</dc:date>
+    </item>
+    <item>
+      <title>Meet with UK design Masters Mark Porter &amp; Sean Perkins</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/12/06/meet-with-uk-design-masters-mark-porter-sean-perkins.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://files.blogcn.com/wp02/M00/03/05/wKgKC07eCjcAAAAAAACC5ClYOjs863.jpg&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Tue, 06 Dec 2011 13:16:13 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/12/06/meet-with-uk-design-masters-mark-porter-sean-perkins.html</guid>
+      <dc:date>2011-12-06T13:16:13Z</dc:date>
+    </item>
+    <item>
+      <title>小议javascript timer</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/11/16/e5b08fe8aeaejavascript-timer.html</link>
+      <description>&lt;p&gt;最近遇到一些关于javascript动画中的小问题，就是设定每帧的时间间隔，于是就稍稍作了一下小总结
+有几种方式去实现：
+&lt;strong&gt; 简单的setInterval&lt;/strong&gt;&lt;/p&gt;
+</description>
+      <pubDate>Wed, 16 Nov 2011 06:28:11 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/11/16/e5b08fe8aeaejavascript-timer.html</guid>
+      <dc:date>2011-11-16T06:28:11Z</dc:date>
+    </item>
+    <item>
+      <title>小议 HTML5 读取与显示图片</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/10/28/e5b08fe8aeae-html5-e8afbbe58f96e4b88ee698bee7a4bae59bbee78987.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://files.blogcn.com/wp06/M00/01/75/wKgKDU6qS_4AAAAAAAA32wmVtGU567.png&quot;&gt;&lt;/a&gt;在有空的时候回顾了一下之前学的，可以说生成上传图片的缩略图这是一个很普遍的需求了，以下收集两个方法&lt;/p&gt;
+</description>
+      <pubDate>Fri, 28 Oct 2011 05:22:08 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/10/28/e5b08fe8aeae-html5-e8afbbe58f96e4b88ee698bee7a4bae59bbee78987.html</guid>
+      <dc:date>2011-10-28T05:22:08Z</dc:date>
+    </item>
+    <item>
+      <title>ubuntu11.10折腾的那些事</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/10/17/ubuntu11-10e68a98e885bee79a84e982a3e4ba9be4ba8b.html</link>
+      <description>&lt;p&gt;11.10是我最失望的版本了
+&lt;strong&gt;1.如何在Ubuntu11.10中删除gnome3&lt;/strong&gt;
+(本人用不习惯gnome3啊，css调得一塌糊涂哇......RAM都被耗尽了)
+假设你之前运行过
+&lt;code&gt;sudo apt-get remove gnome-shell&lt;/code&gt;&lt;/p&gt;
+</description>
+      <pubDate>Mon, 17 Oct 2011 00:30:29 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/10/17/ubuntu11-10e68a98e885bee79a84e982a3e4ba9be4ba8b.html</guid>
+      <dc:date>2011-10-17T00:30:29Z</dc:date>
+    </item>
+    <item>
+      <title>WYSIWYG的simpleBox插件</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/09/13/wysiwyge79a84simpleboxe68f92e4bbb6.html</link>
+      <description>&lt;p&gt;&lt;strong&gt;现状：&lt;/strong&gt;平时我看到好的素材来不及看了，经典的一般都会存入书签，一般会放到read it later,evernote 里面，上课的时候接着看，但是，我越来越需要一种高精度的素材收集器，即&lt;/p&gt;
+</description>
+      <pubDate>Tue, 13 Sep 2011 14:02:22 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/09/13/wysiwyge79a84simpleboxe68f92e4bbb6.html</guid>
+      <dc:date>2011-09-13T14:02:22Z</dc:date>
+    </item>
+    <item>
+      <title>小议 xhr 上传文件</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/09/12/xhr-e4b88ae4bca0e69687e4bbb6e696b9e6b395e5b08fe8aeae.html</link>
+      <description>&lt;p&gt;以前想用xhr上传文件,感觉方法不太那么优雅&lt;/p&gt;
+</description>
+      <pubDate>Mon, 12 Sep 2011 15:27:15 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/09/12/xhr-e4b88ae4bca0e69687e4bbb6e696b9e6b395e5b08fe8aeae.html</guid>
+      <dc:date>2011-09-12T15:27:15Z</dc:date>
+    </item>
+    <item>
+      <title>javascript继承方案的进化</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/09/07/javascripte7bba7e689bfe696b9e6a188e79a84e8bf9be58c96.html</link>
+      <description>&lt;p&gt;在javascript中，继承是一个颇为热门的话题&lt;/p&gt;
+</description>
+      <pubDate>Wed, 07 Sep 2011 11:36:56 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/09/07/javascripte7bba7e689bfe696b9e6a188e79a84e8bf9be58c96.html</guid>
+      <dc:date>2011-09-07T11:36:56Z</dc:date>
+    </item>
+    <item>
+      <title>日本新干线与javascript事件机制</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/08/31/e697a5e69cace696b0e5b9b2e7babfe4b88ejavascripte4ba8be4bbb6e69cbae588b6.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://files.blogcn.com/wp05/M00/01/D7/wKgKDU5eOecAAAAAAAGjOVdMLi0207.jpg&quot;&gt;&lt;img src=&quot;http://files.blogcn.com/wp03/M00/02/14/wKgKCk5eOegAAAAAAABKDWDvDMc118.jpg&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Wed, 31 Aug 2011 13:42:03 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/08/31/e697a5e69cace696b0e5b9b2e7babfe4b88ejavascripte4ba8be4bbb6e69cbae588b6.html</guid>
+      <dc:date>2011-08-31T13:42:03Z</dc:date>
+    </item>
+    <item>
+      <title>俺·厦门·瞎谈</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/08/17/e4bfbac2b7e58ea6e997a8c2b7e689afe8b088.html</link>
+      <description>&lt;p&gt;&lt;strong&gt;-我发现厦门公交车会在到达斑马线之前给个提示，但是司机没有任何操作&lt;/strong&gt;&lt;/p&gt;
+</description>
+      <pubDate>Wed, 17 Aug 2011 15:52:25 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/08/17/e4bfbac2b7e58ea6e997a8c2b7e689afe8b088.html</guid>
+      <dc:date>2011-08-17T15:52:25Z</dc:date>
+    </item>
+    <item>
+      <title>PechaKucha Night #7</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/08/05/pechakucha-night-e99d9ee6ada3e5bc8fe69599e882b2.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://files.blogcn.com/wp02/M00/01/31/wKgKC04zVMAAAAAAAAG-3jPLSKo689.jpg&quot;&gt;&lt;img src=&quot;http://files.blogcn.com/wp04/M00/01/70/wKgKDE4zVMAAAAAAAABFqxk7GLM817.jpg&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;参加的类似的活动也有好几次了，&lt;/p&gt;
+</description>
+      <pubDate>Fri, 05 Aug 2011 02:44:47 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/08/05/pechakucha-night-e99d9ee6ada3e5bc8fe69599e882b2.html</guid>
+      <dc:date>2011-08-05T02:44:47Z</dc:date>
+    </item>
+    <item>
+      <title>本地存储的扩展</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/07/14/e69cace59cb0e5ad98e582a8e79a84e689a9e5b195.html</link>
+      <description>&lt;p&gt;我们知道现在支持得比较好的客户端存储方案是localStorage,但是这里存在的问题是&lt;/p&gt;
+</description>
+      <pubDate>Thu, 14 Jul 2011 04:10:48 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/07/14/e69cace59cb0e5ad98e582a8e79a84e689a9e5b195.html</guid>
+      <dc:date>2011-07-14T04:10:48Z</dc:date>
+    </item>
+    <item>
+      <title>现实书架与手机结合的一点想法</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/06/17/e4b9a6e69eb6e4b88ee6898be69cbae7bb93e59088e79a84e4b880e782b9e683b3e6b395.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://files.blogcn.com/wp05/M00/00/E5/wKgKDE366YkAAAAAAAFPTz1vEbg254.png&quot;&gt;&lt;img src=&quot;http://files.blogcn.com/wp04/M00/00/E5/wKgKDE366YoAAAAAAABYGGaO2HQ055.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Fri, 17 Jun 2011 05:57:11 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/06/17/e4b9a6e69eb6e4b88ee6898be69cbae7bb93e59088e79a84e4b880e782b9e683b3e6b395.html</guid>
+      <dc:date>2011-06-17T05:57:11Z</dc:date>
+    </item>
+    <item>
+      <title>HTML5 FileReader 的onload在 chrome 下的一个问题</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/06/16/html5-filereader-e79a84onloade59ca8-chrome-e4b88be79a84e4b880e4b8aae997aee9a298.html</link>
+      <description>&lt;p&gt;我在 chromium12 打算测试一下HTML5的&lt;a href=&quot;http://www.w3.org/TR/file-upload/&quot;&gt;File API&lt;/a&gt;，奇怪的是 &lt;strong&gt;onload&lt;/strong&gt; 事件没有fire，FF 3.6,Opera11也是好好的&lt;/p&gt;
+</description>
+      <pubDate>Thu, 16 Jun 2011 12:31:04 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/06/16/html5-filereader-e79a84onloade59ca8-chrome-e4b88be79a84e4b880e4b8aae997aee9a298.html</guid>
+      <dc:date>2011-06-16T12:31:04Z</dc:date>
+    </item>
+    <item>
+      <title>艺术的表现与真相 的 一点思考</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/06/06/e889bae69cafe79a84e8a1a8e78eb0e4b88ee79c9fe79bb8-e79a84-e4b880e782b9e6809de88083.html</link>
+      <description>&lt;p&gt;最近参加了TedxGuangzhou的一个沙龙，看了广美的毕业展，去了广东美术馆欣赏了些艺术品，我发现一些人的话语以及某些对我具有震撼的作品让我无法停止思考，我试图catch他们的思路，我赞叹他们的表现手法正如我看到优美的代码一般&lt;/p&gt;
+</description>
+      <pubDate>Mon, 06 Jun 2011 13:20:12 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/06/06/e889bae69cafe79a84e8a1a8e78eb0e4b88ee79c9fe79bb8-e79a84-e4b880e782b9e6809de88083.html</guid>
+      <dc:date>2011-06-06T13:20:12Z</dc:date>
+    </item>
+    <item>
+      <title>如何获取Ted视频字幕</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/06/03/e5a682e4bd95e88eb7e58f96tede8a786e9a291e5ad97e5b995.html</link>
+      <description>&lt;p&gt;官网提供视频下载但不给字幕，搜索了一下有些软件可以用，也有一个&lt;a href=&quot;http://tedtalksubtitledownload.appspot.com&quot;&gt;GAE上面的网站&lt;/a&gt;帮我们干， 但是伟大的GFW......
+于是就自己捣鼓起来了：&lt;/p&gt;
+</description>
+      <pubDate>Fri, 03 Jun 2011 09:43:08 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/06/03/e5a682e4bd95e88eb7e58f96tede8a786e9a291e5ad97e5b995.html</guid>
+      <dc:date>2011-06-03T09:43:08Z</dc:date>
+    </item>
+    <item>
+      <title>Ubuntu 11.04 release party</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/05/14/ubuntu-11-04-release-party.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://files.blogcn.com/wp05/M00/00/89/wKgKDU3WHOEAAAAAAANu_w91WNE710.png&quot;&gt;&lt;img src=&quot;http://files.blogcn.com/wp06/M00/00/C5/wKgKDE3WHOEAAAAAAAF3-VFrQI0613.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Sat, 14 May 2011 15:04:15 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/05/14/ubuntu-11-04-release-party.html</guid>
+      <dc:date>2011-05-14T15:04:15Z</dc:date>
+    </item>
+    <item>
+      <title>sl4a土脚本 之 测试广工图书馆wifi信号强弱</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/05/08/sl4ae59c9fe8849ae69cac-e4b98b-e6b58be8af95e5b9bfe5b7a5e59bbee4b9a6e9a686wifie4bfa1e58fb7e5bcbae5bcb1.html</link>
+      <description>&lt;p&gt;上次白白花了一节课的时间在图书馆走上走下，#@#$!%,图书馆那个wifi信号就是弱的很杯具的说.....  于是就写了一个很土的脚本，借此绘制一个信号强度大小的图以供各位分享....&lt;/p&gt;
+</description>
+      <pubDate>Sun, 08 May 2011 13:49:22 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/05/08/sl4ae59c9fe8849ae69cac-e4b98b-e6b58be8af95e5b9bfe5b7a5e59bbee4b9a6e9a686wifie4bfa1e58fb7e5bcbae5bcb1.html</guid>
+      <dc:date>2011-05-08T13:49:22Z</dc:date>
+    </item>
+    <item>
+      <title>why sin(30)==1/2</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/04/26/why-sin3012.html</link>
+      <description>&lt;p&gt;其实我一直觉得自己的学习没有那种踏实，往往有些东西就是仅仅停留在”用”的基础上，实际上却没有去反思它们，于是，我觉得很有必要每周抽点时间出来反思一下自己的数学&lt;/p&gt;
+</description>
+      <pubDate>Tue, 26 Apr 2011 13:53:29 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/04/26/why-sin3012.html</guid>
+      <dc:date>2011-04-26T13:53:29Z</dc:date>
+    </item>
+    <item>
+      <title>pythonchallenge level13 以及从中学到的东西(linux 具体文件类型的识别)</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/04/25/pythonchallenge-level13-e4bba5e58f8ae4bb8ee4b8ade5ada6e588b0e79a84e4b89ce8a5bflinux-e585b7e4bd93e69687e4bbb6e7b1bbe59e8be79a84e8af86e588ab.html</link>
+      <description>&lt;p&gt;在感冒与发烧的交加中，level13足够坑爹的说
+我承认我的洞察能力有所提升了，但是依旧是被坑了，本关给出一个文件，然后你以2进制打开它。&lt;/p&gt;
+</description>
+      <pubDate>Mon, 25 Apr 2011 16:30:20 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/04/25/pythonchallenge-level13-e4bba5e58f8ae4bb8ee4b8ade5ada6e588b0e79a84e4b89ce8a5bflinux-e585b7e4bd93e69687e4bbb6e7b1bbe59e8be79a84e8af86e588ab.html</guid>
+      <dc:date>2011-04-25T16:30:20Z</dc:date>
+    </item>
+    <item>
+      <title>pythonchallenge 中让我纠结的一关（Level 6）[足以看出我的python烂死了]</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/04/16/pythonchallenge-e4b8ade8aea9e68891e7baa0e7bb93e79a84e4b880e585b3efbc88level-6efbc89e8b6b3e4bba5e79c8be587bae68891e79a84pythone78382e6adbb.html</link>
+      <description>&lt;p&gt;发烧刚好，应该是那个K＊＊的全家桶所致
+每天回到宿舍，牢骚着计组老师的同时就开始&lt;a href=&quot;pythonchallenge.com&quot;&gt;pythonchallenge&lt;/a&gt;了
+前面的关卡够坑爹的，但这个第6关目前我觉得最坑爹
+因为没有接触过zipfile module，纠结了两天，于是去作弊了....
+首先是获取那个zip文件（获取又是一个坑爹的东东）
+然活解压出来一个channel的文件夹&lt;/p&gt;
+</description>
+      <pubDate>Sat, 16 Apr 2011 07:25:43 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/04/16/pythonchallenge-e4b8ade8aea9e68891e7baa0e7bb93e79a84e4b880e585b3efbc88level-6efbc89e8b6b3e4bba5e79c8be587bae68891e79a84pythone78382e6adbb.html</guid>
+      <dc:date>2011-04-16T07:25:43Z</dc:date>
+    </item>
+    <item>
+      <title>identity 与 sequence</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/04/13/identity-e4b88e-sequence.html</link>
+      <description>&lt;p&gt;之前一直在用M$的Sql Server ，一般在设置id自动增长的时候会在类似这样做
+create table Poll(
+id int primary key identity(1,1)
+)
+或者直接点击那些可恶的按钮什么的，设置什么标识规范
+一直没有为此继续追问下去了&lt;/p&gt;
+</description>
+      <pubDate>Wed, 13 Apr 2011 12:53:47 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/04/13/identity-e4b88e-sequence.html</guid>
+      <dc:date>2011-04-13T12:53:47Z</dc:date>
+    </item>
+    <item>
+      <title>一个手机Apps的想法&amp;&amp; 扯谈</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/04/02/e4b880e4b8aae6898be69cbaappse79a84e683b3e6b395-e689afe8b088.html</link>
+      <description>&lt;p&gt;好吧，想法又是在马桶旁边想出来的
+想法很简单，有点无聊可能，但是我感觉很有趣：
+&lt;strong&gt; Apps Name: 手机钓鱼&lt;/strong&gt;&lt;/p&gt;
+</description>
+      <pubDate>Sat, 02 Apr 2011 15:47:27 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/04/02/e4b880e4b8aae6898be69cbaappse79a84e683b3e6b395-e689afe8b088.html</guid>
+      <dc:date>2011-04-02T15:47:27Z</dc:date>
+    </item>
+    <item>
+      <title>psycopg2.OperationalError: could not connect to server: No such file or directory 的解决方法</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/03/31/cant-connect-the-postgresql-with-psycopg2-e79a84e8a7a3e586b3e696b9e6b395.html</link>
+      <description>&lt;p&gt;感谢＠&lt;a href=&quot;http://stackoverflow.com/users/15862/tometzky&quot;&gt;Tometzky&lt;/a&gt; 和psycopg2的作者&lt;/p&gt;
+</description>
+      <pubDate>Thu, 31 Mar 2011 14:21:36 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/03/31/cant-connect-the-postgresql-with-psycopg2-e79a84e8a7a3e586b3e696b9e6b395.html</guid>
+      <dc:date>2011-03-31T14:21:36Z</dc:date>
+    </item>
+    <item>
+      <title>用程序生成&quot;一部动画&quot;(一)----人物构造</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/03/29/e794a8e7a88be5ba8fe7949fe68890e4b880e983a8e58aa8e794bbe4b880-e4babae789a9e69e84e980a0.html</link>
+      <description>&lt;p&gt;又是在睡觉的时候乱想东西......&lt;/p&gt;
+</description>
+      <pubDate>Tue, 29 Mar 2011 10:37:10 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/03/29/e794a8e7a88be5ba8fe7949fe68890e4b880e983a8e58aa8e794bbe4b880-e4babae789a9e69e84e980a0.html</guid>
+      <dc:date>2011-03-29T10:37:10Z</dc:date>
+    </item>
+    <item>
+      <title>珠三角技术沙龙3月linux（第一期广州linux用户组）小沙龙...小记</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/03/20/e78fa0e4b889e8a792e68a80e69cafe6b299e9be993e69c88linuxefbc88e7acace4b880e69c9fe5b9bfe5b79elinuxe794a8e688b7e7bb84efbc89e5b08fe6b299e9be99.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://lantonspeng.blog.cd/files/2011/03/DSC01162.jpg&quot;&gt;&lt;img src=&quot;http://lantonspeng.blog.cd/files/2011/03/DSC01162-300x225.jpg&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Sun, 20 Mar 2011 16:13:37 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/03/20/e78fa0e4b889e8a792e68a80e69cafe6b299e9be993e69c88linuxefbc88e7acace4b880e69c9fe5b9bfe5b79elinuxe794a8e688b7e7bb84efbc89e5b08fe6b299e9be99.html</guid>
+      <dc:date>2011-03-20T16:13:37Z</dc:date>
+    </item>
+    <item>
+      <title>Happy moment around</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/03/13/happy-moment-around.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://www.lanstonpeng.tk/files/2011/03/%E6%97%A0%E6%A0%87%E9%A2%98-e1299983463527.png&quot;&gt;&lt;/a&gt;可能是热爱生活的缘故，在看到日本地震(God bless Japan)后有一个念头，就是 细化了一下一类社交类网站，提供一个平台让大家分享自己周边(  譬如就在我们大学城了)的Happy moment，&lt;strong&gt;就是让彼此感受到其实快乐就在我们身边&lt;/strong&gt;。
+弄了下Google Maps的API，发觉其实挺浅显易懂的。
+&lt;a href=&quot;http://files.blogcn.com/wp03/M00/00/CD/wKgKCk3ZAKkAAAAAAAhmuFrZSGY829.png&quot;&gt;&lt;img src=&quot;http://files.blogcn.com/wp05/M00/00/8F/wKgKDU3ZAH0AAAAAAAfhyQTqnks025.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+其实看到了就会使用了，任意点击一个地方就会有个红色的点出来，然后你就可以添加你Happy moment信息了，但是我在弄这个原型代码的时候遇到了一些问题，又是一番纠结(marker 里面添加事件钩子有点问题)，弄了我一个上午还是......只能说是我的JS还停留在幼儿园阶段......&lt;/p&gt;
+</description>
+      <pubDate>Sun, 13 Mar 2011 02:51:03 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/03/13/happy-moment-around.html</guid>
+      <dc:date>2011-03-13T02:51:03Z</dc:date>
+    </item>
+    <item>
+      <title>US College and University Education 小记</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/03/10/us-college-and-university-education-e5b08fe8aeb0.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://files.blogcn.com/wp06/M00/00/CE/wKgKDE3ZAaIAAAAAAASQpQyUUT4363.jpg&quot;&gt;&lt;img src=&quot;http://files.blogcn.com/wp04/M00/00/8E/wKgKDE3ZAaQAAAAAAABV13nk4NQ926.jpg&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+This very day,originally there're about  6 gays went to this small talk,Unfortunately,Only 3 left for some bussiness&lt;/p&gt;
+</description>
+      <pubDate>Thu, 10 Mar 2011 15:39:57 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/03/10/us-college-and-university-education-e5b08fe8aeb0.html</guid>
+      <dc:date>2011-03-10T15:39:57Z</dc:date>
+    </item>
+    <item>
+      <title>珠三角技术沙龙2011年2月广州iOS专场小沙龙..小记</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/27/e78fa0e4b889e8a792e68a80e69cafe6b299e9be992011e5b9b42e69c88e5b9bfe5b79eiose4b893e59cbae5b08fe6b299e9be99-e5b08fe8aeb0.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://www.lantonspeng.blog.cd/files/2011/02/DSC011451.jpg&quot;&gt;
+&lt;img src=&quot;http://www.lantonspeng.blog.cd/files/2011/02/DSC011451-300x225.jpg&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Sun, 27 Feb 2011 13:27:49 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/27/e78fa0e4b889e8a792e68a80e69cafe6b299e9be992011e5b9b42e69c88e5b9bfe5b79eiose4b893e59cbae5b08fe6b299e9be99-e5b08fe8aeb0.html</guid>
+      <dc:date>2011-02-27T13:27:49Z</dc:date>
+    </item>
+    <item>
+      <title>使用github进行分布式开发的尝试</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/26/e4bdbfe794a8githube8bf9be8a18ce58886e5b883e5bc8fe5bc80e58f91e79a84e5b09de8af95.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-41.png&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://lwww.lantonspeng.blog.cd/files/2011/02/Screenshot-51.png&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-71.png&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-61.png&quot;&gt;&lt;/a&gt;不同于传统的版本控制机制（有一个主干），&lt;/p&gt;
+</description>
+      <pubDate>Sat, 26 Feb 2011 03:27:47 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/26/e4bdbfe794a8githube8bf9be8a18ce58886e5b883e5bc8fe5bc80e58f91e79a84e5b09de8af95.html</guid>
+      <dc:date>2011-02-26T03:27:47Z</dc:date>
+    </item>
+    <item>
+      <title>怎么快速弄坏你的电脑</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/25/e6808ee4b988e5bfabe9809fe5bc84e59d8fe4bda0e79a84e794b5e88491.html</link>
+      <description>&lt;p&gt;物理伤害不在计算范围之内。&lt;/p&gt;
+</description>
+      <pubDate>Fri, 25 Feb 2011 11:56:19 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/25/e6808ee4b988e5bfabe9809fe5bc84e59d8fe4bda0e79a84e794b5e88491.html</guid>
+      <dc:date>2011-02-25T11:56:19Z</dc:date>
+    </item>
+    <item>
+      <title>redhat安装时 grub出错 小记</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/24/redhate5ae89e8a385e697b6-grube587bae99499-e5b08fe8aeb0.html</link>
+      <description>&lt;p&gt;可能是那条壁虎把主机弄坏了，机子放假前好好的，回来就.......开机声音都没了....&lt;/p&gt;
+</description>
+      <pubDate>Thu, 24 Feb 2011 15:58:48 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/24/redhate5ae89e8a385e697b6-grube587bae99499-e5b08fe8aeb0.html</guid>
+      <dc:date>2011-02-24T15:58:48Z</dc:date>
+    </item>
+    <item>
+      <title>GM测试中的getElementByClassName</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/23/gme6b58be8af95e4b8ade79a84getelementbyclassname.html</link>
+      <description>&lt;p&gt;虽然有document.getElementsByClassName(),有querySelector
+但是还是想解决一下，有两种思路(可以点击右上角的那个＋进行编辑)：
+1.通过正则表达式&lt;/p&gt;
+</description>
+      <pubDate>Wed, 23 Feb 2011 16:40:06 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/23/gme6b58be8af95e4b8ade79a84getelementbyclassname.html</guid>
+      <dc:date>2011-02-23T16:40:06Z</dc:date>
+    </item>
+    <item>
+      <title>vim无法显示设置颜色解决方法</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/23/vime697a0e6b395e698bee7a4bae8aebee7bdaee9a29ce889b2e8a7a3e586b3e696b9e6b395.html</link>
+      <description>&lt;p&gt;可能你会遇到跟我相同的情况：&lt;/p&gt;
+</description>
+      <pubDate>Wed, 23 Feb 2011 13:44:42 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/23/vime697a0e6b395e698bee7a4bae8aebee7bdaee9a29ce889b2e8a7a3e586b3e696b9e6b395.html</guid>
+      <dc:date>2011-02-23T13:44:42Z</dc:date>
+    </item>
+    <item>
+      <title>Ubuntu下Dropbox 被墙后的安装方法</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/20/ubuntue4b88bdropbox-e8a2abe5a299e5908ee79a84e5ae89e8a385e696b9e6b395.html</link>
+      <description>&lt;p&gt;如无意外，运用一般方法安装dropbox的话，你会去官方那个网站上下个deb包，但是那只是一个壳而已，提示要更新的时候就说连接不到了。&lt;/p&gt;
+</description>
+      <pubDate>Sun, 20 Feb 2011 01:02:52 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/20/ubuntue4b88bdropbox-e8a2abe5a299e5908ee79a84e5ae89e8a385e696b9e6b395.html</guid>
+      <dc:date>2011-02-20T01:02:52Z</dc:date>
+    </item>
+    <item>
+      <title>电力王排行榜--Bad idea</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/16/e794b5e58a9be78e8be68e92e8a18ce6a69c-bad-idea.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-7.png&quot;&gt;&lt;img src=&quot;http://www.lantonspeng.blog.cd/files/2011/02/Screenshot-7-e1297823556806-1024x529.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;今天在床上躺着想到一个你可能认为很无聊，郁闷的东西----‘电力王排行榜'（我们学校的）&lt;/p&gt;
+</description>
+      <pubDate>Wed, 16 Feb 2011 02:43:20 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/16/e794b5e58a9be78e8be68e92e8a18ce6a69c-bad-idea.html</guid>
+      <dc:date>2011-02-16T02:43:20Z</dc:date>
+    </item>
+    <item>
+      <title>推动旁听的力量</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/14/e68ea8e58aa8e69781e590ace79a84e58a9be9878f.html</link>
+      <description>&lt;p&gt;&lt;strong&gt;update:一个alpha版本&lt;a href=&quot;http://pangting.me&quot;&gt;旁听么&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+</description>
+      <pubDate>Mon, 14 Feb 2011 06:05:51 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/14/e68ea8e58aa8e69781e590ace79a84e58a9be9878f.html</guid>
+      <dc:date>2011-02-14T06:05:51Z</dc:date>
+    </item>
+    <item>
+      <title>解决Chromium中文乱码问题</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/14/e8a7a3e586b3chromiume4b8ade69687e4b9b1e7a081e997aee9a298.html</link>
+      <description>&lt;p&gt;1.确认Preference中的font设置为GBK&lt;/p&gt;
+</description>
+      <pubDate>Mon, 14 Feb 2011 01:03:14 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/14/e8a7a3e586b3chromiume4b8ade69687e4b9b1e7a081e997aee9a298.html</guid>
+      <dc:date>2011-02-14T01:03:14Z</dc:date>
+    </item>
+    <item>
+      <title>一个基于“目标分享”的社交网络</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/08/e4b880e4b8aae59fbae4ba8ee2809ce79baee6a087e58886e4baabe2809de79a84e7a4bee4baa4e7bd91e7bb9c.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://www.lantonspeng.blog.cd/files/2011/02/%E6%97%A0%E6%A0%87%E9%A2%98.png&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;http://www.lantonspeng.blog.cd/files/2011/02/Aim_social.jpg&quot;&gt;&lt;img src=&quot;http://www.lantonspeng.blog.cd/files/2011/02/Aim_social-1024x575.jpg&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Tue, 08 Feb 2011 07:13:56 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/02/08/e4b880e4b8aae59fbae4ba8ee2809ce79baee6a087e58886e4baabe2809de79a84e7a4bee4baa4e7bd91e7bb9c.html</guid>
+      <dc:date>2011-02-08T07:13:56Z</dc:date>
+    </item>
+    <item>
+      <title>FileZilla--无法下载文件以及乱码问题</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/26/filezilla-e697a0e6b395e4b88be8bdbde69687e4bbb6e4bba5e58f8ae4b9b1e7a081e997aee9a298.html</link>
+      <description>&lt;p&gt;用服务器下载些东西就是爽，但是问题来了，在自己的ftp client 中看到的文件都是乱码的。&lt;/p&gt;
+</description>
+      <pubDate>Wed, 26 Jan 2011 10:52:48 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/26/filezilla-e697a0e6b395e4b88be8bdbde69687e4bbb6e4bba5e58f8ae4b9b1e7a081e997aee9a298.html</guid>
+      <dc:date>2011-01-26T10:52:48Z</dc:date>
+    </item>
+    <item>
+      <title>Android练习之Sqlite</title>
+      <link>http://lanstonpeng.github.io/2011/01/25/androide7bb83e4b9a0e4b98bsqlite.html</link>
+      <description>&lt;p&gt;Android 上装有一个轻量级数据库，它支持 SQL 语言，并且只利用很少的内存就有很好的性能，Android中每一个App都可以使用Sqlite&lt;/p&gt;
+</description>
+      <pubDate>Tue, 25 Jan 2011 12:30:18 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/2011/01/25/androide7bb83e4b9a0e4b98bsqlite.html</guid>
+      <dc:date>2011-01-25T12:30:18Z</dc:date>
+    </item>
+    <item>
+      <title>socket 的小小尝试</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/25/socket-e79a84e5b08fe5b08fe5b09de8af95.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://www.lantonspeng.blog.cd/files/2011/01/Screenshot2.png&quot;&gt;&lt;img src=&quot;http://www.lantonspeng.blog.cd/files/2011/01/Screenshot2.png-1024x575.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;看着看着那些协议，觉得要动动手才可以的，所以就弄了一个超级简单的demo，没有涉及多线程那些。&lt;/p&gt;
+</description>
+      <pubDate>Tue, 25 Jan 2011 11:29:15 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/25/socket-e79a84e5b08fe5b08fe5b09de8af95.html</guid>
+      <dc:date>2011-01-25T11:29:15Z</dc:date>
+    </item>
+    <item>
+      <title>TedxGuangzhou 2011.1</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/16/tedxguangzhoue5bd92e69da5.html</link>
+      <description>&lt;p&gt;&lt;img src=&quot;http://lantonspeng.blog.cd//files/2011/01/DSC01097.jpg-300x225.jpg&quot; alt=&quot;&quot; /&gt;虽然明天要连续开考,但是毫无悬念地，斩钉截铁地去了TedxGuangzhou(&lt;a href=&quot;http://tedxguangzhou.com/&quot;&gt;http://tedxguangzhou.com/&lt;/a&gt;).&lt;/p&gt;
+</description>
+      <pubDate>Sun, 16 Jan 2011 12:34:38 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/16/tedxguangzhoue5bd92e69da5.html</guid>
+      <dc:date>2011-01-16T12:34:38Z</dc:date>
+    </item>
+    <item>
+      <title>做一个基于大学城的LBS</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/15/e5819ae4b880e4b8aae59fbae4ba8ee5a4a7e5ada6e59f8ee79a84lbs.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://www.lantonspeng.blog.cd/files/2011/01/myImage-11.png&quot;&gt;&lt;img src=&quot;http://www.lantonspeng.blog.cd/files/2011/01/myImage-11.png-1024x440.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Sat, 15 Jan 2011 13:26:02 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/15/e5819ae4b880e4b8aae59fbae4ba8ee5a4a7e5ada6e59f8ee79a84lbs.html</guid>
+      <dc:date>2011-01-15T13:26:02Z</dc:date>
+    </item>
+    <item>
+      <title>Ubuntu下设置telnet与ssh服务器</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/12/ubuntue4b88be8aebee7bdaetelnete69c8de58aa1e599a8.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://www.lanstonpeng.tk/files/2011/01/Screenshot-6.png&quot;&gt;&lt;/a&gt;
+&lt;a href=&quot;http://www.lanstonpeng.tk/files/2011/01/Screenshot-7.png&quot;&gt;&lt;/a&gt;为了迎接寒假的服务器初配,小生俺在考试前学学&lt;/p&gt;
+</description>
+      <pubDate>Wed, 12 Jan 2011 11:39:37 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/12/ubuntue4b88be8aebee7bdaetelnete69c8de58aa1e599a8.html</guid>
+      <dc:date>2011-01-12T11:39:37Z</dc:date>
+    </item>
+    <item>
+      <title>linux文件权限点滴</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/11/linuxe69687e4bbb6e69d83e99990e782b9e6bbb4.html</link>
+      <description>&lt;p&gt;普通文件的权限与文件夹的权限表现得不一样的&lt;/p&gt;
+</description>
+      <pubDate>Tue, 11 Jan 2011 15:31:15 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/11/linuxe69687e4bbb6e69d83e99990e782b9e6bbb4.html</guid>
+      <dc:date>2011-01-11T15:31:15Z</dc:date>
+    </item>
+    <item>
+      <title>Android的startActivityForResult()</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/11/androide79a84startactivityforresult.html</link>
+      <description>&lt;p&gt;每天的测试都在小地方卡住了,我只是想现在练好些基本功到时可以实现自己的想法而已....&lt;/p&gt;
+</description>
+      <pubDate>Tue, 11 Jan 2011 14:23:12 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/11/androide79a84startactivityforresult.html</guid>
+      <dc:date>2011-01-11T14:23:12Z</dc:date>
+    </item>
+    <item>
+      <title>关于Android中的:[id] cannot be resolved or is not a field</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/10/e585b3e4ba8eandroide4b8ade79a84id-cannot-be-resolved-or-is-not-a-field.html</link>
+      <description>&lt;p&gt;今晚遇到的小问题不少啊~&lt;/p&gt;
+</description>
+      <pubDate>Mon, 10 Jan 2011 13:49:06 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/10/e585b3e4ba8eandroide4b8ade79a84id-cannot-be-resolved-or-is-not-a-field.html</guid>
+      <dc:date>2011-01-10T13:49:06Z</dc:date>
+    </item>
+    <item>
+      <title>Android的OnTouch和OnClick以及模拟器的那些事</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/10/androide79a84ontouche5928conclicke4bba5e58f8ae6a8a1e68b9fe599a8e79a84e982a3e4ba9be4ba8b.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://www.lanstonpeng.tk/files/2011/01/Screenshot1.png&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.lanstonpeng.tk/files/2011/01/Screenshot-2.png&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.lanstonpeng.tk/files/2011/01/Screenshot-3.png&quot;&gt;&lt;/a&gt;本来在测试一下代码的,谁知让这两个方法给卡住了&lt;/p&gt;
+</description>
+      <pubDate>Mon, 10 Jan 2011 13:03:28 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/10/androide79a84ontouche5928conclicke4bba5e58f8ae6a8a1e68b9fe599a8e79a84e982a3e4ba9be4ba8b.html</guid>
+      <dc:date>2011-01-10T13:03:28Z</dc:date>
+    </item>
+    <item>
+      <title>关于用360“破解”数学光碟刻录</title>
+      <link>http://lanstonpeng.github.io/2011/01/06/e585b3e4ba8ee794a8360e7a0b4e8a7a3e695b0e5ada6e58589e7a29fe588bbe5bd95.html</link>
+      <description>&lt;p&gt;当年&lt;/p&gt;
+</description>
+      <pubDate>Thu, 06 Jan 2011 15:33:09 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/2011/01/06/e585b3e4ba8ee794a8360e7a0b4e8a7a3e695b0e5ada6e58589e7a29fe588bbe5bd95.html</guid>
+      <dc:date>2011-01-06T15:33:09Z</dc:date>
+    </item>
+    <item>
+      <title>关于《Positive Psychology》中的某句话</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/06/e585b3e4ba8ee3808apositive-psychologye3808be4b8ade79a84e69f90e58fa5e8af9d.html</link>
+      <description>&lt;p&gt;那个老师本来也是搞计算机的，但是后来跑去搞心理学了。。。&lt;/p&gt;
+</description>
+      <pubDate>Thu, 06 Jan 2011 15:22:02 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/06/e585b3e4ba8ee3808apositive-psychologye3808be4b8ade79a84e69f90e58fa5e8af9d.html</guid>
+      <dc:date>2011-01-06T15:22:02Z</dc:date>
+    </item>
+    <item>
+      <title>Balsmiq尝试and一个app想法</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/06/balsmiqe5b09de8af95ande4b880e4b8aaappe683b3e6b395.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://www.lantonspeng.blog.cd/files/2011/01/myImage.png&quot;&gt;&lt;img src=&quot;http://www.lantonspeng.blog.cd/files/2011/01/myImage.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Thu, 06 Jan 2011 15:12:51 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2011/01/06/balsmiqe5b09de8af95ande4b880e4b8aaappe683b3e6b395.html</guid>
+      <dc:date>2011-01-06T15:12:51Z</dc:date>
+    </item>
+    <item>
+      <title>Different ways may be true somehow somewhere</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/12/26/different-ways-may-be-true-somehow-somewhere.html</link>
+      <description>&lt;p&gt;Well,I've just seen a video from ted.com ,although it only last about 2 minutes ,I think it's pretty infomative.&lt;/p&gt;
+</description>
+      <pubDate>Sun, 26 Dec 2010 13:25:08 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/12/26/different-ways-may-be-true-somehow-somewhere.html</guid>
+      <dc:date>2010-12-26T13:25:08Z</dc:date>
+    </item>
+    <item>
+      <title>Steven Jobs 某年的演讲</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/12/23/steven-jobs-e69f90e5b9b4e79a84e6bc94e8aeb2.html</link>
+      <description>&lt;p&gt;都是一些很受用的东西,的确是这样的
+Your time is limited ,so
+don't waste it living someone else's life&lt;/p&gt;
+</description>
+      <pubDate>Thu, 23 Dec 2010 15:46:16 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/12/23/steven-jobs-e69f90e5b9b4e79a84e6bc94e8aeb2.html</guid>
+      <dc:date>2010-12-23T15:46:16Z</dc:date>
+    </item>
+    <item>
+      <title>github 在ubuntu下的设置问题</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/12/23/github-e59ca8ubuntue4b88be79a84e8aebee7bdaee997aee9a298.html</link>
+      <description>&lt;p&gt;上完选修课,回到宿舍不想看书,就弄了弄之前的github,&lt;/p&gt;
+</description>
+      <pubDate>Thu, 23 Dec 2010 14:47:41 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/12/23/github-e59ca8ubuntue4b88be79a84e8aebee7bdaee997aee9a298.html</guid>
+      <dc:date>2010-12-23T14:47:41Z</dc:date>
+    </item>
+    <item>
+      <title>javascript 作用域点滴</title>
+      <link>http://lanstonpeng.github.io/2010/12/22/javascript-e4bd9ce794a8e59f9fe782b9e6bbb4.html</link>
+      <description>&lt;ol&gt;
+&lt;li&gt; var name = 'lanston';&lt;/li&gt;
+&lt;/ol&gt;
+
+</description>
+      <pubDate>Wed, 22 Dec 2010 15:44:01 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/2010/12/22/javascript-e4bd9ce794a8e59f9fe782b9e6bbb4.html</guid>
+      <dc:date>2010-12-22T15:44:01Z</dc:date>
+    </item>
+    <item>
+      <title>一个良好的系统应该拥有一个设计良好的架构</title>
+      <link>http://lanstonpeng.github.io/2010/12/16/e4b880e4b8aae889afe5a5bde79a84e7b3bbe7bb9fe5ba94e8afa5e68ba5e69c89e4b880e4b8aae8aebee8aea1e889afe5a5bde79a84e69eb6e69e84.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://lantonspeng.blog.cd/files/2010/12/%E6%97%A0%E6%A0%87%E9%A2%98221.png&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Thu, 16 Dec 2010 08:04:25 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/2010/12/16/e4b880e4b8aae889afe5a5bde79a84e7b3bbe7bb9fe5ba94e8afa5e68ba5e69c89e4b880e4b8aae8aebee8aea1e889afe5a5bde79a84e69eb6e69e84.html</guid>
+      <dc:date>2010-12-16T08:04:25Z</dc:date>
+    </item>
+    <item>
+      <title>猪的185种&quot;用法&quot;</title>
+      <link>http://lanstonpeng.github.io/2010/12/14/e78caae79a84185e7a78de794a8e6b395.html</link>
+      <description>&lt;p&gt;今天中午有空,就看了下ted,看了一个荷兰的演讲者讲述了猪的各种&quot;用法&quot; ,一个有185种,猪身上的每一个东西几乎都渗透我们的生活当中,最不可思议的是,子弹什么的,火车零件什么的都能见到猪的&quot;踪影&quot;
+表象这货究竟隐藏多少有趣的东西啊，我们是否也过分低估了自身的价值了
+This's a totally sarcasm!
+我能从猪身上发现如此之多的“用处”，我们对自己呢？
+A totally sarcasm!&lt;/p&gt;
+</description>
+      <pubDate>Tue, 14 Dec 2010 15:46:26 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/2010/12/14/e78caae79a84185e7a78de794a8e6b395.html</guid>
+      <dc:date>2010-12-14T15:46:26Z</dc:date>
+    </item>
+    <item>
+      <title>chromium 打开是显示 类似 &quot;Open profile error&quot;的解决方式</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/12/11/chromium-e68993e5bc80e698afe698bee7a4ba-e7b1bbe4bcbc-open-profile-errore79a84e8a7a3e586b3e696b9e5bc8f.html</link>
+      <description>&lt;p&gt;之前一直不能同步浏览器原来是这个的profile的问题&lt;/p&gt;
+</description>
+      <pubDate>Sat, 11 Dec 2010 15:29:46 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/12/11/chromium-e68993e5bc80e698afe698bee7a4ba-e7b1bbe4bcbc-open-profile-errore79a84e8a7a3e586b3e696b9e5bc8f.html</guid>
+      <dc:date>2010-12-11T15:29:46Z</dc:date>
+    </item>
+    <item>
+      <title>javascript窗口中的点滴</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/12/11/113.html</link>
+      <description>&lt;p&gt;不同浏览器有不同的解析&lt;/p&gt;
+</description>
+      <pubDate>Sat, 11 Dec 2010 11:35:58 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/12/11/113.html</guid>
+      <dc:date>2010-12-11T11:35:58Z</dc:date>
+    </item>
+    <item>
+      <title>javascript细节笔记(一)--toString 与 valueOf</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/12/07/javascripte7bb86e88a82e7ac94e8aeb0e4b880-tostring-e4b88e-valueof.html</link>
+      <description>&lt;p&gt;function check(val){ this.p=val } check.prototype.valueOf=function(){alert(this.p+'valueof')} check.prototype.toString=function(){alert(this.p+'toString');}&lt;/p&gt;
+</description>
+      <pubDate>Tue, 07 Dec 2010 11:22:06 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/12/07/javascripte7bb86e88a82e7ac94e8aeb0e4b880-tostring-e4b88e-valueof.html</guid>
+      <dc:date>2010-12-07T11:22:06Z</dc:date>
+    </item>
+    <item>
+      <title>分享交流会第一周目</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/12/05/check-2.html</link>
+      <description>&lt;p&gt;&lt;a href=&quot;http://prezi.com/cf4w7ltw3vpl/presentation/&quot;&gt;分享--我的网络生活中的点点滴滴&lt;/a&gt; on &lt;a href=&quot;http://prezi.com&quot;&gt;Prezi&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Sun, 05 Dec 2010 06:07:30 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/12/05/check-2.html</guid>
+      <dc:date>2010-12-05T06:07:30Z</dc:date>
+    </item>
+    <item>
+      <title>python学习点滴 &amp; 引用计数demo</title>
+      <link>http://lanstonpeng.github.io/2010/11/26/pythone5ada6e4b9a0e782b9e6bbb4-e5bc95e794a8e8aea1e695b0demo.html</link>
+      <description>&lt;p&gt;id()
+type()
+3种比较类型:
+type(L)==type([])
+type(L)==list
+isinstance(L,list)&lt;/p&gt;
+</description>
+      <pubDate>Fri, 26 Nov 2010 09:38:43 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/2010/11/26/pythone5ada6e4b9a0e782b9e6bbb4-e5bc95e794a8e8aea1e695b0demo.html</guid>
+      <dc:date>2010-11-26T09:38:43Z</dc:date>
+    </item>
+    <item>
+      <title>Randy Pausch's Last Lecture</title>
+      <link>http://lanstonpeng.github.io/2010/11/26/randy-pauschs-last-lecture.html</link>
+      <description>&lt;p&gt;brick walls 只是阻止那些那些没有足够资格，热情的人，真正追求的人是无畏brick walls&lt;/p&gt;
+</description>
+      <pubDate>Fri, 26 Nov 2010 01:18:29 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/2010/11/26/randy-pauschs-last-lecture.html</guid>
+      <dc:date>2010-11-26T01:18:29Z</dc:date>
+    </item>
+    <item>
+      <title>Success is a continuous way</title>
+      <link>http://lanstonpeng.github.io/2010/11/26/success-is-a-continuous-way.html</link>
+      <description>&lt;p&gt;Well,I do acknowledge that suceess is straightway ,However，I was wrong&lt;/p&gt;
+</description>
+      <pubDate>Fri, 26 Nov 2010 01:17:56 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/2010/11/26/success-is-a-continuous-way.html</guid>
+      <dc:date>2010-11-26T01:17:56Z</dc:date>
+    </item>
+    <item>
+      <title>博客的首篇文章</title>
+      <link>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/08/25/e7bba7e7bbade68891e79a84e6b58be8af95.html</link>
+      <description>&lt;p&gt;本来在百度空间有个的，但是好奇心让我去了Blogger，但是怕别人访问不了，于是弄了个域名绑定，谁知博客有些链接不翻看不到，于是我回到久违的博客园，最后因为css弱爆了，后去到 blog.cd.....&lt;/p&gt;
+</description>
+      <pubDate>Wed, 25 Aug 2010 23:38:49 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/08/25/e7bba7e7bbade68891e79a84e6b58be8af95.html</guid>
+      <dc:date>2010-08-25T23:38:49Z</dc:date>
+    </item>
+    <dc:date>2014-01-03T23:38:49Z</dc:date>
+  </channel>
+</rss>

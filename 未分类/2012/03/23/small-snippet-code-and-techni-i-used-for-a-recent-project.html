@@ -29,6 +29,9 @@
 Here's a situation,I have to play a sound while 2 objects is in a collision,the problem is that there's plenty of objects in collision at the very same time,We want the sound to be played one by one
 So,I have to cancle the previous(the excuting function)</p>
 
+
+
+
 <pre><code>function reduceFunc(func,context){
   clearTimeout(func.methodID);
   func.methodID=setTimeout(function(){
@@ -37,19 +40,37 @@ So,I have to cancle the previous(the excuting function)</p>
 }
 </code></pre>
 
+
+
+
 <p><strong>Garbage Optimization:</strong>
 While reset the an array , I tend to make it as usual like</p>
+
+
+
 
 <pre><code>arr=[]
 </code></pre>
 
+
+
+
 <p>Because everytime we restart a game , every global array will have to be reset to empty,
 So , with the aim of reducing the garbage,Instead ,I set</p>
+
+
+
 
 <pre><code>arr.length=0
 </code></pre>
 
+
+
+
 <p>Similarly,while we have to <strong>new</strong> an object ,I learned from <a href="https://github.com/illandril/box2dweb-closure/blob/master/src/common/math/b2Vec2.js">Box2D</a></p>
+
+
+
 
 <pre><code>Box2D.Common.Math.b2Vec2.Get = function(x, y) {
     if (Box2D.Common.Math.b2Vec2._freeCache.length &gt; 0) {
@@ -61,24 +82,42 @@ So , with the aim of reducing the garbage,Instead ,I set</p>
 };&lt;!-- more --&gt;
 </code></pre>
 
+
+
+
 <p>We cache some object like Monster , Bubble in an array,while we tend to create an object ,we firstly check the caching array,if there's one related left,we wipe that object and
 assign some new values to it,just like what Box2D did</p>
+
+
+
 
 <p><strong>Mobile &amp;&amp; Tablet Optimization:</strong>
 Viewport
 I simply add the following line</p>
 
+
+
+
 <pre><code> meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=0.9, user-scalable=no"
 </code></pre>
+
+
+
 
 <p>Manifest
 enable offline playing
 make your mainfest file and enable the mime type in your server</p>
 
+
+
+
 <p><strong>WebWorker:</strong>
 While we calculate the physical object behaviour,we first make a long math caculation in the <strong>Main Thread</strong>
 It didn't block anything at the very beginning ,But as the object's growing and the logic became more complex,some frames will lost as some calculation blocked them,
 So,we tend to use webworker to fix it</p>
+
+
+
 
 <pre><code>worker.postMessage({
     cmd:"bubbleNextPosition",
@@ -89,14 +128,23 @@ So,we tend to use webworker to fix it</p>
 });
 </code></pre>
 
+
+
+
 <p>But,there's another problem came out,<strong>webworker</strong> itself is <strong>not</strong> multi thread,So ,while there's plenty of bubble ask webworker to calulate itself,their requests are
 in a queue,we won't provide multi workers to work for each bubble,So,we have to send a large JSON represent the whole game's bubble</p>
+
+
+
 
 <p><strong>Long polling and ...:</strong>
 The client side is not so complex to code,simply speaking,rebuild a connection while the previous connection is closed
 But the server side is more complicated ,since there's a lot of issue to considerate:
 1) Brocasting
 About brocasting, in every group of users,we maintain a message queue,and there's a cursor that belongs to each user.</p>
+
+
+
 
 <pre><code>if cursor:
             index = 0
@@ -110,15 +158,22 @@ About brocasting, in every group of users,we maintain a message queue,and there'
         cls.waiters.add(callback)
 </code></pre>
 
+
+
+
 <p>Oops,so stupid ,but I think it's a little bit explicable here,
 While the server update this group of users, we check each cursor to decide how many messages should be delivered,
 And we use a robust messaging component called <a href="http://www.rabbitmq.com/">RabbitMQ</a>
 2) Guarantee the message is received by the user
 As you may expected,Like what TCP did,we send a confirm token to the server ,nothing serious here</p>
 
+
+
+
 <p>Ref:
 --><a href="http://stackoverflow.com/questions/9613959/is-webworker-itself-multi-thread">Is webworker itself multi-thread?</a>
 --><a href="http://www.scirra.com/blog/76/how-to-write-low-garbage-real-time-javascript?utm_source=javascriptweekly&amp;utm_medium=email">How to write low garbage real-time Javascript</a></p>
+
 
 </div>
 
@@ -143,14 +198,14 @@ dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
           <div class="footer">
             <div class="contact">
               <p>
-                Lanston Peng<br />
-                Life Hacker<br />
-                lanstonpeng@gmail.com
+                I'm Lanston Peng<br />
+                An on-the-way Life Hacker<br />
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="https://twitter.com/lanstonpeng">@lanstonpeng</a><br />
+                <a href="https://github.com/lanstonpeng">lanstonpeng</a><br />
                 <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>

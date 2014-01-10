@@ -27,22 +27,48 @@
 <div class="post">
 <p><strong>现状：</strong>平时我看到好的素材来不及看了，经典的一般都会存入书签，一般会放到read it later,evernote 里面，上课的时候接着看，但是，我越来越需要一种高精度的素材收集器，即</p>
 
+
+
+
 <p>我在页面上看到的<strong>所有东西</strong>都可以作为我收集的素材的一部分，从而在多个页面中组成我想要的东西</p>
+
+
+
 
 <p><a href="http://files.blogcn.com/wp04/M00/01/F7/wKgKDE5vXbsAAAAAAASX0Wbktz4206.png"><img src="http://files.blogcn.com/wp03/M00/01/AA/wKgKC05vXbwAAAAAAACX3QtEvyk813.png" alt="" /></a>我试着让页面中的各个元素都可以单独的可被拖拉，让任意元素都可以“放到”我右边的 simpleBox 里面</p>
 
+
+
+
 <p><strong>实现：</strong></p>
+
+
+
 
 <p><strong>对于 桌面的文件</strong>，使用HTML5的xhr level2可实现上传文件的功能，这个在之前的文章有说到</p>
 
+
+
+
 <p><strong>对于页面上面的元素（图片，文字，声音，视频）</strong>，可先有一个让其可拖拉的方法</p>
+
+
+
 
 <pre><code>simpleBox.setDrag(document.getElementsByTagName("video"), document.getElementById("drag"),"img",document.getElementsByTagName("audio") )
 </code></pre>
 
+
+
+
 <p>使用的话就是这么个样子，内部实现的话也仅仅是谨慎细腻活而已，没有什么高技术可言，代码也就不贴出来了，仅仅是在对audio,video标签的可拖拉的地方作了一点点小文章而已</p>
 
+
+
+
 <!-- more -->
+
+
 
 
 <pre><code>.outterInsertDiv {
@@ -77,20 +103,44 @@ function setVideoDraggable(elem) {
 }
 </code></pre>
 
+
+
+
 <p><strong> 我一直在想，是否有办法让javascript使用File API 读取页面上的文件呢？</strong></p>
+
+
+
 
 <p>我尝试了许久一直没有结果,突然想到是否可以用iframe作为盒子呢，然后实验失败了（如果大牛您知道的话麻烦告诉小弟俺一下），只能将这部分放手给server那边干了，js主要的活就是<strong>拼接元素的绝对路径</strong>，跟上面的工作类似</p>
 
+
+
+
 <p>去到server那边，技术上没什么创新的，但是说到在布局组织上安排素材却成了一个较大的难题，我打算采用类似Metro风格那种UI，写到后面没什么灵感了</p>
+
+
+
 
 <p>直到后来有灵感了，但仅仅对于image而已，而且仅仅是一个比较旧的方法，当初就真没想到</p>
 
+
+
+
 <p>思路比较简单：</p>
+
+
+
 
 <pre><code>图片---&gt;Canvas----&gt;Raw Data-----&gt;Send
 </code></pre>
 
+
+
+
 <p>首先得有一个隐藏的canvas元素,充当一个数据转换容器</p>
+
+
+
 
 <pre><code>canvas{
     display:none;
@@ -110,20 +160,44 @@ var img=document.querySelector("#cpyimg"),
      console.log(canvas.toDataURL()) //因为win中有后缀,后测试如果img没有后缀依旧成功能获取，同时img也可以读取图片，linux没有测试
 </code></pre>
 
+
+
+
 <p>当然，canvas.toDataURL()之后必须要替换掉前面的</p>
+
+
+
 
 <pre><code>data:image/png;base64,
 </code></pre>
 
+
+
+
 <p>就这么简单明了,只是学习的时候没有注意总结罢了,当然，这仅仅是针对图片罢了</p>
+
+
+
 
 <p>那么，对于其他文件呢，如何做到共性呢？</p>
 
+
+
+
 <p>估计大家会想到binary data, That's it!</p>
+
+
+
 
 <p>But How ?首先鸣谢Defims的方案，思路也是比较简单，</p>
 
+
+
+
 <p>xhr请求，虽然表明上看是重新向Server拿数据，实际上是从本地cache检索数据，若存在，则从cache拿，否则就重新从Server获取，下面是从chromiume的console台里面看到的数据</p>
+
+
+
 
 <pre><code>Request URL:
    http://localhost:8000/pic
@@ -133,7 +207,11 @@ Status Code:
   200 OK &lt;span style="color: #ff9900;"&gt;(from cache)&lt;/span&gt;
 </code></pre>
 
+
+
+
 <p>我们可以看到括号这里，那么看到xhr.responseText里面的是binary Data,拥有了binary data之后就好办了，利用XMLHttpRequest(level2) 发给Server 处理就可以了</p>
+
 
 </div>
 
@@ -158,14 +236,14 @@ dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
           <div class="footer">
             <div class="contact">
               <p>
-                Lanston Peng<br />
-                Life Hacker<br />
-                lanstonpeng@gmail.com
+                I'm Lanston Peng<br />
+                An on-the-way Life Hacker<br />
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="https://twitter.com/lanstonpeng">@lanstonpeng</a><br />
+                <a href="https://github.com/lanstonpeng">lanstonpeng</a><br />
                 <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>

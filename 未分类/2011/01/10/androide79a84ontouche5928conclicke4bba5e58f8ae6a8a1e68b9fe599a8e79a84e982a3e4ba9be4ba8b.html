@@ -27,122 +27,293 @@
 <div class="post">
 <p><a href="http://www.lanstonpeng.tk/files/2011/01/Screenshot1.png"></a><a href="http://www.lanstonpeng.tk/files/2011/01/Screenshot-2.png"></a><a href="http://www.lanstonpeng.tk/files/2011/01/Screenshot-3.png"></a>本来在测试一下代码的,谁知让这两个方法给卡住了</p>
 
+
+
+
 <p>关键代码如下:</p>
+
+
+
 
 <p>ImageButton ibtn=new ImageButton(this);</p>
 
+
+
+
 <p>ibtn.setImageResource(R.drawable.icon);</p>
+
+
+
 
 <p>ibtn.setOnClickListener(new OnClickListener() {</p>
 
+
+
+
 <p>@Override</p>
+
+
+
 
 <p>public void onClick(View v) {</p>
 
+
+
+
 <p>// TODO Auto-generated method stub</p>
+
+
+
 
 <p>Toast.makeText(myproject.this, "OnClick Event", Toast.LENGTH_LONG).show();</p>
 
+
+
+
 <p>Log.d("t", "OnClickEvent");</p>
 
+
+
+
 <p>}</p>
+
+
+
 
 <p>});<!-- more --></p>
 
+
+
+
 <p>ibtn.setOnTouchListener(new OnTouchListener() {</p>
+
+
+
 
 <p>@Override</p>
 
+
+
+
 <p>public boolean onTouch(View v, MotionEvent event) {</p>
+
+
+
 
 <p>// TODO Auto-generated method stub</p>
 
+
+
+
 <p>Toast.makeText(myproject.this, "onTouch Event", Toast.LENGTH_LONG).show();</p>
+
+
+
 
 <p>Log.d("t", "OnTouchEvent");</p>
 
+
+
+
 <p><strong>return false;</strong></p>
+
+
+
 
 <p>/*switch(event.getAction()){</p>
 
+
+
+
 <p>case MotionEvent.ACTION_DOWN:{</p>
 
+
+
+
 <p>}</p>
+
+
+
 
 <p>case MotionEvent.ACTION_UP: {</p>
 
+
+
+
 <p>//触摸后触发</p>
 
+
+
+
 <p>}</p>
+
+
+
 
 <p>*/</p>
 
+
+
+
 <p>}</p>
+
+
+
 
 <p>});</p>
 
+
+
+
 <p>以上代码显示为图一</p>
+
+
+
 
 <p><a href="http://www.lanstonpeng.tk/files/2011/01/Screenshot1.png"><img src="http://www.lanstonpeng.tk/files/2011/01/Screenshot1.png-300x168.png" alt="" /></a><a href="http://www.lanstonpeng.tk/files/2011/01/Screenshot-1.png"></a><a href="http://www.lanstonpeng.tk/files/2011/01/Screenshot-1.png"></a></p>
 
+
+
+
 <p>图一</p>
+
+
+
 
 <p><a href="http://www.lanstonpeng.tk/files/2011/01/Screenshot-1.png"><img src="http://www.lanstonpeng.tk/files/2011/01/Screenshot-1.png-300x168.png" alt="" /></a></p>
 
+
+
+
 <p>图二</p>
+
+
+
 
 <p>当我将return false 改为true时,Click事件就不触发了,看了看SDK里面说的</p>
 
+
+
+
 <h5>Returns</h5>
+
+
+
 
 <ul>
 <li>True if the listener has consumed the event, false otherwise.</li>
 </ul>
 
 
+
+
 <p>即返回true表明onTouch已经"消费"(简单来说就是完成了你手指点上去的事件了,不用再触发其他相关事件了,于是,这里不再触发Onclick事件了)</p>
+
+
+
 
 <p>但是这里产生了一个问题:为什么OnTouch触发两次呢?</p>
 
+
+
+
 <p>带着问题,监听了其两个参数</p>
+
+
+
 
 <p>public boolean onTouch(View v, MotionEvent event) {</p>
 
+
+
+
 <p>switch(event.getAction()){</p>
+
+
+
 
 <p>case MotionEvent.ACTION_DOWN:{</p>
 
+
+
+
 <p>Toast.makeText(myproject.this, "onTouch Event", Toast.LENGTH_LONG).show();</p>
+
+
+
 
 <p>Log.d("t", "OnTouchEvent_Down");</p>
 
+
+
+
 <p>}</p>
+
+
+
 
 <p>case MotionEvent.ACTION_UP: {</p>
 
+
+
+
 <p>Toast.makeText(myproject.this, "onTouch Event", Toast.LENGTH_LONG).show();</p>
+
+
+
 
 <p>Log.d("t", "OnTouchEvent_UP");</p>
 
+
+
+
 <p>} }</p>
+
+
+
 
 <p>return false;</p>
 
+
+
+
 <p>}</p>
+
+
+
 
 <p><a href="http://www.lanstonpeng.tk/files/2011/01/Screenshot-2.png"><img src="http://www.lanstonpeng.tk/files/2011/01/Screenshot-2.png-300x168.png" alt="" /></a><a href="http://www.lanstonpeng.tk/files/2011/01/Screenshot-3.png"></a><a href="http://www.lanstonpeng.tk/files/2011/01/Screenshot-3.png"></a></p>
 
+
+
+
 <p>图三</p>
+
+
+
 
 <p>以上代码说明了当我手指点下去的时候,就在日志里面打印 "OnTouchEvent_Down",当我松开手指的时候就打印"OnTouchEvent_UP",但是....</p>
 
+
+
+
 <p>看图:我的鼠标(手指)点下去,注意:我没有放开,可以看到,UP都打印了,奇怪了....</p>
+
+
+
 
 <p><a href="http://www.lanstonpeng.tk/files/2011/01/Screenshot-3.png"><img src="http://www.lanstonpeng.tk/files/2011/01/Screenshot-3.png-300x168.png" alt="" /></a></p>
 
+
+
+
 <p>图四</p>
 
+
+
+
 <p>当事件全部触发完毕的时候,可以看到有两次的UP,我觉得这是模拟器的错误吧,我没搜索到答案虽然....</p>
+
 
 </div>
 
@@ -167,14 +338,14 @@ dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
           <div class="footer">
             <div class="contact">
               <p>
-                Lanston Peng<br />
-                Life Hacker<br />
-                lanstonpeng@gmail.com
+                I'm Lanston Peng<br />
+                An on-the-way Life Hacker<br />
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="https://twitter.com/lanstonpeng">@lanstonpeng</a><br />
+                <a href="https://github.com/lanstonpeng">lanstonpeng</a><br />
                 <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>

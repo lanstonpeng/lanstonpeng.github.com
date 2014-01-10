@@ -27,36 +27,80 @@
 <div class="post">
 <p>又是在睡觉的时候乱想东西......</p>
 
+
+
+
 <p>好吧，就将之前学的一点东西放到这个上面吧</p>
+
+
+
 
 <p>漫迷的我对于动画人物的构造有了些心得：特别是《宠物小精灵》，人物的脸部的每一个器官都是</p>
 
+
+
+
 <p>一个组件，动画家只是将他们<strong>组合</strong>在一起。</p>
+
+
+
 
 <p><strong>为什么要这样呢？</strong></p>
 
+
+
+
 <p>可以看到，这样既可以统一标准（人物构造在每一集中保持不变，不因画家的手感什么的而变化），又可以节约成本（每个人只是各个零件的拼接而已）</p>
 
+
+
+
 <p>好了，说了这么多，到正题了吧？</p>
+
+
+
 
 <!-- more -->
 
 
+
+
 <p>行，让我们一起来设计这个人物吧</p>
+
+
+
 
 <p>传统的思维，现建立一个人物脸型的基类
 <code>class Baseface(object)</code>
 好吧，可能有人会想到要有</p>
 
+
+
+
 <p>self.mouth   self.nose    self.eyes....等等这些东西</p>
+
+
+
 
 <p>好吧，这样是没有问题的，仅仅是对于普通人物而言，当你对某些动画譬如《Naruto》《One piece》有些了解的话，那里某些人物都有严重的扭曲....</p>
 
+
+
+
 <p>有些没头发，有些戴个眼罩，好吧，你可能会想到</p>
+
+
+
 
 <p><em>self.hair=None  self.eyes=eyes_data_with_goggles</em>,对于其他的<strong>装饰</strong>，你可能会想到有一个抽象的东西去封装他们，因为他们总是变化的嘛，恩，的确是这样子的，那反过来问，这些  <em>self.mouth   self.nose    self.eyes</em> 岂不也是不断变化的？</p>
 
+
+
+
 <p>好吧，这里我将人物的任何一个器官都当作一个组件</p>
+
+
+
 
 <pre><code>class Decorator(object):
   def __init__(self,data):
@@ -64,31 +108,73 @@
   mouth=Decorator([ [0,0,0,0],[0,0,0,0],[1,0,0,1],[0,1,1,0]  ])
 </code></pre>
 
+
+
+
 <p>这个mouth就是下面这个（好吧，我承认这的确很丑，给点想象力吧）</p>
 
-<p>[0, 0, 0, 0]</p>
+
+
 
 <p>[0, 0, 0, 0]</p>
+
+
+
+
+<p>[0, 0, 0, 0]</p>
+
+
+
 
 <p>[1, 0, 0, 1]</p>
 
+
+
+
 <p>[0, 1, 1, 0]</p>
+
+
+
 
 <p>重点在于我的mouth是一个组件，眼睛是一个组件。。。。</p>
 
+
+
+
 <h3></h3>
+
+
+
 
 <p>def Decorate(self,obj):</p>
 
+
+
+
 <p>if not isinstance(obj,Decorator):pass  #do something else</p>
+
+
+
 
 <p>else:</p>
 
+
+
+
 <p>return Decorator(splite_to_2d_array(combine(self.data,obj.data)))</p>
+
+
+
 
 <h3></h3>
 
+
+
+
 <p>其余函数可以先不管，其实我也实现得太恶心了，也没什么可以讲的了，贴出代码就知道了</p>
+
+
+
 
 <pre><code>def display_array(data):
    for i in data:
@@ -146,8 +232,14 @@ display_array(a.data)
 #print eyes.data
 </code></pre>
 
+
+
+
 <p>(PS:如果看不到，可以访问这里：http://jsfiddle.net/lanston/p6aLs/)
 这个是mouth和eyes放在一起的图样（好吧，继续发挥你的想象力）</p>
+
+
+
 
 <p>[0, 0, 0, 0]
 [0, 1, 1, 0]
@@ -155,7 +247,11 @@ display_array(a.data)
 [0, 1, 1, 0]
 BTW:</p>
 
+
+
+
 <p>其实这又牵涉到软件设计思想的地步了，类似<a href="http://sexybuttons.googlecode.com/svn/tags/1.0/index.html#">Sexy button </a>那样，组件化的设计具有其灵活性，在其原型上添加新的东西，并且相互可以装饰，接口一致。</p>
+
 
 </div>
 
@@ -180,14 +276,14 @@ dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
           <div class="footer">
             <div class="contact">
               <p>
-                Lanston Peng<br />
-                Life Hacker<br />
-                lanstonpeng@gmail.com
+                I'm Lanston Peng<br />
+                An on-the-way Life Hacker<br />
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="https://twitter.com/lanstonpeng">@lanstonpeng</a><br />
+                <a href="https://github.com/lanstonpeng">lanstonpeng</a><br />
                 <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>

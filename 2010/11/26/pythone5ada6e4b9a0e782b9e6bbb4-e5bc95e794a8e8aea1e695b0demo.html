@@ -32,7 +32,13 @@ type(L)==type([])
 type(L)==list
 isinstance(L,list)</p>
 
+
+
+
 <p>对象引用计数   对地址</p>
+
+
+
 
 <pre><code>a=1
 b=a
@@ -40,13 +46,21 @@ c=[]
 c.append(b)
 </code></pre>
 
+
+
+
 <p>这里，对象 1 的引用计数为3
 del a
 b=5
 c[0]=9
 这里，对象 1 的引用计数为0</p>
 
+
+
+
 <!-- more -->
+
+
 
 
 <p>a = { }         # a 的引用为 1
@@ -56,7 +70,11 @@ b['a'] = a              # a 的引用增 1，a的引用为 2
 del a           # a 的引用减 1，a的引用为 1
 del b           # b 的引用减 1,  b的引用为 1</p>
 
+
+
+
 <p>在这个例子中,del语句减少了 a 和 b 的引用计数并删除了用于引用的变量名，可是由于两个对象各包含一个对方对象的引用，虽然最后两个对象都无法通过名字访问了，但引用计数并没有减少到零。因此这个对象不会被销毁，它会一直驻留在内存中，这就造成了内存泄漏。为解决这个问题，Python解释器会定期的运行一个搜索器，若发现一个对象已经无法被访问，不论该对象引用计数是否为 0 ，都销毁它。这个搜索器的算法可以通过 gc 模块的函数来进行调整和控制。</p>
+
 
 </div>
 
@@ -81,14 +99,14 @@ dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
           <div class="footer">
             <div class="contact">
               <p>
-                Lanston Peng<br />
-                Life Hacker<br />
-                lanstonpeng@gmail.com
+                I'm Lanston Peng<br />
+                An on-the-way Life Hacker<br />
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="https://twitter.com/lanstonpeng">@lanstonpeng</a><br />
+                <a href="https://github.com/lanstonpeng">lanstonpeng</a><br />
                 <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>

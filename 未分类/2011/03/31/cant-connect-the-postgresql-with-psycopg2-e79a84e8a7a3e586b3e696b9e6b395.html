@@ -27,16 +27,34 @@
 <div class="post">
 <p>感谢＠<a href="http://stackoverflow.com/users/15862/tometzky">Tometzky</a> 和psycopg2的作者</p>
 
+
+
+
 <h2><strong>问题的提出：</strong></h2>
 
+
+
+
 <p>当我试图用psycopg2连接postgreSQL的时候出现了异常</p>
+
+
+
 
 <pre><code>&gt;&gt;conn=psycopg2.connect(database="mydb", user="postgres", password="123",port=5432)&lt;/code&gt;
 </code></pre>
 
+
+
+
 <h2></h2>
 
+
+
+
 <p>`</p>
+
+
+
 
 <pre><code>&gt;&gt;Traceback (most recent call last):
   File "&lt;stdin&gt;", line 1, in &lt;module&gt;
@@ -45,12 +63,23 @@ psycopg2.OperationalError: could not connect to server: No such file or director
     connections on Unix domain socket "/var/run/postgresql/.s.PGSQL.5432"?
 </code></pre>
 
+
+
+
 <p>`</p>
+
+
+
 
 <!-- more -->
 
 
+
+
 <h5>要说明的几点：</h5>
+
+
+
 
 <pre><code>&lt;ol&gt;
     &lt;li&gt;&lt;span style="color: #ff6600;"&gt;My postgreSQL is running&lt;/span&gt;&lt;/li&gt;
@@ -71,19 +100,37 @@ psycopg2.OperationalError: could not connect to server: No such file or director
                    |          |          |            |            | postgres=CTc/postgres
 </code></pre>
 
+
+
+
 <p>恩，这里存在的问题的是
 psycopg2 expects Postgres socket to be in <code>/var/run/postgresql/</code>
  but when you install Postgres from source it is by default it in <code>/tmp/</code>.</p>
 
+
+
+
 <pre><code>&lt;span style="font-family: monospace;"&gt;的即psycopg2默认在/var/run/postgresql 寻找Postgresql端口,但是因为我是通过源码安装的，所以这个socket存在于我的/tmp下面&lt;/span&gt;
 </code></pre>
 
+
+
+
 <h3>解决方法：</h3>
+
+
+
 
 <pre><code>&lt;span style="color: #ff6600;"&gt;指定socket路径&lt;/span&gt;
 </code></pre>
 
+
+
+
 <p>`</p>
+
+
+
 
 <pre><code>&lt;code&gt;conn=psycopg2.connect(
   database="mydb",
@@ -93,7 +140,11 @@ psycopg2 expects Postgres socket to be in <code>/var/run/postgresql/</code>
 )&lt;/code&gt;
 </code></pre>
 
+
+
+
 <p>最后，轻抚<a href="http://stackoverflow.com/questions/5500332/cant-connect-the-postgresql-with-psycopg2">这里</a>访问提问地址</p>
+
 
 </div>
 
@@ -118,14 +169,14 @@ dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
           <div class="footer">
             <div class="contact">
               <p>
-                Lanston Peng<br />
-                Life Hacker<br />
-                lanstonpeng@gmail.com
+                I'm Lanston Peng<br />
+                An on-the-way Life Hacker<br />
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="https://twitter.com/lanstonpeng">@lanstonpeng</a><br />
+                <a href="https://github.com/lanstonpeng">lanstonpeng</a><br />
                 <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>

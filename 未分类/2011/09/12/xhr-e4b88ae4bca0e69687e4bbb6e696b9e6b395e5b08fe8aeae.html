@@ -27,7 +27,13 @@
 <div class="post">
 <p>以前想用xhr上传文件,感觉方法不太那么优雅</p>
 
+
+
+
 <p>最近在弄一个姑且命名为anyDragBox的小web应用，就是WYSIWYW类型...不多说了，在开发的过程中，遇到上传的问题了，跨域先不说，这里主要想讨论一下xhr上传文件的方法</p>
+
+
+
 
 <p><strong>1.base64方案</strong>
 <code>
@@ -54,9 +60,17 @@ xhr.send(e.target.result.match(/,(.*)$/)[1]) //注意 (1)
 reader.readAsDataURL(file)
 </code></p>
 
+
+
+
 <p>本地使用FileReader API的readAsDataURL获取文件的base64编码，发送给server，server再解码存储</p>
 
+
+
+
 <!-- more -->
+
+
 
 
 <p>_ 注意(1)_
@@ -65,18 +79,33 @@ data:[<MIME-type>][;charset=<encoding>][;base64],<data>
 <data>
 服务器方面，这里采用php</p>
 
+
+
+
 <p>所以，为了获取其精确的内容，需要将前面内容去掉，留取<data>部分</p>
+
+
+
 
 <p><code>
 $postdata = file_get_contents("php://input");
 file_put_contents( $_SERVER['HTTP_X_FILE_NAME'], base64_decode($postdata));
 </code></p>
 
+
+
+
 <p>在上面的js代码中，大家可以看到注释部分，我打算将拖拉的图片顺便显示在浏览器里面，但是这里存在一个问题，如果图片太大的话， base64会很多，浏览器解析非常慢，经常卡死甚至崩溃（我这里是Ubuntu10.10+chromium14）
 我认为，如果想让用户得知自己所上传的图片的时候，采用本方案比较方便
 <strong> 2.二进制方案</strong></p>
 
+
+
+
 <hr />
+
+
+
 
 <p>这种方式在client端所用的代码比较少
 <code>
@@ -91,6 +120,9 @@ document.write(xhr.responseText)
 xhr.send(file);
 </code></p>
 
+
+
+
 <p>在服务端方面，核心代码：
 <code>
 file_put_contents(
@@ -98,6 +130,9 @@ $this-&gt;path . $this-&gt;fileName,
 file_get_contents("php://input")
 );
 </code></p>
+
+
+
 
 <p>采用本方案，高效简单，不用作过多的处理
 网上有许多方案是模拟表单，代码都类似这样：
@@ -112,7 +147,11 @@ body += fileData + "\r\n";
 body += "--" + boundary + "--\r\n";
 xhr.sendAsBinary(body);</code></p>
 
+
+
+
 <p>其实，本质上也不过是跟二进制一样</p>
+
 
 </div>
 
@@ -137,14 +176,14 @@ dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
           <div class="footer">
             <div class="contact">
               <p>
-                Lanston Peng<br />
-                Life Hacker<br />
-                lanstonpeng@gmail.com
+                I'm Lanston Peng<br />
+                An on-the-way Life Hacker<br />
               </p>
             </div>
             <div class="contact">
               <p>
-                <a href="https://github.com/lanstonpeng">github.com/lanstonpeng</a><br />
+                <a href="https://twitter.com/lanstonpeng">@lanstonpeng</a><br />
+                <a href="https://github.com/lanstonpeng">lanstonpeng</a><br />
                 <a href="http://www.douban.com/people/lanstonpeng">豆瓣</a><br />
               </p>
             </div>
