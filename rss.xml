@@ -8,7 +8,16 @@
     <title>Lanston Peng's ideas</title>
     <link>http://lanstonpeng.github.io</link>
     <description>RSS feed for Lanston Peng's ideas</description>
-    <pubDate>Fri, 03 Jan 2014 23:38:49 -0000</pubDate>
+    <pubDate>Thu, 30 Jan 2014 23:38:49 -0000</pubDate>
+    <item>
+      <title>BigPipe in Hybrid App</title>
+      <link>http://lanstonpeng.github.io/2014/01/30/bigpipe_in_hybrid_app.html</link>
+      <description>&lt;p&gt;或许很多人已经听过Facebook的运用其“BigPipe”技术来加速其页面加载速度，其核心思想是将页面分成若干个组件(pagelet)，准备好一个后立即推到client而不是等待所有内容准备完毕后再一起push，说白了就是server一段段地返回html到broswer进行渲染&lt;/p&gt;
+</description>
+      <pubDate>Thu, 30 Jan 2014 23:38:49 -0000</pubDate>
+      <guid>http://lanstonpeng.github.io/2014/01/30/bigpipe_in_hybrid_app.html</guid>
+      <dc:date>2014-01-30T23:38:49Z</dc:date>
+    </item>
     <item>
       <title>中央美术展厅中的两件作品</title>
       <link>http://lanstonpeng.github.io/2014/01/03/art-museum.html</link>
@@ -804,6 +813,6 @@ isinstance(L,list)&lt;/p&gt;
       <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/08/25/e7bba7e7bbade68891e79a84e6b58be8af95.html</guid>
       <dc:date>2010-08-25T23:38:49Z</dc:date>
     </item>
-    <dc:date>2014-01-03T23:38:49Z</dc:date>
+    <dc:date>2014-01-30T23:38:49Z</dc:date>
   </channel>
 </rss>
