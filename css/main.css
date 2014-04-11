@@ -13,12 +13,12 @@ html, body { height: 100%; }
 
 body {
   position:relative;
-  background:url(../assets/gridme.png);
-  font: 13.34px Helvetica, Arial, sans-serif;
-  font-size: small;
-  text-align: center;
+  font-family:Lora,Georgia,"Xin Gothic","Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;
+  font-size:15px;
+  line-height:1.62;
   z-index: 2;
 }
+
 .body:after {
   content: "";
   display:block;
@@ -45,9 +45,13 @@ ul.nav li{
     cursor: pointer;
 }
 h1, h2, h3, h4, h5, h6 {
-  font-size: 100%; }
+  font-size: 100%;
+}
 
-h2 { margin-bottom: 1em; }
+
+h2 {
+    font-size:1.8em;
+}
 p { margin: 1em 0; line-height: 2em;}
 
 a         { color: #00a; }
@@ -66,14 +70,20 @@ a:visited { color: #a0a; }
 }
 
 .posts li {
-  line-height: 1.95em;
+  line-height: 2.3em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-.posts span {
+.posts .post-date {
   color: #aaa;
   font-family: Monaco, "Courier New", monospace;
   font-size: 80%;
   float: right;
+}
+.posts li a{
+    text-decoration:none;
 }
 
 /*****************************************************************************/
@@ -84,16 +94,17 @@ a:visited { color: #a0a; }
 
 .site {
   font-size: 115%;
-  //text-align: justify;
   text-align:left;
-  width: 47em;
-  min-width:30em;
+  max-width:650px;
+  min-width:16em;
   margin: 3em auto 2em;
-  line-height: 1.5em;
-  padding-left: 22px;
+  padding:10px 23px;
 }
 
 
+.header{
+  margin-bottom:10px;
+}
 .header a {
   font-weight: bold;
   text-decoration: none;
@@ -101,7 +112,8 @@ a:visited { color: #a0a; }
 
 .title {
   display: inline-block;
-  margin-bottom: 2em;
+  font-size:30px;
+  text-transform:uppercase;
 }
 
 .title a {
@@ -123,6 +135,9 @@ a:visited { color: #a0a; }
 
 .meta {
   color: #aaa;
+  font-family: Optima,"Helvetica Neue",sans-serif;
+  margin:0;
+  font-size:13px;
 }
 
 .footer {
@@ -163,7 +178,6 @@ img{
 /* standard */
 .post pre {
   border: 1px solid #ddd;
-  background-color: #eef;
   padding: 0 .4em;
 }
 
@@ -171,23 +185,31 @@ img{
   margin-left: 1.35em;
 }
 
+.post pre{
+    overflow:scroll;
+}
 .post code {
   border: 1px solid #ddd;
-  background-color: #eef;
   padding: 0 .2em;
 }
 
 .post pre code {
   border: none;
 }
-
 /* terminal */
 .post pre.terminal {
   border: 1px solid #000;
-  background-color: #333;
   color: #FFF;
 }
 
-.post pre.terminal code {
-  background-color: #333;
+#disqus_thread{
+    margin-top:5em;
+}
+@media (max-width: 500px) {
+    .posts .post-date{
+        display:none;
+    }
+    .posts li{
+        line-height:2.5em;
+    }
 }

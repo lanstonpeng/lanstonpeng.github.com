@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>BigPipe in Hybrid App</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/font.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/github.css">
+        <script src="/js/rainbow-custom.min.js"></script>
+    </head>
+    <body>
+        <div class="site">
+
+          <h2 class="post-title">BigPipe in Hybrid App</h2>
+<p class="meta">31 Jan 2014</p>
+
+<div class="post">
+<p>或许很多人已经听过Facebook的运用其“BigPipe”技术来加速其页面加载速度，其核心思想是将页面分成若干个组件(pagelet)，准备好一个后立即推到client而不是等待所有内容准备完毕后再一起push，说白了就是server一段段地返回html到broswer进行渲染</p>
+
+
+
+
+<h4>问题背景</h4>
+
+
+
+
+<p>最近作了一个调研，打算利用这种思想，为某地图APP提速
+该App是一个Hybrid的产品，在显示商家信息以及某些迭代速度，需求易变性较高的部分都采用WebView的形式减低成本与提高产品响应速度</p>
+
+
+
+
+<p>而现在的问题是在展示这些信息当中，大部分是采用 拉取线上json，本地模板绑定的方式进行，而json部分的数据是一次全量拉取，而实际上非首屏数据的拉取时间可以被优化</p>
+
+
+
+
+<h4>一个问题</h4>
+
+
+
+
+<p>因为该App利用Native的优势，将所有的html，css，javascript都内置于App当中，打开WebView读取本地html文件(如index.html),每次请求json数据，再在本地进行模板绑定，咋一看貌似无法运用“传统”的bigpipe方案，因为返回的只有数据，而非最终的html</p>
+
+
+
+
+<h4>一个方案</h4>
+
+
+
+
+<p>既然是数据是一次返回，能否将bigpipe的思想进行迁移，发一个请求，返回多段json，及时进行模板绑定与渲染，<strong>说白了就是将数据下载的时间与模板绑定、渲染时间进行并行</strong>
+<img src="/assets/bigpipe1.jpeg" alt="image" /></p>
+
+
+
+
+<p>那么如何做到，我画了一张图
+<img src="/assets/bigpipe2.jpeg" alt="image" />
+插入一个iframe，由iframe拉取数据,再与本地文件进行通信，这里存着的跨域问题使用postMessage解决，幸运的是，该接口在移动平台上的支持<a href="http://caniuse.com/#feat=x-doc-messaging">比较全面</a>
+Server部分采用Node写了一些代码，关键是多次write一些设计好的stream</p>
+
+
+
+
+<pre>
+<code data-language="javascript">
+    //prepare something
+    _data1 = split(data,"header");
+    _data2 = split(data,"body");
+    response.write(SOME_BAISC_HTML);
+    response.write("<script>Pipe.sendMessage(" + JSON.stringify(_data1) + ")</script>");
+    response.write("<script>Pipe.sendMessage(" + JSON.stringify(_data2) + ")</script>");
+    response.end("<body></html>");
+
+</code>
+</pre>
+
+
+
+
+<p>Client部分的iframe在<em>message</em>事件中接收数据，通过<em>postMessage</em>回传数据到index.html，完成该数据的绑定与渲染</p>
+
+
+
+
+<pre>
+<code data-language="javascript">
+    window.addEventListener("message",function(e){
+        Pipe.sendMessageToParent(e.data);
+    });
+
+</code>
+</pre>
+
+
+
+
+<h4>Conclusion</h4>
+
+
+
+
+<ul>
+<li>成本过大，server部分需要进行数据切分，切割类似各个pagelet</li>
+<li>一次请求，多个模板数据,减少不必要的请求,失败成本大</li>
+<li>一次请求，多个模板数据,减少不必要的请求,减少发起请求时间</li>
+</ul>
+
+
+
+
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                I'm Lanston Peng<br />
+                An on-the-way Life Hacker<br />
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                
+                <a target="_blank" href="http://www.douban.com/people/lanstonpeng/">豆瓣</a><br/>
+                
+                <a target="_blank" href="https://github.com/lanstonpeng">Github</a><br/>
+                
+                <a target="_blank" href="https://twitter.com/lanstonpeng">Twitter</a><br/>
+                
+              </p>
+            </div>
+            <script type="text/javascript">
+            </script>
+          </div>
+        </div>
+
+    </body>
+</html>
