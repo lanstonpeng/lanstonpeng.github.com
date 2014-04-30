@@ -151,8 +151,13 @@ a:visited { color: #a0a; }
 }
 
 .footer .contact {
-  float: left;
+    float:left;
+    display:inline-block;
   margin-right: 3em;
+}
+.footer .contact-link{
+
+    display:inline-block;
 }
 
 .footer .contact a {

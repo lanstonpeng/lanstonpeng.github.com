@@ -8,5 +8,16 @@ def cal():
         elif i!=0 and temp[i-1] >0:
             temp[i] = temp[i-1] + arr[i]
     print temp
-cal()
+
+#cal()
+sums = 0
+def anotherCal(low,sums):
+    for i in range(low,len(arr)):
+        temp =  arr[i:len(arr)]
+        sums = max(sum(temp),sums)
+        anotherCal(low+1,sums)
+    return sums
+
+print anotherCal(0,sums)
+
 

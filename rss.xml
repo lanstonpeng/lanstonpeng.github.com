@@ -8,7 +8,26 @@
     <title>Lanston Peng's ideas</title>
     <link>http://lanstonpeng.github.io</link>
     <description>RSS feed for Lanston Peng's ideas</description>
-    <pubDate>Fri, 31 Jan 2014 07:38:49 +0800</pubDate>
+    <pubDate>Mon, 28 Apr 2014 07:38:50 +0800</pubDate>
+    <item>
+      <title>Writing a javascript Module Loader</title>
+      <link>http://lanstonpeng.github.io/2014/04/28/writing-a-javascript-module-loader.html</link>
+      <description>&lt;p&gt;尽管javascript将来会支持模块加载&lt;a href=&quot;http://wiki.ecmascript.org/doku.php?id=harmony:modules_examples&quot;&gt;e.g&lt;/a&gt;
+但是know how it works不会更加有趣么?&lt;/p&gt;
+</description>
+      <pubDate>Mon, 28 Apr 2014 07:38:50 +0800</pubDate>
+      <guid>http://lanstonpeng.github.io/2014/04/28/writing-a-javascript-module-loader.html</guid>
+      <dc:date>2014-04-28T07:38:50+08:00</dc:date>
+    </item>
+    <item>
+      <title>Implement a simple ScrollView</title>
+      <link>http://lanstonpeng.github.io/2014/04/27/implement-a-simple-scrollview.html</link>
+      <description>
+</description>
+      <pubDate>Sun, 27 Apr 2014 07:38:49 +0800</pubDate>
+      <guid>http://lanstonpeng.github.io/2014/04/27/implement-a-simple-scrollview.html</guid>
+      <dc:date>2014-04-27T07:38:49+08:00</dc:date>
+    </item>
     <item>
       <title>BigPipe in Hybrid App</title>
       <link>http://lanstonpeng.github.io/2014/01/31/bigpipe_in_hybrid_app.html</link>
@@ -815,6 +834,6 @@ isinstance(L,list)&lt;/p&gt;
       <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/08/26/e7bba7e7bbade68891e79a84e6b58be8af95.html</guid>
       <dc:date>2010-08-26T07:38:49+08:00</dc:date>
     </item>
-    <dc:date>2014-01-31T07:38:49+08:00</dc:date>
+    <dc:date>2014-04-28T07:38:50+08:00</dc:date>
   </channel>
 </rss>
