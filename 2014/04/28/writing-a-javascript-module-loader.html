@@ -183,13 +183,310 @@ var a = {
 
 
 
-<p>如果就这么运行，会crash，因为在callback中，a这个对象没有返回，调用<code>undefined.say</code>当然就会出错了</p>
+<p>如果就这么运行，会crash，因为在callback中，我们没有在<code>callback.call(this)</code>中指定a这个对象，那么在<code>a.js</code>里面会调用<code>undefined.say</code>当然就会出错了</p>
 
 
 
 
 <p>ok,那么问题就可以这么描述
-如何在加载完<code>a</code>模块的时候，将a对象返回到<code>Loader.import</code>的<code>callback</code>当中呢</p>
+如何在<em>script.onload</em>的里面的<em>callback</em>带上<strong>a</strong>这个对象呢</p>
+
+
+
+
+<pre>
+script.onload = function(){
+    callback && callback.call(this,getModule('a'));
+}
+</pre>
+
+
+
+
+<p>既然要拿到<em>a</em>这个对象，那么，我们就不能直接像上面在全局定义<em>a</em>,至少需要返回给某个对象，以供后面使用，所以，我们可以按照这个思路看看,按照大家稍微熟悉的语法</p>
+
+
+
+
+<pre>
+Loader.define(function(){
+    var a = {
+        say:function(msg){
+        console.log("a is saying: " + msg);
+        }
+    };
+    return a;
+});
+//a.js
+</pre>
+
+
+
+
+<p>现在问题就是如何将<code>Loader.define</code>里面这个函数运行以得到<em>a</em>这个对象<br/>
+那么，让我们先简单定义一下<strong>define</strong>这个函数吧，现在其主要功能就是保存这个包着的function,为了后面更好的阅读与理解，我先把整个模块的框架给出</p>
+
+
+
+
+<pre>
+var Loader = (function(window){
+    var document = window.document;
+    var config = {
+        modulePath:"./"
+    };
+    var callbackArr = [];
+    var currentLoadedNode,
+        loadedModuleDic = {};
+
+    //节点具体保存的信息
+    var Node = function(options){
+        this.moduleName = options.moduleName; //模块名称
+        this.factory = options.factory; //构建模块的函数
+        this.callback = options.callback;
+        this.returnValue = options.returnValue;//模块返回对象
+    }
+
+    function onLoadHandler(moduleName){
+        currentLoadedNode.moduleName = moduleName;
+        loadedModuelDic[moduleName] = currentLoadeNode;
+        var cb = function(moduleName){
+            currentLoadedNode.returnValue = currentLoadedNode.factory.apply(window,[]);
+        }
+        cb.call(window,moduleName);
+    }
+    function importModule(moduleName,callback){
+        //通过加入script标签来加载js文件
+        var script = document.createElement("script");
+        script.src = config.modulePath + moduleName + ".js";
+
+        document.body.appendChild(script);
+        script.addEventListener("load",function(){
+                //在运行完js后运行回调onLoadHandler
+            onLoadHandler(moduleName);
+        });
+    }
+    function define(factory){
+        currentLoadedNode = new Node({
+            factory:factory
+        });
+    }
+    
+     //加载main.js
+    var main = document.querySelector("script[data-main]");
+    importModule(main.getAttribute("data-main"),function(){});
+
+    return {
+        define:define
+    }
+})(window);
+</pre>
+
+
+
+
+<pre>
+//main.js
+Loader.define(function(){
+    console.log("hi,I'm main");
+})
+
+</pre>
+
+
+
+
+<p>可以看到，现在单独加载<em>main.js</em>会在出现正确结果,我们定义的<strong>define</strong>函数大致上就是保存了加载模块的信息，加载模块，并且能在模块运行的时候动态获取这些信息(通过<code>loadedModuelDic</code>),这部分的内容也是后续部分的基础</p>
+
+
+
+
+<p>那么，接下来我们就讨论一下<strong>模块依赖</strong>问题
+我们先假设有如下代码,为了更好的说明，举出一些比较常见的场景</p>
+
+
+
+
+<pre>
+//main.js
+Loader.define(['c','a'],function(c,a){
+    a.say("hulala");
+    c.say("youku");
+})
+
+//a.js
+Loader.define(['c','b'],function(c,b){
+    var a = {
+        say:function(msg){
+            console.log("a is saying: " + msg);
+            b.say(msg);
+            c.say(msg);
+        }
+    };
+    return a;
+});
+
+//b.js
+Loader.define(function(){
+    var b = {
+        say:function(msg){
+            console.log( "b is saying: " + msg );
+        }
+    };
+    return b;
+});
+
+//c.js
+Loader.define(function(){
+    var c = {
+        say:function(msg){
+            console.log("c is saying: "+msg);
+        }
+    };
+    return c;
+});
+</pre>
+
+
+
+
+<p>可以看到<br/>
+<strong>main.js</strong>依赖 <strong>c</strong> , <strong>a</strong> 模块<br/>
+<strong>a</strong> 依赖 <strong>c</strong> <strong>b</strong> 模块<br/>
+<strong>b</strong> 没有依赖<br/>
+<strong>c</strong> 没有依赖</p>
+
+
+
+
+<p>[图片]</p>
+
+
+
+
+<p>如果以一棵树来表示依赖关系，出于叶子节点的部分就是那些没有依赖其它模块的模块<br/>
+我们在加载一个模块的时候
+1.检测输入其是否有依赖的<strong>未加载</strong>模块，若存着，则跳到1，否则到2<br/>
+2.运行模块构造函数(也就是<em>define</em>里面写的<em>function</em>)</p>
+
+
+
+
+<p>其实，这个是DFS(depth first search)的过程，过程其实不难理解<br/>
+好的，我们在上面代码的基础上加入新的功能来解决模块依赖的问题吧</p>
+
+
+
+
+<p>首先在<em>define</em>部分，我们加入依赖相关的处理</p>
+
+
+
+
+<pre>
+function define(deps,factory){
+        if(arguments.length == 1){
+            factory = deps;
+            deps = []
+        }
+        currentLoadedNode = new Node({
+            deps:deps,
+            factory:factory,
+            count:deps.length
+        });
+    }
+</pre>
+
+
+
+
+<p>接下来，在<em>onLoadHandler</em>部分,为了防止模块重复加载(正如上面看到的<strong>b</strong>  <strong>c</strong> 模块)，我们用<em>loadedModuleDic</em>保持已经加载的模块的信息</p>
+
+
+
+
+<pre>
+function importModule(moduleName,callback){
+        var script = document.createElement("script");
+        script.src = config.modulePath + moduleName + ".js";
+
+        if(loadedModuleDic[moduleName]){
+            console.log("load",moduleName,"from cached" );
+            onLoadHandler(moduleName,callback)
+        }
+        document.body.appendChild(script);
+        script.addEventListener("load",function(){
+            onLoadHandler(moduleName,callback);
+        });
+    }
+</pre>
+
+
+
+
+<p>接下来的部分也是本篇的关键所在，在加载一个模块的时候分析其依赖关系</p>
+
+
+
+
+<pre>
+    function onLoadHandler(moduleName,callback){
+        console.log(moduleName ," loaded");
+        currentLoadedNode.moduleName = moduleName;
+        loadedModuleDic[moduleName] = currentLoadedNode;
+         
+         //模块中的deps属性记录的是模块的依赖关系
+        var dependence = currentLoadedNode.deps;
+        for(var i = 0 ,len = dependence.length;i<len ;i++){
+            //检测模块是否已经加载
+            if(!loadedModuleDic[dependence[i]]){
+                var cb = (function(currentLoadedNode){
+                    return function(moduleName){
+                         //评估当前模块是否可以运行
+                        considerRun(moduleName,currentLoadedNode);
+                    }
+                })(currentLoadedNode); //注意这里的闭包，保存了在当前调用栈(层)的模块的信息
+                //递归调用加载模块
+                importModule(dependence[i],cb);
+            }
+        }
+        //记录这个模块完成构建后需要调用的函数
+        currentLoadedNode.callback = callback;
+        //检测当前节点的依赖模块是否加载完毕，若加载完毕，则运行其模块构建函数
+        considerDependence(currentLoadedNode);
+    }
+</pre>
+
+
+
+
+<p>好的，让我们暂停一下分析，在一个模块加载运行完成之前(即script.onload前)，我们记录了该模块的信息(由currentLoadedNode保存)，如模块名称(moduleName)
+然后，在<strong>script.onload</strong>的时候，我们调用了<code>onLoadHandler</code>,动态分析当前模块的依赖情况，若依赖的模块没有加载，则递归调用<code>importModule</code>
+注意这里的构建的 <strong>cb</strong> ,其运行时机是放到加载依赖模块i(dependence[i])的回调里面</p>
+
+
+
+
+<p>好的，让我们再来看看<code>considerRun</code>的功能</p>
+
+
+
+
+<pre>
+    function considerRun(currentModuleName,parentNode){
+        var idx = parentNode.deps.indexOf(currentModuleName);
+        parentNode.loadedDeps[idx] = loadedModuleDic[currentModuleName].returnValue;
+        parentNode.loadedDepsDic[currentModuleName] = 1;
+        parentNode.count--;
+        checkDependence(parentNode);
+        considerDependence(parentNode);
+    }
+</pre>
+
+
+
+
+<p>实现中会遇到的问题</p>
 
 
 

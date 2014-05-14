@@ -1,0 +1,13 @@
+
+#container div.section{
+	float:left;
+}
+#editor { 
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+ul.select-ul li{
+    list-style: none;   
+}

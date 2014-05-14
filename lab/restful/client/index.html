@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Version Config</title>
+</head>
+<link rel="stylesheet" type="text/css" href="main.css">
+<script src="./ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<body>
+<div id="container">
+	<div id="client" class="section">
+		<ul class="select-ul">
+			<li>Web</li>
+			<li>IOS</li>
+			<li>Android</li>
+		</ul>
+	</div>
+	<div id="biz" class="section">
+		<ul class="select-ul">
+			<li>Hotel</li>
+			<li>Scenery</li>
+		</ul>
+	</div>
+	<div id="editor">
+	</div>
+</div>
+
+<button id="save">save</button>
+<script src="editor.js"></script>
+<script src="main.js"></script>
+<script>
+   
+
+    var $ = function(sel){
+    	return document.querySelector(sel);
+    }
+
+    //Editor.init();
+
+    $("#save").addEventListener("click",function(e){
+    	handleSave();	
+    },false);
+
+    function handleSave(){
+    	console.log(AceEditor.isFillAuthor(),AceEditor.isJSONValid());	
+        VersionEditor.saveConfig("web","hotel");
+    }
+
+    VersionEditor.getConfig("web","hotel");
+    //get version of biz
+    //save to server
+    //set the line to last line
+</script>
+</body>
+</html>
