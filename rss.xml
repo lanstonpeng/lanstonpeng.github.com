@@ -10,7 +10,7 @@
     <description>RSS feed for Lanston Peng's ideas</description>
     <pubDate>Mon, 28 Apr 2014 07:38:50 +0800</pubDate>
     <item>
-      <title>Writing a javascript Module Loader</title>
+      <title>Writing a Javascript Module Loader</title>
       <link>http://lanstonpeng.github.io/2014/04/28/writing-a-javascript-module-loader.html</link>
       <description>&lt;p&gt;尽管javascript将来会支持模块加载 &lt;a href=&quot;http://wiki.ecmascript.org/doku.php?%20id=harmony:modules_examples&quot;&gt;e.g&lt;/a&gt;&lt;br/&gt;
 但是know how it works不会更加有趣么?&lt;/p&gt;
