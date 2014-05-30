@@ -30,6 +30,18 @@
     
 }
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    NSArray* subviews = [self subviews];
+    UITouch* touch = [touches anyObject];
+    CGPoint pt = [touch locationInView:self];
+    _lastPoint = [touch previousLocationInView:self];
+    _delta = pt.x - _lastPoint.x;
+    for(UIView* view in subviews)
+    {
+        [view setFrame:CGRectMake(view.frame.origin.x + _delta, view.frame.origin.y, view.frame.size.width, view.frame.size.height)];
+    }
+}
+
+-(void)touchesMoveds:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch* touch = [touches anyObject];
     CGPoint pt = [touch locationInView:self];
     _offsetPoint = self.bounds.origin;
@@ -52,7 +64,7 @@
     }
     [self setBounds:CGRectMake(_offsetPoint.x,0, self.frame.size.width, self.frame.size.height)];
 }
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+- (void)touchesEndeds:(NSSet *)touches withEvent:(UIEvent *)event{
 
     [UIView animateWithDuration:0.1f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.bounds = CGRectMake(_offsetPoint.x + (_isRight ? - _delta : _delta),0, self.frame.size.width, self.frame.size.height);

@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "LScrollView.h"
 #import <QuartzCore/QuartzCore.h>
+#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 
 @interface ViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *indicator;
@@ -30,6 +31,9 @@
     l.backgroundColor = [UIColor purpleColor];
     [lScrollView addSubview:l];
     
+    
+    double rads = DEGREES_TO_RADIANS(45);
+    lScrollView.layer.transform = CATransform3DMakeRotation(rads, 0, 0, 1);
     /*
     UILabel* l2 = [[UILabel alloc]initWithFrame:CGRectMake(100, 160, 100, 100)];
     l2.text = @"Label";
