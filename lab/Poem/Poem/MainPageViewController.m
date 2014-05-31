@@ -7,6 +7,7 @@
 //
 
 #import "MainPageViewController.h"
+#import "ContainerViewController.h"
 
 @interface MainPageViewController ()//<UIGestureRecognizerDelegate>
 {
@@ -201,6 +202,10 @@
        }];
     }
 }
+-(void)handleSwipeRightGesture:(id)sender
+{
+    [[ContainerViewController sharedViewController]popViewController];
+}
 -(void)handleSwipeUpGesture:(id)sender
 {
     if(currentLine == totalLine - 2){
@@ -228,11 +233,14 @@
     
     if(isShowingTranslatedLabel)
     {
-        _translatedLabel.text = poemLines[currentLine + 1];
-        _translatedLabel.alpha = 0;
-        [UIView animateWithDuration:0.2 delay:0.4 options:UIViewAnimationOptionCurveEaseIn animations:^{
-           _translatedLabel.alpha = 1;
+       [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+           _translatedLabel.alpha = 0;
        } completion:^(BOOL finished) {
+           _translatedLabel.text = poemLines[currentLine + 1];
+           [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+               _translatedLabel.alpha = 1;
+           } completion:^(BOOL finished) {
+           }];
        }];
     }
 }
@@ -280,11 +288,15 @@
     [_currentLineOfPoemLabel addGestureRecognizer:tapLine1];
     [_alternativeLinePoemLabel addGestureRecognizer:tapLine2];
     
+    UISwipeGestureRecognizer* swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeRightGesture:)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeRight];
+    
     self.view.backgroundColor = UIColorFromRGB(0xf1f1f1);
     
     [self requestPoem:^(NSDictionary *poem) {
         poemLines = poem[@"body"];
-        totalLine = poemLines.count;
+        totalLine = (int)poemLines.count;
         currentLine = 0;
         
         _currentLineOfPoemLabel.text = [self getCurrentLine];

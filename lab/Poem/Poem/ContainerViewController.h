@@ -10,4 +10,7 @@
 
 @interface ContainerViewController : UIViewController
 
++ (instancetype)sharedViewController;
+-(void)pushViewController:(UIViewController*)enqueViewController;
+-(void)popViewController;
 @end

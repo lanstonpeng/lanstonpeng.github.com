@@ -7,28 +7,133 @@
 //
 
 #import "ContainerViewController.h"
+#import "IntroductionViewController.h"
+#import "MainPageViewController.h"
 
 @interface ContainerViewController ()
+
+@property (strong,nonatomic)NSMutableArray* stack;
+@property (strong,nonatomic)UIViewController* currentViewController;
 
 @end
 
 @implementation ContainerViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
++ (instancetype)sharedViewController
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+    static ContainerViewController* instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [ContainerViewController new];
+    });
+    return instance;
 }
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //MainPageViewController* mainVC = [MainPageViewController new];
+    IntroductionViewController* introductionVC = [IntroductionViewController new];
+    _currentViewController = introductionVC;
+    _stack = [[NSMutableArray alloc]init];
+    introductionVC.view.frame = self.view.bounds;
+    [self addChildViewController:introductionVC];
+    [self.view addSubview:introductionVC.view];
+    [_currentViewController didMoveToParentViewController:self];
+    [_stack addObject:_currentViewController];
 }
 
+- (void)pushViewController:(UIViewController *)enqueViewController
+{
+    [_stack addObject:enqueViewController];
+    [enqueViewController.view layoutIfNeeded];
+    [enqueViewController willMoveToParentViewController:self];
+    
+    CGRect inputViewFrame=self.view.bounds;
+    CGFloat inputViewWidth=inputViewFrame.size.width;
+    
+    CGRect newFrame=CGRectMake(self.view.bounds.size.width, 0, inputViewFrame.size.width, inputViewFrame.size.height);
+   
+    enqueViewController.view.frame=newFrame;
+    
+    [self addChildViewController:enqueViewController];
+    [self.view addSubview:enqueViewController.view];
+    
+    CGRect offSetRect=CGRectOffset(newFrame, -inputViewWidth, 0.0f);
+    CGRect otherOffsetRect=CGRectOffset(self.currentViewController.view.frame, -inputViewWidth, 0.0f);
+    
+    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        enqueViewController.view.frame = offSetRect;
+        _currentViewController.view.frame = otherOffsetRect;
+    } completion:^(BOOL finished) {
+        [_currentViewController.view removeFromSuperview];
+        [_currentViewController removeFromParentViewController];
+        _currentViewController = enqueViewController;
+        [enqueViewController didMoveToParentViewController:self];
+    }];
+    /*
+    [self transitionFromViewController:_currentViewController toViewController:enqueViewController duration:.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        enqueViewController.view.frame = offSetRect;
+        _currentViewController.view.frame = otherOffsetRect;
+    } completion:^(BOOL finished) {
+        [_currentViewController.view removeFromSuperview];
+        [_currentViewController removeFromParentViewController];
+        _currentViewController = enqueViewController;
+        [enqueViewController didMoveToParentViewController:self];
+    }];
+     */
+    
+}
+- (void)popViewController
+{
+    int len = (int)[_stack count];
+    if (len > 1){
+        UIViewController* popViewController = _stack[len - 2];
+        [popViewController willMoveToParentViewController:self];
+        
+        [popViewController.view layoutIfNeeded];
+        CGRect inputViewFrame=self.view.bounds;
+        CGFloat inputViewWidth=inputViewFrame.size.width;
+        
+        CGRect newFrame=CGRectMake(-self.view.bounds.size.width, 0, inputViewFrame.size.width, inputViewFrame.size.height);
+       
+        popViewController.view.frame=newFrame;
+        
+        [self addChildViewController:popViewController];
+        [self.view addSubview:popViewController.view];
+        
+        CGRect offSetRect=CGRectOffset(self.currentViewController.view.frame, inputViewWidth, 0.0f);
+        CGRect otherOffsetRect=CGRectOffset(newFrame, inputViewWidth, 0.0f);
+        
+        [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            _currentViewController.view.frame = offSetRect;
+            
+            popViewController.view.frame = otherOffsetRect;
+        } completion:^(BOOL finished) {
+            [_currentViewController removeFromParentViewController];
+            [_currentViewController.view removeFromSuperview];
+            _currentViewController = popViewController;
+            [_stack removeLastObject];
+            [popViewController didMoveToParentViewController:self];
+        }];
+        /*
+        [self transitionFromViewController:_currentViewController toViewController:popViewController duration:0.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            _currentViewController.view.frame = offSetRect;
+            
+            popViewController.view.frame = otherOffsetRect;
+        } completion:^(BOOL finished) {
+            [_currentViewController removeFromParentViewController];
+            [_currentViewController.view removeFromSuperview];
+            _currentViewController = popViewController;
+            [_stack removeLastObject];
+            [popViewController didMoveToParentViewController:self];
+        }];
+         */
+    }
+    else{
+        return;
+    }
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

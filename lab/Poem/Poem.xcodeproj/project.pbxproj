@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9D0669A819381C150046750E /* Poiretone.woff in Resources */ = {isa = PBXBuildFile; fileRef = 9DD4AE2019381B9E009C414E /* Poiretone.woff */; };
 		9D0669C219384B490046750E /* ToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0669C119384B490046750E /* ToolBarView.m */; };
 		9D0669C51938558A0046750E /* IntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0669C41938558A0046750E /* IntroductionViewController.m */; };
 		9D0669C8193855AE0046750E /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0669C7193855AE0046750E /* ContainerViewController.m */; };
@@ -24,6 +23,10 @@
 		9DD4AE1219381111009C414E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9DD4AE1019381111009C414E /* InfoPlist.strings */; };
 		9DD4AE1419381111009C414E /* PoemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD4AE1319381111009C414E /* PoemTests.m */; };
 		9DD4AE1F1938114E009C414E /* MainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD4AE1E1938114E009C414E /* MainPageViewController.m */; };
+		9DD7B078193A07A300689F1B /* Poiretone.woff in Resources */ = {isa = PBXBuildFile; fileRef = 9DD7B075193A07A300689F1B /* Poiretone.woff */; };
+		9DD7B079193A07A300689F1B /* song1_128000.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 9DD7B076193A07A300689F1B /* song1_128000.m4a */; };
+		9DD7B0AB193A0B1700689F1B /* UIImage+PoemResouces.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD7B0AA193A0B1700689F1B /* UIImage+PoemResouces.m */; };
+		9DD7B0AD193A0C2F00689F1B /* poem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9DD7B0AC193A0C2F00689F1B /* poem.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +40,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9D0669BF19384B030046750E /* song1_128000.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = song1_128000.m4a; sourceTree = "<group>"; };
 		9D0669C019384B490046750E /* ToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolBarView.h; sourceTree = "<group>"; };
 		9D0669C119384B490046750E /* ToolBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolBarView.m; sourceTree = "<group>"; };
 		9D0669C31938558A0046750E /* IntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroductionViewController.h; sourceTree = "<group>"; };
@@ -62,7 +64,13 @@
 		9DD4AE1319381111009C414E /* PoemTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PoemTests.m; sourceTree = "<group>"; };
 		9DD4AE1D1938114E009C414E /* MainPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageViewController.h; sourceTree = "<group>"; };
 		9DD4AE1E1938114E009C414E /* MainPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageViewController.m; sourceTree = "<group>"; };
-		9DD4AE2019381B9E009C414E /* Poiretone.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = Poiretone.woff; sourceTree = "<group>"; };
+		9DD7B075193A07A300689F1B /* Poiretone.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = Poiretone.woff; sourceTree = "<group>"; };
+		9DD7B076193A07A300689F1B /* song1_128000.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = song1_128000.m4a; sourceTree = "<group>"; };
+		9DD7B0A5193A0AB000689F1B /* Poiretone.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = Poiretone.woff; sourceTree = "<group>"; };
+		9DD7B0A6193A0AB000689F1B /* song1_128000.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = song1_128000.m4a; sourceTree = "<group>"; };
+		9DD7B0A9193A0B1700689F1B /* UIImage+PoemResouces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PoemResouces.h"; sourceTree = "<group>"; };
+		9DD7B0AA193A0B1700689F1B /* UIImage+PoemResouces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PoemResouces.m"; sourceTree = "<group>"; };
+		9DD7B0AC193A0C2F00689F1B /* poem.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = poem.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,9 +100,9 @@
 		9D0669C91938577C0046750E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				9D0669C31938558A0046750E /* IntroductionViewController.h */,
 				9D0669C6193855AE0046750E /* ContainerViewController.h */,
 				9D0669C7193855AE0046750E /* ContainerViewController.m */,
+				9D0669C31938558A0046750E /* IntroductionViewController.h */,
 				9D0669C41938558A0046750E /* IntroductionViewController.m */,
 				9DD4AE1D1938114E009C414E /* MainPageViewController.h */,
 				9DD4AE1E1938114E009C414E /* MainPageViewController.m */,
@@ -105,6 +113,7 @@
 		9DD4ADE219381111009C414E = {
 			isa = PBXGroup;
 			children = (
+				9DD7B0A3193A0AB000689F1B /* resources */,
 				9DD4ADF419381111009C414E /* Poem */,
 				9DD4AE0D19381111009C414E /* PoemTests */,
 				9DD4ADED19381111009C414E /* Frameworks */,
@@ -135,14 +144,14 @@
 		9DD4ADF419381111009C414E /* Poem */ = {
 			isa = PBXGroup;
 			children = (
-				9D0669BF19384B030046750E /* song1_128000.m4a */,
-				9DD4AE2019381B9E009C414E /* Poiretone.woff */,
 				9DD4ADFD19381111009C414E /* AppDelegate.h */,
 				9DD4ADFE19381111009C414E /* AppDelegate.m */,
 				9D0669C019384B490046750E /* ToolBarView.h */,
 				9D0669C119384B490046750E /* ToolBarView.m */,
+				9DD7B0A2193A08FD00689F1B /* Util */,
 				9D0669C91938577C0046750E /* ViewController */,
 				9DD4AE0019381111009C414E /* Images.xcassets */,
+				9DD7B073193A07A300689F1B /* resources */,
 				9DD4ADF519381111009C414E /* Supporting Files */,
 			);
 			path = Poem;
@@ -175,6 +184,35 @@
 				9DD4AE1019381111009C414E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9DD7B073193A07A300689F1B /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				9DD7B075193A07A300689F1B /* Poiretone.woff */,
+				9DD7B0AC193A0C2F00689F1B /* poem.bundle */,
+				9DD7B076193A07A300689F1B /* song1_128000.m4a */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		9DD7B0A2193A08FD00689F1B /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				9DD7B0A9193A0B1700689F1B /* UIImage+PoemResouces.h */,
+				9DD7B0AA193A0B1700689F1B /* UIImage+PoemResouces.m */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		9DD7B0A3193A0AB000689F1B /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				9DD7B0A5193A0AB000689F1B /* Poiretone.woff */,
+				9DD7B0A6193A0AB000689F1B /* song1_128000.m4a */,
+			);
+			name = resources;
+			path = Poem/resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,9 +290,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D0669A819381C150046750E /* Poiretone.woff in Resources */,
+				9DD7B079193A07A300689F1B /* song1_128000.m4a in Resources */,
 				9DD4ADF919381111009C414E /* InfoPlist.strings in Resources */,
 				9DD4AE0119381111009C414E /* Images.xcassets in Resources */,
+				9DD7B0AD193A0C2F00689F1B /* poem.bundle in Resources */,
+				9DD7B078193A07A300689F1B /* Poiretone.woff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DD7B0AB193A0B1700689F1B /* UIImage+PoemResouces.m in Sources */,
 				9DD4ADFF19381111009C414E /* AppDelegate.m in Sources */,
 				9D0669C51938558A0046750E /* IntroductionViewController.m in Sources */,
 				9D0669C8193855AE0046750E /* ContainerViewController.m in Sources */,
