@@ -9,6 +9,7 @@
 #import "ContainerViewController.h"
 #import "IntroductionViewController.h"
 #import "MainPageViewController.h"
+#import "CollectionViewController.h"
 
 @interface ContainerViewController ()
 
@@ -33,7 +34,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //MainPageViewController* mainVC = [MainPageViewController new];
-    IntroductionViewController* introductionVC = [IntroductionViewController new];
+    //IntroductionViewController* introductionVC = [IntroductionViewController new];
+    CollectionViewController* introductionVC = [CollectionViewController new];
     _currentViewController = introductionVC;
     _stack = [[NSMutableArray alloc]init];
     introductionVC.view.frame = self.view.bounds;

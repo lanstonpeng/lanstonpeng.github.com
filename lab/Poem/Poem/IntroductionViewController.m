@@ -54,7 +54,7 @@
     bgScrollView.contentSize = CGSizeMake(bgScrollView.frame.size.width*2, bgScrollView.frame.size.height);
     bgScrollView.delegate = self;
     //bgScrollView.showsVerticalScrollIndicator = YES;
-    //bgScrollView.showsHorizontalScrollIndicator = YES;
+    bgScrollView.showsHorizontalScrollIndicator = YES;
     bgScrollView.pagingEnabled = YES;
     bgScrollView.directionalLockEnabled = YES;
     bgScrollView.alwaysBounceVertical = YES;

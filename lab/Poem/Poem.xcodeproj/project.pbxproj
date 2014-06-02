@@ -11,6 +11,8 @@
 		9D0669C8193855AE0046750E /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0669C7193855AE0046750E /* ContainerViewController.m */; };
 		9D329CA5193AD0D800B50C55 /* PoemDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329CA4193AD0D800B50C55 /* PoemDetailView.m */; };
 		9D329CAF193C1C2F00B50C55 /* PoemReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329CAE193C1C2F00B50C55 /* PoemReader.m */; };
+		9D329CB2193C3C2200B50C55 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329CB1193C3C2200B50C55 /* CollectionViewController.m */; };
+		9D329CB5193C3C4E00B50C55 /* PoemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329CB4193C3C4E00B50C55 /* PoemCell.m */; };
 		9DD4ADEF19381111009C414E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD4ADEE19381111009C414E /* Foundation.framework */; };
 		9DD4ADF119381111009C414E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD4ADF019381111009C414E /* CoreGraphics.framework */; };
 		9DD4ADF319381111009C414E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD4ADF219381111009C414E /* UIKit.framework */; };
@@ -51,6 +53,10 @@
 		9D329CA4193AD0D800B50C55 /* PoemDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemDetailView.m; sourceTree = "<group>"; };
 		9D329CAD193C1C2F00B50C55 /* PoemReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoemReader.h; sourceTree = "<group>"; };
 		9D329CAE193C1C2F00B50C55 /* PoemReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemReader.m; sourceTree = "<group>"; };
+		9D329CB0193C3C2200B50C55 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CollectionViewController.h; path = ../CollectionViewController.h; sourceTree = "<group>"; };
+		9D329CB1193C3C2200B50C55 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CollectionViewController.m; path = ../CollectionViewController.m; sourceTree = "<group>"; };
+		9D329CB3193C3C4E00B50C55 /* PoemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoemCell.h; sourceTree = "<group>"; };
+		9D329CB4193C3C4E00B50C55 /* PoemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemCell.m; sourceTree = "<group>"; };
 		9DD4ADEB19381111009C414E /* Poem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DD4ADEE19381111009C414E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9DD4ADF019381111009C414E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -103,6 +109,8 @@
 		9D0669C91938577C0046750E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9D329CB0193C3C2200B50C55 /* CollectionViewController.h */,
+				9D329CB1193C3C2200B50C55 /* CollectionViewController.m */,
 				9D0669C6193855AE0046750E /* ContainerViewController.h */,
 				9D0669C7193855AE0046750E /* ContainerViewController.m */,
 				9D0669C31938558A0046750E /* IntroductionViewController.h */,
@@ -120,6 +128,8 @@
 				9D0669C119384B490046750E /* ToolBarView.m */,
 				9D329CA3193AD0D800B50C55 /* PoemDetailView.h */,
 				9D329CA4193AD0D800B50C55 /* PoemDetailView.m */,
+				9D329CB3193C3C4E00B50C55 /* PoemCell.h */,
+				9D329CB4193C3C4E00B50C55 /* PoemCell.m */,
 			);
 			name = View;
 			path = ..;
@@ -174,8 +184,6 @@
 			isa = PBXGroup;
 			children = (
 				9DD4ADF619381111009C414E /* Poem-Info.plist */,
-				9D329CAD193C1C2F00B50C55 /* PoemReader.h */,
-				9D329CAE193C1C2F00B50C55 /* PoemReader.m */,
 				9DD4ADF719381111009C414E /* InfoPlist.strings */,
 				9DD4ADFA19381111009C414E /* main.m */,
 				9DD4ADFC19381111009C414E /* Poem-Prefix.pch */,
@@ -214,6 +222,8 @@
 		9DD7B0A2193A08FD00689F1B /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				9D329CAD193C1C2F00B50C55 /* PoemReader.h */,
+				9D329CAE193C1C2F00B50C55 /* PoemReader.m */,
 				9DD7B0A9193A0B1700689F1B /* UIImage+PoemResouces.h */,
 				9DD7B0AA193A0B1700689F1B /* UIImage+PoemResouces.m */,
 			);
@@ -318,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D329CB5193C3C4E00B50C55 /* PoemCell.m in Sources */,
 				9DD7B0AB193A0B1700689F1B /* UIImage+PoemResouces.m in Sources */,
 				9DD4ADFF19381111009C414E /* AppDelegate.m in Sources */,
 				9D329CA5193AD0D800B50C55 /* PoemDetailView.m in Sources */,
@@ -326,6 +337,7 @@
 				9D0669C8193855AE0046750E /* ContainerViewController.m in Sources */,
 				9DD4ADFB19381111009C414E /* main.m in Sources */,
 				9DD4AE1F1938114E009C414E /* MainPageViewController.m in Sources */,
+				9D329CB2193C3C2200B50C55 /* CollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

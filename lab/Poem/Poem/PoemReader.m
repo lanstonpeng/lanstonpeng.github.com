@@ -10,4 +10,25 @@
 
 @implementation PoemReader
 
++ (instancetype)sharedPoemReader
+{
+    static PoemReader* instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [PoemReader new];
+    });
+    return instance;
+}
+-(NSDictionary*)getRandomPoemReader
+{
+    return @{};
+}
+-(NSArray*)getAllPoems
+{
+    return @[];
+}
+-(NSDictionary*)getPoemByID
+{
+    return @{};
+}
 @end

@@ -9,5 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface PoemReader : NSObject
-
++ (instancetype)sharedPoemReader;
+-(NSDictionary*)getRandomPoemReader;
+-(NSArray*)getAllPoems;
+-(NSDictionary*)getPoemByID;
 @end
