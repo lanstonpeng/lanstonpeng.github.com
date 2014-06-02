@@ -49,20 +49,20 @@
     [enqueViewController.view layoutIfNeeded];
     [enqueViewController willMoveToParentViewController:self];
     
-    CGRect inputViewFrame=self.view.bounds;
-    CGFloat inputViewWidth=inputViewFrame.size.width;
+    CGRect inputViewFrame = self.view.bounds;
+    CGFloat inputViewHeight=inputViewFrame.size.height;
     
-    CGRect newFrame=CGRectMake(self.view.bounds.size.width, 0, inputViewFrame.size.width, inputViewFrame.size.height);
+    CGRect newFrame=CGRectMake( 0,self.view.bounds.size.height, inputViewFrame.size.width, inputViewFrame.size.height);
    
-    enqueViewController.view.frame=newFrame;
+    enqueViewController.view.frame = newFrame;
     
     [self addChildViewController:enqueViewController];
     [self.view addSubview:enqueViewController.view];
     
-    CGRect offSetRect=CGRectOffset(newFrame, -inputViewWidth, 0.0f);
-    CGRect otherOffsetRect=CGRectOffset(self.currentViewController.view.frame, -inputViewWidth, 0.0f);
+    CGRect offSetRect=CGRectOffset(newFrame, 0, -inputViewHeight);
+    CGRect otherOffsetRect=CGRectOffset(self.currentViewController.view.frame,0, -inputViewHeight);
     
-    [UIView animateWithDuration:.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:0.6 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         enqueViewController.view.frame = offSetRect;
         _currentViewController.view.frame = otherOffsetRect;
     } completion:^(BOOL finished) {
@@ -71,18 +71,6 @@
         _currentViewController = enqueViewController;
         [enqueViewController didMoveToParentViewController:self];
     }];
-    /*
-    [self transitionFromViewController:_currentViewController toViewController:enqueViewController duration:.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        enqueViewController.view.frame = offSetRect;
-        _currentViewController.view.frame = otherOffsetRect;
-    } completion:^(BOOL finished) {
-        [_currentViewController.view removeFromSuperview];
-        [_currentViewController removeFromParentViewController];
-        _currentViewController = enqueViewController;
-        [enqueViewController didMoveToParentViewController:self];
-    }];
-     */
-    
 }
 - (void)popViewController
 {
@@ -97,7 +85,7 @@
         
         CGRect newFrame=CGRectMake(-self.view.bounds.size.width, 0, inputViewFrame.size.width, inputViewFrame.size.height);
        
-        popViewController.view.frame=newFrame;
+        //popViewController.view.frame = newFrame;
         
         [self addChildViewController:popViewController];
         [self.view addSubview:popViewController.view];
@@ -116,19 +104,6 @@
             [_stack removeLastObject];
             [popViewController didMoveToParentViewController:self];
         }];
-        /*
-        [self transitionFromViewController:_currentViewController toViewController:popViewController duration:0.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            _currentViewController.view.frame = offSetRect;
-            
-            popViewController.view.frame = otherOffsetRect;
-        } completion:^(BOOL finished) {
-            [_currentViewController removeFromParentViewController];
-            [_currentViewController.view removeFromSuperview];
-            _currentViewController = popViewController;
-            [_stack removeLastObject];
-            [popViewController didMoveToParentViewController:self];
-        }];
-         */
     }
     else{
         return;

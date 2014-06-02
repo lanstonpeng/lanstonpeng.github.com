@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9D0669C219384B490046750E /* ToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0669C119384B490046750E /* ToolBarView.m */; };
 		9D0669C51938558A0046750E /* IntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0669C41938558A0046750E /* IntroductionViewController.m */; };
 		9D0669C8193855AE0046750E /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0669C7193855AE0046750E /* ContainerViewController.m */; };
+		9D329CA5193AD0D800B50C55 /* PoemDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329CA4193AD0D800B50C55 /* PoemDetailView.m */; };
+		9D329CAF193C1C2F00B50C55 /* PoemReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329CAE193C1C2F00B50C55 /* PoemReader.m */; };
 		9DD4ADEF19381111009C414E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD4ADEE19381111009C414E /* Foundation.framework */; };
 		9DD4ADF119381111009C414E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD4ADF019381111009C414E /* CoreGraphics.framework */; };
 		9DD4ADF319381111009C414E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD4ADF219381111009C414E /* UIKit.framework */; };
@@ -40,12 +41,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9D0669C019384B490046750E /* ToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolBarView.h; sourceTree = "<group>"; };
-		9D0669C119384B490046750E /* ToolBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolBarView.m; sourceTree = "<group>"; };
+		9D0669C019384B490046750E /* ToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToolBarView.h; path = Poem/ToolBarView.h; sourceTree = "<group>"; };
+		9D0669C119384B490046750E /* ToolBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToolBarView.m; path = Poem/ToolBarView.m; sourceTree = "<group>"; };
 		9D0669C31938558A0046750E /* IntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroductionViewController.h; sourceTree = "<group>"; };
 		9D0669C41938558A0046750E /* IntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroductionViewController.m; sourceTree = "<group>"; };
 		9D0669C6193855AE0046750E /* ContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerViewController.h; sourceTree = "<group>"; };
 		9D0669C7193855AE0046750E /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
+		9D329CA3193AD0D800B50C55 /* PoemDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoemDetailView.h; sourceTree = "<group>"; };
+		9D329CA4193AD0D800B50C55 /* PoemDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemDetailView.m; sourceTree = "<group>"; };
+		9D329CAD193C1C2F00B50C55 /* PoemReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoemReader.h; sourceTree = "<group>"; };
+		9D329CAE193C1C2F00B50C55 /* PoemReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemReader.m; sourceTree = "<group>"; };
 		9DD4ADEB19381111009C414E /* Poem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DD4ADEE19381111009C414E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9DD4ADF019381111009C414E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -66,8 +71,6 @@
 		9DD4AE1E1938114E009C414E /* MainPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageViewController.m; sourceTree = "<group>"; };
 		9DD7B075193A07A300689F1B /* Poiretone.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = Poiretone.woff; sourceTree = "<group>"; };
 		9DD7B076193A07A300689F1B /* song1_128000.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = song1_128000.m4a; sourceTree = "<group>"; };
-		9DD7B0A5193A0AB000689F1B /* Poiretone.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = Poiretone.woff; sourceTree = "<group>"; };
-		9DD7B0A6193A0AB000689F1B /* song1_128000.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = song1_128000.m4a; sourceTree = "<group>"; };
 		9DD7B0A9193A0B1700689F1B /* UIImage+PoemResouces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PoemResouces.h"; sourceTree = "<group>"; };
 		9DD7B0AA193A0B1700689F1B /* UIImage+PoemResouces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PoemResouces.m"; sourceTree = "<group>"; };
 		9DD7B0AC193A0C2F00689F1B /* poem.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = poem.bundle; sourceTree = "<group>"; };
@@ -110,10 +113,21 @@
 			name = ViewController;
 			sourceTree = "<group>";
 		};
+		9D329CA6193AD0DD00B50C55 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9D0669C019384B490046750E /* ToolBarView.h */,
+				9D0669C119384B490046750E /* ToolBarView.m */,
+				9D329CA3193AD0D800B50C55 /* PoemDetailView.h */,
+				9D329CA4193AD0D800B50C55 /* PoemDetailView.m */,
+			);
+			name = View;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		9DD4ADE219381111009C414E = {
 			isa = PBXGroup;
 			children = (
-				9DD7B0A3193A0AB000689F1B /* resources */,
 				9DD4ADF419381111009C414E /* Poem */,
 				9DD4AE0D19381111009C414E /* PoemTests */,
 				9DD4ADED19381111009C414E /* Frameworks */,
@@ -146,8 +160,7 @@
 			children = (
 				9DD4ADFD19381111009C414E /* AppDelegate.h */,
 				9DD4ADFE19381111009C414E /* AppDelegate.m */,
-				9D0669C019384B490046750E /* ToolBarView.h */,
-				9D0669C119384B490046750E /* ToolBarView.m */,
+				9D329CA6193AD0DD00B50C55 /* View */,
 				9DD7B0A2193A08FD00689F1B /* Util */,
 				9D0669C91938577C0046750E /* ViewController */,
 				9DD4AE0019381111009C414E /* Images.xcassets */,
@@ -161,6 +174,8 @@
 			isa = PBXGroup;
 			children = (
 				9DD4ADF619381111009C414E /* Poem-Info.plist */,
+				9D329CAD193C1C2F00B50C55 /* PoemReader.h */,
+				9D329CAE193C1C2F00B50C55 /* PoemReader.m */,
 				9DD4ADF719381111009C414E /* InfoPlist.strings */,
 				9DD4ADFA19381111009C414E /* main.m */,
 				9DD4ADFC19381111009C414E /* Poem-Prefix.pch */,
@@ -203,16 +218,6 @@
 				9DD7B0AA193A0B1700689F1B /* UIImage+PoemResouces.m */,
 			);
 			name = Util;
-			sourceTree = "<group>";
-		};
-		9DD7B0A3193A0AB000689F1B /* resources */ = {
-			isa = PBXGroup;
-			children = (
-				9DD7B0A5193A0AB000689F1B /* Poiretone.woff */,
-				9DD7B0A6193A0AB000689F1B /* song1_128000.m4a */,
-			);
-			name = resources;
-			path = Poem/resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,10 +320,11 @@
 			files = (
 				9DD7B0AB193A0B1700689F1B /* UIImage+PoemResouces.m in Sources */,
 				9DD4ADFF19381111009C414E /* AppDelegate.m in Sources */,
+				9D329CA5193AD0D800B50C55 /* PoemDetailView.m in Sources */,
+				9D329CAF193C1C2F00B50C55 /* PoemReader.m in Sources */,
 				9D0669C51938558A0046750E /* IntroductionViewController.m in Sources */,
 				9D0669C8193855AE0046750E /* ContainerViewController.m in Sources */,
 				9DD4ADFB19381111009C414E /* main.m in Sources */,
-				9D0669C219384B490046750E /* ToolBarView.m in Sources */,
 				9DD4AE1F1938114E009C414E /* MainPageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
