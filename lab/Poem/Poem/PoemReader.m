@@ -25,7 +25,10 @@
 }
 -(NSArray*)getAllPoems
 {
-    return @[];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"poemdata" ofType:@"json"];
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    NSArray *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    return json;
 }
 -(NSDictionary*)getPoemByID
 {

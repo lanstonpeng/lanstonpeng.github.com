@@ -9,14 +9,21 @@
 #import <UIKit/UIKit.h>
 
 
-@protocol PoemCellDelegate <NSObject>
+@protocol PoemCellScrollDelegate;
 
-- (void)didShowPoemDetail;
-- (void)didHidePoemDetail;
 
+#define MaxScrollPull 60
+@interface PoemCell : UICollectionViewCell
+@property (weak,nonatomic)id<PoemCellScrollDelegate> delegate;
+
+- (void)setUpPoem:(NSDictionary*)poem;
 @end
 
-@interface PoemCell : UICollectionViewCell
-@property (weak,nonatomic)id<PoemCellDelegate> delegate;
+@protocol PoemCellScrollDelegate <NSObject>
+
+- (void)poemCellDidBeginPulling:(PoemCell*)cell;
+- (void)poemCell:(PoemCell*)cell didChangePullOffset:(CGFloat)offset;
+- (void)poemCellDidEndPulling:(PoemCell*)cell;
+
 @end
 

@@ -17,9 +17,11 @@
     
     //one poem data,divided into lines
     NSArray* poemLines;
+    NSDictionary* poemDic;
     
     UILabel* titleLabel;
     UILabel* authorLabel;
+    
     
     BOOL isShowingTranslatedLabel;
 }
@@ -34,7 +36,9 @@
 
 //#define PoemFont @"HelveticaNeue-Thin"
 #define PoemFont @"GillSans-LightItalic"
-#define ChineseFont @"STHeitiSC-Light"
+//#define ChineseFont @"STHeitiSC-Light"
+#define ChineseFont @"FZQKBYSJW--GB1-0"
+
 #define PoemFontSize 20
 
 #define LabelPaddLeft 10
@@ -42,6 +46,12 @@
 
 @implementation PoemDetailView
 
+- (id)initWithFrame:(CGRect)frame  withData:(NSDictionary*)poem
+{
+    poemLines = poem[@"body"];
+    poemDic = poem;
+    return [self initWithFrame:frame];
+}
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -76,7 +86,32 @@
         _translatedLabel = [[UILabel alloc]initWithFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height)];
         _translatedLabel.textAlignment = NSTextAlignmentCenter;
         _translatedLabel.alpha = 0;
-        _translatedLabel.font = [UIFont fontWithName:ChineseFont size:12];
+        UIFont* font = [UIFont fontWithName:ChineseFont size:14];
+        /*
+         NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
+        NSArray *fontNames;
+        
+        NSInteger indFamily, indFont;
+        
+        for (indFamily=0; indFamily<[familyNames count]; ++indFamily)
+        {
+            NSLog(@"Family name: %@", [familyNames objectAtIndex:indFamily]);
+            
+            fontNames = [[NSArray alloc] initWithArray:
+                         
+                         [UIFont fontNamesForFamilyName:
+                          
+                          [familyNames objectAtIndex:indFamily]]];
+            
+            for (indFont=0; indFont<[fontNames count]; ++indFont)
+                
+            {
+                
+                NSLog(@"    Font name: %@", [fontNames objectAtIndex:indFont]);
+                
+            }
+        }*/
+        _translatedLabel.font = font;
     }
     return _translatedLabel;
 }
@@ -99,62 +134,7 @@
     }
     return _alternativeLinePoemLabel;
 }
-- (void)requestPoem:(void (^)(NSDictionary* poem))successCallback fail:(void (^)())failCallback
-{
-    NSDictionary* poemJSON =
-  @{
-    @"title":@"Shall I compare thee to a summer's day?",
-    @"author":@"William Shakespeare",
-    @"bgimg":@"Shakespeare",
-    @"id":@101,
-    @"body":@[@"Shall I compare thee to a summer's day?",
-              @"能不能让我来把你比拟做夏日?",
-              
-              @"Thou art more lovely and more temperate",
-              @"你可是更加温和,更加可爱",
-              
-              @"Rough winds do shake the darling buds of May",
-              @"狂风会吹落五月里开的好花儿",
-              
-              @"And summer's lease hath all too short a date",
-              @"夏季的生命又未免结束得太快",
-              
-              @"Sometimes too hot the eys of heaven shines",
-              @"有时候苍天的巨眼照得太灼热",
-              
-              @"And often is his gold complexion dimmed",
-              @"他那金彩的脸色也会被遮暗",
-              
-              @"And every fair from fair somethme declines",
-              @"每一样美呀,总会离开美而凋落",
-              
-              @"By chance, or nature's changing course, untrimmed",
-              @"被时机或者自然的代谢所摧残",
-              
-              @"But thy eternal summer shall not fade",
-              @"但是你永久的夏天决不会凋枯",
-              
-              @"Nor lose possession of that fair thou owest",
-              @"你永远不会失去你美的仪态",
-              
-              @"Nor shall Death brag thou wanderest in his shade",
-              @"死神夸不着你在他的影子里踯躅",
-              
-              @"When in eternal lines to time thou growest.",
-              @"你将在不朽的诗中与时间同在",
-              
-              @"So long as men can breathe or eyes can see",
-              @"只要人类在呼吸,眼睛看得见",
-              
-              @"So long lives this, and this gives life to thee",
-              @"我这诗就活着,使你的生命绵延"
-              ]
-    };
-    if (successCallback) {
-        successCallback(poemJSON);
-    }
-    //return poemJSON;
-}
+
 -(void)initSystemConfiguration
 {
     CGRect f = [UIScreen mainScreen].bounds;
@@ -177,10 +157,6 @@
     currentLine-=2;
     NSString* line =  poemLines[currentLine];
     return line;
-}
--(void)showWholePoem
-{
-    
 }
 -(void)setLabelAttribute:(UILabel*)label
 {
@@ -321,33 +297,13 @@
     swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
     [self addGestureRecognizer:swipeRight];
     
-    //self.backgroundColor = UIColorFromRGB(0xf1f1f1);
+  
+    totalLine = (int)poemLines.count;
+    currentLine = 0;
     
-    [self requestPoem:^(NSDictionary *poem) {
-        poemLines = poem[@"body"];
-        totalLine = (int)poemLines.count;
-        currentLine = 0;
-        
-        _currentLineOfPoemLabel.text = [self getCurrentLine];
-        
-        //NSString* titleStr = poem[@"title"];
-        //NSString* authorStr = poem[@"author"];
-        
-    } fail: ^{}];
-    
-    
-    //Full Screen
+    _currentLineOfPoemLabel.text = [self getCurrentLine];
+
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
     
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
-
 @end

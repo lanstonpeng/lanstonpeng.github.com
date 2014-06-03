@@ -8,10 +8,15 @@
 
 #import "CollectionViewController.h"
 #import "PoemCell.h"
+#import "PoemReader.h"
+#import "CustomTestCell.h"
 
-@interface CollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,PoemCellDelegate>
-
+@interface CollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,PoemCellScrollDelegate>
+{
+    NSMutableArray* poemArr;
+}
 @property (strong, nonatomic) UICollectionView *collectionView;
+@property (strong, nonatomic) UIScrollView *poemMixedInfoScrollView;
 @end
 
 @implementation CollectionViewController
@@ -33,26 +38,58 @@
     _collectionView.pagingEnabled = YES;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-    [self.view addSubview:_collectionView];
+    
+    _poemMixedInfoScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    _poemMixedInfoScrollView.contentSize = CGSizeMake(self.view.frame.size.width*2, self.view.frame.size.height);
+    _poemMixedInfoScrollView.tag = 100;
+    _poemMixedInfoScrollView.delegate = self;
+    _poemMixedInfoScrollView.pagingEnabled = YES;
+    _poemMixedInfoScrollView.showsHorizontalScrollIndicator = NO;
+    [_poemMixedInfoScrollView addSubview:_collectionView];
+    
+    [self.view addSubview:_poemMixedInfoScrollView];
     
     [_collectionView registerClass:[PoemCell class] forCellWithReuseIdentifier:@"reused"];
+    //[_collectionView registerClass:[CustomTestCell class] forCellWithReuseIdentifier:@"reused"];
+    
+    PoemReader* reader = [PoemReader sharedPoemReader];
+    poemArr = (NSMutableArray*)[reader getAllPoems];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    //NSLog(@"collection did scroll");
+    if (scrollView.tag == 100) {
+        
+    }
+    else
+    {
+        
+    }
 }
 
 #pragma mark datasource and delegate
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 5;
+    return poemArr.count;
+    //return 5;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PoemCell* poemCell = (PoemCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"reused" forIndexPath:indexPath];
     poemCell.delegate = self;
+    
+    [poemCell setUpPoem:poemArr[indexPath.row]];;
     return poemCell;
+    /*
+    CustomTestCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"reused" forIndexPath:indexPath];
+    CGFloat hue = (CGFloat)indexPath.row / 5;
+    cell.backgroundColor = [UIColor
+                            colorWithHue:hue saturation:1.0f brightness:0.5f alpha:1.0f
+                            ];
+    return cell;
+     */
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -61,12 +98,18 @@
 }
 
 #pragma mark poemDelegate
-- (void)didShowPoemDetail
+- (void)poemCellDidBeginPulling:(PoemCell *)cell
 {
-    _collectionView.scrollEnabled = NO;
+    _poemMixedInfoScrollView.scrollEnabled = NO;
 }
-- (void)didHidePoemDetail
+- (void)poemCell:(PoemCell *)cell didChangePullOffset:(CGFloat)offset
 {
-    _collectionView.scrollEnabled = YES;
+    
+    _poemMixedInfoScrollView.contentOffset = CGPointMake(offset,0);
+}
+-(void)poemCellDidEndPulling:(PoemCell *)cell
+{
+    _poemMixedInfoScrollView.scrollEnabled = YES;
+    //_poemMixedInfoScrollView.contentOffset = CGPointZero;
 }
 @end
