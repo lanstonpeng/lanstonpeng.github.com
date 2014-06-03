@@ -104,12 +104,10 @@
 }
 - (void)poemCell:(PoemCell *)cell didChangePullOffset:(CGFloat)offset
 {
-    
     _poemMixedInfoScrollView.contentOffset = CGPointMake(offset,0);
 }
 -(void)poemCellDidEndPulling:(PoemCell *)cell
 {
     _poemMixedInfoScrollView.scrollEnabled = YES;
-    //_poemMixedInfoScrollView.contentOffset = CGPointZero;
 }
 @end

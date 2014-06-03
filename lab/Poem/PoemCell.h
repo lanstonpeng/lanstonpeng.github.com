@@ -12,7 +12,7 @@
 @protocol PoemCellScrollDelegate;
 
 
-#define MaxScrollPull 60
+#define MaxScrollPull 80
 @interface PoemCell : UICollectionViewCell
 @property (weak,nonatomic)id<PoemCellScrollDelegate> delegate;
 

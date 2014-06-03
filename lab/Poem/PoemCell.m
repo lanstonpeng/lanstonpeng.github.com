@@ -39,6 +39,8 @@
     CGRect poemBackgroundScrollViewFrame;
     
     BOOL pulling;
+    BOOL isScrollDecelarating;
+    float inOutScrollDecelerateRatio;
     
 }
 @end
@@ -116,7 +118,7 @@
     [bgScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
     CGRect titileFrame = CGRectMake(0, sFrame.size.height - 200 , sFrame.size.width, 100);
-    CGRect authorFrame = CGRectMake(0, 0 , poemBackgroundScrollViewFrame.size.width, 100);
+    CGRect authorFrame = CGRectMake(0, 0 , pageWidth - MaxScrollPull, 100);
     //CGRect authorFrame = CGRectMake(0, sFrame.size.height - 100 , sFrame.size.width - 20, 100);
     
     author = [[UILabel alloc]initWithFrame:authorFrame];
@@ -177,11 +179,12 @@
         }
     }
      */
-    bgView.frame = CGRectMake(-scrollView.contentOffset.x / 10, bgView.frame.origin.y, bgView.frame.size.width, bgView.frame.size.height);
+    CGFloat bgViewOffset =  MAX(0, scrollView.contentOffset.x / 10);
+    bgView.frame = CGRectMake(-bgViewOffset, bgView.frame.origin.y, bgView.frame.size.width, bgView.frame.size.height);
     float offsetPercent =  scrollView.contentOffset.x / (poemDetailView.frame.size.width/2);
     bgMaskLayer.opacity = 0.5 + offsetPercent* 0.5;
     poemDetailView.bgMaskLayer.opacity = 0.8 + offsetPercent * 0.2;
-    author.frame = CGRectMake(-scrollView.contentOffset.x /20, author.frame.origin.y, author.frame.size.width, author.frame.size.height);
+    //author.frame = CGRectMake(-scrollView.contentOffset.x /20, author.frame.origin.y, author.frame.size.width, author.frame.size.height);
     title.frame = CGRectMake(-scrollView.contentOffset.x /20, title.frame.origin.y, title.frame.size.width, title.frame.size.height);
     
     author.alpha = 1.0 - offsetPercent;
@@ -202,15 +205,25 @@
 -(void)poemBackgroundViewDidScroll:(UIScrollView *)scrollView
 {
     
-    if (scrollView.contentOffset.x > MaxScrollPull && !pulling) {
+    CGFloat offset = scrollView.contentOffset.x ;
+    if ( offset > MaxScrollPull && !pulling) {
         //[self.delegate willBeginPull:scrollView.contentOffset];
         pulling = YES;
         [self.delegate poemCellDidBeginPulling:self];
     }
     if(pulling)
     {
-        [self.delegate poemCell:self didChangePullOffset: MAX(0, scrollView.contentOffset.x - MaxScrollPull)];
-        poemBackgroundScrollView.transform = CGAffineTransformMakeTranslation(scrollView.contentOffset.x - MaxScrollPull, 0);
+        CGFloat pulloffset;
+        if(!isScrollDecelarating)
+        {
+            pulloffset =  MAX(0, offset - MaxScrollPull);
+        }
+        else
+        {
+            pulloffset = offset * inOutScrollDecelerateRatio;
+        }
+        [self.delegate poemCell:self didChangePullOffset:pulloffset];
+        poemBackgroundScrollView.transform = CGAffineTransformMakeTranslation(pulloffset, 0);
     }
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -231,6 +244,7 @@
             break;
     }
     
+    /*
     CGFloat pageWidth = scrollView.frame.size.width;
     static NSInteger previousPage = 0;
     float fractionalPage = scrollView.contentOffset.x / pageWidth;
@@ -249,26 +263,46 @@
             //scrollView.frame = CGRectMake(0,0, self.frame.size.width, self.frame.size.height);
         }
     }
+     */
 }
 
 - (void)scrollingEnd
 {
     [self.delegate poemCellDidEndPulling:self];
     pulling = NO;
+    isScrollDecelarating = NO;
     poemBackgroundScrollView.contentOffset = CGPointZero;
-    //poemBackgroundScrollView.transform =CGAffineTransformIdentity;
+    poemBackgroundScrollView.transform =CGAffineTransformIdentity;
+}
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    CGFloat offset =  scrollView.contentOffset.x;
+    if (offset > 0 && (*targetContentOffset).x == 0)
+    {
+        isScrollDecelarating = YES;
+        CGFloat pullOffset = MAX(0,offset - MaxScrollPull);
+        inOutScrollDecelerateRatio = pullOffset / offset;
+    }
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    scrollDirection = 3;
+    //scrollDirection = 3;
     if(!decelerate)
     {
         [self scrollingEnd];
     }
 }
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    //[scrollView setContentOffset:scrollView.contentOffset animated:YES];
+    //[self.delegate poemCellDidEndPulling:self];
+    [self scrollingEnd];
+    
+}
+
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    NSLog(@"end animation %f %f",scrollView.contentOffset.x,scrollView.contentOffset.y);
+    //NSLog(@"end animation %f %f",scrollView.contentOffset.x,scrollView.contentOffset.y);
 }
 
 /*
@@ -282,13 +316,6 @@
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
 {
-}
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    //[scrollView setContentOffset:scrollView.contentOffset animated:YES];
-    //[self.delegate poemCellDidEndPulling:self];
-    [self scrollingEnd];
-    
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
