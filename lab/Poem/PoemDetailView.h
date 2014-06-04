@@ -11,7 +11,7 @@
 @interface PoemDetailView : UIView
 
 @property (strong,nonatomic)CALayer* bgMaskLayer;
-
+@property (strong,nonatomic) NSString* currentTranslatedLanguage;
 
 - (id)initWithFrame:(CGRect)frame  withData:(NSDictionary*)poem;
 @end

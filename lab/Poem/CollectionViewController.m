@@ -10,10 +10,13 @@
 #import "PoemCell.h"
 #import "PoemReader.h"
 #import "CustomTestCell.h"
+#import "PoemDetailView.h"
+#import "PoemIntroductionView.h"
 
 @interface CollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,PoemCellScrollDelegate>
 {
     NSMutableArray* poemArr;
+    UIView* currentEmbedView;
 }
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UIScrollView *poemMixedInfoScrollView;
@@ -96,10 +99,37 @@
 {
     return collectionView.bounds.size;
 }
-
+- (void)clearScrollSubView
+{
+    if(currentEmbedView)
+    {
+        [currentEmbedView removeFromSuperview];
+    }
+}
 #pragma mark poemDelegate
 - (void)poemCellDidBeginPulling:(PoemCell *)cell
 {
+    [self clearScrollSubView];
+    switch (cell.presentationType) {
+        case PoemDetailType:
+        {
+            CGRect poemDetailFrame = CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width * 2, self.view.frame.size.height);
+            PoemDetailView* poemDetailView = [[PoemDetailView alloc]initWithFrame:poemDetailFrame withData:cell.poemData];
+            [_poemMixedInfoScrollView addSubview:poemDetailView];
+            currentEmbedView = poemDetailView;
+            break;
+        }
+        case PoemIntroduction:
+        {
+            CGRect poemDetailFrame = CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width * 2, self.view.frame.size.height);
+            PoemIntroductionView* introudctionView = [[PoemIntroductionView alloc]initWithFrame:poemDetailFrame withData:cell.poemData];
+            [_poemMixedInfoScrollView addSubview:introudctionView];
+            currentEmbedView = introudctionView;
+            break;
+        }
+        default:
+            break;
+    }
     _poemMixedInfoScrollView.scrollEnabled = NO;
 }
 - (void)poemCell:(PoemCell *)cell didChangePullOffset:(CGFloat)offset

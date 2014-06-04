@@ -42,6 +42,7 @@
     BOOL isScrollDecelarating;
     float inOutScrollDecelerateRatio;
     
+    
 }
 @end
 @implementation PoemCell
@@ -57,6 +58,7 @@
 {
     
     UIImage* backgroundImg = (UIImage*)[[UIImage alloc]initWithName:poem[@"bgimg"]];
+    self.poemData = poem;
     bgView.image = backgroundImg;
     author.text = poem[@"author"];
     title.text = poem[@"title"];
@@ -89,7 +91,7 @@
      */
     
     CGFloat pageWidth = sFrame.size.width + MaxScrollPull;
-    bgScrollViewFrame = CGRectMake(0, 0, bgView.frame.size.width, bgView.frame.size.height - 100);
+    bgScrollViewFrame = CGRectMake(0, 0, pageWidth, bgView.frame.size.height - 100);
     poemBackgroundScrollViewFrame = CGRectMake(0, bgScrollViewFrame.size.height, pageWidth, 100);
     
     bgScrollView = [[UIScrollView alloc]initWithFrame:bgScrollViewFrame];
@@ -97,7 +99,7 @@
     poemBackgroundScrollView = [[UIScrollView alloc]initWithFrame:poemBackgroundScrollViewFrame];
     poemBackgroundScrollView.tag = 200;
     
-    bgScrollView.contentSize = CGSizeMake(bgScrollView.frame.size.width*2, bgScrollView.frame.size.height);
+    bgScrollView.contentSize = CGSizeMake(pageWidth*2, bgScrollView.frame.size.height);
     poemBackgroundScrollView.contentSize = CGSizeMake(pageWidth*2,poemBackgroundScrollView.frame.size.height );
     
     bgScrollView.delegate = self;
@@ -119,7 +121,6 @@
     
     CGRect titileFrame = CGRectMake(0, sFrame.size.height - 200 , sFrame.size.width, 100);
     CGRect authorFrame = CGRectMake(0, 0 , pageWidth - MaxScrollPull, 100);
-    //CGRect authorFrame = CGRectMake(0, sFrame.size.height - 100 , sFrame.size.width - 20, 100);
     
     author = [[UILabel alloc]initWithFrame:authorFrame];
     author.adjustsFontSizeToFitWidth = YES;
@@ -136,7 +137,7 @@
     title.numberOfLines = 2;
     title.textColor = [UIColor whiteColor];
     title.textAlignment = NSTextAlignmentRight;
-    title.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+    //title.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     
     
     
@@ -164,21 +165,9 @@
     //[poemBackgroundScrollView addSubview:poemIntroductionView];
     
 }
+
 -(void)bgScrollViewDidScroll:(UIScrollView *)scrollView
 {
-    
-    /*
-    if (scrollDirection==0){//we need to determine direction
-        //use the difference between positions to determine the direction.
-        if (abs(startPos.x-scrollView.contentOffset.x)<abs(startPos.y-scrollView.contentOffset.y)){
-            //NSLog(@"Vertical Scrolling");
-            scrollDirection=1;
-        } else {
-            //NSLog(@"Horitonzal Scrolling");
-            scrollDirection=2;
-        }
-    }
-     */
     CGFloat bgViewOffset =  MAX(0, scrollView.contentOffset.x / 10);
     bgView.frame = CGRectMake(-bgViewOffset, bgView.frame.origin.y, bgView.frame.size.width, bgView.frame.size.height);
     float offsetPercent =  scrollView.contentOffset.x / (poemDetailView.frame.size.width/2);
@@ -191,16 +180,27 @@
     title.alpha = 1.0 - offsetPercent;
     
     
-    
-    //防止对角线拖动
-    /*
-     if (scrollDirection==1) {
-     [scrollView setContentOffset:CGPointMake(startPos.x,scrollView.contentOffset.y) animated:NO];
-     } else if (scrollDirection==2){
-     [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x,startPos.y) animated:NO];
-     }
-     */
-
+    CGFloat offset = scrollView.contentOffset.x ;
+    if ( offset > MaxScrollPull && !pulling) {
+        //[self.delegate willBeginPull:scrollView.contentOffset];
+        pulling = YES;
+        self.presentationType = PoemDetailType;
+        [self.delegate poemCellDidBeginPulling:self];
+    }
+    if(pulling)
+    {
+        CGFloat pulloffset;
+        if(!isScrollDecelarating)
+        {
+            pulloffset =  MAX(0, offset - MaxScrollPull);
+        }
+        else
+        {
+            pulloffset = offset * inOutScrollDecelerateRatio;
+        }
+        [self.delegate poemCell:self didChangePullOffset:pulloffset];
+        bgScrollView.transform = CGAffineTransformMakeTranslation(pulloffset, 0);
+    }
 }
 -(void)poemBackgroundViewDidScroll:(UIScrollView *)scrollView
 {
@@ -209,6 +209,7 @@
     if ( offset > MaxScrollPull && !pulling) {
         //[self.delegate willBeginPull:scrollView.contentOffset];
         pulling = YES;
+        self.presentationType = PoemIntroduction;
         [self.delegate poemCellDidBeginPulling:self];
     }
     if(pulling)
@@ -228,42 +229,16 @@
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    //NSLog(@"%f %f",scrollView.contentOffset.x,scrollView.contentOffset.y);
-    
-    
-    //CGRect orignalFrame;
     switch (scrollView.tag) {
         case 100:
             [self bgScrollViewDidScroll:scrollView];
-            //orignalFrame = bgScrollViewFrame;
             break;
         case 200:
             [self poemBackgroundViewDidScroll:scrollView];
-            //orignalFrame = poemBackgroundScrollViewFrame;
+            break;
         default:
             break;
     }
-    
-    /*
-    CGFloat pageWidth = scrollView.frame.size.width;
-    static NSInteger previousPage = 0;
-    float fractionalPage = scrollView.contentOffset.x / pageWidth;
-    NSInteger page = lround(fractionalPage);
-    if (page != previousPage) {
-        //scrollView.alwaysBounceVertical =!scrollView.alwaysBounceVertical;
-        previousPage = page;
-        if(page == 0)
-        {
-            //[self.delegate didHidePoemDetail];
-            //scrollView.frame = orignalFrame;
-        }
-        else
-        {
-            //[self.delegate didShowPoemDetail];
-            //scrollView.frame = CGRectMake(0,0, self.frame.size.width, self.frame.size.height);
-        }
-    }
-     */
 }
 
 - (void)scrollingEnd
@@ -273,6 +248,8 @@
     isScrollDecelarating = NO;
     poemBackgroundScrollView.contentOffset = CGPointZero;
     poemBackgroundScrollView.transform =CGAffineTransformIdentity;
+    bgScrollView.contentOffset = CGPointZero;
+    bgScrollView.transform =CGAffineTransformIdentity;
 }
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
@@ -304,15 +281,6 @@
 {
     //NSLog(@"end animation %f %f",scrollView.contentOffset.x,scrollView.contentOffset.y);
 }
-
-/*
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    startPos = scrollView.contentOffset;
-    scrollDirection=0;
-    //[self.delegate poemCellDidBeginPulling:self];
-}
- */
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
 {

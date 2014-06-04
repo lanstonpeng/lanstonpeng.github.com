@@ -10,4 +10,5 @@
 
 @interface PoemIntroductionView : UIView
 
+- (id)initWithFrame:(CGRect)frame  withData:(NSDictionary*)poem;
 @end

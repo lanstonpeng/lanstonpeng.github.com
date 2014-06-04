@@ -7,8 +7,9 @@
 //
 
 #import "PoemDetailView.h"
+#import "UIImage+PoemResouces.h"
 
-@interface PoemDetailView()
+@interface PoemDetailView()<UITextViewDelegate>
 {
     float screenHeight;
     float screenWidth;
@@ -26,9 +27,10 @@
     BOOL isShowingTranslatedLabel;
 }
 
-@property (strong,nonatomic) UILabel* currentLineOfPoemLabel;
-@property (strong,nonatomic) UILabel* alternativeLinePoemLabel;
-@property (strong,nonatomic) UILabel* translatedLabel;
+@property (strong,nonatomic) UITextView* currentLineOfPoemTextView;
+@property (strong,nonatomic) UITextView* alternativeLinePoemTextView;
+@property (strong,nonatomic) UITextView* translatedTextView;
+@property (strong,nonatomic) UIImageView* backgroundImageView;
 
 @end
 
@@ -43,13 +45,15 @@
 
 #define LabelPaddLeft 10
 
+#define PoemTextViewHeight 60
 
 @implementation PoemDetailView
 
 - (id)initWithFrame:(CGRect)frame  withData:(NSDictionary*)poem
 {
-    poemLines = poem[@"body"];
+    poemLines = poem[@"poembody"];
     poemDic = poem;
+    _currentTranslatedLanguage = @"chinese";
     return [self initWithFrame:frame];
 }
 - (id)initWithFrame:(CGRect)frame
@@ -72,20 +76,27 @@
         _bgMaskLayer.frame = CGRectMake(0, 0, frame.size.width, sFrame.size.height);
         //_bgMaskLayer.frame = self.frame;
         _bgMaskLayer.backgroundColor = UIColorFromRGB(0xf1f1f1).CGColor;
+       
+        _backgroundImageView = [[UIImageView alloc]initWithImage: (UIImage*)[[UIImage alloc]initWithName:@"paisaje_azul_1920x1200"]];
+        _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _backgroundImageView.frame = shadow.frame;
+        _backgroundImageView.clipsToBounds = YES;
+        [self addSubview:_backgroundImageView];
         self.clipsToBounds = NO;
-        [self.layer addSublayer:_bgMaskLayer];
+        //[self.layer addSublayer:_bgMaskLayer];
         [self initPoemView];
     }
     return self;
 }
-- (UILabel *)translatedLabel
+- (UITextView*)translatedTextView
 {
-    if(!_translatedLabel)
+    if(!_translatedTextView)
     {
-        CGRect f = self.currentLineOfPoemLabel.frame;
-        _translatedLabel = [[UILabel alloc]initWithFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height)];
-        _translatedLabel.textAlignment = NSTextAlignmentCenter;
-        _translatedLabel.alpha = 0;
+        CGRect f = self.currentLineOfPoemTextView.frame;
+        _translatedTextView = [[UITextView alloc]initWithFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height)];
+        _translatedTextView.textAlignment = NSTextAlignmentCenter;
+        _translatedTextView.backgroundColor = [UIColor clearColor];
+        _translatedTextView.alpha = 0;
         UIFont* font = [UIFont fontWithName:ChineseFont size:14];
         /*
          NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
@@ -111,28 +122,33 @@
                 
             }
         }*/
-        _translatedLabel.font = font;
+        _translatedTextView.font = font;
     }
-    return _translatedLabel;
+    return _translatedTextView;
 }
-- (UILabel *)currentLineOfPoemLabel
+- (UITextView *)currentLineOfPoemTextView
 {
-    if(!_currentLineOfPoemLabel)
+    if(!_currentLineOfPoemTextView)
     {
-        _currentLineOfPoemLabel  = [[UILabel alloc]initWithFrame:CGRectMake(LabelPaddLeft, screenHeight/2 - 50 , screenWidth, 50)];
-        [self setLabelAttribute:_currentLineOfPoemLabel];
+        _currentLineOfPoemTextView  = [[UITextView alloc]initWithFrame:CGRectMake(LabelPaddLeft, screenHeight/2 - PoemTextViewHeight/2 , screenWidth, PoemTextViewHeight)];
+        _currentLineOfPoemTextView.scrollEnabled = NO;
+        _currentLineOfPoemTextView.backgroundColor = [UIColor clearColor];
+        //[self setLabelAttribute:_currentLineOfPoemTextView];
     }
-    return _currentLineOfPoemLabel;
+    return _currentLineOfPoemTextView;
 }
 
-- (UILabel *)alternativeLinePoemLabel
+- (UITextView *)alternativeLinePoemTextView
 {
-    if(!_alternativeLinePoemLabel)
+    if(!_alternativeLinePoemTextView)
     {
-        _alternativeLinePoemLabel  = [[UILabel alloc]initWithFrame:CGRectMake(LabelPaddLeft, screenHeight/2 - 50 , screenWidth, 50)];
-        [self setLabelAttribute:_alternativeLinePoemLabel];
+        _alternativeLinePoemTextView  = [[UITextView alloc]initWithFrame:CGRectMake(LabelPaddLeft, screenHeight, screenWidth, PoemTextViewHeight)];
+        _alternativeLinePoemTextView.delegate = self;
+        _alternativeLinePoemTextView.scrollEnabled = NO;
+        _alternativeLinePoemTextView.backgroundColor = [UIColor clearColor];
+        //[self setLabelAttribute:_alternativeLinePoemTextView];
     }
-    return _alternativeLinePoemLabel;
+    return _alternativeLinePoemTextView;
 }
 
 -(void)initSystemConfiguration
@@ -143,28 +159,64 @@
 }
 -(NSString*)getCurrentLine
 {
-    NSString* line =  poemLines[currentLine];
-    return line;
+   // NSString* line =  poemLines[currentLine][@"text"];
+    
+    NSDictionary* currentLineDic = [self getCurrentLineDictionary];
+    NSString* line =  currentLineDic[@"text"];
+    NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:line];
+    if (currentLineDic[@"explanation"]) {
+        [currentLineDic[@"explanation"] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            NSLog(@"--> %@",key);
+            [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:[line rangeOfString:key]];
+        }];
+    }
+    return [attrString string];
 }
--(NSString*)getNextLine
+-(void)setUpAttributeString:(NSMutableAttributedString*)attrStr
 {
-    currentLine+=2;
-    NSString* line =  poemLines[currentLine];
-    return line;
+    NSRange range = NSMakeRange(0, [attrStr string].length);
+    [attrStr addAttribute:NSFontAttributeName value:[UIFont fontWithName:PoemFont size:PoemFontSize] range:range];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:range];
+    NSMutableParagraphStyle *paragrapStyle = [[NSMutableParagraphStyle alloc] init];
+    paragrapStyle.alignment = NSTextAlignmentCenter;
+    [attrStr addAttribute:NSParagraphStyleAttributeName value:paragrapStyle range:range];
 }
--(NSString*)getPrevLine
+-(NSMutableAttributedString*)getCurrentAttributeString
 {
-    currentLine-=2;
-    NSString* line =  poemLines[currentLine];
-    return line;
+    
+    NSDictionary* currentLineDic = [self getCurrentLineDictionary];
+    NSString* line =  currentLineDic[@"text"];
+    NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:line];
+    [self setUpAttributeString:attrString];
+    if (currentLineDic[@"explanation"]) {
+        [currentLineDic[@"explanation"] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:[line rangeOfString:key]];
+        }];
+    }
+    return attrString;
 }
--(void)setLabelAttribute:(UILabel*)label
+-(NSDictionary*)getCurrentLineDictionary
+{
+    return poemLines[currentLine];
+}
+-(NSMutableAttributedString*)getNextLineAttributeString
+{
+    currentLine++;
+    return [self getCurrentAttributeString];
+}
+-(NSMutableAttributedString*)getPrevLineAttributeString
+{
+    currentLine--;
+    return [self getCurrentAttributeString];
+}
+-(void)setLabelAttribute:(UITextView*)textView
 {
     //label.textColor = UIColorFromRGB(0xFF874F);
-    label.textColor = [UIColor blackColor];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.numberOfLines = 0;
-    label.font = [UIFont fontWithName:PoemFont size:PoemFontSize];
+    textView.backgroundColor = [UIColor clearColor];
+    textView.textColor = [UIColor blackColor];
+    textView.textAlignment = NSTextAlignmentCenter;
+    //label.numberOfLines = 0;
+    textView.font = [UIFont fontWithName:PoemFont size:PoemFontSize];
 }
 -(void)configureChineseLabel:(UILabel*)label
 {
@@ -177,101 +229,104 @@
     if(currentLine == 0){
         return;
     }
-    _alternativeLinePoemLabel.frame = CGRectMake(LabelPaddLeft, screenHeight/2 - 100 , screenWidth, 50);
-    _alternativeLinePoemLabel.alpha = 0;
+    _alternativeLinePoemTextView.frame = CGRectMake(LabelPaddLeft, screenHeight/2 - 100 , screenWidth, PoemTextViewHeight);
+    _alternativeLinePoemTextView.alpha = 0;
     
-    [self setLabelAttribute:_alternativeLinePoemLabel];
+    //[self setLabelAttribute:_alternativeLinePoemTextView];
     
-    _alternativeLinePoemLabel.text = [self getPrevLine];
+    _alternativeLinePoemTextView.attributedText = [self getPrevLineAttributeString];
     
     self.userInteractionEnabled = NO;
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        CGRect f = _currentLineOfPoemLabel.frame;
-        _currentLineOfPoemLabel.frame = CGRectMake(f.origin.x, f.origin.y + 50, f.size.width, f.size.height);
-        _currentLineOfPoemLabel.alpha = 0;
+        CGRect f = _currentLineOfPoemTextView.frame;
+        _currentLineOfPoemTextView.frame = CGRectMake(f.origin.x, f.origin.y + 50, f.size.width, f.size.height);
+        _currentLineOfPoemTextView.alpha = 0;
         
-        _alternativeLinePoemLabel.frame = CGRectMake(LabelPaddLeft, screenHeight/2 - 50 , screenWidth, 50);
-        _alternativeLinePoemLabel.alpha = 1;
+        _alternativeLinePoemTextView.frame = CGRectMake(LabelPaddLeft, screenHeight/2 - 50 , screenWidth, PoemTextViewHeight);
+        _alternativeLinePoemTextView.alpha = 1;
     } completion:^(BOOL finished) {
-        id temp = _currentLineOfPoemLabel;
-        _currentLineOfPoemLabel = _alternativeLinePoemLabel;
-        _alternativeLinePoemLabel = temp;
+        id temp = _currentLineOfPoemTextView;
+        _currentLineOfPoemTextView = _alternativeLinePoemTextView;
+        _alternativeLinePoemTextView = temp;
         self.userInteractionEnabled = YES;
     }];
     
     if(isShowingTranslatedLabel)
     {
-        _translatedLabel.text = poemLines[currentLine + 1];
-        _translatedLabel.alpha = 0;
+        _translatedTextView.text = poemLines[currentLine][@"translated"][_currentTranslatedLanguage];
+        _translatedTextView.alpha = 0;
         [UIView animateWithDuration:0.2 delay:0.4 options:UIViewAnimationOptionCurveEaseIn animations:^{
-           _translatedLabel.alpha = 1;
+           _translatedTextView.alpha = 1;
        } completion:^(BOOL finished) {
        }];
     }
 }
 -(void)handleSwipeRightGesture:(id)sender
 {
+
 }
 -(void)handleSwipeUpGesture:(id)sender
 {
     if(currentLine == totalLine - 2){
         return;
     }
-    _alternativeLinePoemLabel.frame = CGRectMake(LabelPaddLeft, screenHeight/2 , screenWidth, 50);
-    _alternativeLinePoemLabel.alpha = 0;
-    [self setLabelAttribute:_alternativeLinePoemLabel];
-    _alternativeLinePoemLabel.text = [self getNextLine];
+    
+    _alternativeLinePoemTextView.frame = CGRectMake(LabelPaddLeft, screenHeight/2 , screenWidth, PoemTextViewHeight);
+    _alternativeLinePoemTextView.alpha = 0;
+    //[self setLabelAttribute:_alternativeLinePoemTextView];
+    _alternativeLinePoemTextView.attributedText = [self getNextLineAttributeString];
     
     self.userInteractionEnabled = NO;
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        CGRect f = _currentLineOfPoemLabel.frame;
-        _currentLineOfPoemLabel.frame = CGRectMake(f.origin.x, f.origin.y - 50, f.size.width, f.size.height);
-        _currentLineOfPoemLabel.alpha = 0;
+        CGRect f = _currentLineOfPoemTextView.frame;
+        _currentLineOfPoemTextView.frame = CGRectMake(f.origin.x, f.origin.y - 50, f.size.width, f.size.height);
+        _currentLineOfPoemTextView.alpha = 0;
         
-        _alternativeLinePoemLabel.frame = CGRectMake(LabelPaddLeft, screenHeight/2 - 50 , screenWidth, 50);
-        _alternativeLinePoemLabel.alpha = 1;
+        _alternativeLinePoemTextView.frame = CGRectMake(LabelPaddLeft, screenHeight/2 - PoemTextViewHeight , screenWidth, PoemTextViewHeight);
+        _alternativeLinePoemTextView.alpha = 1;
     } completion:^(BOOL finished) {
-        id temp = _currentLineOfPoemLabel;
-        _currentLineOfPoemLabel = _alternativeLinePoemLabel;
-        _alternativeLinePoemLabel = temp;
+        id temp = _currentLineOfPoemTextView;
+        _currentLineOfPoemTextView = _alternativeLinePoemTextView;
+        _alternativeLinePoemTextView = temp;
         self.userInteractionEnabled = YES;
     }];
     
     if(isShowingTranslatedLabel)
     {
        [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-           _translatedLabel.alpha = 0;
+           _translatedTextView.alpha = 0;
        } completion:^(BOOL finished) {
-           _translatedLabel.text = poemLines[currentLine + 1];
+           _translatedTextView.text = poemLines[currentLine][@"translated"][_currentTranslatedLanguage];
            [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-               _translatedLabel.alpha = 1;
+               _translatedTextView.alpha = 1;
            } completion:^(BOOL finished) {
            }];
        }];
     }
 }
-- (void)handleTapGesture:(id)sender
+- (void)handleTapGesture:(UITapGestureRecognizer *)sender
 {
-    CGRect f = _currentLineOfPoemLabel.frame;
-    if(isShowingTranslatedLabel){
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            //_translatedLabel.frame = CGRectMake(f.origin.x, f.origin.y - f.size.height, f.size.width, f.size.height);
-            _translatedLabel.alpha = 0;
-        } completion:^(BOOL finished) {
-            isShowingTranslatedLabel = NO;
-        }];
-        return;
-    }
-    _translatedLabel.frame = CGRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height);
-    _translatedLabel.text = poemLines[currentLine + 1];
+    CGPoint pos = [sender locationInView:sender.view];
+     UITextView *tv = (UITextView*)sender.view;
     
-    [UIView animateWithDuration:0.2 animations:^{
-        _translatedLabel.frame = CGRectMake(f.origin.x, f.origin.y + f.size.height, f.size.width, f.size.height);
-        _translatedLabel.alpha = 1;
-    } completion:^(BOOL finished) {
-        isShowingTranslatedLabel = YES;
-    }];
+     //eliminate scroll offset
+     pos.y += tv.contentOffset.y;
+     
+     //get location in text from textposition at point
+     UITextPosition *tapPos = [tv closestPositionToPoint:pos];
+     
+     //fetch the word at this position (or nil, if not available)
+     UITextRange * wr = [tv.tokenizer rangeEnclosingPosition:tapPos withGranularity:UITextGranularityWord inDirection:UITextLayoutDirectionRight];
+     
+    NSString* tapWord = [tv textInRange:wr];
+    NSDictionary* explainDic = [self getCurrentLineDictionary][@"explanation"];
+    if(tapWord && explainDic )
+    {
+        if(explainDic[tapWord])
+        {
+            NSLog(@"%@",explainDic[tapWord]);
+        }
+    }
 }
 - (void)initPoemView
 {
@@ -282,16 +337,16 @@
     swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
     [self addGestureRecognizer:swipeUp];
     [self addGestureRecognizer:swipeDown];
-    [self addSubview:self.currentLineOfPoemLabel];
-    [self addSubview:self.alternativeLinePoemLabel];
-    [self addSubview:self.translatedLabel];
+    [self addSubview:self.currentLineOfPoemTextView];
+    [self addSubview:self.alternativeLinePoemTextView];
+    [self addSubview:self.translatedTextView];
     
     UITapGestureRecognizer* tapLine1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapGesture:)];
     UITapGestureRecognizer* tapLine2 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapGesture:)];
-    _currentLineOfPoemLabel.userInteractionEnabled = YES;
-    _alternativeLinePoemLabel.userInteractionEnabled = YES;
-    [_currentLineOfPoemLabel addGestureRecognizer:tapLine1];
-    [_alternativeLinePoemLabel addGestureRecognizer:tapLine2];
+    _currentLineOfPoemTextView.userInteractionEnabled = YES;
+    _alternativeLinePoemTextView.userInteractionEnabled = YES;
+    [_currentLineOfPoemTextView addGestureRecognizer:tapLine1];
+    [_alternativeLinePoemTextView addGestureRecognizer:tapLine2];
     
     UISwipeGestureRecognizer* swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeRightGesture:)];
     swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
@@ -301,9 +356,37 @@
     totalLine = (int)poemLines.count;
     currentLine = 0;
     
-    _currentLineOfPoemLabel.text = [self getCurrentLine];
+    //_currentLineOfPoemTextView.text = [self getCurrentLine];
+    _currentLineOfPoemTextView.attributedText = [self getCurrentAttributeString];
 
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
     
+}
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch* touch = [touches anyObject];
+    CGRect sFrame = [UIScreen mainScreen].bounds;
+    if (CGRectContainsPoint(CGRectMake(0, sFrame.size.height * 3 / 5, sFrame.size.width, sFrame.size.height * 2 / 5),[touch locationInView:self])) {
+        CGRect f = _currentLineOfPoemTextView.frame;
+        if(isShowingTranslatedLabel){
+            
+            [UIView animateWithDuration:0.2 animations:^{
+                //_translatedLabel.frame = CGRectMake(f.origin.x, f.origin.y - f.size.height, f.size.width, f.size.height);
+                _translatedTextView.alpha = 0;
+            } completion:^(BOOL finished) {
+                isShowingTranslatedLabel = NO;
+            }];
+            return;
+        }
+        _translatedTextView.frame = CGRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height);
+        _translatedTextView.text =  poemLines[currentLine][@"translated"][_currentTranslatedLanguage];
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            _translatedTextView.frame = CGRectMake(f.origin.x, f.origin.y + f.size.height, f.size.width, f.size.height);
+            _translatedTextView.alpha = 1;
+        } completion:^(BOOL finished) {
+            isShowingTranslatedLabel = YES;
+        }];
+    }
 }
 @end
