@@ -8,6 +8,8 @@
 
 #import "PoemDetailView.h"
 #import "UIImage+PoemResouces.h"
+#import "PoemExplanationView.h"
+
 
 @interface PoemDetailView()<UITextViewDelegate>
 {
@@ -31,6 +33,7 @@
 @property (strong,nonatomic) UITextView* alternativeLinePoemTextView;
 @property (strong,nonatomic) UITextView* translatedTextView;
 @property (strong,nonatomic) UIImageView* backgroundImageView;
+@property (strong,nonatomic) PoemExplanationView* explanationView;
 
 @end
 
@@ -87,6 +90,15 @@
         [self initPoemView];
     }
     return self;
+}
+- (PoemExplanationView *)explanationView
+{
+    if(!_explanationView)
+    {
+        _explanationView = [[PoemExplanationView alloc]initWithFrame:CGRectMake(0, -130, 320, 130) withExplanation:@""];
+        [self addSubview:_explanationView];
+    }
+    return _explanationView;
 }
 - (UITextView*)translatedTextView
 {
@@ -167,7 +179,7 @@
     if (currentLineDic[@"explanation"]) {
         [currentLineDic[@"explanation"] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             NSLog(@"--> %@",key);
-            [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:[line rangeOfString:key]];
+            [attrString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x01C9FF) range:[line rangeOfString:key]];
         }];
     }
     return [attrString string];
@@ -190,7 +202,7 @@
     [self setUpAttributeString:attrString];
     if (currentLineDic[@"explanation"]) {
         [currentLineDic[@"explanation"] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:[line rangeOfString:key]];
+            [attrString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x0097FF) range:[line rangeOfString:key]];
         }];
     }
     return attrString;
@@ -229,6 +241,7 @@
     if(currentLine == 0){
         return;
     }
+    [self hideExplanationView];
     _alternativeLinePoemTextView.frame = CGRectMake(LabelPaddLeft, screenHeight/2 - 100 , screenWidth, PoemTextViewHeight);
     _alternativeLinePoemTextView.alpha = 0;
     
@@ -270,7 +283,7 @@
     if(currentLine == totalLine - 2){
         return;
     }
-    
+    [self hideExplanationView];
     _alternativeLinePoemTextView.frame = CGRectMake(LabelPaddLeft, screenHeight/2 , screenWidth, PoemTextViewHeight);
     _alternativeLinePoemTextView.alpha = 0;
     //[self setLabelAttribute:_alternativeLinePoemTextView];
@@ -324,8 +337,33 @@
     {
         if(explainDic[tapWord])
         {
-            NSLog(@"%@",explainDic[tapWord]);
+            //NSLog(@"%@",explainDic[tapWord]);
+            [self showExplanationView:explainDic[tapWord]];
         }
+    }
+}
+- (void)showExplanationView:(NSString*)explanationStr
+{
+    self.explanationView.explanationData = explanationStr;
+    //is close
+    if(self.explanationView.frame.origin.y == -self.explanationView.frame.size.height)
+    {
+        [UIView animateWithDuration:0.4 animations:^{
+            self.explanationView.frame = CGRectOffset(self.explanationView.frame, 0, self.explanationView.frame.size.height);
+        } completion:^(BOOL finished) {
+        }];
+    }
+}
+- (void)hideExplanationView
+{
+    
+    //is open
+    if(self.explanationView.frame.origin.y == 0)
+    {
+        [UIView animateWithDuration:0.4 animations:^{
+            self.explanationView.frame = CGRectOffset(self.explanationView.frame, 0, -self.explanationView.frame.size.height);
+        } completion:^(BOOL finished) {
+        }];
     }
 }
 - (void)initPoemView
