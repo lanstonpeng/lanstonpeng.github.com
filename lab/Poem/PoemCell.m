@@ -73,22 +73,6 @@
     bgMaskLayer.backgroundColor = [UIColor blackColor].CGColor;
     [bgView.layer addSublayer:bgMaskLayer];
     [self addSubview:bgView];
-    /*
-    CABasicAnimation* fadeAnim = [CABasicAnimation animationWithKeyPath:@"size"];
-    fadeAnim.fromValue = [NSNumber numberWithFloat:1.0];
-    fadeAnim.toValue = [NSNumber numberWithFloat:0.0];
-    fadeAnim.duration = 1.0;
-    fadeAnim.fillMode = kCAFillModeForwards;
-    bgView.layer.anchorPoint = CGPointMake(bgView.frame.size.width / 2, bgView.frame.size.height / 2);
-
-    [bgView.layer addAnimation:fadeAnim forKey:@"opacity"];
-     */
-    /*
-    [UIView animateWithDuration:60 delay:0 options:UIViewAnimationOptionAutoreverse animations:^{
-        bgView.frame = CGRectMake(0, 0, sFrame.size.width * 1.25, sFrame.size.height * 1.25 );
-    } completion:^(BOOL finished) {
-    }];
-     */
     
     CGFloat pageWidth = sFrame.size.width + MaxScrollPull;
     bgScrollViewFrame = CGRectMake(0, 0, pageWidth, bgView.frame.size.height - 100);
@@ -159,8 +143,8 @@
 {
     [self initData:poem];
     
-    poemDetailView = [[PoemDetailView alloc]initWithFrame:poemDetailFrame withData:poem];
-    poemIntroductionView = [[PoemIntroductionView alloc]initWithFrame:poemIntroductionViewFrame];
+    //poemDetailView = [[PoemDetailView alloc]initWithFrame:poemDetailFrame];
+    //poemIntroductionView = [[PoemIntroductionView alloc]initWithFrame:poemIntroductionViewFrame];
     //[bgScrollView addSubview:poemDetailView];
     //[poemBackgroundScrollView addSubview:poemIntroductionView];
     
@@ -170,9 +154,9 @@
 {
     CGFloat bgViewOffset =  MAX(0, scrollView.contentOffset.x / 10);
     bgView.frame = CGRectMake(-bgViewOffset, bgView.frame.origin.y, bgView.frame.size.width, bgView.frame.size.height);
-    float offsetPercent =  scrollView.contentOffset.x / (poemDetailView.frame.size.width/2);
+    float offsetPercent =  scrollView.contentOffset.x / (poemDetailFrame.size.width/2);
     bgMaskLayer.opacity = 0.5 + offsetPercent* 0.5;
-    poemDetailView.bgMaskLayer.opacity = 0.8 + offsetPercent * 0.2;
+    //poemDetailView.bgMaskLayer.opacity = 0.8 + offsetPercent * 0.2;
     //author.frame = CGRectMake(-scrollView.contentOffset.x /20, author.frame.origin.y, author.frame.size.width, author.frame.size.height);
     title.frame = CGRectMake(-scrollView.contentOffset.x /20, title.frame.origin.y, title.frame.size.width, title.frame.size.height);
     

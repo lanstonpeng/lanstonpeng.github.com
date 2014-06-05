@@ -115,49 +115,7 @@
         "chinese":"我这诗就活着,使你的生命绵延"
       }
     },
-   ],
-    "body":["Shall I compare thee to a summer's day?",
-              "能不能让我来把你比拟做夏日?",
-            
-              "Thou art more lovely and more temperate",
-              "你可是更加温和,更加可爱",
-              
-              "Rough winds do shake the darling buds of May",
-              "狂风会吹落五月里开的好花儿",
-              
-              "And summer's lease hath all too short a date",
-              "夏季的生命又未免结束得太快",
-              
-              "Sometimes too hot the eys of heaven shines",
-              "有时候苍天的巨眼照得太灼热",
-              
-              "And often is his gold complexion dimmed",
-              "他那金彩的脸色也会被遮暗",
-              
-              "And every fair from fair somethme declines",
-              "每一样美呀,总会离开美而凋落",
-              
-              "By chance, or nature's changing course, untrimmed",
-              "被时机或者自然的代谢所摧残",
-              
-              "But thy eternal summer shall not fade",
-              "但是你永久的夏天决不会凋枯",
-              
-              "Nor lose possession of that fair thou owest",
-              "你永远不会失去你美的仪态",
-              
-              "Nor shall Death brag thou wanderest in his shade",
-              "死神夸不着你在他的影子里踯躅",
-              
-              "When in eternal lines to time thou growest",
-              "你将在不朽的诗中与时间同在",
-              
-              "So long as men can breathe or eyes can see",
-              "只要人类在呼吸,眼睛看得见",
-              
-              "So long lives this, and this gives life to thee",
-              "我这诗就活着,使你的生命绵延"
-              ]
+   ]
     },
     {
     "title":"A Farewel to Worldly Joyes",
@@ -182,48 +140,100 @@
             }
             ]
    },
-    "body":["Farewel to Unsubstantial Joyes",
-              "永别了,空洞的欢乐",
-              
-              "Ye Gilded Nothings,Gaudy Toyes",
-              "涂金的虚无,华丽的玩具",
-              
-              "Too long ye have my Soul misled",
-              "太久,你使我的灵魂迷途",
-              
-              "Too long with Aiery Diet fed",
-              "太久,给它空气般的米黍",
-              
-              "But now my Heart ye shall no more",
-              "但是我的心不会再被你迷惑",
-              
-              "Deceive,as you have heretofore",
-              "虽然以前你曾经迷惑过我",
-              
-              "for when I hear such Sirens sing",
-              "当我听到这样的塞壬歌唱",
-              
-              "Like lthica's fore－warned King",
-              "像伊斯卡受到警告的国王",
-              
-              "With prudent Resolution I",
-              "以谨慎克制的决心,我将",
-              
-              "Will so my Will and Fancy tye",
-              "坚决缚住我的意志和想像",
-              
-              "That stronger to the Mast not he",
-              "比他把自己缚于桅杆更紧",
-              
-              "Than I to Reason bound will be",
-              "我将使自己钳制于理性",
-              
-              "And though your Witchcrafts strike my Ear",
-              "虽然你的巫术撞击我的耳鼓",
-              
-              "Unhurt,like him,your Charms I'll hear",
-              "无动于衷,像他,我倾听你的法术"
-              ]
+   "poembody":
+   [
+    {
+      "text":"Farewel to Unsubstantial Joyes",
+      "translated":{
+        "chinese":"永别了,空洞的欢乐"
+        },
+      "explanation":{
+        "Farewel":"Thee is an old-fashioned, poetic, or religious word for \"you\" when you are talking to only one person. It is used as the object of a verb or preposition"
+      }
+    },
+    {
+      "text":"Ye Gilded Nothings,Gaudy Toyes",
+      "translated":{
+        "chinese": "太久,给它空气般的米黍"
+        },
+      "explanation":{
+        "Gilded":"Thou is an old-fashioned, poetic, or religious word for \"you\" when you are talking to only one person. It is used as the subject of a verb"
+      },
+      "extra":"这句表达了什么什么什么"
+    },
+    {
+      "text":"Too long ye have my Soul misled",
+      "translated":{
+        "chinese":"太久,你使我的灵魂迷途"
+        }
+    },
+     {
+      "text":"Too long with Aiery Diet fed",
+      "translated":{
+        "chinese":"夏季的生命又未免结束得太快"
+      }
+    },
+    {
+      "text": "But now my Heart ye shall no more",
+      "translated":{
+        "chinese":"但是我的心不会再被你迷惑"
+      }
+    },
+     {
+      "text":"And often is his gold complexion dimmed",
+      "translated":{
+        "chinese":"他那金彩的脸色也会被遮暗"
+      }
+    },
+    {
+      "text":"And every fair from fair somethme declines",
+      "translated":{
+        "chinese":"每一样美呀,总会离开美而凋落"
+      }
+    },
+    {
+      "text":"By chance, or nature's changing course, untrimmed",
+      "translated":{
+        "chinese":"被时机或者自然的代谢所摧残"
+      }
+    },
+    {
+      "text":"But thy eternal summer shall not fade",
+      "translated":{
+        "chinese":"但是你永久的夏天决不会凋枯"
+      }
+    },
+    {
+      "text":"Nor lose possession of that fair thou owest",
+      "translated":{
+        "chinese":"你永远不会失去你美的仪态"
+      }
+    },
+    {
+      "text":"Nor shall Death brag thou wanderest in his shade",
+      "translated":{
+        "chinese":"死神夸不着你在他的影子里踯躅"
+      }
+    },
+    {
+      "text":"When in eternal lines to time thou growest",
+      "translated":{
+        "chinese":"你将在不朽的诗中与时间同在"
+      }
+    },
+    {
+      "text":"So long as men can breathe or eyes can see",
+      "translated":{
+        "chinese":"只要人类在呼吸,眼睛看得见"
+      }
+    },
+    {
+      "text":"So long lives this, and this gives life to thee",
+      "translated":{
+        "chinese":"我这诗就活着,使你的生命绵延"
+      }
+    },
+   ]
     }
 
     ]

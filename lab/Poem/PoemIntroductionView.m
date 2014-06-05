@@ -12,26 +12,32 @@
 
 @property (strong,nonatomic)UIScrollView* introudctionScrollView;
 @property (strong,nonatomic)NSDictionary* poemData;
+@property (strong,nonatomic)UITextView* introTextView;
 @end
 
 #define PaddingLeft 10
 #define MarginTop 20
 @implementation PoemIntroductionView
 
+- (void)setPoemData:(NSDictionary*)poemData
+{
+    _poemData = poemData;
+    _introTextView.text = _poemData[@"poemIntroduction"][@"text"];
+}
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
         CGRect sFrame = [UIScreen mainScreen].bounds;
-        UITextView* textView = [[UITextView alloc]initWithFrame:CGRectMake(PaddingLeft, MarginTop, sFrame.size.width - 2*PaddingLeft, sFrame.size.height - 2 * MarginTop)];
-        textView.font = [UIFont fontWithName:@"AppleSDGothicNeo-Light" size:16];
-        textView.textAlignment = NSTextAlignmentNatural;
-        textView.layoutManager.delegate = self;
-        textView.text = _poemData[@"poemIntroduction"][@"text"];
+        _introTextView = [[UITextView alloc]initWithFrame:CGRectMake(PaddingLeft, MarginTop, sFrame.size.width - 2*PaddingLeft, sFrame.size.height - 2 * MarginTop)];
+        _introTextView.font = [UIFont fontWithName:@"AppleSDGothicNeo-Light" size:16];
+        _introTextView.textAlignment = NSTextAlignmentNatural;
+        _introTextView.layoutManager.delegate = self;
+        //textView.text = _poemData[@"poemIntroduction"][@"text"];
         _introudctionScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, sFrame.size.height)];
         _introudctionScrollView.showsHorizontalScrollIndicator = NO;
-        [_introudctionScrollView addSubview:textView];
+        [_introudctionScrollView addSubview:_introTextView];
         [self addSubview:_introudctionScrollView];
         
     }

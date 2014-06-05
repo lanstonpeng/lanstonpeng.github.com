@@ -9,6 +9,7 @@
 #import "PoemDetailView.h"
 #import "UIImage+PoemResouces.h"
 #import "PoemExplanationView.h"
+#import "PoemLineView.h"
 
 
 @interface PoemDetailView()<UITextViewDelegate>
@@ -29,11 +30,17 @@
     BOOL isShowingTranslatedLabel;
 }
 
+/*
 @property (strong,nonatomic) UITextView* currentLineOfPoemTextView;
 @property (strong,nonatomic) UITextView* alternativeLinePoemTextView;
 @property (strong,nonatomic) UITextView* translatedTextView;
+*/
 @property (strong,nonatomic) UIImageView* backgroundImageView;
+@property (strong,nonatomic) UIScrollView* backgroundScrollView;
 @property (strong,nonatomic) PoemExplanationView* explanationView;
+@property (strong,nonatomic) PoemLineView* currentLineOfPoemTextView;
+@property (strong,nonatomic) PoemLineView* alternativeLinePoemTextView;
+@property (strong,nonatomic) PoemLineView* translatedTextView;
 
 @end
 
@@ -52,6 +59,17 @@
 
 @implementation PoemDetailView
 
+- (void)setPoemData:(NSDictionary *)poemData
+{
+    poemLines = poemData[@"poembody"];
+    poemDic = poemData;
+    _currentTranslatedLanguage = @"chinese";
+    if(self.explanationView.frame.origin.y == 0)
+    {
+        self.explanationView.frame = CGRectOffset(self.explanationView.frame, 0, -self.explanationView.frame.size.height);
+    }
+    [self initPoemView];
+}
 - (id)initWithFrame:(CGRect)frame  withData:(NSDictionary*)poem
 {
     poemLines = poem[@"poembody"];
@@ -84,31 +102,43 @@
         _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
         _backgroundImageView.frame = shadow.frame;
         _backgroundImageView.clipsToBounds = YES;
-        [self addSubview:_backgroundImageView];
+        //[self addSubview:_backgroundImageView];
         self.clipsToBounds = NO;
         //[self.layer addSublayer:_bgMaskLayer];
-        [self initPoemView];
+        //[self initPoemView];
     }
     return self;
+}
+- (UIScrollView *)backgroundScrollView
+{
+    if(!_backgroundScrollView)
+    {
+        _backgroundScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, screenWidth + 20, screenHeight)];
+        //_backgroundScrollView.contentSize = CGSizeMake( (screenWidth + 20)+1, 0);
+        //_backgroundScrollView.bounces = YES;
+        _backgroundScrollView.alwaysBounceHorizontal = YES;
+        _backgroundScrollView.canCancelContentTouches = NO;
+    }
+    return _backgroundScrollView;
 }
 - (PoemExplanationView *)explanationView
 {
     if(!_explanationView)
     {
         _explanationView = [[PoemExplanationView alloc]initWithFrame:CGRectMake(0, -130, 320, 130) withExplanation:@""];
-        [self addSubview:_explanationView];
     }
     return _explanationView;
 }
-- (UITextView*)translatedTextView
+- (PoemLineView*)translatedTextView
 {
     if(!_translatedTextView)
     {
         CGRect f = self.currentLineOfPoemTextView.frame;
-        _translatedTextView = [[UITextView alloc]initWithFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height)];
+        _translatedTextView = [[PoemLineView alloc]initWithFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height)];
         _translatedTextView.textAlignment = NSTextAlignmentCenter;
         _translatedTextView.backgroundColor = [UIColor clearColor];
         _translatedTextView.alpha = 0;
+        _translatedTextView.editable = NO;
         UIFont* font = [UIFont fontWithName:ChineseFont size:14];
         /*
          NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
@@ -138,26 +168,30 @@
     }
     return _translatedTextView;
 }
-- (UITextView *)currentLineOfPoemTextView
+- (PoemLineView *)currentLineOfPoemTextView
 {
     if(!_currentLineOfPoemTextView)
     {
-        _currentLineOfPoemTextView  = [[UITextView alloc]initWithFrame:CGRectMake(LabelPaddLeft, screenHeight/2 - PoemTextViewHeight/2 , screenWidth, PoemTextViewHeight)];
+        _currentLineOfPoemTextView  = [[PoemLineView alloc]initWithFrame:CGRectMake(LabelPaddLeft, screenHeight/2 - PoemTextViewHeight/2 , screenWidth, PoemTextViewHeight)];
         _currentLineOfPoemTextView.scrollEnabled = NO;
         _currentLineOfPoemTextView.backgroundColor = [UIColor clearColor];
+        _currentLineOfPoemTextView.editable = NO;
+        _currentLineOfPoemTextView.userInteractionEnabled = NO;
         //[self setLabelAttribute:_currentLineOfPoemTextView];
     }
     return _currentLineOfPoemTextView;
 }
 
-- (UITextView *)alternativeLinePoemTextView
+- (PoemLineView *)alternativeLinePoemTextView
 {
     if(!_alternativeLinePoemTextView)
     {
-        _alternativeLinePoemTextView  = [[UITextView alloc]initWithFrame:CGRectMake(LabelPaddLeft, screenHeight, screenWidth, PoemTextViewHeight)];
+        _alternativeLinePoemTextView  = [[PoemLineView alloc]initWithFrame:CGRectMake(LabelPaddLeft, screenHeight, screenWidth, PoemTextViewHeight)];
         _alternativeLinePoemTextView.delegate = self;
         _alternativeLinePoemTextView.scrollEnabled = NO;
         _alternativeLinePoemTextView.backgroundColor = [UIColor clearColor];
+        _alternativeLinePoemTextView.editable = NO;
+        _alternativeLinePoemTextView.userInteractionEnabled = NO;
         //[self setLabelAttribute:_alternativeLinePoemTextView];
     }
     return _alternativeLinePoemTextView;
@@ -294,7 +328,6 @@
         CGRect f = _currentLineOfPoemTextView.frame;
         _currentLineOfPoemTextView.frame = CGRectMake(f.origin.x, f.origin.y - 50, f.size.width, f.size.height);
         _currentLineOfPoemTextView.alpha = 0;
-        
         _alternativeLinePoemTextView.frame = CGRectMake(LabelPaddLeft, screenHeight/2 - PoemTextViewHeight , screenWidth, PoemTextViewHeight);
         _alternativeLinePoemTextView.alpha = 1;
     } completion:^(BOOL finished) {
@@ -366,18 +399,38 @@
         }];
     }
 }
+- (void)initBackgroundImageViewAnimation
+{
+    /*
+    [UIView animateWithDuration:3 delay:0 options:UIViewAnimationOptionRepeat animations:^{
+        _backgroundScrollView.frame = CGRectOffset(_backgroundScrollView.frame, 1, 0);
+    } completion:^(BOOL finished) {
+        NSLog(@"ASDF");
+    }];*/
+    CABasicAnimation* animation = [CABasicAnimation animation];
+    animation.keyPath = @"position.x";
+    animation.fromValue = @(_backgroundImageView.frame.origin.x);
+    animation.toValue = @(_backgroundImageView.frame.origin.x + 100);
+    animation.duration = 20;
+    [_backgroundImageView.layer addAnimation:animation forKey:@"basic"];
+    _backgroundScrollView.layer.position = CGPointMake(_backgroundScrollView.frame.origin.x + 100, 0);
+}
 - (void)initPoemView
 {
     [self initSystemConfiguration];
+    //[self initBackgroundImageViewAnimation];
     UISwipeGestureRecognizer* swipeUp = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeUpGesture:)];
     swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
     UISwipeGestureRecognizer* swipeDown = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeDownGesture:)];
     swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
     [self addGestureRecognizer:swipeUp];
     [self addGestureRecognizer:swipeDown];
+    [self addSubview:self.backgroundImageView];
+    //[self addSubview:self.backgroundScrollView];
     [self addSubview:self.currentLineOfPoemTextView];
     [self addSubview:self.alternativeLinePoemTextView];
     [self addSubview:self.translatedTextView];
+    [self addSubview:self.explanationView];
     
     UITapGestureRecognizer* tapLine1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapGesture:)];
     UITapGestureRecognizer* tapLine2 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapGesture:)];

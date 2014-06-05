@@ -20,6 +20,8 @@
 }
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UIScrollView *poemMixedInfoScrollView;
+@property (strong,nonatomic) PoemDetailView* poemDetailView;
+@property (strong,nonatomic)PoemIntroductionView* introudctionView;
 @end
 
 @implementation CollectionViewController
@@ -47,6 +49,7 @@
     _poemMixedInfoScrollView.tag = 100;
     _poemMixedInfoScrollView.delegate = self;
     _poemMixedInfoScrollView.pagingEnabled = YES;
+    _poemMixedInfoScrollView.bounces = NO;
     _poemMixedInfoScrollView.showsHorizontalScrollIndicator = NO;
     [_poemMixedInfoScrollView addSubview:_collectionView];
     
@@ -57,6 +60,10 @@
     
     PoemReader* reader = [PoemReader sharedPoemReader];
     poemArr = (NSMutableArray*)[reader getAllPoems];
+    CGRect poemDetailFrame = CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width * 2, self.view.frame.size.height);
+    _poemDetailView = [[PoemDetailView alloc]initWithFrame:poemDetailFrame];
+    
+    _introudctionView = [[PoemIntroductionView alloc]initWithFrame:poemDetailFrame];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -113,18 +120,20 @@
     switch (cell.presentationType) {
         case PoemDetailType:
         {
-            CGRect poemDetailFrame = CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width * 2, self.view.frame.size.height);
-            PoemDetailView* poemDetailView = [[PoemDetailView alloc]initWithFrame:poemDetailFrame withData:cell.poemData];
-            [_poemMixedInfoScrollView addSubview:poemDetailView];
-            currentEmbedView = poemDetailView;
+            //CGRect poemDetailFrame = CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width * 2, self.view.frame.size.height);
+            //PoemDetailView* poemDetailView = [[PoemDetailView alloc]initWithFrame:poemDetailFrame withData:cell.poemData];
+            [_poemDetailView setPoemData:cell.poemData];
+            [_poemMixedInfoScrollView addSubview:_poemDetailView];
+            currentEmbedView = _poemDetailView;
             break;
         }
         case PoemIntroduction:
         {
-            CGRect poemDetailFrame = CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width * 2, self.view.frame.size.height);
-            PoemIntroductionView* introudctionView = [[PoemIntroductionView alloc]initWithFrame:poemDetailFrame withData:cell.poemData];
-            [_poemMixedInfoScrollView addSubview:introudctionView];
-            currentEmbedView = introudctionView;
+            //CGRect poemDetailFrame = CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width * 2, self.view.frame.size.height);
+            //PoemIntroductionView* introudctionView = [[PoemIntroductionView alloc]initWithFrame:poemDetailFrame withData:cell.poemData];
+            [_introudctionView setPoemData:cell.poemData];
+            [_poemMixedInfoScrollView addSubview:_introudctionView];
+            currentEmbedView = _introudctionView;
             break;
         }
         default:
