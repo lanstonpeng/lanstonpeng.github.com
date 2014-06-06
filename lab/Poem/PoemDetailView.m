@@ -57,6 +57,9 @@
 
 #define PoemTextViewHeight 60
 
+//a little bit higher for displaying the translated text
+static CGRect currentLineFrame;
+
 @implementation PoemDetailView
 
 - (void)setPoemData:(NSDictionary *)poemData
@@ -68,7 +71,8 @@
     {
         self.explanationView.frame = CGRectOffset(self.explanationView.frame, 0, -self.explanationView.frame.size.height);
     }
-    [self initPoemView];
+    //[self initPoemView];
+    [self initPoemData];
 }
 - (id)initWithFrame:(CGRect)frame  withData:(NSDictionary*)poem
 {
@@ -105,7 +109,7 @@
         //[self addSubview:_backgroundImageView];
         self.clipsToBounds = NO;
         //[self.layer addSublayer:_bgMaskLayer];
-        //[self initPoemView];
+        [self initPoemView];
     }
     return self;
 }
@@ -172,7 +176,7 @@
 {
     if(!_currentLineOfPoemTextView)
     {
-        _currentLineOfPoemTextView  = [[PoemLineView alloc]initWithFrame:CGRectMake(LabelPaddLeft, screenHeight/2 - PoemTextViewHeight/2 , screenWidth, PoemTextViewHeight)];
+        _currentLineOfPoemTextView  = [[PoemLineView alloc]initWithFrame:currentLineFrame];
         _currentLineOfPoemTextView.scrollEnabled = NO;
         _currentLineOfPoemTextView.backgroundColor = [UIColor clearColor];
         _currentLineOfPoemTextView.editable = NO;
@@ -202,6 +206,7 @@
     CGRect f = [UIScreen mainScreen].bounds;
     screenHeight = f.size.height;
     screenWidth = f.size.width - 20 ;
+    currentLineFrame = CGRectMake(LabelPaddLeft, screenHeight/2 - PoemTextViewHeight , screenWidth, PoemTextViewHeight);
 }
 -(NSString*)getCurrentLine
 {
@@ -276,7 +281,7 @@
         return;
     }
     [self hideExplanationView];
-    _alternativeLinePoemTextView.frame = CGRectMake(LabelPaddLeft, screenHeight/2 - 100 , screenWidth, PoemTextViewHeight);
+    _alternativeLinePoemTextView.frame = CGRectMake(LabelPaddLeft, screenHeight/2 - 2*PoemTextViewHeight , screenWidth, PoemTextViewHeight);
     _alternativeLinePoemTextView.alpha = 0;
     
     //[self setLabelAttribute:_alternativeLinePoemTextView];
@@ -289,7 +294,7 @@
         _currentLineOfPoemTextView.frame = CGRectMake(f.origin.x, f.origin.y + 50, f.size.width, f.size.height);
         _currentLineOfPoemTextView.alpha = 0;
         
-        _alternativeLinePoemTextView.frame = CGRectMake(LabelPaddLeft, screenHeight/2 - 50 , screenWidth, PoemTextViewHeight);
+        _alternativeLinePoemTextView.frame = CGRectMake(LabelPaddLeft, screenHeight/2 - PoemTextViewHeight , screenWidth, PoemTextViewHeight);
         _alternativeLinePoemTextView.alpha = 1;
     } completion:^(BOOL finished) {
         id temp = _currentLineOfPoemTextView;
@@ -401,12 +406,6 @@
 }
 - (void)initBackgroundImageViewAnimation
 {
-    /*
-    [UIView animateWithDuration:3 delay:0 options:UIViewAnimationOptionRepeat animations:^{
-        _backgroundScrollView.frame = CGRectOffset(_backgroundScrollView.frame, 1, 0);
-    } completion:^(BOOL finished) {
-        NSLog(@"ASDF");
-    }];*/
     CABasicAnimation* animation = [CABasicAnimation animation];
     animation.keyPath = @"position.x";
     animation.fromValue = @(_backgroundImageView.frame.origin.x);
@@ -414,6 +413,19 @@
     animation.duration = 20;
     [_backgroundImageView.layer addAnimation:animation forKey:@"basic"];
     _backgroundScrollView.layer.position = CGPointMake(_backgroundScrollView.frame.origin.x + 100, 0);
+}
+- (void)initPoemData
+{
+    totalLine = (int)poemLines.count;
+    currentLine = 0;
+    _currentLineOfPoemTextView.frame = currentLineFrame;
+    //hide it
+    _alternativeLinePoemTextView.frame = CGRectMake(LabelPaddLeft, screenHeight, screenWidth, PoemTextViewHeight);
+    //_currentLineOfPoemTextView.text = [self getCurrentLine];
+    _currentLineOfPoemTextView.attributedText = [self getCurrentAttributeString];
+    _translatedTextView.text = poemLines[currentLine][@"translated"][_currentTranslatedLanguage];
+    isShowingTranslatedLabel = NO;
+    _translatedTextView.alpha = 0;
 }
 - (void)initPoemView
 {
@@ -444,12 +456,7 @@
     [self addGestureRecognizer:swipeRight];
     
   
-    totalLine = (int)poemLines.count;
-    currentLine = 0;
-    
-    //_currentLineOfPoemTextView.text = [self getCurrentLine];
-    _currentLineOfPoemTextView.attributedText = [self getCurrentAttributeString];
-
+    //[self initPoemData];
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
     
 }

@@ -11,4 +11,5 @@
 @interface PoemLineView : UITextView
 
 - (id)initWithFrame:(CGRect)frame withData:(NSMutableAttributedString*)attributeString;
+
 @end
