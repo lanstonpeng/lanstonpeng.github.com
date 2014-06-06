@@ -57,25 +57,67 @@
 - (void)initData:(NSDictionary*)poem
 {
     
+    
+    int xPositiveSymbol = arc4random() % 10 > 5 ? 1 : -1;
+    int yPositiveSymbol = arc4random() % 10 > 5 ? 1 : -1;
+    
     UIImage* backgroundImg = (UIImage*)[[UIImage alloc]initWithName:poem[@"bgimg"]];
     self.poemData = poem;
     bgView.image = backgroundImg;
+    
+    bgView.layer.anchorPoint = CGPointMake(0.5,0.5);
+    CAAnimationGroup* group = [CAAnimationGroup animation];
+    group.duration = 30;
+    CABasicAnimation* horizontalMove = [CABasicAnimation animationWithKeyPath:@"position.x"];
+    horizontalMove.fromValue = @(bgView.layer.position.x);
+    horizontalMove.toValue = @((int)(bgView.layer.position.x) + (int)((arc4random() % 15 + 5 ) * xPositiveSymbol));
+    
+    CABasicAnimation* verticalMove = [CABasicAnimation animationWithKeyPath:@"position.y"];
+    verticalMove.fromValue = @(bgView.layer.position.y);
+    verticalMove.toValue = @((int)(bgView.layer.position.y) + (int)((arc4random() % 15 + 5 ) * yPositiveSymbol));
+    
+    CABasicAnimation* scale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    [scale setFromValue:[NSNumber numberWithFloat:1.0f]];
+    [scale setToValue:[NSNumber numberWithFloat:1.2f]];
+    
+    group.animations = @[horizontalMove,verticalMove,scale];
+    [group setRemovedOnCompletion:NO];
+    [group setFillMode:kCAFillModeForwards];
+    [bgView.layer addAnimation:group forKey:@"test"];
+    
     author.text = poem[@"author"];
     title.text = poem[@"title"];
+}
+- (void)startAnimation
+{
+    /*
+    CABasicAnimation *scale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    [scale setFromValue:[NSNumber numberWithFloat:1.0f]];
+    [scale setToValue:[NSNumber numberWithFloat:1.3f]];
+    [scale setDuration:3.0f];
+    [scale setRemovedOnCompletion:NO];
+    [scale setFillMode:kCAFillModeForwards];
+    [bgView.layer addAnimation:scale forKey:@"test"];
+     */
+}
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    //[self startAnimation];
 }
 - (void)initUI
 {
     CGRect sFrame = [UIScreen mainScreen].bounds;
-    bgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, sFrame.size.height )];
+    bgView = [[UIImageView alloc]initWithFrame:CGRectMake(-20, -20, sFrame.size.width+ 40, sFrame.size.height + 40)];
     bgMaskLayer = [CALayer layer];
     bgMaskLayer.opacity = 0.5;
-    bgMaskLayer.frame = CGRectMake(-20, 0, sFrame.size.width + 80 , sFrame.size.height);
+    //bgMaskLayer.frame = CGRectMake(-20, 0, sFrame.size.width + 80 , sFrame.size.height);
+    bgMaskLayer.frame = bgView.frame;
     bgMaskLayer.backgroundColor = [UIColor blackColor].CGColor;
     [bgView.layer addSublayer:bgMaskLayer];
     [self addSubview:bgView];
     
     CGFloat pageWidth = sFrame.size.width + MaxScrollPull;
-    bgScrollViewFrame = CGRectMake(0, 0, pageWidth, bgView.frame.size.height - 100);
+    bgScrollViewFrame = CGRectMake(0, 0, pageWidth, bgView.frame.size.height - 120);
     poemBackgroundScrollViewFrame = CGRectMake(0, bgScrollViewFrame.size.height, pageWidth, 100);
     
     bgScrollView = [[UIScrollView alloc]initWithFrame:bgScrollViewFrame];
@@ -103,7 +145,7 @@
     //bgScrollView.bounces = NO;
     [bgScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
-    CGRect titileFrame = CGRectMake(0, sFrame.size.height - 200 , sFrame.size.width, 100);
+    CGRect titleFrame = CGRectMake(0, sFrame.size.height - 200 , sFrame.size.width, 100);
     CGRect authorFrame = CGRectMake(0, 0 , pageWidth - MaxScrollPull, 100);
     
     author = [[UILabel alloc]initWithFrame:authorFrame];
@@ -112,10 +154,10 @@
     author.textAlignment = NSTextAlignmentRight;
     author.font = [UIFont fontWithName: @"Helvetica-Bold" size:20];
     author.textColor = [UIColor whiteColor];
-    //author.backgroundColor = [UIColor orangeColor];
     //author.lineBreakMode = NSLineBreakByCharWrapping;
     
-    title = [[UILabel alloc]initWithFrame:titileFrame];
+    title = [[UILabel alloc]initWithFrame:titleFrame];
+    //title.backgroundColor = [UIColor blueColor];
     title.adjustsFontSizeToFitWidth = YES;
     title.font = [UIFont fontWithName:@"STHeitiSC-Light" size:40];
     title.numberOfLines = 2;
@@ -125,7 +167,7 @@
     
     
     
-    UIView* separator = [[UIView alloc]initWithFrame:CGRectMake(20, titileFrame.origin.y + titileFrame.size.height + 10, sFrame.size.width - 20, 0.5 )];
+    UIView* separator = [[UIView alloc]initWithFrame:CGRectMake(20, titleFrame.origin.y + titleFrame.size.height + 10, sFrame.size.width - 20, 0.5 )];
     scrollIndicatorView = [[UIView alloc]initWithFrame:CGRectMake(separator.frame.origin.x, separator.frame.origin.y,0,separator.frame.size.height)];
     scrollIndicatorView.backgroundColor = [UIColor blackColor];
     separator.backgroundColor = [UIColor whiteColor];
