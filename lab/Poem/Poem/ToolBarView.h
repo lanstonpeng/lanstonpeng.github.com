@@ -9,6 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ToolBarView : UIView
-
-- (void)initToolBar;
+-(void)showSettingButton;
 @end

@@ -151,9 +151,10 @@
        }];
     }
 }
--(void)handleSwipeRightGesture:(id)sender
+-(void)handleSwipeLeftGesture:(id)sender
 {
-    [[ContainerViewController sharedViewController]popViewController];
+    //[[ContainerViewController sharedViewController]popViewController];
+    NSLog(@"ASDF");
 }
 -(void)handleSwipeUpGesture:(id)sender
 {
@@ -237,9 +238,9 @@
     [_currentLineOfPoemLabel addGestureRecognizer:tapLine1];
     [_alternativeLinePoemLabel addGestureRecognizer:tapLine2];
     
-    UISwipeGestureRecognizer* swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeRightGesture:)];
-    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:swipeRight];
+    UISwipeGestureRecognizer* swipeLeft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeLeftGesture:)];
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeLeft];
     
     self.view.backgroundColor = UIColorFromRGB(0xf1f1f1);
     

@@ -17,6 +17,9 @@
 {
     NSMutableArray* poemArr;
     UIView* currentEmbedView;
+    PoemTypeEnum currentPoemType;
+    
+    CGPoint dragStartPoint;
 }
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UIScrollView *poemMixedInfoScrollView;
@@ -38,11 +41,12 @@
     flowLayout.minimumLineSpacing = 0;
     
     _collectionView = [[UICollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:flowLayout];
-    _collectionView.backgroundColor = [UIColor orangeColor];
+    //_collectionView.backgroundColor = [UIColor orangeColor];
     //_collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.pagingEnabled = YES;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
+    
     
     _poemMixedInfoScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     _poemMixedInfoScrollView.contentSize = CGSizeMake(self.view.frame.size.width*2, self.view.frame.size.height);
@@ -77,13 +81,36 @@
         
     }
 }
-
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if(decelerate && scrollView.contentOffset.x - dragStartPoint.x == 0)
+    {
+        switch (currentPoemType) {
+            case PoemDetailType:
+            {
+                [_poemDetailView showToolBarView];
+                break;
+            }
+            case PoemIntroduction:
+            {
+                break;
+            }
+            default:
+                break;
+        }
+    }
+}
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    dragStartPoint = scrollView.contentOffset;
+}
 #pragma mark datasource and delegate
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return poemArr.count;
     //return 5;
 }
+
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -125,6 +152,7 @@
             [_poemDetailView setPoemData:cell.poemData];
             [_poemMixedInfoScrollView addSubview:_poemDetailView];
             currentEmbedView = _poemDetailView;
+            currentPoemType = PoemDetailType;
             break;
         }
         case PoemIntroduction:
@@ -134,6 +162,7 @@
             [_introudctionView setPoemData:cell.poemData];
             [_poemMixedInfoScrollView addSubview:_introudctionView];
             currentEmbedView = _introudctionView;
+            currentPoemType = PoemIntroduction;
             break;
         }
         default:

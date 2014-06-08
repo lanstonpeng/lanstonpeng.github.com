@@ -15,4 +15,5 @@
 
 - (id)initWithFrame:(CGRect)frame  withData:(NSDictionary*)poem;
 - (void)setPoemData:(NSDictionary*)poemData;
+- (void)showToolBarView;
 @end

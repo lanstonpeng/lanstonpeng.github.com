@@ -10,6 +10,7 @@
 #import "UIImage+PoemResouces.h"
 #import "PoemExplanationView.h"
 #import "PoemLineView.h"
+#import "ToolBarView.h"
 
 
 @interface PoemDetailView()<UITextViewDelegate>
@@ -19,6 +20,7 @@
     int totalLine;
     int currentLine;
     
+    CGRect sFrame;
     //one poem data,divided into lines
     NSArray* poemLines;
     NSDictionary* poemDic;
@@ -26,8 +28,11 @@
     UILabel* titleLabel;
     UILabel* authorLabel;
     
-    
+    CGPoint touchStartPoint;
     BOOL isShowingTranslatedLabel;
+    
+    UIImageView* inkView;
+    UIButton* toolBarToggleBtn;
 }
 
 /*
@@ -41,6 +46,7 @@
 @property (strong,nonatomic) PoemLineView* currentLineOfPoemTextView;
 @property (strong,nonatomic) PoemLineView* alternativeLinePoemTextView;
 @property (strong,nonatomic) PoemLineView* translatedTextView;
+@property (strong,nonatomic) ToolBarView* toolBarView;
 
 @end
 
@@ -64,12 +70,17 @@ static CGRect currentLineFrame;
 
 - (void)setPoemData:(NSDictionary *)poemData
 {
+    sFrame = [UIScreen mainScreen].bounds;
     poemLines = poemData[@"poembody"];
     poemDic = poemData;
     _currentTranslatedLanguage = @"chinese";
     if(self.explanationView.frame.origin.y == 0)
     {
         self.explanationView.frame = CGRectOffset(self.explanationView.frame, 0, -self.explanationView.frame.size.height);
+    }
+    if(self.toolBarView.frame.origin.y == sFrame.size.height - 100)
+    {
+        self.toolBarView.frame = CGRectOffset(self.toolBarView.frame, 0, 100);
     }
     //[self initPoemView];
     [self initPoemData];
@@ -95,7 +106,6 @@ static CGRect currentLineFrame;
         shadow.shadowRadius = 5;
         //[self.layer addSublayer:shadow];
         
-        CGRect sFrame = [UIScreen mainScreen].bounds;
         _bgMaskLayer = [CALayer layer];
         _bgMaskLayer.opacity = 0.8;
         _bgMaskLayer.frame = CGRectMake(0, 0, frame.size.width, sFrame.size.height);
@@ -112,6 +122,16 @@ static CGRect currentLineFrame;
         [self initPoemView];
     }
     return self;
+}
+- (ToolBarView *)toolBarView
+{
+    if(!_toolBarView)
+    {
+        _toolBarView  = [[ToolBarView alloc]initWithFrame:CGRectMake(0, sFrame.size.height , sFrame.size.width,100)];
+        [self addSubview:_toolBarView];
+        
+    }
+    return _toolBarView;
 }
 - (UIScrollView *)backgroundScrollView
 {
@@ -315,7 +335,7 @@ static CGRect currentLineFrame;
 }
 -(void)handleSwipeRightGesture:(id)sender
 {
-
+    NSLog(@"youku");
 }
 -(void)handleSwipeUpGesture:(id)sender
 {
@@ -437,12 +457,26 @@ static CGRect currentLineFrame;
     swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
     [self addGestureRecognizer:swipeUp];
     [self addGestureRecognizer:swipeDown];
+    
+    
     [self addSubview:self.backgroundImageView];
     //[self addSubview:self.backgroundScrollView];
     [self addSubview:self.currentLineOfPoemTextView];
     [self addSubview:self.alternativeLinePoemTextView];
     [self addSubview:self.translatedTextView];
     [self addSubview:self.explanationView];
+    
+    CGRect tempFrame = [UIScreen mainScreen].bounds;
+    inkView = [[UIImageView alloc]initWithImage:[[UIImage alloc]initWithName:@"ink"] ];
+    inkView.contentMode = UIViewContentModeScaleAspectFit;
+    inkView.frame = CGRectMake(tempFrame.size.width/2 - 12,tempFrame.size.height - 24 , 24, 24);
+    
+    toolBarToggleBtn = [[UIButton alloc]initWithFrame:CGRectMake(tempFrame.size.width/2 - 25,tempFrame.size.height - 30 , 50, 50)];
+    toolBarToggleBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [toolBarToggleBtn addTarget:self action:@selector(showToolBarView) forControlEvents:UIControlEventTouchUpInside];
+    [toolBarToggleBtn setImage:[[UIImage alloc]initWithName:@"Quill"] forState:UIControlStateNormal];
+    //[self addSubview:toolBarToggleBtn];
+    //[self addSubview:inkView];
     
     UITapGestureRecognizer* tapLine1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapGesture:)];
     UITapGestureRecognizer* tapLine2 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapGesture:)];
@@ -454,7 +488,6 @@ static CGRect currentLineFrame;
     UISwipeGestureRecognizer* swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeRightGesture:)];
     swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
     [self addGestureRecognizer:swipeRight];
-    
   
     //[self initPoemData];
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
@@ -463,7 +496,7 @@ static CGRect currentLineFrame;
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch* touch = [touches anyObject];
-    CGRect sFrame = [UIScreen mainScreen].bounds;
+    touchStartPoint = [touch locationInView:self];
     if (CGRectContainsPoint(CGRectMake(0, sFrame.size.height * 3 / 5, sFrame.size.width, sFrame.size.height * 2 / 5),[touch locationInView:self])) {
         CGRect f = _currentLineOfPoemTextView.frame;
         if(isShowingTranslatedLabel){
@@ -487,4 +520,14 @@ static CGRect currentLineFrame;
         }];
     }
 }
+
+- (void)showToolBarView
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.toolBarView.frame = CGRectMake(0, self.toolBarView.frame.origin.y - 100, self.toolBarView.frame.size.width, self.toolBarView.frame.size.height);
+    } completion:^(BOOL finished) {
+        NSLog(@"%@",self.toolBarView);
+    }];
+}
+
 @end
