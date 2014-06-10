@@ -391,12 +391,14 @@ static CGRect currentLineFrame;
      
     NSString* tapWord = [tv textInRange:wr];
     NSDictionary* explainDic = [self getCurrentLineDictionary][@"explanation"];
-    if(tapWord && explainDic )
+    if(tapWord)
     {
-        if(explainDic[tapWord])
-        {
-            //NSLog(@"%@",explainDic[tapWord]);
+        if (explainDic && explainDic[tapWord]) {
             [self showExplanationView:explainDic[tapWord]];
+        }
+        else
+        {
+            [self toggleTranslatedText];
         }
     }
 }
@@ -501,6 +503,11 @@ static CGRect currentLineFrame;
     UITouch* touch = [touches anyObject];
     touchStartPoint = [touch locationInView:self];
     if (CGRectContainsPoint(CGRectMake(0, sFrame.size.height * 3 / 5, sFrame.size.width, sFrame.size.height * 2 / 5),[touch locationInView:self])) {
+        //[self toggleTranslatedText];
+    }
+}
+- (void)toggleTranslatedText
+{
         CGRect f = _currentLineOfPoemTextView.frame;
         if(isShowingTranslatedLabel){
             
@@ -512,16 +519,18 @@ static CGRect currentLineFrame;
             }];
             return;
         }
-        _translatedTextView.frame = CGRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height);
-        _translatedTextView.text =  poemLines[currentLine][@"translated"][_currentTranslatedLanguage];
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            _translatedTextView.frame = CGRectMake(f.origin.x, f.origin.y + f.size.height, f.size.width, f.size.height);
-            _translatedTextView.alpha = 1;
-        } completion:^(BOOL finished) {
-            isShowingTranslatedLabel = YES;
-        }];
-    }
+        else
+        {
+            _translatedTextView.frame = CGRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height);
+            _translatedTextView.text =  poemLines[currentLine][@"translated"][_currentTranslatedLanguage];
+            
+            [UIView animateWithDuration:0.2 animations:^{
+                _translatedTextView.frame = CGRectMake(f.origin.x, f.origin.y + f.size.height, f.size.width, f.size.height);
+                _translatedTextView.alpha = 1;
+            } completion:^(BOOL finished) {
+                isShowingTranslatedLabel = YES;
+            }];
+        }
 }
 - (void)showToolBarView
 {
