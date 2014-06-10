@@ -406,10 +406,13 @@ static CGRect currentLineFrame;
     //is close
     if(self.explanationView.frame.origin.y == -self.explanationView.frame.size.height)
     {
-        [UIView animateWithDuration:0.4 animations:^{
+        [UIView animateWithDuration:0.4 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.8 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.explanationView.frame = CGRectOffset(self.explanationView.frame, 0, self.explanationView.frame.size.height);
         } completion:^(BOOL finished) {
         }];
+    }
+    else{
+        [self hideExplanationView];
     }
 }
 - (void)hideExplanationView
@@ -486,7 +489,7 @@ static CGRect currentLineFrame;
     [_alternativeLinePoemTextView addGestureRecognizer:tapLine2];
     
     UISwipeGestureRecognizer* swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeRightGesture:)];
-    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    swipeRight.direction = UISwipeGestureRecognizerDirectionLeft;
     [self addGestureRecognizer:swipeRight];
   
     //[self initPoemData];
@@ -520,9 +523,10 @@ static CGRect currentLineFrame;
         }];
     }
 }
-
 - (void)showToolBarView
 {
+    //TODO
+    return;
     [UIView animateWithDuration:0.3 animations:^{
         self.toolBarView.frame = CGRectMake(0, self.toolBarView.frame.origin.y - 100, self.toolBarView.frame.size.width, self.toolBarView.frame.size.height);
     } completion:^(BOOL finished) {

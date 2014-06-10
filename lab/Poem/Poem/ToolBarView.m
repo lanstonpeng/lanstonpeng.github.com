@@ -23,7 +23,7 @@
     if(!_translatedBtn)
     {
         _translatedBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
-        [_translatedBtn setTitle:@"e" forState:UIControlStateNormal];
+        [_translatedBtn setTitle:@"g" forState:UIControlStateNormal];
         [self setButtonStyle:_translatedBtn];
     }
     return _translatedBtn;
@@ -43,7 +43,7 @@
     if(!_colorSchemeBtn)
     {
         _colorSchemeBtn = [[UIButton alloc]initWithFrame:CGRectMake(150, 0, 50, 50)];
-        [_colorSchemeBtn setTitle:@"b" forState:UIControlStateNormal];
+        [_colorSchemeBtn setTitle:@"e" forState:UIControlStateNormal];
         [self setButtonStyle:_colorSchemeBtn];
     }
     return _colorSchemeBtn;
@@ -52,7 +52,7 @@
 -(void)setButtonStyle:(UIButton*)btn
 {
     btn.layer.cornerRadius = 25;
-    btn.titleLabel.font = [UIFont fontWithName:@"icomoon" size:28];
+    btn.titleLabel.font = [UIFont fontWithName:@"icomoonlight" size:28];
     btn.titleLabel.textColor = [UIColor blackColor];
 }
 - (id)initWithFrame:(CGRect)frame
@@ -61,6 +61,7 @@
     if (self) {
         // Initialization code
         _animator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
+        self.backgroundColor = [UIColor orangeColor];
         [self addSubview:self.translatedBtn];
         [self addSubview:self.backgroundImageBtn];
         [self addSubview:self.colorSchemeBtn];

@@ -19,6 +19,14 @@
 		9D329CBC193C693900B50C55 /* 方正清刻本悦宋简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D329CBB193C693900B50C55 /* 方正清刻本悦宋简体.ttf */; };
 		9D329CBF193C6F2200B50C55 /* PoemIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329CBE193C6F2200B50C55 /* PoemIntroductionView.m */; };
 		9D329D05193F6E0F00B50C55 /* PoemExplanationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329D04193F6E0F00B50C55 /* PoemExplanationView.m */; };
+		9DC62D97194600BA0072BF76 /* CygnetRound.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62D8E194600BA0072BF76 /* CygnetRound.ttf */; };
+		9DC62D9A194600BA0072BF76 /* poem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62D91194600BA0072BF76 /* poem.bundle */; };
+		9DC62D9B194600BA0072BF76 /* poemdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62D92194600BA0072BF76 /* poemdata.json */; };
+		9DC62D9C194600BA0072BF76 /* QuicksandLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62D93194600BA0072BF76 /* QuicksandLight.ttf */; };
+		9DC62D9D194600BA0072BF76 /* song1_128000.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62D94194600BA0072BF76 /* song1_128000.m4a */; };
+		9DC62D9E194600BA0072BF76 /* VeraMono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62D95194600BA0072BF76 /* VeraMono.ttf */; };
+		9DC62D9F194600BA0072BF76 /* 方正清刻本悦宋简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62D96194600BA0072BF76 /* 方正清刻本悦宋简体.ttf */; };
+		9DC62DA2194603B30072BF76 /* icomoonlight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62DA1194603B30072BF76 /* icomoonlight.ttf */; };
 		9DCAD6AB1944165500EEFB21 /* CygnetRound.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DCAD6AA1944165500EEFB21 /* CygnetRound.ttf */; };
 		9DD43B3319405AE300259CF1 /* PoemLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD43B3219405AE300259CF1 /* PoemLineView.m */; };
 		9DD4ADEF19381111009C414E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD4ADEE19381111009C414E /* Foundation.framework */; };
@@ -71,6 +79,16 @@
 		9D329CBE193C6F2200B50C55 /* PoemIntroductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemIntroductionView.m; sourceTree = "<group>"; };
 		9D329D03193F6E0F00B50C55 /* PoemExplanationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoemExplanationView.h; sourceTree = "<group>"; };
 		9D329D04193F6E0F00B50C55 /* PoemExplanationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemExplanationView.m; sourceTree = "<group>"; };
+		9DC62D8E194600BA0072BF76 /* CygnetRound.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CygnetRound.ttf; sourceTree = "<group>"; };
+		9DC62D8F194600BA0072BF76 /* icomoon-light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "icomoon-light.ttf"; sourceTree = "<group>"; };
+		9DC62D90194600BA0072BF76 /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.ttf; sourceTree = "<group>"; };
+		9DC62D91194600BA0072BF76 /* poem.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = poem.bundle; sourceTree = "<group>"; };
+		9DC62D92194600BA0072BF76 /* poemdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = poemdata.json; sourceTree = "<group>"; };
+		9DC62D93194600BA0072BF76 /* QuicksandLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = QuicksandLight.ttf; sourceTree = "<group>"; };
+		9DC62D94194600BA0072BF76 /* song1_128000.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = song1_128000.m4a; sourceTree = "<group>"; };
+		9DC62D95194600BA0072BF76 /* VeraMono.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = VeraMono.ttf; sourceTree = "<group>"; };
+		9DC62D96194600BA0072BF76 /* 方正清刻本悦宋简体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "方正清刻本悦宋简体.ttf"; sourceTree = "<group>"; };
+		9DC62DA1194603B30072BF76 /* icomoonlight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoonlight.ttf; sourceTree = "<group>"; };
 		9DCAD6AA1944165500EEFB21 /* CygnetRound.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CygnetRound.ttf; sourceTree = "<group>"; };
 		9DCAD6AC194417A800EEFB21 /* QuicksandLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = QuicksandLight.ttf; sourceTree = "<group>"; };
 		9DD43B3119405AE300259CF1 /* PoemLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoemLineView.h; sourceTree = "<group>"; };
@@ -167,6 +185,22 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		9DC62D8D194600BA0072BF76 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				9DC62D8E194600BA0072BF76 /* CygnetRound.ttf */,
+				9DC62D8F194600BA0072BF76 /* icomoon-light.ttf */,
+				9DC62D90194600BA0072BF76 /* icomoon.ttf */,
+				9DC62D91194600BA0072BF76 /* poem.bundle */,
+				9DC62D92194600BA0072BF76 /* poemdata.json */,
+				9DC62D93194600BA0072BF76 /* QuicksandLight.ttf */,
+				9DC62D94194600BA0072BF76 /* song1_128000.m4a */,
+				9DC62D95194600BA0072BF76 /* VeraMono.ttf */,
+				9DC62D96194600BA0072BF76 /* 方正清刻本悦宋简体.ttf */,
+			);
+			name = resources;
+			sourceTree = "<group>";
+		};
 		9DD4ADE219381111009C414E = {
 			isa = PBXGroup;
 			children = (
@@ -246,8 +280,10 @@
 			children = (
 				9DCAD6AC194417A800EEFB21 /* QuicksandLight.ttf */,
 				9D1152561944A71100F67743 /* icomoon.ttf */,
+				9DC62D8D194600BA0072BF76 /* resources */,
 				9D329CB6193C4F8C00B50C55 /* poemdata.json */,
 				9DCAD6AA1944165500EEFB21 /* CygnetRound.ttf */,
+				9DC62DA1194603B30072BF76 /* icomoonlight.ttf */,
 				9D329CBB193C693900B50C55 /* 方正清刻本悦宋简体.ttf */,
 				9DD7B0AC193A0C2F00689F1B /* poem.bundle */,
 				9DD7B076193A07A300689F1B /* song1_128000.m4a */,
@@ -343,9 +379,17 @@
 			files = (
 				9DD4ADF919381111009C414E /* InfoPlist.strings in Resources */,
 				9D1152571944A71100F67743 /* icomoon.ttf in Resources */,
+				9DC62D9E194600BA0072BF76 /* VeraMono.ttf in Resources */,
 				9D329CB7193C4F8C00B50C55 /* poemdata.json in Resources */,
+				9DC62D9A194600BA0072BF76 /* poem.bundle in Resources */,
+				9DC62D9F194600BA0072BF76 /* 方正清刻本悦宋简体.ttf in Resources */,
 				9DD4AE0119381111009C414E /* Images.xcassets in Resources */,
+				9DC62D9D194600BA0072BF76 /* song1_128000.m4a in Resources */,
+				9DC62D9C194600BA0072BF76 /* QuicksandLight.ttf in Resources */,
 				9DCAD6AB1944165500EEFB21 /* CygnetRound.ttf in Resources */,
+				9DC62DA2194603B30072BF76 /* icomoonlight.ttf in Resources */,
+				9DC62D9B194600BA0072BF76 /* poemdata.json in Resources */,
+				9DC62D97194600BA0072BF76 /* CygnetRound.ttf in Resources */,
 				9D329CBC193C693900B50C55 /* 方正清刻本悦宋简体.ttf in Resources */,
 				9DD7B0AD193A0C2F00689F1B /* poem.bundle in Resources */,
 			);

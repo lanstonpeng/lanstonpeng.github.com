@@ -15,7 +15,9 @@
 
 #define BgViewOpacityStartPoint 0.95
 //#define TitleFont @"QuicksandLight"
-#define TitleFont @"STHeitiSC-Light"
+//#define TitleFont @"STHeitiSC-Light"
+#define TitleFont @"AppleSDGothicNeo-Thin"
+#define AuthorFont @"AmericanTyperwriter-Light"
 
 
 @interface PoemCell()<UIScrollViewDelegate,UIGestureRecognizerDelegate>
@@ -92,13 +94,39 @@
     [scale setFromValue:[NSNumber numberWithFloat:1.0f]];
     [scale setToValue:[NSNumber numberWithFloat:1.2f]];
     
+    CABasicAnimation* opacity = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    opacity.fromValue = @(BgViewOpacityStartPoint);
+    opacity.toValue = @(0.5f);
+    opacity.duration = 1;
+    opacity.fillMode = kCAFillModeForwards;
+    opacity.delegate = self;
+    //opacity.removedOnCompletion = NO;
+    
     group.animations = @[horizontalMove,verticalMove,scale];
+    
     [group setRemovedOnCompletion:NO];
     [group setFillMode:kCAFillModeForwards];
-    [bgView.layer addAnimation:group forKey:@"test"];
+    [bgView.layer addAnimation:group forKey:@"groupAnimation"];
+    [bgMaskLayer addAnimation:opacity forKey:@"maskLayerAnimation"];
+    bgMaskLayer.opacity = 0.5f;
     
     author.text = poem[@"author"];
     title.text = poem[@"title"];
+    
+    if(title.text.length>30)
+    {
+        title.numberOfLines = 3;
+        title.frame = CGRectMake(0, bgScrollViewFrame.size.height - 150 , bgScrollViewFrame.size.width - MaxScrollPull, 150);
+    }
+    NSMutableAttributedString* attrStr = [[NSMutableAttributedString alloc]initWithString:title.text];
+    NSRange range = NSMakeRange(0, title.text.length);
+    [attrStr addAttribute:NSFontAttributeName value:[UIFont fontWithName:TitleFont size:40] range:range];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:range];
+    NSMutableParagraphStyle *paragrapStyle = [[NSMutableParagraphStyle alloc] init];
+    paragrapStyle.alignment = NSTextAlignmentRight;
+    paragrapStyle.firstLineHeadIndent = 20;
+    [attrStr addAttribute:NSParagraphStyleAttributeName value:paragrapStyle range:range];
+    title.attributedText = attrStr;
 }
 - (void)startAnimation
 {
@@ -115,6 +143,7 @@
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
     //[self startAnimation];
+    //bgMaskLayer.opacity = 0.3;
 }
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
@@ -133,6 +162,10 @@
     [bgView.layer addSublayer:bgMaskLayer];
     [self addSubview:bgView];
 
+    [self.layer setShadowColor:[UIColor orangeColor].CGColor];
+    [self.layer setShadowOpacity:0.8];
+    [self.layer setShadowRadius:3.0];
+    [self.layer setShadowOffset:CGSizeMake(2.0, 2.0)];
     
     CGFloat pageWidth = sFrame.size.width + MaxScrollPull;
     bgScrollViewFrame = CGRectMake(0, 0, pageWidth, bgView.frame.size.height - 120);
@@ -171,7 +204,8 @@
     author.adjustsFontSizeToFitWidth = YES;
     author.numberOfLines = 2;
     author.textAlignment = NSTextAlignmentRight;
-    author.font = [UIFont fontWithName: @"Helvetica-Bold" size:20];
+    //author.font = [UIFont fontWithName: @"Helvetica-Bold" size:20];
+    author.font = [UIFont fontWithName:AuthorFont size:20];
     author.textColor = [UIColor whiteColor];
     //author.backgroundColor = [UIColor orangeColor];
     //author.lineBreakMode = NSLineBreakByCharWrapping;
@@ -181,7 +215,7 @@
     title.adjustsFontSizeToFitWidth = YES;
     //title.font = [UIFont fontWithName:@"STHeitiSC-Light" size:40];
     title.font = [UIFont fontWithName:TitleFont size:40];
-    title.numberOfLines = 2;
+    title.numberOfLines = 3;
     title.textColor = [UIColor whiteColor];
     title.textAlignment = NSTextAlignmentRight;
     //title.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
