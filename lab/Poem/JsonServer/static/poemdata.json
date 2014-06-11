@@ -1,0 +1,119 @@
+ 
+  {
+    "title":"Shall I compare thee to a summer's day",
+    "author":"William Shakespeare",
+    "bgimg":"Shakespeare",
+    "id":101,
+   "poemIntroduction":{
+        "text":"Shakespeare was a respected poet and playwright in his own day, but his reputation did not rise to its present heights until the 19th century. The Romantics, in particular, acclaimed Shakespeare's genius, and the Victorians worshipped Shakespeare with a reverence that George Bernard Shaw called bardolatry.In the 20th century, his work was repeatedly adopted and rediscovered by new movements in scholarship and performance. His plays remain highly popular today and are constantly studied, performed, and reinterpreted in diverse cultural and political contexts throughout the world.",
+        "links":[
+            {
+                "type":"wiki",
+                "url":"http://lanstonpeng.github.io"
+            }
+        ]
+   },
+   "authorIntroduction":{
+       "text":"Shakespeare was a respected poet and playwright in his own day, but his reputation did not rise to its present heights until the 19th century",
+        "links":[
+            {
+            "type":"wiki",
+            "url":"http://lanstonpeng.github.io"
+            }
+        ]
+   },
+   "poembody":
+   [
+    {
+      "text":"Shall I compare thee to a summer's day?",
+      "translated":{
+        "chinese":"能不能让我来把你比拟做夏日?"
+        },
+      "explanation":{
+        "thee":"Thee is an old-fashioned, poetic, or religious word for \"you\" when you are talking to only one person. It is used as the object of a verb or preposition"
+      }
+    },
+    {
+      "text":"Thou art more lovely and more temperate",
+      "translated":{
+        "chinese":"你可是更加温和,更加可爱"
+        },
+      "explanation":{
+        "Thou":"Thou is an old-fashioned, poetic, or religious word for \"you\" when you are talking to only one person. It is used as the subject of a verb"
+      },
+      "extra":"这句表达了什么什么什么"
+    },
+    {
+      "text":"Rough winds do shake the darling buds of May",
+      "translated":{
+        "chinese":"狂风会吹落五月里开的好花儿"
+        }
+    },
+     {
+      "text":"And summer's lease hath all too short a date",
+      "translated":{
+        "chinese":"夏季的生命又未免结束得太快"
+      }
+    },
+    {
+      "text": "Sometimes too hot the eys of heaven shines",
+      "translated":{
+        "chinese":"有时候苍天的巨眼照得太灼热"
+      }
+    },
+     {
+      "text":"And often is his gold complexion dimmed",
+      "translated":{
+        "chinese":"他那金彩的脸色也会被遮暗"
+      }
+    },
+    {
+      "text":"And every fair from fair somethme declines",
+      "translated":{
+        "chinese":"每一样美呀,总会离开美而凋落"
+      }
+    },
+    {
+      "text":"By chance, or nature's changing course, untrimmed",
+      "translated":{
+        "chinese":"被时机或者自然的代谢所摧残"
+      }
+    },
+    {
+      "text":"But thy eternal summer shall not fade",
+      "translated":{
+        "chinese":"但是你永久的夏天决不会凋枯"
+      }
+    },
+    {
+      "text":"Nor lose possession of that fair thou owest",
+      "translated":{
+        "chinese":"你永远不会失去你美的仪态"
+      }
+    },
+    {
+      "text":"Nor shall Death brag thou wanderest in his shade",
+      "translated":{
+        "chinese":"死神夸不着你在他的影子里踯躅"
+      }
+    },
+    {
+      "text":"When in eternal lines to time thou growest",
+      "translated":{
+        "chinese":"你将在不朽的诗中与时间同在"
+      }
+    },
+    {
+      "text":"So long as men can breathe or eyes can see",
+      "translated":{
+        "chinese":"只要人类在呼吸,眼睛看得见"
+      }
+    },
+    {
+      "text":"So long lives this, and this gives life to thee",
+      "translated":{
+        "chinese":"我这诗就活着,使你的生命绵延"
+      }
+    }
+   ]
+    }

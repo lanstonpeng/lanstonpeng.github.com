@@ -12,6 +12,7 @@
 #import "CustomTestCell.h"
 #import "PoemDetailView.h"
 #import "PoemIntroductionView.h"
+#import "UIImage+PoemResouces.h"
 
 @interface CollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,PoemCellScrollDelegate>
 {
@@ -20,6 +21,8 @@
     PoemTypeEnum currentPoemType;
     
     CGPoint dragStartPoint;
+    CALayer* uppperShadow;
+    CALayer* bottomShadow;
 }
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UIScrollView *poemMixedInfoScrollView;
@@ -41,11 +44,13 @@
     flowLayout.minimumLineSpacing = 0;
     
     _collectionView = [[UICollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:flowLayout];
-    //_collectionView.backgroundColor = [UIColor orangeColor];
-    //_collectionView.showsVerticalScrollIndicator = NO;
+    _collectionView.backgroundColor = [UIColor whiteColor];
+    _collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.pagingEnabled = YES;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
+    _collectionView.backgroundView = [[UIImageView alloc]initWithImage:(UIImage*)[[UIImage alloc]initWithName:@"collectionViewBg"] ];
+    
     
     
     _poemMixedInfoScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -56,6 +61,8 @@
     _poemMixedInfoScrollView.bounces = NO;
     _poemMixedInfoScrollView.showsHorizontalScrollIndicator = NO;
     [_poemMixedInfoScrollView addSubview:_collectionView];
+    
+    
     
     [self.view addSubview:_poemMixedInfoScrollView];
     
@@ -68,18 +75,30 @@
     _poemDetailView = [[PoemDetailView alloc]initWithFrame:poemDetailFrame];
     
     _introudctionView = [[PoemIntroductionView alloc]initWithFrame:poemDetailFrame];
+    
+    uppperShadow = [CALayer layer];
+    uppperShadow.shadowOffset = CGSizeMake(0, -1);
+    uppperShadow.backgroundColor= [UIColor orangeColor].CGColor;
+    uppperShadow.shadowPath = [[UIBezierPath bezierPathWithRect:CGRectMake(-2, -1, 330, 4)]  CGPath];
+    uppperShadow.shadowRadius = 3.0f;
+    [uppperShadow setShadowColor:[UIColor blackColor].CGColor];
+    [uppperShadow setShadowOpacity:0.8];
+    [_collectionView.layer addSublayer:uppperShadow];
+    
+    bottomShadow = [CALayer layer];
+    bottomShadow.shadowOffset = CGSizeMake(0, -1);
+    bottomShadow.backgroundColor= [UIColor orangeColor].CGColor;
+    bottomShadow.shadowPath = [[UIBezierPath bezierPathWithRect:CGRectMake(-2, poemArr.count * self.view.frame.size.height - 1, 330, 4)]  CGPath];
+    bottomShadow.shadowRadius = 3.0f;
+    [bottomShadow setShadowColor:[UIColor blackColor].CGColor];
+    [bottomShadow setShadowOpacity:0.8];
+    [_collectionView.layer addSublayer:bottomShadow];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    //NSLog(@"collection did scroll");
-    if (scrollView.tag == 100) {
-        
-    }
-    else
-    {
-        
-    }
+    //CGPoint point = scrollView.contentOffset;
+    //uppperShadow.shadowRadius = 3 - point.y/10;
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
@@ -88,7 +107,7 @@
         switch (currentPoemType) {
             case PoemDetailType:
             {
-                [_poemDetailView showToolBarView];
+                //[_poemDetailView showToolBarView];
                 break;
             }
             case PoemIntroduction:

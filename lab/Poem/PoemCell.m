@@ -14,10 +14,15 @@
 //#import "CustomUIScrollView.h"
 
 #define BgViewOpacityStartPoint 0.95
+#define RightMargin 10
 //#define TitleFont @"QuicksandLight"
 //#define TitleFont @"STHeitiSC-Light"
+
+//#define TitleFont @"AppleSDGothicNeo-Thin"
+//#define AuthorFont @"AmericanTyperwriter-Light"
+
 #define TitleFont @"AppleSDGothicNeo-Thin"
-#define AuthorFont @"AmericanTyperwriter-Light"
+#define AuthorFont @"AppleSDGothicNeo-Thin"
 
 
 @interface PoemCell()<UIScrollViewDelegate,UIGestureRecognizerDelegate>
@@ -116,7 +121,7 @@
     if(title.text.length>30)
     {
         title.numberOfLines = 3;
-        title.frame = CGRectMake(0, bgScrollViewFrame.size.height - 150 , bgScrollViewFrame.size.width - MaxScrollPull, 150);
+        title.frame = CGRectMake(0, bgScrollViewFrame.size.height - 150 , bgScrollViewFrame.size.width - MaxScrollPull - RightMargin , 150);
     }
     NSMutableAttributedString* attrStr = [[NSMutableAttributedString alloc]initWithString:title.text];
     NSRange range = NSMakeRange(0, title.text.length);
@@ -162,10 +167,12 @@
     [bgView.layer addSublayer:bgMaskLayer];
     [self addSubview:bgView];
 
+    /*
     [self.layer setShadowColor:[UIColor orangeColor].CGColor];
     [self.layer setShadowOpacity:0.8];
     [self.layer setShadowRadius:3.0];
     [self.layer setShadowOffset:CGSizeMake(2.0, 2.0)];
+     */
     
     CGFloat pageWidth = sFrame.size.width + MaxScrollPull;
     bgScrollViewFrame = CGRectMake(0, 0, pageWidth, bgView.frame.size.height - 120);
@@ -197,8 +204,8 @@
     //bgScrollView.bounces = NO;
     [bgScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
-    CGRect titleFrame = CGRectMake(0, bgScrollViewFrame.size.height - 100 , bgScrollViewFrame.size.width - MaxScrollPull, 100);
-    CGRect authorFrame = CGRectMake(0, 0 , poemBackgroundScrollViewFrame.size.width - MaxScrollPull, poemBackgroundScrollViewFrame.size.height);
+    CGRect titleFrame = CGRectMake(0, bgScrollViewFrame.size.height - 100 , bgScrollViewFrame.size.width - MaxScrollPull - RightMargin, 100);
+    CGRect authorFrame = CGRectMake(0, 10 , poemBackgroundScrollViewFrame.size.width - MaxScrollPull - RightMargin , poemBackgroundScrollViewFrame.size.height - 10);
     
     author = [[UILabel alloc]initWithFrame:authorFrame];
     author.adjustsFontSizeToFitWidth = YES;
@@ -212,23 +219,22 @@
     
     title = [[UILabel alloc]initWithFrame:titleFrame];
     //title.backgroundColor = [UIColor blueColor];
-    title.adjustsFontSizeToFitWidth = YES;
-    //title.font = [UIFont fontWithName:@"STHeitiSC-Light" size:40];
+    //title.adjustsFontSizeToFitWidth = YES;
     title.font = [UIFont fontWithName:TitleFont size:40];
     title.numberOfLines = 3;
     title.textColor = [UIColor whiteColor];
     title.textAlignment = NSTextAlignmentRight;
     //title.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
-    UIView* titleBgView = [[UIView alloc]initWithFrame: CGRectMake(-2* MaxScrollPull,  title.frame.origin.y, 2* sFrame.size.width, title.frame.size.height)];
+    //UIView* titleBgView = [[UIView alloc]initWithFrame: CGRectMake(-2* MaxScrollPull,  title.frame.origin.y, 2* sFrame.size.width, title.frame.size.height)];
     //titleBgView.backgroundColor =[UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
-    [self addSubview:titleBgView];
+    //[self addSubview:titleBgView];
     
     
     
     UIView* separator = [[UIView alloc]initWithFrame:CGRectMake(0, titleFrame.origin.y + titleFrame.size.height + 10, sFrame.size.width , 0.5 )];
     scrollIndicatorView = [[UIView alloc]initWithFrame:CGRectMake(separator.frame.origin.x, separator.frame.origin.y,0,separator.frame.size.height)];
     scrollIndicatorViewRight = [[UIView alloc]initWithFrame:CGRectMake(separator.frame.origin.x + separator.frame.size.width, separator.frame.origin.y,0,separator.frame.size.height)];
-    scrollIndicatorView.backgroundColor = UIColorFromRGB(0x01BEFC);
+    scrollIndicatorView.backgroundColor = UIColorFromRGB(0xFF7123);
     scrollIndicatorViewRight.backgroundColor = UIColorFromRGB(0x16C2A3);
     separator.backgroundColor =UIColorFromRGB(0x01BEFC);
     [self addSubview:separator];

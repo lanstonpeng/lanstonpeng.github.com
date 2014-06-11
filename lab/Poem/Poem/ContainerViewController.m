@@ -35,12 +35,12 @@
     // Do any additional setup after loading the view.
     //MainPageViewController* mainVC = [MainPageViewController new];
     //IntroductionViewController* introductionVC = [IntroductionViewController new];
-    CollectionViewController* introductionVC = [CollectionViewController new];
-    _currentViewController = introductionVC;
+    CollectionViewController* mainPage = [CollectionViewController new];
+    _currentViewController = mainPage;
     _stack = [[NSMutableArray alloc]init];
-    introductionVC.view.frame = self.view.bounds;
-    [self addChildViewController:introductionVC];
-    [self.view addSubview:introductionVC.view];
+    mainPage.view.frame = self.view.bounds;
+    [self addChildViewController:mainPage];
+    [self.view addSubview:mainPage.view];
     [_currentViewController didMoveToParentViewController:self];
     [_stack addObject:_currentViewController];
 }

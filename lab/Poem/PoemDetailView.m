@@ -149,7 +149,7 @@ static CGRect currentLineFrame;
 {
     if(!_explanationView)
     {
-        _explanationView = [[PoemExplanationView alloc]initWithFrame:CGRectMake(0, -130, 320, 130) withExplanation:@""];
+        _explanationView = [[PoemExplanationView alloc]initWithFrame:CGRectMake(0, -140, 320, 140) withExplanation:@""];
     }
     return _explanationView;
 }
@@ -394,6 +394,8 @@ static CGRect currentLineFrame;
     if(tapWord)
     {
         if (explainDic && explainDic[tapWord]) {
+            self.currentLineOfPoemTextView.userInteractionEnabled = NO;
+            self.alternativeLinePoemTextView.userInteractionEnabled = NO;
             [self showExplanationView:explainDic[tapWord]];
         }
         else
@@ -404,13 +406,16 @@ static CGRect currentLineFrame;
 }
 - (void)showExplanationView:(NSString*)explanationStr
 {
-    self.explanationView.explanationData = explanationStr;
     //is close
-    if(self.explanationView.frame.origin.y == -self.explanationView.frame.size.height)
+    if(!self.explanationView.isOpen)
     {
+        self.explanationView.explanationData = explanationStr;
         [UIView animateWithDuration:0.4 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.8 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.explanationView.frame = CGRectOffset(self.explanationView.frame, 0, self.explanationView.frame.size.height);
         } completion:^(BOOL finished) {
+            self.explanationView.isOpen = YES;
+            self.currentLineOfPoemTextView.userInteractionEnabled = YES;
+            self.alternativeLinePoemTextView.userInteractionEnabled = YES;
         }];
     }
     else{
@@ -419,15 +424,13 @@ static CGRect currentLineFrame;
 }
 - (void)hideExplanationView
 {
-    
-    //is open
-    if(self.explanationView.frame.origin.y == 0)
-    {
-        [UIView animateWithDuration:0.4 animations:^{
-            self.explanationView.frame = CGRectOffset(self.explanationView.frame, 0, -self.explanationView.frame.size.height);
-        } completion:^(BOOL finished) {
-        }];
-    }
+    [UIView animateWithDuration:0.4 animations:^{
+        self.explanationView.frame = CGRectOffset(self.explanationView.frame, 0, -self.explanationView.frame.size.height);
+    } completion:^(BOOL finished) {
+        self.explanationView.isOpen = NO;
+        self.currentLineOfPoemTextView.userInteractionEnabled = YES;
+        self.alternativeLinePoemTextView.userInteractionEnabled = YES;
+    }];
 }
 - (void)initBackgroundImageViewAnimation
 {

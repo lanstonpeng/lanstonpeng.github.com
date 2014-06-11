@@ -19,6 +19,7 @@
 		9D329CBC193C693900B50C55 /* 方正清刻本悦宋简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D329CBB193C693900B50C55 /* 方正清刻本悦宋简体.ttf */; };
 		9D329CBF193C6F2200B50C55 /* PoemIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329CBE193C6F2200B50C55 /* PoemIntroductionView.m */; };
 		9D329D05193F6E0F00B50C55 /* PoemExplanationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329D04193F6E0F00B50C55 /* PoemExplanationView.m */; };
+		9D840CDD1946DDFA00D55EAF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D840CDB1946DDFA00D55EAF /* Reachability.m */; };
 		9DC62D97194600BA0072BF76 /* CygnetRound.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62D8E194600BA0072BF76 /* CygnetRound.ttf */; };
 		9DC62D9A194600BA0072BF76 /* poem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62D91194600BA0072BF76 /* poem.bundle */; };
 		9DC62D9B194600BA0072BF76 /* poemdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62D92194600BA0072BF76 /* poemdata.json */; };
@@ -41,7 +42,6 @@
 		9DD4AE0A19381111009C414E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD4ADF219381111009C414E /* UIKit.framework */; };
 		9DD4AE1219381111009C414E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9DD4AE1019381111009C414E /* InfoPlist.strings */; };
 		9DD4AE1419381111009C414E /* PoemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD4AE1319381111009C414E /* PoemTests.m */; };
-		9DD4AE1F1938114E009C414E /* MainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD4AE1E1938114E009C414E /* MainPageViewController.m */; };
 		9DD7B0AB193A0B1700689F1B /* UIImage+PoemResouces.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD7B0AA193A0B1700689F1B /* UIImage+PoemResouces.m */; };
 		9DD7B0AD193A0C2F00689F1B /* poem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9DD7B0AC193A0C2F00689F1B /* poem.bundle */; };
 /* End PBXBuildFile section */
@@ -79,6 +79,8 @@
 		9D329CBE193C6F2200B50C55 /* PoemIntroductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemIntroductionView.m; sourceTree = "<group>"; };
 		9D329D03193F6E0F00B50C55 /* PoemExplanationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoemExplanationView.h; sourceTree = "<group>"; };
 		9D329D04193F6E0F00B50C55 /* PoemExplanationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemExplanationView.m; sourceTree = "<group>"; };
+		9D840CDB1946DDFA00D55EAF /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		9D840CDC1946DDFA00D55EAF /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		9DC62D8E194600BA0072BF76 /* CygnetRound.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CygnetRound.ttf; sourceTree = "<group>"; };
 		9DC62D8F194600BA0072BF76 /* icomoon-light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "icomoon-light.ttf"; sourceTree = "<group>"; };
 		9DC62D90194600BA0072BF76 /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.ttf; sourceTree = "<group>"; };
@@ -109,8 +111,6 @@
 		9DD4AE0F19381111009C414E /* PoemTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PoemTests-Info.plist"; sourceTree = "<group>"; };
 		9DD4AE1119381111009C414E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9DD4AE1319381111009C414E /* PoemTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PoemTests.m; sourceTree = "<group>"; };
-		9DD4AE1D1938114E009C414E /* MainPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageViewController.h; sourceTree = "<group>"; };
-		9DD4AE1E1938114E009C414E /* MainPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageViewController.m; sourceTree = "<group>"; };
 		9DD7B076193A07A300689F1B /* song1_128000.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = song1_128000.m4a; sourceTree = "<group>"; };
 		9DD7B0A9193A0B1700689F1B /* UIImage+PoemResouces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PoemResouces.h"; sourceTree = "<group>"; };
 		9DD7B0AA193A0B1700689F1B /* UIImage+PoemResouces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PoemResouces.m"; sourceTree = "<group>"; };
@@ -149,8 +149,6 @@
 				9D329CB1193C3C2200B50C55 /* CollectionViewController.m */,
 				9D0669C6193855AE0046750E /* ContainerViewController.h */,
 				9D0669C7193855AE0046750E /* ContainerViewController.m */,
-				9DD4AE1D1938114E009C414E /* MainPageViewController.h */,
-				9DD4AE1E1938114E009C414E /* MainPageViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -294,6 +292,8 @@
 		9DD7B0A2193A08FD00689F1B /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				9D840CDB1946DDFA00D55EAF /* Reachability.m */,
+				9D840CDC1946DDFA00D55EAF /* Reachability.h */,
 				9D329CAD193C1C2F00B50C55 /* PoemReader.h */,
 				9D329CAE193C1C2F00B50C55 /* PoemReader.m */,
 				9DD7B0A9193A0B1700689F1B /* UIImage+PoemResouces.h */,
@@ -414,6 +414,7 @@
 				9D329CB5193C3C4E00B50C55 /* PoemCell.m in Sources */,
 				9DD7B0AB193A0B1700689F1B /* UIImage+PoemResouces.m in Sources */,
 				9DD4ADFF19381111009C414E /* AppDelegate.m in Sources */,
+				9D840CDD1946DDFA00D55EAF /* Reachability.m in Sources */,
 				9D329CA5193AD0D800B50C55 /* PoemDetailView.m in Sources */,
 				9D329CBA193C57DB00B50C55 /* CustomTestCell.m in Sources */,
 				9D329CAF193C1C2F00B50C55 /* PoemReader.m in Sources */,
@@ -421,7 +422,6 @@
 				9D0669C8193855AE0046750E /* ContainerViewController.m in Sources */,
 				9D329D05193F6E0F00B50C55 /* PoemExplanationView.m in Sources */,
 				9DD4ADFB19381111009C414E /* main.m in Sources */,
-				9DD4AE1F1938114E009C414E /* MainPageViewController.m in Sources */,
 				9D329CB2193C3C2200B50C55 /* CollectionViewController.m in Sources */,
 				9D329CBF193C6F2200B50C55 /* PoemIntroductionView.m in Sources */,
 			);
