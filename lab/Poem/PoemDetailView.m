@@ -85,6 +85,31 @@ static CGRect currentLineFrame;
     //[self initPoemView];
     [self initPoemData];
 }
+-(void)addParallelEffect
+{
+    // Set vertical effect
+    UIInterpolatingMotionEffect *verticalMotionEffect =
+    [[UIInterpolatingMotionEffect alloc]
+     initWithKeyPath:@"center.y"
+     type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+    verticalMotionEffect.minimumRelativeValue = @(-10);
+    verticalMotionEffect.maximumRelativeValue = @(10);
+    
+    // Set horizontal effect
+    UIInterpolatingMotionEffect *horizontalMotionEffect =
+    [[UIInterpolatingMotionEffect alloc]
+     initWithKeyPath:@"center.x"
+     type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+    horizontalMotionEffect.minimumRelativeValue = @(-10);
+    horizontalMotionEffect.maximumRelativeValue = @(10);
+    
+    // Create group to combine both
+    UIMotionEffectGroup *group = [UIMotionEffectGroup new];
+    group.motionEffects = @[horizontalMotionEffect, verticalMotionEffect];
+    
+    // Add both effects to your view
+    [_backgroundImageView addMotionEffect:group];
+}
 - (id)initWithFrame:(CGRect)frame  withData:(NSDictionary*)poem
 {
     poemLines = poem[@"poembody"];
@@ -114,10 +139,12 @@ static CGRect currentLineFrame;
        
         _backgroundImageView = [[UIImageView alloc]initWithImage: (UIImage*)[[UIImage alloc]initWithName:@"paisaje_azul_1920x1200"]];
         _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _backgroundImageView.frame = shadow.frame;
+        //_backgroundImageView.frame = shadow.frame;
+        _backgroundImageView.frame =CGRectMake(-20, -20,  shadow.frame.size.width+40, shadow.frame.size.height+40);
         _backgroundImageView.clipsToBounds = YES;
+        [self addParallelEffect];
         //[self addSubview:_backgroundImageView];
-        self.clipsToBounds = NO;
+        self.clipsToBounds = YES;
         //[self.layer addSublayer:_bgMaskLayer];
         [self initPoemView];
     }

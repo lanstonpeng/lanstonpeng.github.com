@@ -109,6 +109,7 @@
     
     group.animations = @[horizontalMove,verticalMove,scale];
     
+    
     [group setRemovedOnCompletion:NO];
     [group setFillMode:kCAFillModeForwards];
     [bgView.layer addAnimation:group forKey:@"groupAnimation"];
@@ -132,6 +133,7 @@
     paragrapStyle.firstLineHeadIndent = 20;
     [attrStr addAttribute:NSParagraphStyleAttributeName value:paragrapStyle range:range];
     title.attributedText = attrStr;
+    
 }
 - (void)startAnimation
 {
@@ -165,14 +167,21 @@
     bgMaskLayer.frame = CGRectMake(0, 0, bgView.frame.size.width, bgView.frame.size.height);
     bgMaskLayer.backgroundColor = [UIColor blackColor].CGColor;
     [bgView.layer addSublayer:bgMaskLayer];
+    
+    //gradient layer
+    CALayer* shadowLayer = [CALayer layer];
+    //bgView.clipsToBounds = NO;
+    shadowLayer.frame = CGRectMake(-20,bgView.frame.size.height - sFrame.size.height/8, sFrame.size.width+40 ,  sFrame.size.height /4);
+    shadowLayer.shadowPath = [[UIBezierPath bezierPathWithRect:CGRectMake(0,-40,sFrame.size.width +80, shadowLayer.frame.size.height)]  CGPath];
+    [shadowLayer setShadowColor:UIColorFromRGB(0x00000).CGColor];
+    //[shadowLayer setShadowColor:UIColorFromRGB(0x9A74E4).CGColor];
+    [shadowLayer setShadowOpacity:0.9];
+    [shadowLayer setShadowRadius:30.0];
+    [shadowLayer setShadowOffset:CGSizeMake(0, -2.0)];
+    [bgView.layer addSublayer:shadowLayer];
+    
     [self addSubview:bgView];
 
-    /*
-    [self.layer setShadowColor:[UIColor orangeColor].CGColor];
-    [self.layer setShadowOpacity:0.8];
-    [self.layer setShadowRadius:3.0];
-    [self.layer setShadowOffset:CGSizeMake(2.0, 2.0)];
-     */
     
     CGFloat pageWidth = sFrame.size.width + MaxScrollPull;
     bgScrollViewFrame = CGRectMake(0, 0, pageWidth, bgView.frame.size.height - 120);
@@ -224,6 +233,7 @@
     title.numberOfLines = 3;
     title.textColor = [UIColor whiteColor];
     title.textAlignment = NSTextAlignmentRight;
+
     //title.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     //UIView* titleBgView = [[UIView alloc]initWithFrame: CGRectMake(-2* MaxScrollPull,  title.frame.origin.y, 2* sFrame.size.width, title.frame.size.height)];
     //titleBgView.backgroundColor =[UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
