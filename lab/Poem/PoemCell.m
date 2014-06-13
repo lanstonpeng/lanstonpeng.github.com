@@ -14,6 +14,7 @@
 //#import "CustomUIScrollView.h"
 
 #define BgViewOpacityStartPoint 0.95
+#define BgViewOpacityEndPoint  0.3
 #define RightMargin 10
 //#define TitleFont @"QuicksandLight"
 //#define TitleFont @"STHeitiSC-Light"
@@ -61,6 +62,8 @@
     BOOL isTouchScreen;
     NSTimer* fadeInTimer;
     
+    CABasicAnimation* opacity;
+    
 }
 @end
 @implementation PoemCell
@@ -99,9 +102,9 @@
     [scale setFromValue:[NSNumber numberWithFloat:1.0f]];
     [scale setToValue:[NSNumber numberWithFloat:1.2f]];
     
-    CABasicAnimation* opacity = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    opacity = [CABasicAnimation animationWithKeyPath:@"opacity"];
     opacity.fromValue = @(BgViewOpacityStartPoint);
-    opacity.toValue = @(0.5f);
+    opacity.toValue = @(BgViewOpacityEndPoint);
     opacity.duration = 1;
     opacity.fillMode = kCAFillModeForwards;
     opacity.delegate = self;
@@ -114,7 +117,7 @@
     [group setFillMode:kCAFillModeForwards];
     [bgView.layer addAnimation:group forKey:@"groupAnimation"];
     [bgMaskLayer addAnimation:opacity forKey:@"maskLayerAnimation"];
-    bgMaskLayer.opacity = 0.5f;
+    bgMaskLayer.opacity = BgViewOpacityEndPoint;
     
     author.text = poem[@"author"];
     title.text = poem[@"title"];
@@ -233,6 +236,14 @@
     title.numberOfLines = 3;
     title.textColor = [UIColor whiteColor];
     title.textAlignment = NSTextAlignmentRight;
+    
+    CALayer* authorLayer = title.layer;
+    authorLayer.masksToBounds = NO;
+    authorLayer.shadowColor = [UIColor blackColor].CGColor;
+    [authorLayer setShadowOpacity:1];
+    [authorLayer setShadowRadius:0.5];
+    [authorLayer setShadowOffset:CGSizeMake(1, 1)];
+    
 
     //title.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     //UIView* titleBgView = [[UIView alloc]initWithFrame: CGRectMake(-2* MaxScrollPull,  title.frame.origin.y, 2* sFrame.size.width, title.frame.size.height)];
@@ -244,7 +255,7 @@
     UIView* separator = [[UIView alloc]initWithFrame:CGRectMake(0, titleFrame.origin.y + titleFrame.size.height + 10, sFrame.size.width , 0.5 )];
     scrollIndicatorView = [[UIView alloc]initWithFrame:CGRectMake(separator.frame.origin.x, separator.frame.origin.y,0,separator.frame.size.height)];
     scrollIndicatorViewRight = [[UIView alloc]initWithFrame:CGRectMake(separator.frame.origin.x + separator.frame.size.width, separator.frame.origin.y,0,separator.frame.size.height)];
-    scrollIndicatorView.backgroundColor = UIColorFromRGB(0xFF7123);
+    scrollIndicatorView.backgroundColor = UIColorFromRGB(0xffffff);
     scrollIndicatorViewRight.backgroundColor = UIColorFromRGB(0x16C2A3);
     separator.backgroundColor =UIColorFromRGB(0x01BEFC);
     [self addSubview:separator];
@@ -271,10 +282,17 @@
 
 -(void)bgScrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat bgViewOffset =  MAX(0, scrollView.contentOffset.x / 10);
-    bgView.frame = CGRectMake(-bgViewOffset, bgView.frame.origin.y, bgView.frame.size.width, bgView.frame.size.height);
+    //[bgView.layer removeAllAnimations];
+    
+    //CGFloat bgViewOffset =  MAX(0, scrollView.contentOffset.x / 10);
+    //CGRect f = [[bgView.layer presentationLayer] frame];
+   // bgView.frame = CGRectMake(f.origin.x - bgViewOffset, f.origin.y, bgView.frame.size.width, bgView.frame.size.height);
+    
+    //NSLog(@"bgView.frame %f",bgViewOffset);
     float offsetPercent =  scrollView.contentOffset.x / (poemDetailFrame.size.width/2);
-    //bgMaskLayer.opacity = BgViewOpacityStartPoint + 2 * offsetPercent * (1 - BgViewOpacityStartPoint);
+    [bgMaskLayer removeAnimationForKey:@"maskLayerAnimation"];
+    bgMaskLayer.opacity = BgViewOpacityEndPoint + 2 * offsetPercent * (1 - BgViewOpacityEndPoint);
+    //NSLog(@"did scroll %f",bgMaskLayer.opacity);
     //poemDetailView.bgMaskLayer.opacity = 0.8 + offsetPercent * 0.2;
     //author.frame = CGRectMake(-scrollView.contentOffset.x /20, author.frame.origin.y, author.frame.size.width, author.frame.size.height);
     title.frame = CGRectMake(-scrollView.contentOffset.x /20, title.frame.origin.y, title.frame.size.width, title.frame.size.height);

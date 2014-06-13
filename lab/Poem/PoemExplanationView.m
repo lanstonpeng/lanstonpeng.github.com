@@ -38,9 +38,9 @@
     shadow.shadowOffset = CGSizeMake(0, 2);
     shadow.shadowPath = [[UIBezierPath bezierPathWithRect:shadow.bounds]  CGPath];
     //shadow.shadowPath = [self awesomeShadow:shadow.bounds];
-    shadow.shadowRadius = 2.0f;
+    shadow.shadowRadius = 5.0f;
     [shadow setShadowColor:[UIColor blackColor].CGColor];
-    [shadow setShadowOpacity:0.5];
+    [shadow setShadowOpacity:0.3];
     
 }
 - (id)initWithFrame:(CGRect)frame withExplanation:(NSString*)explanation

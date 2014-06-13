@@ -7,5 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface CollectionViewController : UIViewController
+
+@protocol CollectionViewLoadingDelegate <NSObject>
+- (void)collectionViewWillAppear;
 @end
+
+@interface CollectionViewController : UIViewController
+
+    @property (strong,nonatomic)id<CollectionViewLoadingDelegate>delegate;
+
+@end
+

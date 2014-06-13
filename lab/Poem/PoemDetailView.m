@@ -191,30 +191,6 @@ static CGRect currentLineFrame;
         _translatedTextView.alpha = 0;
         _translatedTextView.editable = NO;
         UIFont* font = [UIFont fontWithName:ChineseFont size:14];
-        /*
-         NSArray *familyNames = [[NSArray alloc] initWithArray:[UIFont familyNames]];
-        NSArray *fontNames;
-        
-        NSInteger indFamily, indFont;
-        
-        for (indFamily=0; indFamily<[familyNames count]; ++indFamily)
-        {
-            NSLog(@"Family name: %@", [familyNames objectAtIndex:indFamily]);
-            
-            fontNames = [[NSArray alloc] initWithArray:
-                         
-                         [UIFont fontNamesForFamilyName:
-                          
-                          [familyNames objectAtIndex:indFamily]]];
-            
-            for (indFont=0; indFont<[fontNames count]; ++indFont)
-                
-            {
-                
-                NSLog(@"    Font name: %@", [fontNames objectAtIndex:indFont]);
-                
-            }
-        }*/
         _translatedTextView.font = font;
     }
     return _translatedTextView;
@@ -475,6 +451,7 @@ static CGRect currentLineFrame;
     currentLine = 0;
     _currentLineOfPoemTextView.frame = currentLineFrame;
     //hide it
+    [self hideExplanationView];
     _alternativeLinePoemTextView.frame = CGRectMake(LabelPaddLeft, screenHeight, screenWidth, PoemTextViewHeight);
     //_currentLineOfPoemTextView.text = [self getCurrentLine];
     _currentLineOfPoemTextView.attributedText = [self getCurrentAttributeString];

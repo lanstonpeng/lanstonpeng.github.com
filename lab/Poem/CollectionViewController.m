@@ -13,6 +13,7 @@
 #import "PoemDetailView.h"
 #import "PoemIntroductionView.h"
 #import "UIImage+PoemResouces.h"
+//#import "LoadingView.h"
 
 @interface CollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,PoemCellScrollDelegate>
 {
@@ -23,6 +24,8 @@
     CGPoint dragStartPoint;
     CALayer* uppperShadow;
     CALayer* bottomShadow;
+    
+    //LoadingView* loadingView;
 }
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UIScrollView *poemMixedInfoScrollView;
@@ -31,10 +34,21 @@
 @end
 
 @implementation CollectionViewController
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.delegate collectionViewWillAppear];
+    [UIView animateWithDuration:0.6 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        _collectionView.alpha = 1;
+    } completion:^(BOOL finished) {
+    }];
+    NSLog(@"CollectionView will appear");
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"CollectionView did load");
+    //loadingView = [[LoadingView alloc]initWithFrame:CGRectMake(0, 0, 320, 568)];
+    //[self.view addSubview:loadingView];
     // Do any additional setup after loading the view.
     self.view = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     
@@ -50,6 +64,7 @@
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     _collectionView.backgroundView = [[UIImageView alloc]initWithImage:(UIImage*)[[UIImage alloc]initWithName:@"collectionViewBg"] ];
+    _collectionView.alpha = 0;
     
     
     

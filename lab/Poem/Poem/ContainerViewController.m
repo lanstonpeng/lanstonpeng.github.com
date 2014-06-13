@@ -10,11 +10,13 @@
 #import "IntroductionViewController.h"
 #import "MainPageViewController.h"
 #import "CollectionViewController.h"
+#import "LoadingView.h"
 
-@interface ContainerViewController ()
+@interface ContainerViewController ()<CollectionViewLoadingDelegate>
 
 @property (strong,nonatomic)NSMutableArray* stack;
 @property (strong,nonatomic)UIViewController* currentViewController;
+@property (strong,nonatomic)LoadingView* loadingView;
 
 @end
 
@@ -29,20 +31,46 @@
     });
     return instance;
 }
+- (void)collectionViewWillAppear
+{
+    [UIView animateWithDuration:0.6f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _loadingView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [_loadingView removeFromSuperview];
+    }];
+    //[self.view addSubview:_currentViewController.view];
+}
+-(void)loadMainPage
+{
+    CollectionViewController* mainPage = [CollectionViewController new];
+    mainPage.delegate = self;
+    _currentViewController = mainPage;
+    [_stack addObject:_currentViewController];
+    _currentViewController.view.frame = self.view.bounds;
+    [self addChildViewController:_currentViewController];
+    [self.view addSubview:_currentViewController.view];
+    [_currentViewController didMoveToParentViewController:self];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //MainPageViewController* mainVC = [MainPageViewController new];
     //IntroductionViewController* introductionVC = [IntroductionViewController new];
-    CollectionViewController* mainPage = [CollectionViewController new];
-    _currentViewController = mainPage;
     _stack = [[NSMutableArray alloc]init];
-    mainPage.view.frame = self.view.bounds;
-    [self addChildViewController:mainPage];
-    [self.view addSubview:mainPage.view];
-    [_currentViewController didMoveToParentViewController:self];
-    [_stack addObject:_currentViewController];
+    
+    NSLog(@"adding loading View");
+    CGRect sFrame = [UIScreen mainScreen].bounds;
+    _loadingView = [[LoadingView alloc]initWithFrame:sFrame];
+    [self.view addSubview:_loadingView];
+    
+    [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(loadMainPage) userInfo:nil repeats:NO];
+    /*
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+        });
+    });
+     */
 }
 
 - (void)pushViewController:(UIViewController *)enqueViewController
