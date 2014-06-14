@@ -13,6 +13,7 @@
 #import "PoemDetailView.h"
 #import "PoemIntroductionView.h"
 #import "UIImage+PoemResouces.h"
+#import "AppFunctionalityView.h"
 //#import "LoadingView.h"
 
 @interface CollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,PoemCellScrollDelegate>
@@ -107,10 +108,10 @@
     _introudctionView = [[PoemIntroductionView alloc]initWithFrame:poemDetailFrame];
     
     uppperShadow = [CALayer layer];
-    uppperShadow.shadowOffset = CGSizeMake(0, -1);
+    uppperShadow.shadowOffset = CGSizeMake(0, -3);
     uppperShadow.backgroundColor= [UIColor orangeColor].CGColor;
     uppperShadow.shadowPath = [[UIBezierPath bezierPathWithRect:CGRectMake(-2, -1, 330, 4)]  CGPath];
-    uppperShadow.shadowRadius = 3.0f;
+    uppperShadow.shadowRadius = 4.0f;
     [uppperShadow setShadowColor:[UIColor blackColor].CGColor];
     [uppperShadow setShadowOpacity:0.8];
     [_collectionView.layer addSublayer:uppperShadow];
@@ -123,12 +124,20 @@
     [bottomShadow setShadowColor:[UIColor blackColor].CGColor];
     [bottomShadow setShadowOpacity:0.8];
     [_collectionView.layer addSublayer:bottomShadow];
+    
+    AppFunctionalityView* appFunctionalityView = [[AppFunctionalityView alloc]initWithFrame:CGRectMake(0, -70, sFrame.size.width, 50)];
+    [_collectionView addSubview:appFunctionalityView];
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    //CGPoint point = scrollView.contentOffset;
-    //uppperShadow.shadowRadius = 3 - point.y/10;
-    NSLog(@"y:%f",scrollView.contentOffset.y);
+    CGPoint offset  = scrollView.contentOffset;
+    if(offset.y < -60)
+    {
+        scrollView.contentOffset = CGPointMake(0, -70);
+        //Confusing
+        scrollView.contentInset =  UIEdgeInsetsMake(70, 0, 0, 0);
+    }
+    
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
