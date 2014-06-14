@@ -86,6 +86,7 @@
     UIImage* backgroundImg = (UIImage*)[[UIImage alloc]initWithName:poem[@"bgimg"]];
     self.poemData = poem;
     bgView.image = backgroundImg;
+    bgView.contentMode = UIViewContentModeScaleAspectFill;
     
     bgView.layer.anchorPoint = CGPointMake(0.5,0.5);
     CAAnimationGroup* group = [CAAnimationGroup animation];
@@ -267,7 +268,7 @@
     [self addSubview:bgScrollView];
     [self addSubview:poemBackgroundScrollView];
     poemDetailFrame = CGRectMake(self.frame.size.width, 0, self.frame.size.width * 2, self.frame.size.height);
-    poemIntroductionViewFrame = CGRectMake(self.frame.size.width, 100-self.frame.size.height, self.frame.size.width * 2, self.frame.size.height);
+    poemIntroductionViewFrame = CGRectMake(self.frame.size.width, 0, self.frame.size.width * 2, self.frame.size.height);
 }
 - (void)setUpPoem:(NSDictionary*)poem
 {

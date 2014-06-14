@@ -15,7 +15,7 @@
 @property (strong,nonatomic)UITextView* introTextView;
 @end
 
-#define PaddingLeft 10
+#define PaddingLeft 20
 #define MarginTop 20
 @implementation PoemIntroductionView
 
@@ -30,10 +30,11 @@
     if (self) {
         // Initialization code
         CGRect sFrame = [UIScreen mainScreen].bounds;
-        _introTextView = [[UITextView alloc]initWithFrame:CGRectMake(PaddingLeft, MarginTop, sFrame.size.width - 2*PaddingLeft, sFrame.size.height - 2 * MarginTop)];
+        _introTextView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, sFrame.size.height)];
         _introTextView.font = [UIFont fontWithName:@"AppleSDGothicNeo-Light" size:16];
         _introTextView.textAlignment = NSTextAlignmentNatural;
         _introTextView.layoutManager.delegate = self;
+        _introTextView.textContainerInset = UIEdgeInsetsMake(20, PaddingLeft, 0, 0);
         //textView.text = _poemData[@"poemIntroduction"][@"text"];
         _introudctionScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, sFrame.size.height)];
         _introudctionScrollView.showsHorizontalScrollIndicator = NO;

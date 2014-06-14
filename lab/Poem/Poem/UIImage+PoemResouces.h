@@ -12,4 +12,5 @@
 @interface UIImage (PoemResouces)
 
 - (id)initWithName:(NSString *)name;
+- (id)initWithName:(NSString *)name withExtension:(NSString*)extension;
 @end

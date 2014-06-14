@@ -13,9 +13,12 @@
 - (id)initWithName:(NSString *)name
 {
     
+    return [self initWithName:name withExtension:@"png"];
+}
+- (id)initWithName:(NSString *)name withExtension:(NSString*)extension
+{
     NSString *resoucesPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"poem.bundle"];
-    NSString* path = [[NSBundle bundleWithPath:resoucesPath]pathForResource:name ofType:@"png"];
-    
+    NSString* path = [[NSBundle bundleWithPath:resoucesPath]pathForResource:name ofType:extension];
     return [self initWithData:[NSData dataWithContentsOfFile:path]];
 }
 @end

@@ -38,6 +38,7 @@
 		9DD7B0AD193A0C2F00689F1B /* poem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9DD7B0AC193A0C2F00689F1B /* poem.bundle */; };
 		9DF68635194A88C900816BEC /* poemdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DF68634194A88C900816BEC /* poemdata.json */; };
 		9DF68638194A892300816BEC /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF68637194A892300816BEC /* LoadingView.m */; };
+		9DF6864B194BE07500816BEC /* AppFunctionalityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF6864A194BE07500816BEC /* AppFunctionalityView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,8 @@
 		9DF68634194A88C900816BEC /* poemdata.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = poemdata.json; sourceTree = "<group>"; };
 		9DF68636194A892300816BEC /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
 		9DF68637194A892300816BEC /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
+		9DF68649194BE07500816BEC /* AppFunctionalityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppFunctionalityView.h; sourceTree = "<group>"; };
+		9DF6864A194BE07500816BEC /* AppFunctionalityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppFunctionalityView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,14 +162,16 @@
 				9D329CA4193AD0D800B50C55 /* PoemDetailView.m */,
 				9D329CB3193C3C4E00B50C55 /* PoemCell.h */,
 				9D329CB4193C3C4E00B50C55 /* PoemCell.m */,
-				9D329CBD193C6F2200B50C55 /* PoemIntroductionView.h */,
 				9DD43B3119405AE300259CF1 /* PoemLineView.h */,
 				9DD43B3219405AE300259CF1 /* PoemLineView.m */,
+				9D329CBD193C6F2200B50C55 /* PoemIntroductionView.h */,
 				9D329CBE193C6F2200B50C55 /* PoemIntroductionView.m */,
 				9D329D03193F6E0F00B50C55 /* PoemExplanationView.h */,
 				9D329D04193F6E0F00B50C55 /* PoemExplanationView.m */,
 				9DF68636194A892300816BEC /* LoadingView.h */,
 				9DF68637194A892300816BEC /* LoadingView.m */,
+				9DF68649194BE07500816BEC /* AppFunctionalityView.h */,
+				9DF6864A194BE07500816BEC /* AppFunctionalityView.m */,
 			);
 			name = View;
 			path = ..;
@@ -381,6 +386,7 @@
 				9DD7B0AB193A0B1700689F1B /* UIImage+PoemResouces.m in Sources */,
 				9DD4ADFF19381111009C414E /* AppDelegate.m in Sources */,
 				9D840CDD1946DDFA00D55EAF /* Reachability.m in Sources */,
+				9DF6864B194BE07500816BEC /* AppFunctionalityView.m in Sources */,
 				9D329CA5193AD0D800B50C55 /* PoemDetailView.m in Sources */,
 				9D329CBA193C57DB00B50C55 /* CustomTestCell.m in Sources */,
 				9D329CAF193C1C2F00B50C55 /* PoemReader.m in Sources */,

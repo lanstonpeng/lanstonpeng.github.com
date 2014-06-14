@@ -50,7 +50,14 @@
     //loadingView = [[LoadingView alloc]initWithFrame:CGRectMake(0, 0, 320, 568)];
     //[self.view addSubview:loadingView];
     // Do any additional setup after loading the view.
-    self.view = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    CGRect sFrame = [UIScreen mainScreen].bounds;
+    self.view = [[UIView alloc]initWithFrame:sFrame];
+    
+    UIView* backgroundView = [[UIView alloc]initWithFrame:sFrame];
+    UIImage* bgImg = (UIImage*)[[UIImage alloc]initWithName:@"black_linen_v2_@2X"];
+    backgroundView.backgroundColor = [UIColor colorWithPatternImage:bgImg];
+    [self.view addSubview:backgroundView];
+    
     
     UICollectionViewFlowLayout* flowLayout = [[ UICollectionViewFlowLayout alloc]init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -58,12 +65,20 @@
     flowLayout.minimumLineSpacing = 0;
     
     _collectionView = [[UICollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:flowLayout];
-    _collectionView.backgroundColor = [UIColor whiteColor];
+    _collectionView.backgroundColor = [UIColor clearColor];
     _collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.pagingEnabled = YES;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-    _collectionView.backgroundView = [[UIImageView alloc]initWithImage:(UIImage*)[[UIImage alloc]initWithName:@"collectionViewBg"] ];
+    //_collectionView.backgroundView = [[UIImageView alloc]initWithImage:(UIImage*)[[UIImage alloc]initWithName:@"collectionViewBg"] ];
+    /*
+    CGFloat topCapHeight = 50;
+    CGFloat leftCapWidth = 50;
+    UIEdgeInsets inset = UIEdgeInsetsMake(topCapHeight, leftCapWidth, bgImg.size.height - (topCapHeight + 1), bgImg.size.width - (leftCapWidth + 1));
+    bgImg = [bgImg resizableImageWithCapInsets:inset];
+     */
+    //_collectionView.backgroundView =bgImageView;
+    //_collectionView.backgroundColor = [UIColor colorWithPatternImage:bgImg];
     _collectionView.alpha = 0;
     
     
@@ -109,11 +124,11 @@
     [bottomShadow setShadowOpacity:0.8];
     [_collectionView.layer addSublayer:bottomShadow];
 }
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     //CGPoint point = scrollView.contentOffset;
     //uppperShadow.shadowRadius = 3 - point.y/10;
+    NSLog(@"y:%f",scrollView.contentOffset.y);
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
