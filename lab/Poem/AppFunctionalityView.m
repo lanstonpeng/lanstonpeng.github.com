@@ -20,24 +20,36 @@
 @end
 @implementation AppFunctionalityView
 
+- (void)setUpButton:(UIButton*)btn
+{
+    btn.titleLabel.font = [UIFont fontWithName:@"icomoon" size:25];
+    btn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    btn.titleLabel.layer.shadowColor = [[UIColor blackColor] CGColor];
+    btn.titleLabel.layer.shadowOffset = CGSizeMake(0.0, 0.0);
+    btn.titleLabel.layer.shadowRadius = 3.0;
+    btn.titleLabel.layer.shadowOpacity = 0.9;
+    btn.titleLabel.layer.masksToBounds = NO;
+}
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        _recommendPoem = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 70)];
-        _recommendPoem.titleLabel.font = [UIFont fontWithName:@"icomoon" size:25];
-        _recommendPoem.titleLabel.textAlignment = NSTextAlignmentCenter;
+        CGRect sFrame  = [UIScreen mainScreen].bounds;
+        _recommendPoem = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width/3, 70)];
         [_recommendPoem setTitle:@"m" forState:UIControlStateNormal];
-        _recommendPoem.titleLabel.layer.shadowColor = [[UIColor blackColor] CGColor];
-        _recommendPoem.titleLabel.layer.shadowOffset = CGSizeMake(0.0, 0.0);
-        _recommendPoem.titleLabel.layer.shadowRadius = 3.0;
-        _recommendPoem.titleLabel.layer.shadowOpacity = 0.9;
-        _recommendPoem.titleLabel.layer.masksToBounds = NO;
+        [self setUpButton:_recommendPoem];
+    
+        _rateApp = [[UIButton alloc]initWithFrame:CGRectMake(sFrame.size.width/3, 0, sFrame.size.width/3, 70)];
+        [_rateApp setTitle:@"h" forState:UIControlStateNormal];
+        [self setUpButton:_rateApp];
+        //http://stackoverflow.com/questions/18905686/itunes-review-url-and-ios-7-ask-user-to-rate-our-app-appstore-show-a-blank-pag
+        
         //_recommendPoem.backgroundColor = [UIColor orangeColor];
         [_recommendPoem addTarget:self action:@selector(showMail) forControlEvents:UIControlEventTouchUpInside];
         _sharedContainer= [ContainerViewController sharedViewController];
         [self addSubview:_recommendPoem];
+        [self addSubview:_rateApp];
     }
     return self;
 }
@@ -80,6 +92,7 @@
     }
     
     // Close the Mail Interface
+    [self.delegate MailDidDismiss];
     [_sharedContainer dismissViewControllerAnimated:YES completion:NULL];
 }
 

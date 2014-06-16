@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol AppFunctionalityDelegate <NSObject>
+- (void)MailDidDismiss;
+@end
+
 @interface AppFunctionalityView : UIView
 
+@property(strong,nonatomic)id<AppFunctionalityDelegate>delegate;
 @end
+

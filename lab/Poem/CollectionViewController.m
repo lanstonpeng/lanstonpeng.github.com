@@ -16,7 +16,7 @@
 #import "AppFunctionalityView.h"
 //#import "LoadingView.h"
 
-@interface CollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,PoemCellScrollDelegate>
+@interface CollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,PoemCellScrollDelegate,AppFunctionalityDelegate>
 {
     NSMutableArray* poemArr;
     UIView* currentEmbedView;
@@ -42,6 +42,7 @@
         _collectionView.alpha = 1;
     } completion:^(BOOL finished) {
     }];
+    _poemMixedInfoScrollView.contentInset = UIEdgeInsetsZero;
     NSLog(@"CollectionView will appear");
 }
 - (void)viewDidLoad
@@ -126,6 +127,7 @@
     [_collectionView.layer addSublayer:bottomShadow];
     
     AppFunctionalityView* appFunctionalityView = [[AppFunctionalityView alloc]initWithFrame:CGRectMake(0, -70, sFrame.size.width, 50)];
+    appFunctionalityView.delegate = self;
     [_collectionView addSubview:appFunctionalityView];
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -235,5 +237,11 @@
 -(void)poemCellDidEndPulling:(PoemCell *)cell
 {
     _poemMixedInfoScrollView.scrollEnabled = YES;
+}
+
+#pragma mark appFunctionalityView delegate
+- (void)MailDidDismiss
+{
+    _poemMixedInfoScrollView.contentInset = UIEdgeInsetsZero;
 }
 @end
