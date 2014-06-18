@@ -18,22 +18,47 @@
 @end
 
 @implementation ViewController
+
+-(UIColor*)randomColor
+{
+    int r = arc4random()%3;
+    switch (r) {
+        case 0:
+            return [UIColor purpleColor];
+            break;
+        case 1:
+            return [UIColor greenColor];
+            break;
+        case 2:
+            return [UIColor yellowColor];
+            break;
+        default:
+            break;
+    }
+    return [UIColor redColor];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     LScrollView* lScrollView = [[LScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 300)];
     lScrollView.backgroundColor = [UIColor orangeColor];
     [self.view addSubview:lScrollView];
-    UILabel* l = [[UILabel alloc]initWithFrame:CGRectMake(50, 50, 100, 100)];
-    l.text = @"Label";
-    l.layer.borderColor = [UIColor blackColor].CGColor;
-    l.textAlignment = NSTextAlignmentCenter;
-    l.backgroundColor = [UIColor purpleColor];
-    [lScrollView addSubview:l];
+    
+    for(int i = 0 ; i < 2000 ;i++)
+    {
+        UILabel* l = [[UILabel alloc]initWithFrame:CGRectMake(arc4random()%5 * 50,arc4random()%5* 50, 100, 100)];
+        l.text = @"Label";
+        l.layer.borderColor = [UIColor blackColor].CGColor;
+        l.textAlignment = NSTextAlignmentCenter;
+        l.backgroundColor = [self randomColor];
+        [lScrollView addSubview:l];
+    }
+    
+
     
     
     double rads = DEGREES_TO_RADIANS(45);
-    lScrollView.layer.transform = CATransform3DMakeRotation(rads, 0, 0, 1);
+    //lScrollView.layer.transform = CATransform3DMakeRotation(rads, 0, 0, 1);
     /*
     UILabel* l2 = [[UILabel alloc]initWithFrame:CGRectMake(100, 160, 100, 100)];
     l2.text = @"Label";
