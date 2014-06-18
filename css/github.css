@@ -85,3 +85,9 @@ pre .string, pre .support.value  {
 pre .regexp {
     color: #009926;
 }
+
+blockquote{
+    border-left: 4px solid #dddddd;
+    padding: 0 15px;
+    color: #777777;
+}
