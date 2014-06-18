@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Implement a simple ScrollView</title>
+        <title>Understanding Bounds and Frame by implementing a simple ScrollView</title>
         <meta name="viewport" content="width=device-width, user-scalable=no">
 
         <!-- syntax highlighting CSS -->
@@ -17,10 +17,198 @@
     <body>
         <div class="site">
 
-          <h2 class="post-title">Implement a simple ScrollView</h2>
+          <h2 class="post-title">Understanding Bounds and Frame by implementing a simple ScrollView</h2>
 <p class="meta">27 Apr 2014</p>
 
 <div class="post">
+<p>As we use UIView so commonly in our application,I've been confused about the concept of the <code>bounds</code> property<br/>
+the docs descript it as</p>
+
+
+
+
+<blockquote><p>The bounds rectangle, which describes the view’s location and size in its own coordinate system.On the screen, the bounds rectangle represents the same visible portion of the view as its frame rectangle. By default, the origin of the bounds rectangle is set to (0, 0) but you can change this value to display different portions of the view</p>
+
+<p>The default bounds origin is (0,0) and the size is the same as the frame rectangle’s size.</p></blockquote>
+
+
+
+
+<p>And let's look at the <code>frame</code> property</p>
+
+
+
+
+<blockquote><p>The frame rectangle, which describes the view’s location and size in its superview’s coordinate system</p></blockquote>
+
+
+
+
+<p>The term <strong>own coordinate system</strong> really makes me felling uncomfortable at the first time<br/>
+Another problem confuses me is that <strong>Why existing bounds and frame,wouldn't it be simple if there's only one(say that there's just <code>frame</code> ,no <code>bounds</code>)</strong></p>
+
+
+
+
+<p>So,if you have the same question spinning around in your head ,let's try implementing a simple <strong>UIScrollView</strong> for better understanding of <code>bounds</code> and <code>frame</code>
+And our lovely scroll view will be look like this..(How simple is that)
+<img src="http://lanstonpeng.github.io/assets/LScroll.gif" alt="youku" /></p>
+
+
+
+
+<p><code>LScrollView</code> is just a simple <code>UIView</code></p>
+
+
+
+
+<pre>
+@interface LScrollView : UIView
+@end
+...
+
+LScrollView* lScrollView = [[LScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 300)];
+lScrollView.backgroundColor = [UIColor orangeColor];
+
+</pre>
+
+
+
+
+<p>And we may have to do something in the <code>touchesMoved</code> event,assuming that the only concept is <code>frame</code> ,no <code>bounds</code>
+everytime we pan the <code>LScrollView</code> we may have to change every subviews' frames</p>
+
+
+
+
+<pre>
+    NSArray* subviews = [self subviews];
+    UITouch* touch = [touches anyObject];
+    //get the current touch point
+    CGPoint pt = [touch locationInView:self];
+    //get the last touch point
+    _lastPoint = [touch previousLocationInView:self];
+    _delta = pt.x - _lastPoint.x;
+    for(UIView* view in subviews)
+    {
+        [view setFrame:CGRectMake(view.frame.origin.x + _delta, view.frame.origin.y, view.frame.size.width, view.frame.size.height)];
+    }
+</pre>
+
+
+
+
+<p>Everything looks fine no matter "how many" subviews we have in our <code>LScrollView</code></p>
+
+
+
+
+<p>We iterate every subview and alter the frame's origin,there's a performance issue here,
+Ok,Let's leave this and see how <strong>bounds</strong> works<br/>
+by defining <em>own coordinate system</em> means how subviews' coordinate system bases on<br/>
+for example:<br/>
+the <strong>bounds.origin</strong> of super view is <code>{0,0}</code><br/>
+the <strong>frame.origin</strong> of child view is <code>{10,10}</code></p>
+
+
+
+
+<pre>
+bounds.origin                               
+{0,0}                                       
+  +----------------------------------------+
+  |                                        |
+  |                                        |
+  |      frame.origin                      |
+  |      +-------------------------+       |
+  |      |{10,10}                  |       |
+  |      |                         |       |
+  |      |                         |       |
+  |      |                         |       |
+  |      |                         |       |
+  |      +-------------------------+       |
+  |                                        |
+  |                                        |
+  +----------------------------------------+
+</pre>
+
+
+
+
+<p>the <strong>final position</strong> of the child view is <code>{10,10}</code><br/>
+result from <code>{child.frame.origin.x - super.bounds.origin.x,child.frame.origin.y - super.bounds.origin.y }</code></p>
+
+
+
+
+<p>if the <strong>bounds.origin</strong> of the super view is <code>{-10,-10}</code></p>
+
+
+
+
+<pre>
+bounds.origin                               
+{-10,-10}                                   
+  +--+-------------------------------------+
+  |                                        |
+  |                                        |
+  |      frame.origin                      |
+  |      +-------------------------+       |
+  |      |{10,10}                  |       |
+  |      |                         |       |
+  |      |                         |       |
+  |      |                         |       |
+  |      |                         |       |
+  |      +-------------------------+       |
+  |                                        |
+  |                                        |
+  +----------------------------------------+
+</pre>
+
+
+
+
+<p>the <strong>final position</strong> of the child view is <code>{20,20}</code><br/>
+result from <code>{child.frame.origin.x - super.bounds.origin.x,child.frame.origin.y - super.bounds.origin.y }</code><br/>
+So,we use the concept of <em>bounds</em> to reimplement our scrollView again</p>
+
+
+
+
+<pre>
+    UITouch* touch = [touches anyObject];
+    CGPoint pt = [touch locationInView:self];
+    _offsetPoint = self.bounds.origin;
+    _lastPoint = [touch previousLocationInView:self];
+    if( pt.x - _lastPoint.x == 0){
+        return;
+    }
+    //paning right
+    if(pt.x - _lastPoint.x >0 ){
+        _isRight = YES;
+        _delta = pt.x - _lastPoint.x;
+        _offsetPoint.x -= _delta;
+    }
+    //paning left
+    else{
+        _delta = _lastPoint.x - pt.x ;
+        _offsetPoint.x += _delta;
+    }
+    [self setBounds:CGRectMake(_offsetPoint.x,0, self.frame.size.width, self.frame.size.height)];
+</pre>
+
+
+
+
+<p>which runs faster and more reliable<br/>
+And it leaves me another question,<em>How Apple implement the scrollView</em>,since after changing the bounds ,the subviews somehow should alter their position,but the detail is behine the scene</p>
+
+
+
+
+<p>Ref :<br/>
+<a href="http://www.objc.io/issue-3/scroll-view.html">Understanding Scroll Views</a>
+<a href="http://stackoverflow.com/questions/1210047/cocoa-whats-the-difference-between-the-frame-and-the-bounds">Cocoa: What's the Difference between the frame and the bounds?</a></p>
 
 
 </div>
