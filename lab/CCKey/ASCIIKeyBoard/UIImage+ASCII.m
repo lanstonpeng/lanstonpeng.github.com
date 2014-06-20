@@ -11,7 +11,8 @@
 @implementation UIImage (ASCII)
 
 //•
-static const NSString * UIImageViewASCII_CharacterMap = @" .,;_ **";
+static const NSString * UIImageViewASCII_CharacterMap = @" .,;_ p*";
+static const NSString * UIImageViewASCII_CharacterMap2 = @" ＢＣＤＥ ＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ";
 
 - (UIImage *)asciiImage:(UIFont *)font
                  color:(UIColor *)color
@@ -91,6 +92,8 @@ static const NSString * UIImageViewASCII_CharacterMap = @" .,;_ **";
     NSUInteger bytesPerRow = bytesPerPixel * width;
     NSUInteger bitsPerComponent = 8;
     
+    NSMutableString* mutableStr = [[NSMutableString alloc]init];
+    
     CGContextRef context = CGBitmapContextCreate(
         rawData, width, height,
         bitsPerComponent, bytesPerRow, colorSpace,
@@ -112,11 +115,14 @@ static const NSString * UIImageViewASCII_CharacterMap = @" .,;_ **";
         byteIndex += 4;
         NSInteger characterIndex =  7 - (((int)(r + g + b)/3) >> 5) & 0x7 ;
         stringData[ii] = [UIImageViewASCII_CharacterMap characterAtIndex:characterIndex];
+        NSString* character = [UIImageViewASCII_CharacterMap2 substringWithRange:NSMakeRange(characterIndex, 1)];
+        [mutableStr appendString:character];
     }
     
     free(rawData);
     
     return [[NSString alloc] initWithBytesNoCopy:stringData length:count encoding:NSASCIIStringEncoding freeWhenDone:YES];
+    //return mutableStr;
 }
 
 // http://stackoverflow.com/questions/2765537/how-do-i-use-the-nsstring-draw-functionality-to-create-a-uiimage-from-text

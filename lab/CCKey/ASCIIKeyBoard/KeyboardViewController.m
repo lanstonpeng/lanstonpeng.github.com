@@ -37,14 +37,16 @@
 
     self.nextKeyboardButton = [UIButton buttonWithType:UIButtonTypeSystem];
     
-    [self.nextKeyboardButton setTitle:NSLocalizedString(@"Click", @"Title for 'Next Keyboard' button") forState:UIControlStateNormal];
+    [self.nextKeyboardButton setTitle:NSLocalizedString(@"Next", @"Title for 'Next Keyboard' button") forState:UIControlStateNormal];
     [self.nextKeyboardButton sizeToFit];
     self.nextKeyboardButton.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.nextKeyboardButton addTarget:self action:@selector(advanceToNextInputMode) forControlEvents:UIControlEventTouchUpInside];
     //[self.nextKeyboardButton addTarget:self action:@selector(insertSomething) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.nextKeyboardButton];
-    _smoothLineView =[[SmoothLineView alloc] initWithFrame:CGRectMake(0, 0, 320 , 200)];
+    
+    
+    CGRect sFrame = [UIScreen mainScreen].bounds;
+    _smoothLineView =[[SmoothLineView alloc] initWithFrame:CGRectMake(0, 0, sFrame.size.width , sFrame.size.height)];
     _smoothLineView.backgroundColor = [UIColor yellowColor];
     _smoothLineView.delegate = self;
     
@@ -54,13 +56,17 @@
     [generate addTarget:self action:@selector(generateASCII:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_smoothLineView];
     [self.view addSubview:generate];
+    [self.view addSubview:self.nextKeyboardButton];
     
     
-    NSLayoutConstraint *nextKeyboardButtonLeftSideConstraint = [NSLayoutConstraint constraintWithItem:self.nextKeyboardButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0.0];
+    NSLayoutConstraint *nextKeyboardButtonRightSideConstraint = [NSLayoutConstraint constraintWithItem:self.nextKeyboardButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0.0];
     NSLayoutConstraint *nextKeyboardButtonBottomConstraint = [NSLayoutConstraint constraintWithItem:self.nextKeyboardButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0];
-    [self.view addConstraints:@[nextKeyboardButtonLeftSideConstraint, nextKeyboardButtonBottomConstraint]];
+    [self.view addConstraints:@[nextKeyboardButtonRightSideConstraint, nextKeyboardButtonBottomConstraint]];
     
-     }
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -98,7 +104,7 @@
     CGRect rect = _smoothLineView.frame;
     CGRect  newRect = CGRectMake(rect.origin.x* scale,
                                  rect.origin.y* scale,
-                                 rect.size.width* scale,
+                                 (rect.size.width - 40)* scale,
                                  rect.size.height*scale);
     
     CGImageRef imageRef = CGImageCreateWithImageInRect([img CGImage], newRect);
