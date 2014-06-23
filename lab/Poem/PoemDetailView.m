@@ -394,7 +394,7 @@ static CGRect currentLineFrame;
         if (explainDic && explainDic[tapWord]) {
             self.currentLineOfPoemTextView.userInteractionEnabled = NO;
             self.alternativeLinePoemTextView.userInteractionEnabled = NO;
-            [self showExplanationView:explainDic[tapWord]];
+            [self showExplanationView:explainDic[tapWord] forWrod:tapWord];
         }
         else
         {
@@ -402,11 +402,12 @@ static CGRect currentLineFrame;
         }
     }
 }
-- (void)showExplanationView:(NSString*)explanationStr
+- (void)showExplanationView:(NSString*)explanationStr forWrod:(NSString*)word
 {
     //is close
     if(!self.explanationView.isOpen)
     {
+        self.explanationView.explaningWord = word;
         self.explanationView.explanationData = explanationStr;
         [UIView animateWithDuration:0.4 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.8 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.explanationView.frame = CGRectOffset(self.explanationView.frame, 0, self.explanationView.frame.size.height);

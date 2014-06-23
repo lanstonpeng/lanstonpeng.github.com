@@ -23,7 +23,10 @@
 
 - (void)setExplanationData:(NSString *)explanationData
 {
-    _explanationLabel.text = explanationData;
+    NSMutableAttributedString* mutableAttrStr =[[NSMutableAttributedString alloc]initWithString:explanationData];
+    [mutableAttrStr addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x01C9FF) range:NSMakeRange(0, self.explaningWord.length )];
+    //_explanationLabel.text = explanationData;
+    _explanationLabel.attributedText = mutableAttrStr;
     //CGSize expectedLabelSize = [explanationData sizeWithAttributes:@{NSFontAttributeName:_explanationLabel.font}];
     CGSize expectedLabelSize = [explanationData boundingRectWithSize:(CGSize){320, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin  attributes:@{NSFontAttributeName:_explanationLabel.font} context:nil].size;
     CGRect newFrame = self.frame;

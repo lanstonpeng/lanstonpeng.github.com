@@ -10,6 +10,7 @@
 
 @interface PoemExplanationView : UIView
 @property (strong,nonatomic)NSString* explanationData;
+@property (strong,nonatomic)NSString* explaningWord;
 @property (nonatomic)BOOL isOpen;
 - (id)initWithFrame:(CGRect)frame withExplanation:(NSString*)explanation;
 @end
