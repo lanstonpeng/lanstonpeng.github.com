@@ -37,13 +37,14 @@
 @implementation CollectionViewController
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    self.screenName = @"CollectionView Controller";
     [self.delegate collectionViewWillAppear];
     [UIView animateWithDuration:0.6 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         _collectionView.alpha = 1;
     } completion:^(BOOL finished) {
     }];
     _poemMixedInfoScrollView.contentInset = UIEdgeInsetsZero;
-    NSLog(@"CollectionView will appear");
 }
 - (void)viewDidLoad
 {
@@ -195,6 +196,7 @@
 //            _poemDetailView.layer.zPosition = 1;
 //            _introductionView.layer.zPosition = 0;
             [_poemMixedInfoScrollView addSubview:_poemDetailView];
+            //[self.view bringSubviewToFront:_poemDetailView];
             currentEmbedView = _poemDetailView;
             currentPoemType = PoemDetailType;
             break;
@@ -202,6 +204,7 @@
         case PoemIntroduction:
         {
             [_introductionView setPoemData:cell.poemData];
+            //[self.view bringSubviewToFront:_introductionView];
             [_poemMixedInfoScrollView addSubview:_introductionView];
 //            _poemDetailView.layer.zPosition = 0;
 //            _introductionView.layer.zPosition = 1;

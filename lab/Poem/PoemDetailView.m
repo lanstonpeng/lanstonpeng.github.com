@@ -475,9 +475,11 @@ static CGRect currentLineFrame;
     [self addSubview:self.explanationView];
     
     CGRect tempFrame = [UIScreen mainScreen].bounds;
+    /*
     inkView = [[UIImageView alloc]initWithImage:[[UIImage alloc]initWithName:@"ink"] ];
     inkView.contentMode = UIViewContentModeScaleAspectFit;
     inkView.frame = CGRectMake(tempFrame.size.width/2 - 12,tempFrame.size.height - 24 , 24, 24);
+     */
     
     toolBarToggleBtn = [[UIButton alloc]initWithFrame:CGRectMake(tempFrame.size.width/2 - 25,tempFrame.size.height - 30 , 50, 50)];
     toolBarToggleBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;

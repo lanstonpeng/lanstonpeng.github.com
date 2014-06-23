@@ -11,14 +11,17 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 
 @interface PoemReader()
+{
+    NSString* _basePath;
+}
 
 @property (strong,nonatomic)NSMutableArray* allPoemData;
 
 @end
 @implementation PoemReader
 
-#define JSONURL @"http://127.0.0.1:5000/static/poemdata.json"
-#define ImageHost @"http://127.0.0.1:5000/static/images/%@.png"
+#define JSONURL @"http://106.186.120.207:5000/static/poemdata.json"
+#define ImageHost @"http://106.186.120.207:5000/static/images/%@.png"
 
 + (instancetype)sharedPoemReader
 {
@@ -35,15 +38,24 @@
 }
 -(NSArray*)getAllPoems
 {
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"poemdata" ofType:@"json"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    _basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    //NSString *filePath = [[NSBundle mainBundle] pathForResource:@"poemdata" ofType:@"json" inDirectory:@"Documents"];
+    NSString *filePath = [_basePath stringByAppendingString:@"/poemdata.json"];
+    NSLog(@"path: %@",filePath);
     NSData *data = [NSData dataWithContentsOfFile:filePath];
-    NSArray *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    if (!json.count) {
+    NSArray *json;
+    if(data)
+    {
+         json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    }
+    else{
         NSString *backUpfilePath = [[NSBundle mainBundle] pathForResource:@"poemdata_backup" ofType:@"json"];
         NSData *backUpdata = [NSData dataWithContentsOfFile:backUpfilePath];
         json = [NSJSONSerialization JSONObjectWithData:backUpdata options:kNilOptions error:nil];
     }
     _allPoemData  = [[NSMutableArray alloc]initWithArray: json];
+    //NSLog(@"count:%d",_allPoemData.count);
     if([self isConnected])
     {
         [self getNewestPoemData];
@@ -89,8 +101,9 @@
                     [self backUpCurrentPoemData];
                     
                     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:newAllPoemData options:kNilOptions error:&error];
-                    NSString* jsonPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/poemdata.json"];
+                    NSString* jsonPath = [_basePath stringByAppendingString:@"/poemdata.json"];
                     [jsonData writeToFile:jsonPath atomically:YES];
+                    //NSLog(@"new path: %@",jsonPath);
                     //download image
                     [self downloadImage:json[@"bgimg"]];
                 }
@@ -121,8 +134,8 @@
         NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:urlStr] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             if(!error)
             {
-                NSString* pngPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/poem.bundle/"];
-                pngPath  = [pngPath stringByAppendingString:[NSString stringWithFormat:@"%@.png",imageName]];
+                //NSString* pngPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/poem.bundle/"];
+                NSString* pngPath  = [_basePath stringByAppendingString:[NSString stringWithFormat:@"/%@.png",imageName]];
                 [data writeToFile:pngPath atomically:YES];
             }
         }];
@@ -132,6 +145,7 @@
 - (void)backUpCurrentPoemData
 {
     NSError* error;
+    NSLog(@"backing up current poem data");
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:_allPoemData options:kNilOptions error:&error];
     NSString* jsonPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/poemdata_backup.json"];
     [jsonData writeToFile:jsonPath atomically:YES];

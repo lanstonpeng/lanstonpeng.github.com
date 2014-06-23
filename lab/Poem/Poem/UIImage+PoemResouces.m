@@ -19,6 +19,12 @@
 {
     NSString *resoucesPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"poem.bundle"];
     NSString* path = [[NSBundle bundleWithPath:resoucesPath]pathForResource:name ofType:extension];
+    if(!path)
+    {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString* basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+        path = [basePath stringByAppendingString:[NSString stringWithFormat:@"/%@.%@",name,extension]];
+    }
     return [self initWithData:[NSData dataWithContentsOfFile:path]];
 }
 @end

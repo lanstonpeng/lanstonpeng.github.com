@@ -18,10 +18,18 @@
 		9D329CBC193C693900B50C55 /* 方正清刻本悦宋简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D329CBB193C693900B50C55 /* 方正清刻本悦宋简体.ttf */; };
 		9D329CBF193C6F2200B50C55 /* PoemIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329CBE193C6F2200B50C55 /* PoemIntroductionView.m */; };
 		9D329D05193F6E0F00B50C55 /* PoemExplanationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329D04193F6E0F00B50C55 /* PoemExplanationView.m */; };
+		9D5487041957BD24007915A0 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D5487031957BD24007915A0 /* UIImage+ImageEffects.m */; };
 		9D840CDD1946DDFA00D55EAF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D840CDB1946DDFA00D55EAF /* Reachability.m */; };
 		9DC62DA2194603B30072BF76 /* icomoonlight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62DA1194603B30072BF76 /* icomoonlight.ttf */; };
 		9DCAD6AB1944165500EEFB21 /* CygnetRound.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DCAD6AA1944165500EEFB21 /* CygnetRound.ttf */; };
 		9DD43B3319405AE300259CF1 /* PoemLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD43B3219405AE300259CF1 /* PoemLineView.m */; };
+		9DD447BB195859590043590B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD447BA195859590043590B /* AdSupport.framework */; };
+		9DD447BD195859610043590B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD447BC195859610043590B /* CoreData.framework */; };
+		9DD447BF1958596C0043590B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD447BE1958596C0043590B /* SystemConfiguration.framework */; };
+		9DD447C1195859760043590B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD447C0195859760043590B /* libz.dylib */; };
+		9DD4481719585A160043590B /* Readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9DD447F719585A160043590B /* Readme.txt */; };
+		9DD4481C19585A1E0043590B /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD4481B19585A1E0043590B /* libGoogleAnalyticsServices.a */; };
+		9DD4481E195861320043590B /* poemdata_backup.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DD4481D195861320043590B /* poemdata_backup.json */; };
 		9DD4ADEF19381111009C414E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD4ADEE19381111009C414E /* Foundation.framework */; };
 		9DD4ADF119381111009C414E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD4ADF019381111009C414E /* CoreGraphics.framework */; };
 		9DD4ADF319381111009C414E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD4ADF219381111009C414E /* UIKit.framework */; };
@@ -36,7 +44,6 @@
 		9DD4AE1419381111009C414E /* PoemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD4AE1319381111009C414E /* PoemTests.m */; };
 		9DD7B0AB193A0B1700689F1B /* UIImage+PoemResouces.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD7B0AA193A0B1700689F1B /* UIImage+PoemResouces.m */; };
 		9DD7B0AD193A0C2F00689F1B /* poem.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9DD7B0AC193A0C2F00689F1B /* poem.bundle */; };
-		9DF68635194A88C900816BEC /* poemdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DF68634194A88C900816BEC /* poemdata.json */; };
 		9DF68638194A892300816BEC /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF68637194A892300816BEC /* LoadingView.m */; };
 		9DF6864B194BE07500816BEC /* AppFunctionalityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF6864A194BE07500816BEC /* AppFunctionalityView.m */; };
 		9DF6864D194BE8A400816BEC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF6864C194BE8A400816BEC /* MessageUI.framework */; };
@@ -74,6 +81,8 @@
 		9D329CBE193C6F2200B50C55 /* PoemIntroductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemIntroductionView.m; sourceTree = "<group>"; };
 		9D329D03193F6E0F00B50C55 /* PoemExplanationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoemExplanationView.h; sourceTree = "<group>"; };
 		9D329D04193F6E0F00B50C55 /* PoemExplanationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemExplanationView.m; sourceTree = "<group>"; };
+		9D5487021957BD24007915A0 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		9D5487031957BD24007915A0 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		9D840CDB1946DDFA00D55EAF /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		9D840CDC1946DDFA00D55EAF /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		9DC62DA1194603B30072BF76 /* icomoonlight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoonlight.ttf; sourceTree = "<group>"; };
@@ -81,6 +90,21 @@
 		9DCAD6AC194417A800EEFB21 /* QuicksandLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = QuicksandLight.ttf; sourceTree = "<group>"; };
 		9DD43B3119405AE300259CF1 /* PoemLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoemLineView.h; sourceTree = "<group>"; };
 		9DD43B3219405AE300259CF1 /* PoemLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemLineView.m; sourceTree = "<group>"; };
+		9DD447B71958592B0043590B /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = ../../../../Downloads/GoogleAnalyticsServicesiOS_3.07/libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		9DD447BA195859590043590B /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		9DD447BC195859610043590B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		9DD447BE1958596C0043590B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9DD447C0195859760043590B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		9DD447C2195859AD0043590B /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = lib/libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		9DD447F119585A160043590B /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		9DD447F219585A160043590B /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		9DD447F319585A160043590B /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		9DD447F419585A160043590B /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		9DD447F519585A160043590B /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		9DD447F619585A160043590B /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		9DD447F719585A160043590B /* Readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.txt; sourceTree = "<group>"; };
+		9DD4481B19585A1E0043590B /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		9DD4481D195861320043590B /* poemdata_backup.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = poemdata_backup.json; sourceTree = "<group>"; };
 		9DD4ADEB19381111009C414E /* Poem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Poem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DD4ADEE19381111009C414E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9DD4ADF019381111009C414E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -101,7 +125,6 @@
 		9DD7B0A9193A0B1700689F1B /* UIImage+PoemResouces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+PoemResouces.h"; sourceTree = "<group>"; };
 		9DD7B0AA193A0B1700689F1B /* UIImage+PoemResouces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PoemResouces.m"; sourceTree = "<group>"; };
 		9DD7B0AC193A0C2F00689F1B /* poem.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = poem.bundle; sourceTree = "<group>"; };
-		9DF68634194A88C900816BEC /* poemdata.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = poemdata.json; sourceTree = "<group>"; };
 		9DF68636194A892300816BEC /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
 		9DF68637194A892300816BEC /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
 		9DF68649194BE07500816BEC /* AppFunctionalityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppFunctionalityView.h; sourceTree = "<group>"; };
@@ -114,6 +137,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DD4481C19585A1E0043590B /* libGoogleAnalyticsServices.a in Frameworks */,
+				9DD447C1195859760043590B /* libz.dylib in Frameworks */,
+				9DD447BF1958596C0043590B /* SystemConfiguration.framework in Frameworks */,
+				9DD447BD195859610043590B /* CoreData.framework in Frameworks */,
+				9DD447BB195859590043590B /* AdSupport.framework in Frameworks */,
 				9DF6864D194BE8A400816BEC /* MessageUI.framework in Frameworks */,
 				9DD4ADF119381111009C414E /* CoreGraphics.framework in Frameworks */,
 				9DD4ADF319381111009C414E /* UIKit.framework in Frameworks */,
@@ -180,6 +208,29 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		9DD447C419585A160043590B /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				9DD4481B19585A1E0043590B /* libGoogleAnalyticsServices.a */,
+				9DD447F019585A160043590B /* Library */,
+				9DD447F719585A160043590B /* Readme.txt */,
+			);
+			path = GoogleAnalytics;
+			sourceTree = "<group>";
+		};
+		9DD447F019585A160043590B /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				9DD447F119585A160043590B /* GAI.h */,
+				9DD447F219585A160043590B /* GAIDictionaryBuilder.h */,
+				9DD447F319585A160043590B /* GAIFields.h */,
+				9DD447F419585A160043590B /* GAILogger.h */,
+				9DD447F519585A160043590B /* GAITrackedViewController.h */,
+				9DD447F619585A160043590B /* GAITracker.h */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
 		9DD4ADE219381111009C414E = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +253,12 @@
 		9DD4ADED19381111009C414E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9DD447C2195859AD0043590B /* libGoogleAnalyticsServices.a */,
+				9DD447C0195859760043590B /* libz.dylib */,
+				9DD447BE1958596C0043590B /* SystemConfiguration.framework */,
+				9DD447BC195859610043590B /* CoreData.framework */,
+				9DD447BA195859590043590B /* AdSupport.framework */,
+				9DD447B71958592B0043590B /* libGoogleAnalyticsServices.a */,
 				9DF6864C194BE8A400816BEC /* MessageUI.framework */,
 				9DD4ADEE19381111009C414E /* Foundation.framework */,
 				9DD4ADF019381111009C414E /* CoreGraphics.framework */,
@@ -214,6 +271,7 @@
 		9DD4ADF419381111009C414E /* Poem */ = {
 			isa = PBXGroup;
 			children = (
+				9DD447C419585A160043590B /* GoogleAnalytics */,
 				9DD4ADFD19381111009C414E /* AppDelegate.h */,
 				9DD4ADFE19381111009C414E /* AppDelegate.m */,
 				9D329CA6193AD0DD00B50C55 /* View */,
@@ -258,8 +316,8 @@
 		9DD7B073193A07A300689F1B /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				9DF68634194A88C900816BEC /* poemdata.json */,
 				9DCAD6AC194417A800EEFB21 /* QuicksandLight.ttf */,
+				9DD4481D195861320043590B /* poemdata_backup.json */,
 				9D1152561944A71100F67743 /* icomoon.ttf */,
 				9DCAD6AA1944165500EEFB21 /* CygnetRound.ttf */,
 				9DC62DA1194603B30072BF76 /* icomoonlight.ttf */,
@@ -273,6 +331,8 @@
 		9DD7B0A2193A08FD00689F1B /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				9D5487021957BD24007915A0 /* UIImage+ImageEffects.h */,
+				9D5487031957BD24007915A0 /* UIImage+ImageEffects.m */,
 				9D840CDB1946DDFA00D55EAF /* Reachability.m */,
 				9D840CDC1946DDFA00D55EAF /* Reachability.h */,
 				9D329CAD193C1C2F00B50C55 /* PoemReader.h */,
@@ -358,12 +418,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DF68635194A88C900816BEC /* poemdata.json in Resources */,
 				9DD4ADF919381111009C414E /* InfoPlist.strings in Resources */,
 				9D1152571944A71100F67743 /* icomoon.ttf in Resources */,
+				9DD4481719585A160043590B /* Readme.txt in Resources */,
 				9DD4AE0119381111009C414E /* Images.xcassets in Resources */,
 				9DCAD6AB1944165500EEFB21 /* CygnetRound.ttf in Resources */,
 				9DC62DA2194603B30072BF76 /* icomoonlight.ttf in Resources */,
+				9DD4481E195861320043590B /* poemdata_backup.json in Resources */,
 				9D329CBC193C693900B50C55 /* 方正清刻本悦宋简体.ttf in Resources */,
 				9DD7B0AD193A0C2F00689F1B /* poem.bundle in Resources */,
 			);
@@ -400,6 +461,7 @@
 				9DD4ADFB19381111009C414E /* main.m in Sources */,
 				9D329CB2193C3C2200B50C55 /* CollectionViewController.m in Sources */,
 				9D329CBF193C6F2200B50C55 /* PoemIntroductionView.m in Sources */,
+				9D5487041957BD24007915A0 /* UIImage+ImageEffects.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,6 +582,12 @@
 				GCC_PREFIX_HEADER = "Poem/Poem-Prefix.pch";
 				INFOPLIST_FILE = "Poem/Poem-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/lanstonpeng/Downloads/GoogleAnalyticsServicesiOS_3.07,
+					"$(PROJECT_DIR)/lib",
+					"$(PROJECT_DIR)/Poem/GoogleAnalytics",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "2C2BADD6-A1F1-4923-B64B-DDC37EE7D75D";
 				WRAPPER_EXTENSION = app;
@@ -535,6 +603,12 @@
 				GCC_PREFIX_HEADER = "Poem/Poem-Prefix.pch";
 				INFOPLIST_FILE = "Poem/Poem-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/lanstonpeng/Downloads/GoogleAnalyticsServicesiOS_3.07,
+					"$(PROJECT_DIR)/lib",
+					"$(PROJECT_DIR)/Poem/GoogleAnalytics",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "2C2BADD6-A1F1-4923-B64B-DDC37EE7D75D";
 				WRAPPER_EXTENSION = app;

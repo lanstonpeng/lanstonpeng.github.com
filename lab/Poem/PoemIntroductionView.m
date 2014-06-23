@@ -7,10 +7,14 @@
 //
 
 #import "PoemIntroductionView.h"
+#import "UIImage+PoemResouces.h"
+#import "UIImage+ImageEffects.h"
 
 @interface PoemIntroductionView()<NSLayoutManagerDelegate>
 
 @property (strong,nonatomic)UIScrollView* introductionScrollView;
+@property (strong,nonatomic)UIImageView* bgView;
+@property (strong,nonatomic)UIView* blackBgView;
 @property (strong,nonatomic)NSDictionary* poemData;
 @property (strong,nonatomic)UITextView* introTextView;
 @end
@@ -22,7 +26,22 @@
 - (void)setPoemData:(NSDictionary*)poemData
 {
     _poemData = poemData;
+    _blackBgView.alpha = 1;
+    _bgView.image = nil;
+    _bgView.alpha = 0;
     _introTextView.text = _poemData[@"poemIntroduction"][@"text"];
+    [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(setUpBgView) userInfo:nil repeats:NO];
+}
+- (void)setUpBgView
+{
+    UIImage* backgroundImg = (UIImage*)[[UIImage alloc]initWithName:_poemData[@"bgimg"]];
+    _bgView.image = [backgroundImg applyDarkEffect];
+    _bgView.contentMode = UIViewContentModeScaleAspectFill;
+    [UIView animateWithDuration:0.9 animations:^{
+        _bgView.alpha = 1.0f;
+        //_blackBgView.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+    }];
 }
 - (id)initWithFrame:(CGRect)frame
 {
@@ -31,16 +50,29 @@
         // Initialization code
         CGRect sFrame = [UIScreen mainScreen].bounds;
         _introTextView = [[UITextView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, sFrame.size.height)];
+        _blackBgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, sFrame.size.height)];
+        _blackBgView.backgroundColor = [UIColor blackColor];
         _introTextView.font = [UIFont fontWithName:@"AppleSDGothicNeo-Light" size:16];
         _introTextView.textAlignment = NSTextAlignmentNatural;
         _introTextView.layoutManager.delegate = self;
         _introTextView.textContainerInset = UIEdgeInsetsMake(20, PaddingLeft, 0, 0);
+        _introTextView.showsVerticalScrollIndicator = NO;
+        _introTextView.backgroundColor = [UIColor clearColor];
+        _introTextView.textColor = [UIColor whiteColor];
+        _introTextView.editable = NO;
+        self.clipsToBounds = YES;
+        _bgView = [[UIImageView alloc]initWithFrame:CGRectMake(-20, 0, sFrame.size.width + 40, sFrame.size.height + 40)];
+        _bgView.alpha = 0.0f;
+        
         //textView.text = _poemData[@"poemIntroduction"][@"text"];
-        _introductionScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, sFrame.size.height)];
-        _introductionScrollView.showsHorizontalScrollIndicator = NO;
-        _introductionScrollView.showsVerticalScrollIndicator = NO;
-        [_introductionScrollView addSubview:_introTextView];
-        [self addSubview:_introductionScrollView];
+//        _introductionScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, sFrame.size.height)];
+//        _introductionScrollView.showsHorizontalScrollIndicator = NO;
+//        _introductionScrollView.showsVerticalScrollIndicator = NO;
+//        [_introductionScrollView addSubview:_introTextView];
+        [self addSubview:_blackBgView];
+        [self addSubview:_bgView];
+        [self addSubview:_introTextView];
+        //[self addParallelEffect];
         
     }
     return self;
@@ -59,5 +91,30 @@
     NSLog(@"touching introduction view");
 }
 
+-(void)addParallelEffect
+{
+    // Set vertical effect
+    UIInterpolatingMotionEffect *verticalMotionEffect =
+    [[UIInterpolatingMotionEffect alloc]
+     initWithKeyPath:@"center.y"
+     type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+    verticalMotionEffect.minimumRelativeValue = @(-20);
+    verticalMotionEffect.maximumRelativeValue = @(20);
+    
+    // Set horizontal effect
+    UIInterpolatingMotionEffect *horizontalMotionEffect =
+    [[UIInterpolatingMotionEffect alloc]
+     initWithKeyPath:@"center.x"
+     type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+    horizontalMotionEffect.minimumRelativeValue = @(-30);
+    horizontalMotionEffect.maximumRelativeValue = @(30);
+    
+    // Create group to combine both
+    UIMotionEffectGroup *group = [UIMotionEffectGroup new];
+    group.motionEffects = @[horizontalMotionEffect, verticalMotionEffect];
+    
+    // Add both effects to your view
+    [_bgView addMotionEffect:group];
+}
 
 @end

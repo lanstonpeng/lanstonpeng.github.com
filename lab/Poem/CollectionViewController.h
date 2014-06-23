@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
 @protocol CollectionViewLoadingDelegate <NSObject>
 - (void)collectionViewWillAppear;
 @end
 
-@interface CollectionViewController : UIViewController
+@interface CollectionViewController : GAITrackedViewController
 
     @property (strong,nonatomic)id<CollectionViewLoadingDelegate>delegate;
 
