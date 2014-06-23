@@ -54,23 +54,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    //MainPageViewController* mainVC = [MainPageViewController new];
-    //IntroductionViewController* introductionVC = [IntroductionViewController new];
     _stack = [[NSMutableArray alloc]init];
     
-    NSLog(@"adding loading View");
     CGRect sFrame = [UIScreen mainScreen].bounds;
+    /*
     _loadingView = [[LoadingView alloc]initWithFrame:sFrame];
     [self.view addSubview:_loadingView];
     
-    [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(loadMainPage) userInfo:nil repeats:NO];
-    /*
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-        });
-    });
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(loadMainPage) userInfo:nil repeats:NO];
      */
+    [self loadMainPage];
 }
 
 - (void)pushViewController:(UIViewController *)enqueViewController

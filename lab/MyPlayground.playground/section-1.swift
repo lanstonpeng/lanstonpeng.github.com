@@ -23,3 +23,14 @@ let b = dic["b"]?
 
 let index:Int? = 1
 numbers[index!]
+
+struct test{
+    let a:Int?
+    //b()
+    func b(){
+        println("asfd")
+    }
+    
+}
+
+let i:test?

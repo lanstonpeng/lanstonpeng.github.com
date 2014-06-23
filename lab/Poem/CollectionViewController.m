@@ -31,7 +31,7 @@
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UIScrollView *poemMixedInfoScrollView;
 @property (strong,nonatomic) PoemDetailView* poemDetailView;
-@property (strong,nonatomic)PoemIntroductionView* introudctionView;
+@property (strong,nonatomic)PoemIntroductionView* introductionView;
 @end
 
 @implementation CollectionViewController
@@ -72,15 +72,6 @@
     _collectionView.pagingEnabled = YES;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-    //_collectionView.backgroundView = [[UIImageView alloc]initWithImage:(UIImage*)[[UIImage alloc]initWithName:@"collectionViewBg"] ];
-    /*
-    CGFloat topCapHeight = 50;
-    CGFloat leftCapWidth = 50;
-    UIEdgeInsets inset = UIEdgeInsetsMake(topCapHeight, leftCapWidth, bgImg.size.height - (topCapHeight + 1), bgImg.size.width - (leftCapWidth + 1));
-    bgImg = [bgImg resizableImageWithCapInsets:inset];
-     */
-    //_collectionView.backgroundView =bgImageView;
-    //_collectionView.backgroundColor = [UIColor colorWithPatternImage:bgImg];
     _collectionView.alpha = 0;
     
     
@@ -99,14 +90,15 @@
     [self.view addSubview:_poemMixedInfoScrollView];
     
     [_collectionView registerClass:[PoemCell class] forCellWithReuseIdentifier:@"reused"];
-    //[_collectionView registerClass:[CustomTestCell class] forCellWithReuseIdentifier:@"reused"];
     
     PoemReader* reader = [PoemReader sharedPoemReader];
     poemArr = (NSMutableArray*)[reader getAllPoems];
     CGRect poemDetailFrame = CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width * 2, self.view.frame.size.height);
     _poemDetailView = [[PoemDetailView alloc]initWithFrame:poemDetailFrame];
+    [_poemMixedInfoScrollView addSubview:_poemDetailView];
     
-    _introudctionView = [[PoemIntroductionView alloc]initWithFrame:poemDetailFrame];
+    _introductionView = [[PoemIntroductionView alloc]initWithFrame:poemDetailFrame];
+    [_poemMixedInfoScrollView addSubview:_introductionView];
     
     uppperShadow = [CALayer layer];
     uppperShadow.shadowOffset = CGSizeMake(0, -3);
@@ -179,14 +171,6 @@
     
     [poemCell setUpPoem:poemArr[indexPath.row]];;
     return poemCell;
-    /*
-    CustomTestCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"reused" forIndexPath:indexPath];
-    CGFloat hue = (CGFloat)indexPath.row / 5;
-    cell.backgroundColor = [UIColor
-                            colorWithHue:hue saturation:1.0f brightness:0.5f alpha:1.0f
-                            ];
-    return cell;
-     */
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -203,13 +187,13 @@
 #pragma mark poemDelegate
 - (void)poemCellDidBeginPulling:(PoemCell *)cell
 {
-    [self clearScrollSubView];
+    //[self clearScrollSubView];
     switch (cell.presentationType) {
         case PoemDetailType:
         {
-            //CGRect poemDetailFrame = CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width * 2, self.view.frame.size.height);
-            //PoemDetailView* poemDetailView = [[PoemDetailView alloc]initWithFrame:poemDetailFrame withData:cell.poemData];
             [_poemDetailView setPoemData:cell.poemData];
+//            _poemDetailView.layer.zPosition = 1;
+//            _introductionView.layer.zPosition = 0;
             [_poemMixedInfoScrollView addSubview:_poemDetailView];
             currentEmbedView = _poemDetailView;
             currentPoemType = PoemDetailType;
@@ -217,11 +201,11 @@
         }
         case PoemIntroduction:
         {
-            //CGRect poemDetailFrame = CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width * 2, self.view.frame.size.height);
-            //PoemIntroductionView* introudctionView = [[PoemIntroductionView alloc]initWithFrame:poemDetailFrame withData:cell.poemData];
-            [_introudctionView setPoemData:cell.poemData];
-            [_poemMixedInfoScrollView addSubview:_introudctionView];
-            currentEmbedView = _introudctionView;
+            [_introductionView setPoemData:cell.poemData];
+            [_poemMixedInfoScrollView addSubview:_introductionView];
+//            _poemDetailView.layer.zPosition = 0;
+//            _introductionView.layer.zPosition = 1;
+            currentEmbedView = _introductionView;
             currentPoemType = PoemIntroduction;
             break;
         }

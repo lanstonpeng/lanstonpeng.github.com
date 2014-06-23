@@ -5,7 +5,7 @@
     "bgimg":"Shakespeare",
     "id":101,
    "poemIntroduction":{
-        "text":"Shakespeare was a respected poet and playwright in his own day, but his reputation did not rise to its present heights until the 19th century. The Romantics, in particular, acclaimed Shakespeare's genius, and the Victorians worshipped Shakespeare with a reverence that George Bernard Shaw called bardolatry.\nIn the 20th century, his work was repeatedly adopted and rediscovered by new movements in scholarship and performance. His plays remain highly popular today and are constantly studied, performed, and reinterpreted in diverse cultural and political contexts throughout the world.",
+        "text":"Shakespeare was a respected poet and playwright in his own day, but his reputation did not rise to its present heights until the 19th century. The Romantics, in particular, acclaimed Shakespeare's genius, and the Victorians worshipped Shakespeare with a reverence that George Bernard Shaw called bardolatry.\nIn the 20th century, his work was repeatedly adopted and rediscovered by new movements in scholarship and performance. His plays remain highly popular today and are constantly studied, performed, and reinterpreted in diverse cultural and political contexts throughout the world.Shakespeare was a respected poet and playwright in his own day, but his reputation did not rise to its present heights until the 19th century. The Romantics, in particular, acclaimed Shakespeare's genius, and the Victorians worshipped Shakespeare with a reverence that George Bernard Shaw called bardolatry.\nIn the 20th century, his work was repeatedly adopted and rediscovered by new movements in scholarship and performance. His plays remain highly popular today and are constantly studied, performed, and reinterpreted in diverse cultural and political contexts throughout the world",
         "links":[
             {
                 "type":"wiki",
@@ -14,7 +14,7 @@
         ]
    },
    "authorIntroduction":{
-       "text":"Shakespeare was a respected poet and playwright in his own day, but his reputation did not rise to its present heights until the 19th century",
+       "text":"Shakespeare was a respected poet and playwright in his own day, but his reputation did not rise to its present heights until the 19th century,Shakespeare was a respected poet and playwright in his own day, but his reputation did not rise to its present heights until the 19th century",
         "links":[
             {
             "type":"wiki",
@@ -27,7 +27,7 @@
     {
       "text":"Shall I compare thee to a summer's day?",
       "translated":{
-        "chinese":"能不能让我来把你比拟做夏日?诗"
+        "chinese":"能不能让我来把你比拟做夏日?"
         },
       "explanation":{
         "thee":"Thee is an old-fashioned, poetic, or religious word for \"you\" when you are talking to only one person. It is used as the object of a verb or preposition"

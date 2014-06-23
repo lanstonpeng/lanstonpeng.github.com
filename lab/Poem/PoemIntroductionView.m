@@ -10,7 +10,7 @@
 
 @interface PoemIntroductionView()<NSLayoutManagerDelegate>
 
-@property (strong,nonatomic)UIScrollView* introudctionScrollView;
+@property (strong,nonatomic)UIScrollView* introductionScrollView;
 @property (strong,nonatomic)NSDictionary* poemData;
 @property (strong,nonatomic)UITextView* introTextView;
 @end
@@ -36,10 +36,11 @@
         _introTextView.layoutManager.delegate = self;
         _introTextView.textContainerInset = UIEdgeInsetsMake(20, PaddingLeft, 0, 0);
         //textView.text = _poemData[@"poemIntroduction"][@"text"];
-        _introudctionScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, sFrame.size.height)];
-        _introudctionScrollView.showsHorizontalScrollIndicator = NO;
-        [_introudctionScrollView addSubview:_introTextView];
-        [self addSubview:_introudctionScrollView];
+        _introductionScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, sFrame.size.height)];
+        _introductionScrollView.showsHorizontalScrollIndicator = NO;
+        _introductionScrollView.showsVerticalScrollIndicator = NO;
+        [_introductionScrollView addSubview:_introTextView];
+        [self addSubview:_introductionScrollView];
         
     }
     return self;
@@ -52,6 +53,10 @@
 - (CGFloat)layoutManager:(NSLayoutManager *)layoutManager lineSpacingAfterGlyphAtIndex:(NSUInteger)glyphIndex withProposedLineFragmentRect:(CGRect)rect
 {
     return 10; // For really wide spacing; pick your own value
+}
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"touching introduction view");
 }
 
 

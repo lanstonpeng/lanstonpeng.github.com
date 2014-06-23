@@ -69,7 +69,9 @@ static const NSString * UIImageViewASCII_CharacterMap2 = @" ＢＣＤＥ ＧＨ�
         if([emptyLineArr indexOfObject:@(i)] == NSNotFound)
         {
             currentLine = lines[i];
-            [resultLines addObject:[currentLine substringWithRange:NSMakeRange(leftNearestIdx, rightLongestIdx)]];
+            NSRange range = NSMakeRange(leftNearestIdx, rightLongestIdx - leftNearestIdx);
+            NSString* c =[currentLine substringWithRange:range];
+            [resultLines addObject:c];
             [resultLines addObject:@"\n"];
         }
     }

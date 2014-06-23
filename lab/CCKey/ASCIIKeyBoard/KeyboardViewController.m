@@ -46,7 +46,7 @@
     
     
     CGRect sFrame = [UIScreen mainScreen].bounds;
-    _smoothLineView =[[SmoothLineView alloc] initWithFrame:CGRectMake(0, 0, sFrame.size.width , sFrame.size.height)];
+    _smoothLineView =[[SmoothLineView alloc] initWithFrame:CGRectMake(0, 0, sFrame.size.width- 40, sFrame.size.height)];
     _smoothLineView.backgroundColor = [UIColor yellowColor];
     _smoothLineView.delegate = self;
     
@@ -124,7 +124,7 @@
     
     NSString *string = result.asciiText;
     
-    NSString *precedingContext = self.textDocumentProxy.documentContextBeforeInput;
+    //NSString *precedingContext = self.textDocumentProxy.documentContextBeforeInput;
     /*for(int k = 0 ;k < precedingContext.length;k++)
     {
         [self.textDocumentProxy deleteBackward];

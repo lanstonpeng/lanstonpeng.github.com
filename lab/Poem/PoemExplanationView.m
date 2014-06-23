@@ -79,13 +79,8 @@
     
     return path.CGPath;
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    // Drawing code
+    NSLog(@"touch detailView");
 }
-*/
-
 @end

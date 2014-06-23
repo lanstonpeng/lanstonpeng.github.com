@@ -35,11 +35,6 @@
     UIButton* toolBarToggleBtn;
 }
 
-/*
-@property (strong,nonatomic) UITextView* currentLineOfPoemTextView;
-@property (strong,nonatomic) UITextView* alternativeLinePoemTextView;
-@property (strong,nonatomic) UITextView* translatedTextView;
-*/
 @property (strong,nonatomic) UIImageView* backgroundImageView;
 @property (strong,nonatomic) UIScrollView* backgroundScrollView;
 @property (strong,nonatomic) PoemExplanationView* explanationView;
@@ -551,3 +546,4 @@ static CGRect currentLineFrame;
 }
 
 @end
+
