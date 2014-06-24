@@ -7,7 +7,6 @@
 //
 
 #import "CollectionViewController.h"
-#import "PoemCell.h"
 #import "PoemReader.h"
 #import "CustomTestCell.h"
 #import "PoemDetailView.h"
@@ -168,6 +167,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PoemCell* poemCell = (PoemCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"reused" forIndexPath:indexPath];
+    _currentPoemCell = poemCell;
     poemCell.delegate = self;
     
     [poemCell setUpPoem:poemArr[indexPath.row]];;
@@ -231,5 +231,6 @@
 {
     _poemMixedInfoScrollView.contentInset = UIEdgeInsetsZero;
 }
+
 
 @end

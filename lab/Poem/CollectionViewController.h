@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GAITrackedViewController.h"
+#import "PoemCell.h"
 
 @protocol CollectionViewLoadingDelegate <NSObject>
 - (void)collectionViewWillAppear;
@@ -15,7 +16,8 @@
 
 @interface CollectionViewController : GAITrackedViewController
 
-    @property (strong,nonatomic)id<CollectionViewLoadingDelegate>delegate;
+@property (strong,nonatomic)PoemCell* currentPoemCell;
+@property (strong,nonatomic)id<CollectionViewLoadingDelegate>delegate;
 
 @end
 

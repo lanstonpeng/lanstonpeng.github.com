@@ -25,6 +25,8 @@ typedef enum
 @property (nonatomic)PoemTypeEnum presentationType;
 
 - (void)setUpPoem:(NSDictionary*)poem;
+- (void)startAnimation;
+- (void)stopAnimation;
 @end
 
 @protocol PoemCellScrollDelegate <NSObject>
@@ -32,6 +34,5 @@ typedef enum
 - (void)poemCellDidBeginPulling:(PoemCell*)cell;
 - (void)poemCell:(PoemCell*)cell didChangePullOffset:(CGFloat)offset;
 - (void)poemCellDidEndPulling:(PoemCell*)cell;
-
 @end
 

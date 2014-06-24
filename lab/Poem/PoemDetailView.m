@@ -33,6 +33,8 @@
     
     UIImageView* inkView;
     UIButton* toolBarToggleBtn;
+    
+    //NSDate *startPoemViewDate;
 }
 
 @property (strong,nonatomic) UIImageView* backgroundImageView;
@@ -79,6 +81,7 @@ static CGRect currentLineFrame;
     }
     //[self initPoemView];
     [self initPoemData];
+    //startPoemViewDate = [NSDate date];
 }
 -(void)addParallelEffect
 {
@@ -333,7 +336,7 @@ static CGRect currentLineFrame;
 }
 -(void)handleSwipeRightGesture:(id)sender
 {
-    NSLog(@"youku");
+    //NSLog(@"youku");
 }
 -(void)handleSwipeUpGesture:(id)sender
 {
@@ -548,11 +551,12 @@ static CGRect currentLineFrame;
     }];
 }
 
+/*
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
     NSLog(@"Poem Detail View");
     return [super hitTest:point withEvent:event];
-}
+}*/
 
 @end
 

@@ -79,46 +79,12 @@
 - (void)initData:(NSDictionary*)poem
 {
     
-    
-    int xPositiveSymbol = arc4random() % 10 > 5 ? 1 : -1;
-    int yPositiveSymbol = arc4random() % 10 > 5 ? 1 : -1;
-    
     UIImage* backgroundImg = (UIImage*)[[UIImage alloc]initWithName:poem[@"bgimg"]];
     self.poemData = poem;
     bgView.image = backgroundImg;
     bgView.contentMode = UIViewContentModeScaleAspectFill;
     
     bgView.layer.anchorPoint = CGPointMake(0.5,0.5);
-    CAAnimationGroup* group = [CAAnimationGroup animation];
-    group.duration = 30;
-    CABasicAnimation* horizontalMove = [CABasicAnimation animationWithKeyPath:@"position.x"];
-    horizontalMove.fromValue = @(bgView.layer.position.x);
-    horizontalMove.toValue = @((int)(bgView.layer.position.x) + (int)((arc4random() % 15 + 5 ) * xPositiveSymbol));
-    
-    CABasicAnimation* verticalMove = [CABasicAnimation animationWithKeyPath:@"position.y"];
-    verticalMove.fromValue = @(bgView.layer.position.y);
-    verticalMove.toValue = @((int)(bgView.layer.position.y) + (int)((arc4random() % 15 + 5 ) * yPositiveSymbol));
-    
-    CABasicAnimation* scale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    [scale setFromValue:[NSNumber numberWithFloat:1.0f]];
-    [scale setToValue:[NSNumber numberWithFloat:1.2f]];
-    
-    opacity = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    opacity.fromValue = @(BgViewOpacityStartPoint);
-    opacity.toValue = @(BgViewOpacityEndPoint);
-    opacity.duration = 1;
-    opacity.fillMode = kCAFillModeForwards;
-    opacity.delegate = self;
-    //opacity.removedOnCompletion = NO;
-    
-    group.animations = @[horizontalMove,verticalMove,scale];
-    
-    
-    [group setRemovedOnCompletion:NO];
-    [group setFillMode:kCAFillModeForwards];
-    [bgView.layer addAnimation:group forKey:@"groupAnimation"];
-    [bgMaskLayer addAnimation:opacity forKey:@"maskLayerAnimation"];
-    bgMaskLayer.opacity = BgViewOpacityEndPoint;
     
     author.text = poem[@"author"];
     title.text = poem[@"title"];
@@ -138,23 +104,50 @@
     [attrStr addAttribute:NSParagraphStyleAttributeName value:paragrapStyle range:range];
     title.attributedText = attrStr;
     
+    [self startAnimation];
 }
 - (void)startAnimation
 {
-    /*
-    CABasicAnimation *scale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    
+    int xPositiveSymbol = arc4random() % 10 > 5 ? 1 : -1;
+    int yPositiveSymbol = arc4random() % 10 > 5 ? 1 : -1;
+    CAAnimationGroup* group = [CAAnimationGroup animation];
+    group.duration = 30;
+    CABasicAnimation* horizontalMove = [CABasicAnimation animationWithKeyPath:@"position.x"];
+    horizontalMove.fromValue = @(bgView.layer.position.x);
+    horizontalMove.toValue = @((int)(bgView.layer.position.x) + (int)((arc4random() % 15 + 5 ) * xPositiveSymbol));
+    
+    CABasicAnimation* verticalMove = [CABasicAnimation animationWithKeyPath:@"position.y"];
+    verticalMove.fromValue = @(bgView.layer.position.y);
+    verticalMove.toValue = @((int)(bgView.layer.position.y) + (int)((arc4random() % 15 + 5 ) * yPositiveSymbol));
+    
+    CABasicAnimation* scale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     [scale setFromValue:[NSNumber numberWithFloat:1.0f]];
-    [scale setToValue:[NSNumber numberWithFloat:1.3f]];
-    [scale setDuration:3.0f];
-    [scale setRemovedOnCompletion:NO];
-    [scale setFillMode:kCAFillModeForwards];
-    [bgView.layer addAnimation:scale forKey:@"test"];
-     */
+    [scale setToValue:[NSNumber numberWithFloat:1.2f]];
+    
+    opacity = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    opacity.fromValue = @(BgViewOpacityStartPoint);
+    opacity.toValue = @(BgViewOpacityEndPoint);
+    opacity.duration = 2;
+    opacity.fillMode = kCAFillModeForwards;
+    opacity.delegate = self;
+    //opacity.removedOnCompletion = NO;
+    
+    group.animations = @[horizontalMove,verticalMove,scale];
+    
+    
+    [group setRemovedOnCompletion:NO];
+    [group setFillMode:kCAFillModeForwards];
+    [bgView.layer addAnimation:group forKey:@"groupAnimation"];
+    [bgMaskLayer addAnimation:opacity forKey:@"maskLayerAnimation"];
+     bgMaskLayer.opacity = BgViewOpacityEndPoint;
 }
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+- (void)stopAnimation
 {
-    //[self startAnimation];
-    //bgMaskLayer.opacity = 0.3;
+    //reset the animatable property
+    [bgView.layer removeAllAnimations];
+    bgView.frame = CGRectMake(-20, 0, sFrame.size.width + 40, sFrame.size.height + 40);
+    bgMaskLayer.opacity = BgViewOpacityStartPoint;
 }
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
@@ -166,8 +159,6 @@
     bgView = [[UIImageView alloc]initWithFrame:CGRectMake(-20, 0, sFrame.size.width + 40, sFrame.size.height + 40)];
     bgMaskLayer = [CALayer layer];
     bgMaskLayer.opacity = BgViewOpacityStartPoint;
-    //bgMaskLayer.frame = CGRectMake(-20, 0, sFrame.size.width + 80 , sFrame.size.height);
-    //bgMaskLayer.frame = bgView.frame;
     bgMaskLayer.frame = CGRectMake(0, 0, bgView.frame.size.width, bgView.frame.size.height);
     bgMaskLayer.backgroundColor = [UIColor blackColor].CGColor;
     [bgView.layer addSublayer:bgMaskLayer];

@@ -12,10 +12,12 @@
 #import "CollectionViewController.h"
 #import "LoadingView.h"
 
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
+
 @interface ContainerViewController ()<CollectionViewLoadingDelegate>
 
 @property (strong,nonatomic)NSMutableArray* stack;
-@property (strong,nonatomic)UIViewController* currentViewController;
 @property (strong,nonatomic)LoadingView* loadingView;
 
 @end
@@ -135,6 +137,11 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"memory"     // Event category (required)
+                                                          action:@"memory warning"  // Event action (required)
+                                                           label:@""          // Event label
+                                                           value:@(1)] build]];    // Event value
     // Dispose of any resources that can be recreated.
 }
 
