@@ -548,5 +548,11 @@ static CGRect currentLineFrame;
     }];
 }
 
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    NSLog(@"Poem Detail View");
+    return [super hitTest:point withEvent:event];
+}
+
 @end
 

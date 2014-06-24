@@ -238,12 +238,12 @@
     title.textColor = [UIColor whiteColor];
     title.textAlignment = NSTextAlignmentRight;
     
-    CALayer* authorLayer = title.layer;
-    authorLayer.masksToBounds = NO;
-    authorLayer.shadowColor = [UIColor blackColor].CGColor;
-    [authorLayer setShadowOpacity:1];
-    [authorLayer setShadowRadius:0.5];
-    [authorLayer setShadowOffset:CGSizeMake(1, 1)];
+    CALayer* titleLayer = title.layer;
+    titleLayer.masksToBounds = NO;
+    titleLayer.shadowColor = [UIColor blackColor].CGColor;
+    [titleLayer setShadowOpacity:1];
+    [titleLayer setShadowRadius:0.5];
+    [titleLayer setShadowOffset:CGSizeMake(1, 1)];
     
 
     //title.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];

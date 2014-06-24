@@ -195,8 +195,8 @@
             [_poemDetailView setPoemData:cell.poemData];
 //            _poemDetailView.layer.zPosition = 1;
 //            _introductionView.layer.zPosition = 0;
-            [_poemMixedInfoScrollView addSubview:_poemDetailView];
-            //[self.view bringSubviewToFront:_poemDetailView];
+            //[_poemMixedInfoScrollView addSubview:_poemDetailView];
+            [_poemMixedInfoScrollView bringSubviewToFront:_poemDetailView];
             currentEmbedView = _poemDetailView;
             currentPoemType = PoemDetailType;
             break;
@@ -204,8 +204,8 @@
         case PoemIntroduction:
         {
             [_introductionView setPoemData:cell.poemData];
-            //[self.view bringSubviewToFront:_introductionView];
-            [_poemMixedInfoScrollView addSubview:_introductionView];
+            [_poemMixedInfoScrollView bringSubviewToFront:_introductionView];
+            //[_poemMixedInfoScrollView addSubview:_introductionView];
 //            _poemDetailView.layer.zPosition = 0;
 //            _introductionView.layer.zPosition = 1;
             currentEmbedView = _introductionView;
@@ -231,4 +231,5 @@
 {
     _poemMixedInfoScrollView.contentInset = UIEdgeInsetsZero;
 }
+
 @end

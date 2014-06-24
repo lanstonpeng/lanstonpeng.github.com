@@ -36,11 +36,13 @@
 {
     UIImage* backgroundImg = (UIImage*)[[UIImage alloc]initWithName:_poemData[@"bgimg"]];
     _bgView.image = [backgroundImg applyDarkEffect];
+    //_bgView.image = backgroundImg;
     _bgView.contentMode = UIViewContentModeScaleAspectFill;
     [UIView animateWithDuration:0.9 animations:^{
         _bgView.alpha = 1.0f;
         //_blackBgView.alpha = 0.0f;
     } completion:^(BOOL finished) {
+        [self addParallelEffect];
     }];
 }
 - (id)initWithFrame:(CGRect)frame
@@ -60,6 +62,13 @@
         _introTextView.backgroundColor = [UIColor clearColor];
         _introTextView.textColor = [UIColor whiteColor];
         _introTextView.editable = NO;
+        _introTextView.selectable = NO;
+        CALayer* titleLayer = _introTextView.layer;
+        titleLayer.masksToBounds = NO;
+        titleLayer.shadowColor = [UIColor blackColor].CGColor;
+        [titleLayer setShadowOpacity:1];
+        [titleLayer setShadowRadius:0.5];
+        [titleLayer setShadowOffset:CGSizeMake(1, 1)];
         self.clipsToBounds = YES;
         _bgView = [[UIImageView alloc]initWithFrame:CGRectMake(-20, 0, sFrame.size.width + 40, sFrame.size.height + 40)];
         _bgView.alpha = 0.0f;
@@ -98,16 +107,17 @@
     [[UIInterpolatingMotionEffect alloc]
      initWithKeyPath:@"center.y"
      type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
-    verticalMotionEffect.minimumRelativeValue = @(-20);
-    verticalMotionEffect.maximumRelativeValue = @(20);
+    
+    verticalMotionEffect.minimumRelativeValue = @(-10);
+    verticalMotionEffect.maximumRelativeValue = @(10);
     
     // Set horizontal effect
     UIInterpolatingMotionEffect *horizontalMotionEffect =
     [[UIInterpolatingMotionEffect alloc]
      initWithKeyPath:@"center.x"
      type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
-    horizontalMotionEffect.minimumRelativeValue = @(-30);
-    horizontalMotionEffect.maximumRelativeValue = @(30);
+    horizontalMotionEffect.minimumRelativeValue = @(-20);
+    horizontalMotionEffect.maximumRelativeValue = @(20);
     
     // Create group to combine both
     UIMotionEffectGroup *group = [UIMotionEffectGroup new];
@@ -117,4 +127,9 @@
     [_bgView addMotionEffect:group];
 }
 
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    NSLog(@"Introduction View");
+    return [super hitTest:point withEvent:event];
+}
 @end
