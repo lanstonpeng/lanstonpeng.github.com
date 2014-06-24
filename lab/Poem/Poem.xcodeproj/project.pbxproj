@@ -589,7 +589,7 @@
 					"$(PROJECT_DIR)/Poem/GoogleAnalytics",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2C2BADD6-A1F1-4923-B64B-DDC37EE7D75D";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -610,7 +610,7 @@
 					"$(PROJECT_DIR)/Poem/GoogleAnalytics",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2C2BADD6-A1F1-4923-B64B-DDC37EE7D75D";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
