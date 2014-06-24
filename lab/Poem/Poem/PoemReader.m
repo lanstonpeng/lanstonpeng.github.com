@@ -9,10 +9,13 @@
 #import "PoemReader.h"
 #import "Reachability.h"
 #import <SystemConfiguration/SystemConfiguration.h>
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
 
 @interface PoemReader()
 {
     NSString* _basePath;
+    id<GAITracker> tracker;
 }
 
 @property (strong,nonatomic)NSMutableArray* allPoemData;
@@ -38,6 +41,7 @@
 }
 -(NSArray*)getAllPoems
 {
+    tracker = [[GAI sharedInstance] defaultTracker];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     _basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
     //NSString *filePath = [[NSBundle mainBundle] pathForResource:@"poemdata" ofType:@"json" inDirectory:@"Documents"];
@@ -58,7 +62,19 @@
     //NSLog(@"count:%d",_allPoemData.count);
     if([self isConnected])
     {
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"user_status"     // Event category (required)
+                                                              action:@"network connect"  // Event action (required)
+                                                               label:@""          // Event label
+                                                               value:@(1)] build]];    // Event value
         [self getNewestPoemData];
+    }
+    else
+    {
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"user_status"     // Event category (required)
+                                                              action:@"network connect"  // Event action (required)
+                                                               label:@""          // Event label
+                                                               value:@(0)] build]];    // Event value
     }
     return json;
 }
@@ -94,7 +110,7 @@
                     }
                 }];
                 if(!hasSameData){
-                    NSLog(@"merge data");
+                    //NSLog(@"merge data");
                     NSError* error;
                     NSMutableArray* newAllPoemData = [[NSMutableArray alloc]initWithArray:_allPoemData];
                     [newAllPoemData insertObject:json atIndex:0];
@@ -106,13 +122,25 @@
                     //NSLog(@"new path: %@",jsonPath);
                     //download image
                     [self downloadImage:json[@"bgimg"]];
+                    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"database"     // Event category (required)
+                                                                          action:@"merge data"  // Event action (required)
+                                                                           label:@""          // Event label
+                                                                           value:@(1)] build]];    // Event value
                 }
                 else
                 {
+                    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"database"     // Event category (required)
+                                                                          action:@"no merging data"  // Event action (required)
+                                                                           label:@""          // Event label
+                                                                           value:@(1)] build]];    // Event value
                     NSLog(@"no merging data caus duplicated data");
                 }
                 
             }
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"net work status"     // Event category (required)
+                                                                  action:@"connect"  // Event action (required)
+                                                                   label:@"connection fails"          // Event label
+                                                                   value:@(0)] build]];    // Event value
         }];
         [dataTask resume];
     }];
