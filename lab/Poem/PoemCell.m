@@ -16,12 +16,12 @@
 #define BgViewOpacityStartPoint 0.95
 #define BgViewOpacityEndPoint  0.3
 #define RightMargin 10
-//#define TitleFont @"QuicksandLight"
 //#define TitleFont @"STHeitiSC-Light"
 
 //#define TitleFont @"AppleSDGothicNeo-Thin"
 //#define AuthorFont @"AmericanTyperwriter-Light"
 
+//#define TitleFont @"QuicksandLight"
 #define TitleFont @"AppleSDGothicNeo-Thin"
 #define AuthorFont @"AppleSDGothicNeo-Thin"
 

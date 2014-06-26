@@ -127,9 +127,13 @@
     CGPoint offset  = scrollView.contentOffset;
     if(offset.y < -60)
     {
-        scrollView.contentOffset = CGPointMake(0, -70);
+        //scrollView.contentOffset = CGPointMake(0, -70);
         //Confusing
         scrollView.contentInset =  UIEdgeInsetsMake(70, 0, 0, 0);
+        if(offset.y < -260)
+        {
+            scrollView.contentOffset = CGPointMake(0, -260);
+        }
     }
     
 }

@@ -127,9 +127,11 @@
     [_bgView addMotionEffect:group];
 }
 
+/*
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
     NSLog(@"Introduction View");
     return [super hitTest:point withEvent:event];
 }
+ */
 @end

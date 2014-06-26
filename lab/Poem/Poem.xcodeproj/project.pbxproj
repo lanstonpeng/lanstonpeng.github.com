@@ -20,6 +20,7 @@
 		9D329D05193F6E0F00B50C55 /* PoemExplanationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329D04193F6E0F00B50C55 /* PoemExplanationView.m */; };
 		9D5487041957BD24007915A0 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D5487031957BD24007915A0 /* UIImage+ImageEffects.m */; };
 		9D840CDD1946DDFA00D55EAF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D840CDB1946DDFA00D55EAF /* Reachability.m */; };
+		9DA0398D195BA77E0063DD59 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA0398C195BA77E0063DD59 /* StoreKit.framework */; };
 		9DC62DA2194603B30072BF76 /* icomoonlight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62DA1194603B30072BF76 /* icomoonlight.ttf */; };
 		9DCAD6AB1944165500EEFB21 /* CygnetRound.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DCAD6AA1944165500EEFB21 /* CygnetRound.ttf */; };
 		9DD43B3319405AE300259CF1 /* PoemLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD43B3219405AE300259CF1 /* PoemLineView.m */; };
@@ -85,6 +86,8 @@
 		9D5487031957BD24007915A0 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		9D840CDB1946DDFA00D55EAF /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		9D840CDC1946DDFA00D55EAF /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		9DA03977195AA82E0063DD59 /* Poem.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Poem.entitlements; sourceTree = "<group>"; };
+		9DA0398C195BA77E0063DD59 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9DC62DA1194603B30072BF76 /* icomoonlight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoonlight.ttf; sourceTree = "<group>"; };
 		9DCAD6AA1944165500EEFB21 /* CygnetRound.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CygnetRound.ttf; sourceTree = "<group>"; };
 		9DCAD6AC194417A800EEFB21 /* QuicksandLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = QuicksandLight.ttf; sourceTree = "<group>"; };
@@ -137,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DA0398D195BA77E0063DD59 /* StoreKit.framework in Frameworks */,
 				9DD4481C19585A1E0043590B /* libGoogleAnalyticsServices.a in Frameworks */,
 				9DD447C1195859760043590B /* libz.dylib in Frameworks */,
 				9DD447BF1958596C0043590B /* SystemConfiguration.framework in Frameworks */,
@@ -253,6 +257,7 @@
 		9DD4ADED19381111009C414E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9DA0398C195BA77E0063DD59 /* StoreKit.framework */,
 				9DD447C2195859AD0043590B /* libGoogleAnalyticsServices.a */,
 				9DD447C0195859760043590B /* libz.dylib */,
 				9DD447BE1958596C0043590B /* SystemConfiguration.framework */,
@@ -271,6 +276,7 @@
 		9DD4ADF419381111009C414E /* Poem */ = {
 			isa = PBXGroup;
 			children = (
+				9DA03977195AA82E0063DD59 /* Poem.entitlements */,
 				9DD447C419585A160043590B /* GoogleAnalytics */,
 				9DD4ADFD19381111009C414E /* AppDelegate.h */,
 				9DD4ADFE19381111009C414E /* AppDelegate.m */,
@@ -390,6 +396,14 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Vtm;
 				TargetAttributes = {
+					9DD4ADEA19381111009C414E = {
+						DevelopmentTeam = NQ2JYG7N6U;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
+					};
 					9DD4AE0519381111009C414E = {
 						TestTargetID = 9DD4ADEA19381111009C414E;
 					};
@@ -578,6 +592,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Poem/Poem-Prefix.pch";
 				INFOPLIST_FILE = "Poem/Poem-Info.plist";
@@ -599,6 +615,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Poem/Poem-Prefix.pch";
 				INFOPLIST_FILE = "Poem/Poem-Info.plist";

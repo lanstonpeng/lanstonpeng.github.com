@@ -11,15 +11,34 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import "ContainerViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIImage+PoemResouces.h"
+#import <StoreKit/StoreKit.h>
 
-@interface AppFunctionalityView()<MFMailComposeViewControllerDelegate>
+
+@interface AppFunctionalityView()<MFMailComposeViewControllerDelegate,SKStoreProductViewControllerDelegate>
 
 @property(strong,nonatomic)UIButton* recommendPoem;
 @property(strong,nonatomic)UIButton* rateApp;
+@property(strong,nonatomic)UIImageView* easterEggImageView;
+@property(strong,nonatomic)UILabel* easterEggLabel;
 @property(strong,nonatomic)ContainerViewController* sharedContainer;
+
+
 @end
 @implementation AppFunctionalityView
 
+- (UILabel *)easterEggLabel
+{
+    if(!_easterEggLabel)
+    {
+        CGRect sFrame  = [UIScreen mainScreen].bounds;
+        _easterEggLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, -180, sFrame.size.width, 30)];
+        _easterEggLabel.textColor = [UIColor whiteColor];
+        _easterEggLabel.textAlignment = NSTextAlignmentCenter;
+        _easterEggLabel.text = @"@lanstonpeng";
+    }
+    return _easterEggLabel;
+}
 - (void)setUpButton:(UIButton*)btn
 {
     btn.titleLabel.font = [UIFont fontWithName:@"icomoon" size:25];
@@ -42,6 +61,7 @@
     
         _rateApp = [[UIButton alloc]initWithFrame:CGRectMake(sFrame.size.width/3, 0, sFrame.size.width/3, 70)];
         [_rateApp setTitle:@"h" forState:UIControlStateNormal];
+        [_rateApp addTarget:self action:@selector(writeAppReview) forControlEvents:UIControlEventTouchUpInside];
         [self setUpButton:_rateApp];
         //http://stackoverflow.com/questions/18905686/itunes-review-url-and-ios-7-ask-user-to-rate-our-app-appstore-show-a-blank-pag
         
@@ -49,11 +69,22 @@
         [_recommendPoem addTarget:self action:@selector(showMail) forControlEvents:UIControlEventTouchUpInside];
         _sharedContainer= [ContainerViewController sharedViewController];
         [self addSubview:_recommendPoem];
+        [self addSubview:self.easterEggLabel];
         [self addSubview:_rateApp];
     }
     return self;
 }
-
+- (void)writeAppReview
+{
+    SKStoreProductViewController* skVC = [[SKStoreProductViewController alloc]init];
+    
+    skVC.delegate = self;
+    [skVC loadProductWithParameters:@{
+                                      SKStoreProductParameterITunesItemIdentifier : @"893065675"
+                                      } completionBlock:^(BOOL result, NSError *error) {
+    }];
+    [_sharedContainer presentViewController:skVC animated:YES completion:NULL];
+}
 - (void)showMail
 {
     NSString *emailTitle = @"[Poemee]Poem Recommendation";
@@ -71,6 +102,8 @@
     // Present mail view controller on screen
     [_sharedContainer presentViewController:mc animated:YES completion:NULL];
 }
+
+#pragma mark mail delegate
 - (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     switch (result)
@@ -96,4 +129,9 @@
     [_sharedContainer dismissViewControllerAnimated:YES completion:NULL];
 }
 
+#pragma mark SKStore delegate
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
+{
+    [_sharedContainer dismissViewControllerAnimated:YES completion:NULL];
+}
 @end

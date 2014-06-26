@@ -44,6 +44,7 @@
 @property (strong,nonatomic) PoemLineView* alternativeLinePoemTextView;
 @property (strong,nonatomic) PoemLineView* translatedTextView;
 @property (strong,nonatomic) ToolBarView* toolBarView;
+@property (strong,nonatomic) UIButton* sharePoemBtn;
 
 @end
 
@@ -65,6 +66,17 @@ static CGRect currentLineFrame;
 
 @implementation PoemDetailView
 
+- (UIButton *)sharePoemBtn
+{
+    if(!_sharePoemBtn)
+    {
+        sFrame = [UIScreen mainScreen].bounds;
+        _sharePoemBtn = [[UIButton alloc]initWithFrame:CGRectMake(sFrame.size.width/2 - 20, sFrame.size.height/2 - 54, 39, 54)];
+        [_sharePoemBtn setImage:[[UIImage alloc]initWithName:@"share"] forState:UIControlStateNormal];
+        [_sharePoemBtn addTarget:self action:@selector(showShareCurrentPoem) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _sharePoemBtn;
+}
 - (void)setPoemData:(NSDictionary *)poemData
 {
     sFrame = [UIScreen mainScreen].bounds;
@@ -340,7 +352,9 @@ static CGRect currentLineFrame;
 }
 -(void)handleSwipeUpGesture:(id)sender
 {
+    //reaching the bottom
     if(currentLine == totalLine - 2){
+        [self showShareCurrentPoem];
         return;
     }
     [self hideExplanationView];
@@ -540,6 +554,7 @@ static CGRect currentLineFrame;
             }];
         }
 }
+//TODO
 - (void)showToolBarView
 {
     //TODO
@@ -551,6 +566,11 @@ static CGRect currentLineFrame;
     }];
 }
 
+#pragma mark share poem
+- (void)showShareCurrentPoem
+{
+    [self addSubview:self.sharePoemBtn];
+}
 /*
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
