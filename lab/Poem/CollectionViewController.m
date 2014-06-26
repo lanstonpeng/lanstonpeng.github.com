@@ -236,5 +236,4 @@
     _poemMixedInfoScrollView.contentInset = UIEdgeInsetsZero;
 }
 
-
 @end

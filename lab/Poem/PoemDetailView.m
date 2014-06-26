@@ -11,9 +11,10 @@
 #import "PoemExplanationView.h"
 #import "PoemLineView.h"
 #import "ToolBarView.h"
+#import "PoemSharingView.h"
 
 
-@interface PoemDetailView()<UITextViewDelegate>
+@interface PoemDetailView()<UITextViewDelegate,PoemSharingDelegate>
 {
     float screenHeight;
     float screenWidth;
@@ -44,7 +45,7 @@
 @property (strong,nonatomic) PoemLineView* alternativeLinePoemTextView;
 @property (strong,nonatomic) PoemLineView* translatedTextView;
 @property (strong,nonatomic) ToolBarView* toolBarView;
-@property (strong,nonatomic) UIButton* sharePoemBtn;
+@property (strong,nonatomic) PoemSharingView* poemSharingView;
 
 @end
 
@@ -66,17 +67,6 @@ static CGRect currentLineFrame;
 
 @implementation PoemDetailView
 
-- (UIButton *)sharePoemBtn
-{
-    if(!_sharePoemBtn)
-    {
-        sFrame = [UIScreen mainScreen].bounds;
-        _sharePoemBtn = [[UIButton alloc]initWithFrame:CGRectMake(sFrame.size.width/2 - 20, sFrame.size.height/2 - 54, 39, 54)];
-        [_sharePoemBtn setImage:[[UIImage alloc]initWithName:@"share"] forState:UIControlStateNormal];
-        [_sharePoemBtn addTarget:self action:@selector(showShareCurrentPoem) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _sharePoemBtn;
-}
 - (void)setPoemData:(NSDictionary *)poemData
 {
     sFrame = [UIScreen mainScreen].bounds;
@@ -91,6 +81,7 @@ static CGRect currentLineFrame;
     {
         self.toolBarView.frame = CGRectOffset(self.toolBarView.frame, 0, 100);
     }
+    [self removeSharingView];
     //[self initPoemView];
     [self initPoemData];
     //startPoemViewDate = [NSDate date];
@@ -310,6 +301,14 @@ static CGRect currentLineFrame;
 {
     
     //since it's the first line,disable it
+    if(_poemSharingView){
+        [UIView animateWithDuration:0.5 animations:^{
+            _poemSharingView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [self removeSharingView];
+        }];
+        return;
+    }
     if(currentLine == 0){
         return;
     }
@@ -354,7 +353,18 @@ static CGRect currentLineFrame;
 {
     //reaching the bottom
     if(currentLine == totalLine - 2){
-        [self showShareCurrentPoem];
+        if(!_poemSharingView){
+            _poemSharingView = [[PoemSharingView alloc]initWithFrame:sFrame];
+            _poemSharingView.delegate = self;
+            _poemSharingView.alpha = 0;
+            [self addSubview:_poemSharingView];
+            [_poemSharingView showShareCurrentPoem];
+            [UIView animateWithDuration:0.5 animations:^{
+                _poemSharingView.alpha = 1;
+            } completion:^(BOOL finished) {
+                
+            }];
+        }
         return;
     }
     [self hideExplanationView];
@@ -566,10 +576,20 @@ static CGRect currentLineFrame;
     }];
 }
 
-#pragma mark share poem
-- (void)showShareCurrentPoem
+
+#pragma mark poem sharing delegate
+- (void)dismissPoemSharingView
 {
-    [self addSubview:self.sharePoemBtn];
+    [UIView animateWithDuration:0.6 animations:^{
+        _poemSharingView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self removeSharingView];
+    }];
+}
+- (void)removeSharingView
+{
+    [_poemSharingView removeFromSuperview];
+    _poemSharingView = nil;
 }
 /*
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event

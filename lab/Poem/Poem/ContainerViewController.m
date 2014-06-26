@@ -58,7 +58,7 @@
     [super viewDidLoad];
     _stack = [[NSMutableArray alloc]init];
     
-    CGRect sFrame = [UIScreen mainScreen].bounds;
+    //CGRect sFrame = [UIScreen mainScreen].bounds;
     /*
     _loadingView = [[LoadingView alloc]initWithFrame:sFrame];
     [self.view addSubview:_loadingView];

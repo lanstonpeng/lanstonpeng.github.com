@@ -21,6 +21,7 @@
 		9D5487041957BD24007915A0 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D5487031957BD24007915A0 /* UIImage+ImageEffects.m */; };
 		9D840CDD1946DDFA00D55EAF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D840CDB1946DDFA00D55EAF /* Reachability.m */; };
 		9DA0398D195BA77E0063DD59 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA0398C195BA77E0063DD59 /* StoreKit.framework */; };
+		9DA03990195BB3C20063DD59 /* PoemSharingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA0398F195BB3C20063DD59 /* PoemSharingView.m */; };
 		9DC62DA2194603B30072BF76 /* icomoonlight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62DA1194603B30072BF76 /* icomoonlight.ttf */; };
 		9DCAD6AB1944165500EEFB21 /* CygnetRound.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DCAD6AA1944165500EEFB21 /* CygnetRound.ttf */; };
 		9DD43B3319405AE300259CF1 /* PoemLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD43B3219405AE300259CF1 /* PoemLineView.m */; };
@@ -88,6 +89,8 @@
 		9D840CDC1946DDFA00D55EAF /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		9DA03977195AA82E0063DD59 /* Poem.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Poem.entitlements; sourceTree = "<group>"; };
 		9DA0398C195BA77E0063DD59 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		9DA0398E195BB3C20063DD59 /* PoemSharingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoemSharingView.h; sourceTree = "<group>"; };
+		9DA0398F195BB3C20063DD59 /* PoemSharingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemSharingView.m; sourceTree = "<group>"; };
 		9DC62DA1194603B30072BF76 /* icomoonlight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoonlight.ttf; sourceTree = "<group>"; };
 		9DCAD6AA1944165500EEFB21 /* CygnetRound.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CygnetRound.ttf; sourceTree = "<group>"; };
 		9DCAD6AC194417A800EEFB21 /* QuicksandLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = QuicksandLight.ttf; sourceTree = "<group>"; };
@@ -207,6 +210,8 @@
 				9DF68637194A892300816BEC /* LoadingView.m */,
 				9DF68649194BE07500816BEC /* AppFunctionalityView.h */,
 				9DF6864A194BE07500816BEC /* AppFunctionalityView.m */,
+				9DA0398E195BB3C20063DD59 /* PoemSharingView.h */,
+				9DA0398F195BB3C20063DD59 /* PoemSharingView.m */,
 			);
 			name = View;
 			path = ..;
@@ -469,6 +474,7 @@
 				9D329CA5193AD0D800B50C55 /* PoemDetailView.m in Sources */,
 				9D329CBA193C57DB00B50C55 /* CustomTestCell.m in Sources */,
 				9D329CAF193C1C2F00B50C55 /* PoemReader.m in Sources */,
+				9DA03990195BB3C20063DD59 /* PoemSharingView.m in Sources */,
 				9DD43B3319405AE300259CF1 /* PoemLineView.m in Sources */,
 				9D0669C8193855AE0046750E /* ContainerViewController.m in Sources */,
 				9D329D05193F6E0F00B50C55 /* PoemExplanationView.m in Sources */,
