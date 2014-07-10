@@ -32,10 +32,12 @@
     if(!_easterEggLabel)
     {
         CGRect sFrame  = [UIScreen mainScreen].bounds;
-        _easterEggLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, -180, sFrame.size.width, 30)];
+        _easterEggLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, -180, sFrame.size.width, 80)];
+        _easterEggLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Thin" size:13];
         _easterEggLabel.textColor = [UIColor whiteColor];
-        _easterEggLabel.textAlignment = NSTextAlignmentCenter;
-        _easterEggLabel.text = @"@lanstonpeng";
+        _easterEggLabel.textAlignment = NSTextAlignmentRight;
+        _easterEggLabel.numberOfLines = 0;
+        _easterEggLabel.text = @"Thanks to @charsunny and @vinqon \n @lanstonpeng";
     }
     return _easterEggLabel;
 }
@@ -87,13 +89,16 @@
 }
 - (void)showMail
 {
-    NSString *emailTitle = @"[Poemee]Poem Recommendation";
+    NSString *emailTitle = @"[Poemee]Recommendation && Suggestion";
     // Email Content
-    NSString *messageBody = @"Title:\n\n Why it motivates you:\n\n ";
+    NSString *messageBody = @"hi,welcome:\n if you have any touching poems or suggestion to this app,please let me know,thanks";
     // To address
     NSArray *toRecipents = [NSArray arrayWithObject:@"lanstonpeng@gmail.com"];
     
     MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+//    [UINavigationBar appearance].barTintColor = [UIColor clearColor];
+//    [UINavigationBar appearance].tintColor = [UIColor whiteColor];
+//
     mc.mailComposeDelegate = self;
     [mc setSubject:emailTitle];
     [mc setMessageBody:messageBody isHTML:NO];

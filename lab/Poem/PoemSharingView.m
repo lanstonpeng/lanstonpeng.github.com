@@ -10,6 +10,7 @@
 #import "UIImage+PoemResouces.h"
 #import "UIImage+ImageEffects.h"
 #import "ContainerViewController.h"
+#import "UIImage+PoemResouces.h"
 
 @interface PoemSharingView()
 
@@ -71,7 +72,11 @@
 - (void)invokeSharingSDK
 {
     NSMutableArray *sharingItems = [NSMutableArray new];
-    NSURL* url = [[NSURL alloc]initWithString:@"http://lanstonpeng.github.io"];
+    NSString* str = @"I just read a poem in Poemee";
+    NSURL* url = [[NSURL alloc]initWithString:@"itms-apps://itunes.apple.com/app/id893065675"];
+    UIImage* img = [[UIImage alloc]initWithName:@"appicon"];
+    [sharingItems addObject:img];
+    [sharingItems addObject:str];
     [sharingItems addObject:url];
     UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
     activityController.excludedActivityTypes = @[UIActivityTypePrint,UIActivityTypeSaveToCameraRoll,UIActivityTypeAssignToContact, UIActivityTypeAddToReadingList,UIActivityTypeAirDrop];

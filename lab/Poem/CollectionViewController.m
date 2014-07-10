@@ -13,7 +13,9 @@
 #import "PoemIntroductionView.h"
 #import "UIImage+PoemResouces.h"
 #import "AppFunctionalityView.h"
-//#import "LoadingView.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+#import "GAI.h"
 
 @interface CollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,PoemCellScrollDelegate,AppFunctionalityDelegate>
 {
@@ -37,7 +39,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.screenName = @"CollectionView Controller";
+    self.screenName = @"Poem Cell";
     [self.delegate collectionViewWillAppear];
     [UIView animateWithDuration:0.6 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         _collectionView.alpha = 1;
@@ -192,33 +194,30 @@
 #pragma mark poemDelegate
 - (void)poemCellDidBeginPulling:(PoemCell *)cell
 {
-    //[self clearScrollSubView];
+    id tracker = [[GAI sharedInstance] defaultTracker];
     switch (cell.presentationType) {
         case PoemDetailType:
         {
             [_poemDetailView setPoemData:cell.poemData];
-//            _poemDetailView.layer.zPosition = 1;
-//            _introductionView.layer.zPosition = 0;
-            //[_poemMixedInfoScrollView addSubview:_poemDetailView];
             [_poemMixedInfoScrollView bringSubviewToFront:_poemDetailView];
             currentEmbedView = _poemDetailView;
             currentPoemType = PoemDetailType;
+            [tracker set:kGAIScreenName value:@"Poem Detail"];
             break;
         }
         case PoemIntroduction:
         {
             [_introductionView setPoemData:cell.poemData];
             [_poemMixedInfoScrollView bringSubviewToFront:_introductionView];
-            //[_poemMixedInfoScrollView addSubview:_introductionView];
-//            _poemDetailView.layer.zPosition = 0;
-//            _introductionView.layer.zPosition = 1;
             currentEmbedView = _introductionView;
             currentPoemType = PoemIntroduction;
+            [tracker set:kGAIScreenName value:@"Poem Introduction"];
             break;
         }
         default:
             break;
     }
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
     _poemMixedInfoScrollView.scrollEnabled = NO;
 }
 - (void)poemCell:(PoemCell *)cell didChangePullOffset:(CGFloat)offset

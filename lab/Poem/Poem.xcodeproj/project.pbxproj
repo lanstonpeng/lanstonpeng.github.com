@@ -25,7 +25,6 @@
 		9DC62DA2194603B30072BF76 /* icomoonlight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62DA1194603B30072BF76 /* icomoonlight.ttf */; };
 		9DCAD6AB1944165500EEFB21 /* CygnetRound.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DCAD6AA1944165500EEFB21 /* CygnetRound.ttf */; };
 		9DD43B3319405AE300259CF1 /* PoemLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD43B3219405AE300259CF1 /* PoemLineView.m */; };
-		9DD447BB195859590043590B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD447BA195859590043590B /* AdSupport.framework */; };
 		9DD447BD195859610043590B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD447BC195859610043590B /* CoreData.framework */; };
 		9DD447BF1958596C0043590B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD447BE1958596C0043590B /* SystemConfiguration.framework */; };
 		9DD447C1195859760043590B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD447C0195859760043590B /* libz.dylib */; };
@@ -148,7 +147,6 @@
 				9DD447C1195859760043590B /* libz.dylib in Frameworks */,
 				9DD447BF1958596C0043590B /* SystemConfiguration.framework in Frameworks */,
 				9DD447BD195859610043590B /* CoreData.framework in Frameworks */,
-				9DD447BB195859590043590B /* AdSupport.framework in Frameworks */,
 				9DF6864D194BE8A400816BEC /* MessageUI.framework in Frameworks */,
 				9DD4ADF119381111009C414E /* CoreGraphics.framework in Frameworks */,
 				9DD4ADF319381111009C414E /* UIKit.framework in Frameworks */,

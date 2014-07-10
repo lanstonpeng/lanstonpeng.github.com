@@ -12,6 +12,8 @@
 #import "PoemLineView.h"
 #import "ToolBarView.h"
 #import "PoemSharingView.h"
+#import "GAIDictionaryBuilder.h"
+#import "GAI.h"
 
 
 @interface PoemDetailView()<UITextViewDelegate,PoemSharingDelegate>
@@ -344,6 +346,11 @@ static CGRect currentLineFrame;
        } completion:^(BOOL finished) {
        }];
     }
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"     // Event category (required)
+                                                          action:@"swipe down poem line"  // Event action (required)
+                                                           label:@""          // Event label
+                                                           value:nil] build]];    // Event value
 }
 -(void)handleSwipeRightGesture:(id)sender
 {
@@ -352,7 +359,7 @@ static CGRect currentLineFrame;
 -(void)handleSwipeUpGesture:(id)sender
 {
     //reaching the bottom
-    if(currentLine == totalLine - 2){
+    if(currentLine == totalLine - 1){
         if(!_poemSharingView){
             _poemSharingView = [[PoemSharingView alloc]initWithFrame:sFrame];
             _poemSharingView.delegate = self;
@@ -399,6 +406,11 @@ static CGRect currentLineFrame;
            }];
        }];
     }
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"     // Event category (required)
+                                                          action:@"swipe up poem line"  // Event action (required)
+                                                           label:@""          // Event label
+                                                           value:nil] build]];    // Event value
 }
 - (void)handleTapGesture:(UITapGestureRecognizer *)sender
 {
@@ -422,10 +434,21 @@ static CGRect currentLineFrame;
             self.currentLineOfPoemTextView.userInteractionEnabled = NO;
             self.alternativeLinePoemTextView.userInteractionEnabled = NO;
             [self showExplanationView:explainDic[tapWord] forWrod:tapWord];
+            
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"     // Event category (required)
+                                                                  action:@"tap explainatin"  // Event action (required)
+                                                                   label:@""          // Event label
+                                                                   value:nil] build]];    // Event value
         }
         else
         {
             [self toggleTranslatedText];
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"     // Event category (required)
+                                                                  action:@"tap translation"  // Event action (required)
+                                                                   label:@""          // Event label
+                                                                   value:nil] build]];    // Event value
         }
     }
 }

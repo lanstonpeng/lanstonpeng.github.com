@@ -5,7 +5,7 @@
     "bgimg":"Shakespeare",
     "id":101,
    "poemIntroduction":{
-        "text":"Shakespeare was a respected poet and playwright in his own day, but his reputation did not rise to its present heights until the 19th century. The Romantics, in particular, acclaimed Shakespeare's genius, and the Victorians worshipped Shakespeare with a reverence that George Bernard Shaw called bardolatry.\n\nIn the 20th century, his work was repeatedly adopted and rediscovered by new movements in scholarship and performance. His plays remain highly popular today and are constantly studied, performed, and reinterpreted in diverse cultural and political contexts throughout the world.",
+        "text":"Shakespeare was a respected poet and playwright in his own day, but his reputation did not rise to its present heights until the 19th century. The Romantics, in particular, acclaimed Shakespeare's genius, and the Victorians worshipped Shakespeare with a reverence that George Bernard Shaw called bardolatry.\nIn the 20th century, his work was repeatedly adopted and rediscovered by new movements in scholarship and performance. His plays remain highly popular today and are constantly studied, performed, and reinterpreted in diverse cultural and political contexts throughout the world.\n(from wiki)",
         "links":[
             {
                 "type":"wiki",
@@ -42,6 +42,78 @@
         "Thou":"Thou is an old-fashioned, poetic, or religious word for \"you\" when you are talking to only one person. It is used as the subject of a verb"
       },
       "extra":"这句表达了什么什么什么"
+    },
+    {
+    "text":"Rough winds do shake the darling buds of May",
+    "translated":{
+    "chinese":"狂风会吹落五月里开的好花儿"
+    }
+    },
+    {
+    "text":"And summer's lease hath all too short a date",
+    "translated":{
+    "chinese":"夏季的生命又未免结束得太快"
+    }
+    },
+    {
+    "text": "Sometimes too hot the eys of heaven shines",
+    "translated":{
+    "chinese":"有时候苍天的巨眼照得太灼热"
+    }
+    },
+    {
+    "text":"And often is his gold complexion dimmed",
+    "translated":{
+    "chinese":"他那金彩的脸色也会被遮暗"
+    }
+    },
+    {
+    "text":"And every fair from fair somethme declines",
+    "translated":{
+    "chinese":"每一样美呀,总会离开美而凋落"
+    }
+    },
+    {
+    "text":"By chance, or nature's changing course, untrimmed",
+    "translated":{
+    "chinese":"被时机或者自然的代谢所摧残"
+    }
+    },
+    {
+    "text":"But thy eternal summer shall not fade",
+    "translated":{
+    "chinese":"但是你永久的夏天决不会凋枯"
+    }
+    },
+    {
+    "text":"Nor lose possession of that fair thou owest",
+    "translated":{
+    "chinese":"你永远不会失去你美的仪态"
+    }
+    },
+    {
+    "text":"Nor shall Death brag thou wanderest in his shade",
+    "translated":{
+    "chinese":"死神夸不着你在他的影子里踯躅"
+    }
+    },
+    {
+    "text":"When in eternal lines to time thou growest",
+    "translated":{
+    "chinese":"你将在不朽的诗中与时间同在"
+    }
+    },
+    {
+    "text":"So long as men can breathe or eyes can see",
+    "translated":{
+    "chinese":"只要人类在呼吸,眼睛看得见"
+    }
+    },
+    {
+    "text":"So long lives this, and this gives life to thee",
+    "translated":{
+    "chinese":"我这诗就活着,使你的生命绵延"
+    }
     }
    ]
     },
@@ -51,7 +123,7 @@
     "bgimg":"Anne_Killigrew",
     "id":102,
    "poemIntroduction":{
-   "text":"Anne Killigrew (1660—1685) was an English poet. Born in London, Killigrew is perhaps best known as the subject of a famous elegy by the poet John Dryden entitled To The Pious Memory of the Accomplish'd Young Lady Mrs. Anne Killigrew (1686). She was however a skilful poet in her own right, and her Poems were published posthumously in 1686. Dryden compared her poetic abilities to the famous Greek poet of antiquity, Sappho. Killigrew died of smallpox aged 25",
+   "text":"Anne Killigrew (1660—1685) was an English poet. Born in London, Killigrew is perhaps best known as the subject of a famous elegy by the poet John Dryden entitled To The Pious Memory of the Accomplish'd Young Lady Mrs. Anne Killigrew (1686). \nShe was however a skilful poet in her own right, and her Poems were published posthumously in 1686. Dryden compared her poetic abilities to the famous Greek poet of antiquity, Sappho. Killigrew died of smallpox aged 25.\n(from wiki)",
    "links":[
             {
             "type":"wiki",
@@ -105,7 +177,7 @@
       },
       "explanation":{
         "ye":"Ye is an old-fashioned, poetic, or religious word for when you are talking to more than one person"
-      },
+      }
     },
      {
       "text":"And often is his gold complexion dimmed",
@@ -165,8 +237,124 @@
       	"thee":"Thee is an old-fashioned, poetic, or religious word for \"you\" when you are talking to only one person. It is used as the object of a verb or preposition"
 
       }
-    },
-   ]
     }
+   ]
+    },
+   {
+   "title":"The Angle",
+   "author":"William Blake",
+   "bgimg":"William_Blake",
+   "id":103,
+   "poemIntroduction":{
+   "text":"William Blake (28 November 1757 – 12 August 1827) was an English painter, poet and printmaker. Largely unrecognised during his lifetime, Blake is now considered a seminal figure in the history of the poetry and visual arts of the Romantic Age. His prophetic poetry has been said to form \"what is in proportion to its merits the least read body of poetry in the English language\".\nHis visual artistry led one contemporary art critic to proclaim him \"far and away the greatest artist Britain has ever produced\".In 2002, Blake was placed at number 38 in the BBC's poll of the 100 Greatest Britons.[3] Although he lived in London his entire life (except for three years spent in Felpham),he produced a diverse and symbolically rich oeuvre, which embraced the imagination as \"the body of God\" or \"human existence itself\"\n(from wiki)",
+   "links":[
+            {
+            "type":"wiki",
+            "url":"http://lanstonpeng.github.io"
+            }
+            ]
+   },
+   "authorIntroduction":{
+   "text":"authorIntroduction",
+   "links":[
+            {
+            "type":"wiki",
+            "url":"http://lanstonpeng.github.io"
+            }
+            ]
+   },
+   "poembody":
+   [
+    {
+    "text":"I dreamt a dream! What can it mean?",
+    "translated":{
+    "chinese":"我做了一个梦!意味着什么?"
+    }
+    },
+    {
+    "text":"And that I was a maiden Queen",
+    "translated":{
+    "chinese":"我是一个未婚的女王"
+    },
+    "extra":"这句表达了什么什么什么"
+    },
+    {
+    "text":"Guarded by an Angel mild",
+    "translated":{
+    "chinese":"被一个温存的天使守护着"
+    }
+    },
+    {
+    "text":"Witless woe was ne'er beguiled!",
+    "translated":{
+    "chinese":"我从未被愚蠢的悲伤所迷惑!"
+    },
+    "explanation":{
+    "ne'er":"ne'er:a poetic contraction of never"
+    }
+    },
+    {
+    "text":"And he wiped my tears away",
+    "translated":{
+    "chinese":"天使为我擦去了眼泪"
+    }
+    },
+    {
+    "text":"And hid from him my heart's delight",
+    "translated":{
+    "chinese":"可是我整天里都在啼哭"
+    }
+    },
+    {
+    "text":"And he wiped my tears away",
+    "translated":{
+    "chinese":"其实我对他隐瞒了心头的喜悦"
+    }
+    },
+    {
+    "text":"So he took his wings, and fled",
+    "translated":{
+    "chinese":"以致他展开翅膀飞逝地离我而去"
+    }
+    },
+    {
+    "text":"Then the morn blushed rosy red",
+    "translated":{
+    "chinese":"于是在早晨的天空里留下了玫瑰的红色"
+    }
+    },
+    {
+    "text":"I dried my tears, and armed my fears with ten-thousand shields and spears",
+    "translated":{
+    "chinese":"我擦干了泪水,拿起了上万个盾牌和剑戟\n迎击着内心的恐慌和惊吓"
+    }
+    },
+    {
+    "text":"Soon my Angel came again",
+    "translated":{
+    "chinese":"不久我的天使再次来到我身边"
+    }
+    },
+    {
+    "text":"I was armed, he came in vain",
+    "translated":{
+    "chinese":"可是我全副武装,他也徒劳无益"
+    }
+    },
+    {
+    "text":"For the time of youth was fled",
+    "translated":{
+    "chinese":"因为青春年华已飞逝而去"
+    }
+    },
+    {
+    "text":"And grey hairs were on my head.",
+    "translated":{
+    "chinese":"我已长出了灰白的头发"
+    }
+    }
+    ]
+   }
+   
 
     ]
