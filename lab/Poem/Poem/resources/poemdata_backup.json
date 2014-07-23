@@ -1,5 +1,152 @@
   [
   {
+  "title":"The most distant way in the world",
+  "author":"Rabindranath Tagore",
+  "bgimg":"Tagore",
+  "id":104,
+  "poemIntroduction":{
+      "text":"In translation his poetry was viewed as spiritual and mercurial; however, his 'elegant prose and magical poetry' remain largely unknown outside Bengal.Tagore introduced new prose and verse forms and the use of colloquial language into Bengali literature, thereby freeing it from traditional models based on classical Sanskrit. He was highly influential in introducing the best of Indian culture to the West and vice versa, and he is generally regarded as the outstanding creative artist of the modern Indian subcontinent, being highly commemorated in India and Bangladesh, as well as in Sri Lanka, Nepal and Pakistan(from wiki)",
+      "links":[
+          {
+              "type":"wiki",
+              "url":"http://lanstonpeng.github.io"
+          }
+      ]
+  },
+  "authorIntroduction":{
+     "text":"In translation his poetry was viewed as spiritual and mercurial; however, his 'elegant prose and magical poetry' remain largely unknown outside Bengal.Tagore introduced new prose and verse forms and the use of colloquial language into Bengali literature, thereby freeing it from traditional models based on classical Sanskrit. He was highly influential in introducing the best of Indian culture to the West and vice versa, and he is generally regarded as the outstanding creative artist of the modern Indian subcontinent, being highly commemorated in India and Bangladesh, as well as in Sri Lanka, Nepal and Pakistan(from wiki)",
+      "links":[
+          {
+          "type":"wiki",
+          "url":"http://lanstonpeng.github.io"
+          }
+      ]
+  },
+  "poembody":
+  [
+    {
+      "text":"The most distant way in the world",
+      "translated":{
+        "chinese":"世界上最遥远的距离"
+      }
+    },
+    {
+      "text":"Is not the way from birth to the end",
+      "translated":{
+        "chinese":"不是生与死的距离"
+      }
+    },
+    {
+      "text":"It is when I sit near you",
+      "translated":{
+        "chinese":"而是我就站在你面前"
+      }
+    },
+    {
+      "text":"That you don't understand I love you",
+      "translated":{
+        "chinese":"你却不知道我爱你"
+      }
+    },
+    {
+      "text":"The most distant way in the world",
+      "translated":{
+        "chinese":"世界上最遥远的距离"
+      }
+    },
+    {
+      "text":"Is not that you're not sure I love you",
+      "translated":{
+        "chinese":"不是你不知道我爱着你"
+      }
+    },
+    {
+      "text":"It is when my love is bewildering the soul",
+      "translated":{
+        "chinese":"是当我想你到痛彻心脾"
+      }
+    },
+    {
+      "text":"But I can't speak it out",
+      "translated":{
+        "chinese":"却只能深埋心底"
+      }
+    },
+    {
+      "text":"The most distant way in the world",
+      "translated":{
+        "chinese":"世界上最遥远的距离"
+      }
+    },
+    {
+      "text":"Is not that I can't say I love you",
+      "translated":{
+        "chinese":"不是我不能说我爱你"
+      }
+    },
+    {
+      "text":"It is after looking into my heart",
+      "translated":{
+        "chinese":"而是在我深思自己的内心之后"
+      }
+    },
+    {
+      "text":"I can't change my love",
+      "translated":{
+        "chinese":"我只能想到你"
+      }
+    },
+    {
+      "text":"So the most distant way in the world",
+      "translated":{
+        "chinese":"世界上最遥远的距离"
+      }
+    },
+    {
+      "text":"Is not the light that is fading away",
+      "translated":{
+        "chinese":"不是瞬间稍逝的光"
+      }
+    },
+    {
+      "text":"It is the coincidence of us",
+      "translated":{
+        "chinese":"而是尚未相遇"
+      }
+    },
+    {
+      "text":"Is not supposed for the love",
+      "translated":{
+        "chinese":"便注定无法相聚"
+      }
+    },
+    {
+      "text":"So the most distant way in the world",
+      "translated":{
+        "chinese":"世界上最遥远的距离"
+      }
+    },
+    {
+      "text":"Is the love between the fish and bird",
+      "translated":{
+        "chinese":"是鱼与飞鸟的距离"
+      }
+    },
+    {
+      "text":"One is flying at the sky",
+      "translated":{
+        "chinese":"一个翱翔天际"
+      }
+    },
+    {
+      "text":"The other is looking upon into the sea",
+      "translated":{
+        "chinese":"一个却深潜海底"
+      }
+    }
+  ]
+ },
+  {
     "title":"Shall I compare thee to a summer's day",
     "author":"William Shakespeare",
     "bgimg":"Shakespeare",
@@ -167,7 +314,7 @@
      {
       "text":"Too long with Aiery Diet fed",
       "translated":{
-        "chinese":"夏季的生命又未免结束得太快"
+        "chinese":"太久，给它空气般的米黍"
       }
     },
     {
@@ -179,63 +326,58 @@
         "ye":"Ye is an old-fashioned, poetic, or religious word for when you are talking to more than one person"
       }
     },
-     {
-      "text":"And often is his gold complexion dimmed",
+    {
+      "text":"Deceive,as you have heretofore:",
       "translated":{
-        "chinese":"他那金彩的脸色也会被遮暗"
+        "chinese":""
       }
     },
     {
-      "text":"And every fair from fair somethme declines",
+      "text":"for when I hear such Sirens sing",
       "translated":{
-        "chinese":"每一样美呀,总会离开美而凋落"
+        "chinese":"当我听到这样的塞壬歌唱"
       }
     },
     {
-      "text":"By chance, or nature's changing course, untrimmed",
+      "text":"Like lthica's fore－warned King",
       "translated":{
-        "chinese":"被时机或者自然的代谢所摧残"
+        "chinese":"像伊斯卡受到警告的国王"
       }
     },
     {
-      "text":"But thy eternal summer shall not fade",
+      "text":"With prudent Resolution I",
       "translated":{
-        "chinese":"但是你永久的夏天决不会凋枯"
+        "chinese":"以谨慎克制的决心,我将"
       }
     },
     {
-      "text":"Nor lose possession of that fair thou owest",
+      "text":"Will so my Will and Fancy tye",
       "translated":{
-        "chinese":"你永远不会失去你美的仪态"
+        "chinese":"坚决缚住我的意志和想像"
       }
     },
     {
-      "text":"Nor shall Death brag thou wanderest in his shade",
+      "text":"That stronger to the Mast not he",
       "translated":{
-        "chinese":"死神夸不着你在他的影子里踯躅"
+        "chinese":"比他把自己缚于桅杆更紧"
       }
     },
     {
-      "text":"When in eternal lines to time thou growest",
+      "text":"Than I to Reason bound will be:",
       "translated":{
-        "chinese":"你将在不朽的诗中与时间同在"
+        "chinese":"我将使自己钳制于理性"
       }
     },
     {
-      "text":"So long as men can breathe or eyes can see",
+      "text":"And though your Witchcrafts strike my Ear",
       "translated":{
-        "chinese":"只要人类在呼吸,眼睛看得见"
+        "chinese":"虽然你的巫术撞击我的耳鼓"
       }
     },
     {
-      "text":"So long lives this, and this gives life to thee",
+      "text":"Unhurt，like him,your Charms I'll hear",
       "translated":{
-        "chinese":"我这诗就活着,使你的生命绵延"
-      },
-      "explanation":
-      {
-      	"thee":"Thee is an old-fashioned, poetic, or religious word for \"you\" when you are talking to only one person. It is used as the object of a verb or preposition"
-
+        "chinese":"无动于衷,像他,我倾听你的法术"
       }
     }
    ]

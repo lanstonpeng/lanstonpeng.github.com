@@ -243,7 +243,7 @@ static CGRect currentLineFrame;
     NSMutableAttributedString* attrString = [[NSMutableAttributedString alloc]initWithString:line];
     if (currentLineDic[@"explanation"]) {
         [currentLineDic[@"explanation"] enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            NSLog(@"--> %@",key);
+            //NSLog(@"--> %@",key);
             [attrString addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0x01C9FF) range:[line rangeOfString:key]];
         }];
     }
@@ -513,6 +513,7 @@ static CGRect currentLineFrame;
     swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
     UISwipeGestureRecognizer* swipeDown = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeDownGesture:)];
     swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
+    
     [self addGestureRecognizer:swipeUp];
     [self addGestureRecognizer:swipeDown];
     
@@ -553,6 +554,7 @@ static CGRect currentLineFrame;
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
     
 }
+#pragma mark touch handlers
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch* touch = [touches anyObject];
@@ -561,6 +563,7 @@ static CGRect currentLineFrame;
         //[self toggleTranslatedText];
     }
 }
+
 - (void)toggleTranslatedText
 {
         CGRect f = _currentLineOfPoemTextView.frame;
@@ -595,7 +598,7 @@ static CGRect currentLineFrame;
     [UIView animateWithDuration:0.3 animations:^{
         self.toolBarView.frame = CGRectMake(0, self.toolBarView.frame.origin.y - 100, self.toolBarView.frame.size.width, self.toolBarView.frame.size.height);
     } completion:^(BOOL finished) {
-        NSLog(@"%@",self.toolBarView);
+        //NSLog(@"%@",self.toolBarView);
     }];
 }
 

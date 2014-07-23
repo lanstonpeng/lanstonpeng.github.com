@@ -8,13 +8,13 @@
 
 import UIKit
 class SecondViewController: UIViewController,UINavigationControllerDelegate {
-    @IBOutlet var back: UIButton
+    @IBOutlet var back: UIButton?
     var interactPopTransition:UIPercentDrivenInteractiveTransition?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.orangeColor()
-        back.addTarget(self, action: "handleBack:",forControlEvents:.TouchUpInside)
+        self.back!.addTarget(self, action: "handleBack:",forControlEvents:.TouchUpInside)
         
         let swipeRightRecognizer:UIScreenEdgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "handleSwipeRight:")
         swipeRightRecognizer.edges = .Left

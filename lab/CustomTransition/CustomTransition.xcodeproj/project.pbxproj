@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D423F741977C0F2008808CD /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D423F731977C0F2008808CD /* data.plist */; };
 		9D47C2B1196D0FED004840B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47C2B0196D0FED004840B4 /* AppDelegate.swift */; };
 		9D47C2B3196D0FED004840B4 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47C2B2196D0FED004840B4 /* FirstViewController.swift */; };
 		9D47C2B6196D0FED004840B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D47C2B4196D0FED004840B4 /* Main.storyboard */; };
@@ -14,7 +15,14 @@
 		9D47C2C4196D0FED004840B4 /* CustomTransitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47C2C3196D0FED004840B4 /* CustomTransitionTests.swift */; };
 		9D47C2CE196D106E004840B4 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47C2CD196D106E004840B4 /* SecondViewController.swift */; };
 		9D47C2D0196D514B004840B4 /* TransitionFromFirstToSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47C2CF196D514B004840B4 /* TransitionFromFirstToSecond.swift */; };
+		9D5549B41976507600FFE663 /* PresentationInitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5549B31976507600FFE663 /* PresentationInitViewController.swift */; };
+		9D5549B81976512900FFE663 /* CustomPresentaionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5549B71976512900FFE663 /* CustomPresentaionController.swift */; };
+		9D5549BA1976513A00FFE663 /* PresentaionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5549B91976513A00FFE663 /* PresentaionViewController.swift */; };
 		9D64FB94196DA1EC006FDF43 /* TransitionFromSecondToFirst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D64FB93196DA1EC006FDF43 /* TransitionFromSecondToFirst.swift */; };
+		9DCF25F8197E9D0600D1427D /* FromViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF25F7197E9D0600D1427D /* FromViewController.swift */; };
+		9DCF25FA197E9D0F00D1427D /* ToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF25F9197E9D0F00D1427D /* ToViewController.swift */; };
+		9DCF25FD197E9EC700D1427D /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCF25FC197E9EC700D1427D /* TransitionManager.swift */; };
+		9DE443D719766D28002F5C6D /* CustomPresentationAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE443D619766D28002F5C6D /* CustomPresentationAnimationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D423F731977C0F2008808CD /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
 		9D47C2AB196D0FED004840B4 /* CustomTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D47C2AF196D0FED004840B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D47C2B0196D0FED004840B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -39,7 +48,14 @@
 		9D47C2C3196D0FED004840B4 /* CustomTransitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransitionTests.swift; sourceTree = "<group>"; };
 		9D47C2CD196D106E004840B4 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		9D47C2CF196D514B004840B4 /* TransitionFromFirstToSecond.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionFromFirstToSecond.swift; sourceTree = "<group>"; };
+		9D5549B31976507600FFE663 /* PresentationInitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationInitViewController.swift; sourceTree = "<group>"; };
+		9D5549B71976512900FFE663 /* CustomPresentaionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPresentaionController.swift; sourceTree = "<group>"; };
+		9D5549B91976513A00FFE663 /* PresentaionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentaionViewController.swift; sourceTree = "<group>"; };
 		9D64FB93196DA1EC006FDF43 /* TransitionFromSecondToFirst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionFromSecondToFirst.swift; sourceTree = "<group>"; };
+		9DCF25F7197E9D0600D1427D /* FromViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromViewController.swift; sourceTree = "<group>"; };
+		9DCF25F9197E9D0F00D1427D /* ToViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToViewController.swift; sourceTree = "<group>"; };
+		9DCF25FC197E9EC700D1427D /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManager.swift; sourceTree = "<group>"; };
+		9DE443D619766D28002F5C6D /* CustomPresentationAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPresentationAnimationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +76,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D423F751977C158008808CD /* Demo2 */ = {
+			isa = PBXGroup;
+			children = (
+				9D5549B31976507600FFE663 /* PresentationInitViewController.swift */,
+				9D5549B71976512900FFE663 /* CustomPresentaionController.swift */,
+				9DE443D619766D28002F5C6D /* CustomPresentationAnimationController.swift */,
+				9D5549B91976513A00FFE663 /* PresentaionViewController.swift */,
+			);
+			name = Demo2;
+			sourceTree = "<group>";
+		};
+		9D423F761977C15F008808CD /* Demo1 */ = {
+			isa = PBXGroup;
+			children = (
+				9D47C2B2196D0FED004840B4 /* FirstViewController.swift */,
+				9D47C2CF196D514B004840B4 /* TransitionFromFirstToSecond.swift */,
+				9D64FB93196DA1EC006FDF43 /* TransitionFromSecondToFirst.swift */,
+				9D47C2CD196D106E004840B4 /* SecondViewController.swift */,
+			);
+			name = Demo1;
+			sourceTree = "<group>";
+		};
 		9D47C2A2196D0FED004840B4 = {
 			isa = PBXGroup;
 			children = (
@@ -82,11 +120,10 @@
 			isa = PBXGroup;
 			children = (
 				9D47C2B0196D0FED004840B4 /* AppDelegate.swift */,
-				9D47C2B2196D0FED004840B4 /* FirstViewController.swift */,
-				9D47C2CF196D514B004840B4 /* TransitionFromFirstToSecond.swift */,
-				9D64FB93196DA1EC006FDF43 /* TransitionFromSecondToFirst.swift */,
-				9D47C2CD196D106E004840B4 /* SecondViewController.swift */,
+				9D423F761977C15F008808CD /* Demo1 */,
+				9D423F751977C158008808CD /* Demo2 */,
 				9D47C2B4196D0FED004840B4 /* Main.storyboard */,
+				9DCF25FB197E9E5300D1427D /* Demo3 */,
 				9D47C2B7196D0FED004840B4 /* Images.xcassets */,
 				9D47C2AE196D0FED004840B4 /* Supporting Files */,
 			);
@@ -97,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				9D47C2AF196D0FED004840B4 /* Info.plist */,
+				9D423F731977C0F2008808CD /* data.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -116,6 +154,16 @@
 				9D47C2C2196D0FED004840B4 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9DCF25FB197E9E5300D1427D /* Demo3 */ = {
+			isa = PBXGroup;
+			children = (
+				9DCF25F7197E9D0600D1427D /* FromViewController.swift */,
+				9DCF25F9197E9D0F00D1427D /* ToViewController.swift */,
+				9DCF25FC197E9EC700D1427D /* TransitionManager.swift */,
+			);
+			name = Demo3;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +246,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D423F741977C0F2008808CD /* data.plist in Resources */,
 				9D47C2B6196D0FED004840B4 /* Main.storyboard in Resources */,
 				9D47C2B8196D0FED004840B4 /* Images.xcassets in Resources */,
 			);
@@ -217,10 +266,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DCF25FD197E9EC700D1427D /* TransitionManager.swift in Sources */,
+				9DCF25F8197E9D0600D1427D /* FromViewController.swift in Sources */,
 				9D47C2D0196D514B004840B4 /* TransitionFromFirstToSecond.swift in Sources */,
+				9DCF25FA197E9D0F00D1427D /* ToViewController.swift in Sources */,
+				9D5549BA1976513A00FFE663 /* PresentaionViewController.swift in Sources */,
 				9D47C2CE196D106E004840B4 /* SecondViewController.swift in Sources */,
 				9D64FB94196DA1EC006FDF43 /* TransitionFromSecondToFirst.swift in Sources */,
 				9D47C2B3196D0FED004840B4 /* FirstViewController.swift in Sources */,
+				9D5549B41976507600FFE663 /* PresentationInitViewController.swift in Sources */,
+				9DE443D719766D28002F5C6D /* CustomPresentationAnimationController.swift in Sources */,
+				9D5549B81976512900FFE663 /* CustomPresentaionController.swift in Sources */,
 				9D47C2B1196D0FED004840B4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

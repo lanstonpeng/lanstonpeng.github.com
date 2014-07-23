@@ -127,6 +127,15 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGPoint offset  = scrollView.contentOffset;
+    CGPoint velocity = [[scrollView panGestureRecognizer]velocityInView:self.view];
+    //NSLog(@"x:%f,y:%f",velocity.x,velocity.y);
+    /*
+    if(abs(velocity.x) - abs(velocity.y) < 0)
+    {
+        NSLog(@"no scroll,%f,%f",offset.x,offset.y);
+        scrollView.contentOffset = CGPointMake(320, 0);
+    }
+     */
     if(offset.y < -60)
     {
         //scrollView.contentOffset = CGPointMake(0, -70);
@@ -229,6 +238,15 @@
     _poemMixedInfoScrollView.scrollEnabled = YES;
 }
 
+/*
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch* touch = [touches anyObject];
+    CGPoint curPoint = [touch locationInView:self];
+    CGPoint prevPoint = [touch previousLocationInView:self];
+    NSLog(@"%f,%f",curPoint.x - prevPoint.x ,curPoint.y - prevPoint.y);
+}
+ */
 #pragma mark appFunctionalityView delegate
 - (void)MailDidDismiss
 {

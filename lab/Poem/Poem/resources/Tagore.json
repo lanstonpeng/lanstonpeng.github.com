@@ -1,0 +1,147 @@
+{
+  "title":"The most distant way in the world",
+  "author":"Rabindranath Tagore",
+  "bgimg":"Tagore",
+  "id":104,
+  "poemIntroduction":{
+      "text":"In translation his poetry was viewed as spiritual and mercurial; however, his 'elegant prose and magical poetry' remain largely unknown outside Bengal.Tagore introduced new prose and verse forms and the use of colloquial language into Bengali literature, thereby freeing it from traditional models based on classical Sanskrit. He was highly influential in introducing the best of Indian culture to the West and vice versa, and he is generally regarded as the outstanding creative artist of the modern Indian subcontinent, being highly commemorated in India and Bangladesh, as well as in Sri Lanka, Nepal and Pakistan(from wiki)",
+      "links":[
+          {
+              "type":"wiki",
+              "url":"http://lanstonpeng.github.io"
+          }
+      ]
+  },
+  "authorIntroduction":{
+     "text":"In translation his poetry was viewed as spiritual and mercurial; however, his 'elegant prose and magical poetry' remain largely unknown outside Bengal.Tagore introduced new prose and verse forms and the use of colloquial language into Bengali literature, thereby freeing it from traditional models based on classical Sanskrit. He was highly influential in introducing the best of Indian culture to the West and vice versa, and he is generally regarded as the outstanding creative artist of the modern Indian subcontinent, being highly commemorated in India and Bangladesh, as well as in Sri Lanka, Nepal and Pakistan(from wiki)",
+      "links":[
+          {
+          "type":"wiki",
+          "url":"http://lanstonpeng.github.io"
+          }
+      ]
+  },
+  "poembody":
+  [
+    {
+      "text":"The most distant way in the world",
+      "translated":{
+        "chinese":"世界上最遥远的距离"
+      }
+    },
+    {
+      "text":"Is not the way from birth to the end",
+      "translated":{
+        "chinese":"不是生与死的距离"
+      }
+    },
+    {
+      "text":"It is when I sit near you",
+      "translated":{
+        "chinese":"而是我就站在你面前"
+      }
+    },
+    {
+      "text":"That you don't understand I love you",
+      "translated":{
+        "chinese":"你却不知道我爱你"
+      }
+    },
+    {
+      "text":"The most distant way in the world",
+      "translated":{
+        "chinese":"世界上最遥远的距离"
+      }
+    },
+    {
+      "text":"Is not that you're not sure I love you",
+      "translated":{
+        "chinese":"不是你不知道我爱着你"
+      }
+    },
+    {
+      "text":"It is when my love is bewildering the soul",
+      "translated":{
+        "chinese":"是当我想你到痛彻心脾"
+      }
+    },
+    {
+      "text":"But I can't speak it out",
+      "translated":{
+        "chinese":"却只能深埋心底"
+      }
+    },
+    {
+      "text":"The most distant way in the world",
+      "translated":{
+        "chinese":"世界上最遥远的距离"
+      }
+    },
+    {
+      "text":"Is not that I can't say I love you",
+      "translated":{
+        "chinese":"不是我不能说我爱你"
+      }
+    },
+    {
+      "text":"It is after looking into my heart",
+      "translated":{
+        "chinese":"而是在我深思自己的内心之后"
+      }
+    },
+    {
+      "text":"I can't change my love",
+      "translated":{
+        "chinese":"我只能想到你"
+      }
+    },
+    {
+      "text":"So the most distant way in the world",
+      "translated":{
+        "chinese":"世界上最遥远的距离"
+      }
+    },
+    {
+      "text":"Is not the light that is fading away",
+      "translated":{
+        "chinese":"不是瞬间稍逝的光"
+      }
+    },
+    {
+      "text":"It is the coincidence of us",
+      "translated":{
+        "chinese":"而是尚未相遇"
+      }
+    },
+    {
+      "text":"Is not supposed for the love",
+      "translated":{
+        "chinese":"便注定无法相聚"
+      }
+    },
+    {
+      "text":"So the most distant way in the world",
+      "translated":{
+        "chinese":"世界上最遥远的距离"
+      }
+    },
+    {
+      "text":"Is the love between the fish and bird",
+      "translated":{
+        "chinese":"是鱼与飞鸟的距离"
+      }
+    },
+    {
+      "text":"One is flying at the sky",
+      "translated":{
+        "chinese":"一个翱翔天际"
+      }
+    },
+    {
+      "text":"The other is looking upon into the sea",
+      "translated":{
+        "chinese":"一个却深潜海底"
+      }
+    }
+  ]
+ }

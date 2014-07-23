@@ -23,10 +23,10 @@ class TransitionFromSecondToFirst:NSObject,UIViewControllerAnimatedTransitioning
         secondVC.view.transform = CGAffineTransformMakeScale(1, 1)
         firstVC.view.center = firstVC.view.center
         containerView.insertSubview(firstVC.view, belowSubview: secondVC.view)
-        //println(containerView.subviews)
         UIView.animateWithDuration(duration, delay: 0,
                             options: UIViewAnimationOptions.CurveEaseInOut,
             animations: {()->Void in
+                secondVC.view.alpha = 0;
                 secondVC.view.transform = CGAffineTransformMakeScale(0.01, 0.01)
             }, completion: {(Bool) -> Void in
                 println("second to first finished")
