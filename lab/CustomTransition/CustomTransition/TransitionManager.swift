@@ -40,7 +40,7 @@ class TransitionManager:NSObject, UIViewControllerAnimatedTransitioning {
         
         UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: {()->Void in
             
-            fromViewController.view.center.x += fromViewController.view.bounds.size.width
+            //fromViewController.view.center.x += fromViewController.view.bounds.size.width
             toViewContrller.view.center.x = fromViewController.view.bounds.size.width/2
             
             }, completion: {(completed:Bool) -> Void in
@@ -57,15 +57,22 @@ class TransitionManager:NSObject, UIViewControllerAnimatedTransitioning {
         println(toViewContrller)
         
         toViewContrller.view.center.x += fromViewController.view.bounds.size.width
+        toViewContrller.view.alpha = 0.3;
         
         containerView.addSubview(toViewContrller.view)
         println(transitionContext.initialFrameForViewController(toViewContrller))
         println(transitionContext.finalFrameForViewController(toViewContrller))
         
+        let transitionCoordinator = fromViewController.transitionCoordinator()
+        transitionCoordinator.animateAlongsideTransition({(context:UIViewControllerTransitionCoordinatorContext!) -> Void in
+            
+            fromViewController.view.alpha = 0;
+            }, completion: nil)
         UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: {()->Void in
             
                 fromViewController.view.center.x -= fromViewController.view.bounds.size.width/2
                 toViewContrller.view.center.x -= fromViewController.view.bounds.size.width
+                toViewContrller.view.alpha = 1;
             }, completion: {(completed:Bool) -> Void in
                 transitionContext.completeTransition(completed)
             })

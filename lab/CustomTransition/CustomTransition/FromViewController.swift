@@ -26,7 +26,7 @@ class FromViewController: UIViewController,UIViewControllerTransitioningDelegate
         edgeSwipeGesture.edges = .Right
         
         self.nextBtn!.addTarget(self, action: "handleNextButton:", forControlEvents: UIControlEvents.TouchUpInside)
-        //self.view.addGestureRecognizer(edgeSwipeGesture)
+        self.view.addGestureRecognizer(edgeSwipeGesture)
     }
     
     func handleNextButton(btn:UIButton)
@@ -46,15 +46,16 @@ class FromViewController: UIViewController,UIViewControllerTransitioningDelegate
             let toVC = self.storyboard.instantiateViewControllerWithIdentifier("toViewController") as UIViewController
             toVC.transitioningDelegate = self
             self.presentViewController(toVC, animated: true, completion: nil)
+            
         }
         else if recognizer.state == .Changed
         {
-            println("Changed")
+            println(progress)
             self.interactSlideTransition?.updateInteractiveTransition(progress)
         }
         else if recognizer.state == .Ended || recognizer.state == .Cancelled
         {
-            if progress < 0.5
+            if progress > 0.5
             {
                 println("finished")
                 self.interactSlideTransition?.finishInteractiveTransition()
