@@ -15,15 +15,13 @@ class FromViewController: UIViewController,UIViewControllerTransitioningDelegate
     
     init(coder aDecoder: NSCoder!) {
         super.init(coder: aDecoder)
-        //self.modalPresentationStyle = .Custom
-        //self.transitioningDelegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         let edgeSwipeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: "handleTransition:")
         edgeSwipeGesture.edges = .Right
+        self.view.clipsToBounds = true
         
         self.nextBtn!.addTarget(self, action: "handleNextButton:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addGestureRecognizer(edgeSwipeGesture)
@@ -31,7 +29,8 @@ class FromViewController: UIViewController,UIViewControllerTransitioningDelegate
     
     func handleNextButton(btn:UIButton)
     {
-        let toVC = self.storyboard.instantiateViewControllerWithIdentifier("toViewController") as UIViewController
+        let toVC = self.storyboard.instantiateViewControllerWithIdentifier("toViewController") as ToViewController
+        toVC.isByClick = true
         self.presentViewController(toVC, animated: true, completion: nil)
     }
     
@@ -43,14 +42,15 @@ class FromViewController: UIViewController,UIViewControllerTransitioningDelegate
         if recognizer.state == .Began
         {
             self.interactSlideTransition = UIPercentDrivenInteractiveTransition()
-            let toVC = self.storyboard.instantiateViewControllerWithIdentifier("toViewController") as UIViewController
-            toVC.transitioningDelegate = self
+            let toVC = self.storyboard.instantiateViewControllerWithIdentifier("toViewController") as ToViewController
+            toVC.isByClick = false
+            toVC.interactSlideTransition = self.interactSlideTransition
+            
             self.presentViewController(toVC, animated: true, completion: nil)
             
         }
         else if recognizer.state == .Changed
         {
-            println(progress)
             self.interactSlideTransition?.updateInteractiveTransition(progress)
         }
         else if recognizer.state == .Ended || recognizer.state == .Cancelled
@@ -68,61 +68,11 @@ class FromViewController: UIViewController,UIViewControllerTransitioningDelegate
             self.interactSlideTransition = nil
         }
     }
-
-    func animationControllerForPresentedController(presented: UIViewController!, presentingController presenting: UIViewController!, sourceController source: UIViewController!) -> UIViewControllerAnimatedTransitioning!
-    {
-        
-        if presenting == self
-        {
-            return TransitionManager(isPresent: true)
-        }
-        return nil
-    }
-    
-    func animationControllerForDismissedController(dismissed: UIViewController!) -> UIViewControllerAnimatedTransitioning!
-    {
-        if dismissed == self
-        {
-            return TransitionManager(isPresent: false)
-        }
-        return nil
-    }
-    
-    func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning!) -> UIViewControllerInteractiveTransitioning!
-    {
-        if animator.isKindOfClass(TransitionManager.self)
-        {
-            return self.interactSlideTransition
-        }
-        return nil
-    }
-    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning!) -> UIViewControllerInteractiveTransitioning!
-    {
-        return self.interactSlideTransition
-    }
-    /*
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!)
-    {
-        if segue.destinationViewController.isKindOfClass(ToViewController.self)
-        {
-            
-        }
-    }
-*/
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
 
-    /*
-    // #pragma mark - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

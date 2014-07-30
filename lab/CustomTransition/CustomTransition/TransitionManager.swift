@@ -36,15 +36,22 @@ class TransitionManager:NSObject, UIViewControllerAnimatedTransitioning {
         let containerView  = transitionContext.containerView()
         let duration  =  self.transitionDuration(transitionContext)
         
-        toViewContrller.view.center.x = fromViewController.view.bounds.size.width/4
+        
+        let screenBounds = UIScreen.mainScreen().bounds
+        let finalFrame = transitionContext.finalFrameForViewController(toViewContrller)
+        
+        println(toViewContrller.view)
+        toViewContrller.view.frame =  CGRectOffset(finalFrame,-screenBounds.size.width,0)
+        println(toViewContrller.view)
+        containerView.insertSubview(toViewContrller.view, aboveSubview: fromViewController.view)
         
         UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: {()->Void in
             
-            //fromViewController.view.center.x += fromViewController.view.bounds.size.width
-            toViewContrller.view.center.x = fromViewController.view.bounds.size.width/2
+            toViewContrller.view.frame = finalFrame
+            fromViewController.view.frame =  CGRectOffset(fromViewController.view.frame, 160, 0);
             
             }, completion: {(completed:Bool) -> Void in
-                transitionContext.completeTransition(completed)
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
             })
     }
     func animationForPresentTransition(transitionContext:UIViewControllerContextTransitioning!)
@@ -52,29 +59,23 @@ class TransitionManager:NSObject, UIViewControllerAnimatedTransitioning {
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
         let toViewContrller = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
         let containerView  = transitionContext.containerView()
-        let duration  =  self.transitionDuration(transitionContext)
-        println(fromViewController)
-        println(toViewContrller)
         
-        toViewContrller.view.center.x += fromViewController.view.bounds.size.width
-        toViewContrller.view.alpha = 0.3;
+        let duration  =  self.transitionDuration(transitionContext)
+        
+        let screenBounds = UIScreen.mainScreen().bounds
+        let finalFrame = transitionContext.finalFrameForViewController(toViewContrller)
+        
+        toViewContrller.view.frame = CGRectOffset(finalFrame,screenBounds.size.width,0)
         
         containerView.addSubview(toViewContrller.view)
-        println(transitionContext.initialFrameForViewController(toViewContrller))
-        println(transitionContext.finalFrameForViewController(toViewContrller))
         
-        let transitionCoordinator = fromViewController.transitionCoordinator()
-        transitionCoordinator.animateAlongsideTransition({(context:UIViewControllerTransitionCoordinatorContext!) -> Void in
-            
-            fromViewController.view.alpha = 0;
-            }, completion: nil)
         UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: {()->Void in
             
-                fromViewController.view.center.x -= fromViewController.view.bounds.size.width/2
-                toViewContrller.view.center.x -= fromViewController.view.bounds.size.width
-                toViewContrller.view.alpha = 1;
+            toViewContrller.view.frame = finalFrame
+            fromViewController.view.frame =  CGRectOffset(fromViewController.view.frame, -160, 0);
+            
             }, completion: {(completed:Bool) -> Void in
-                transitionContext.completeTransition(completed)
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
             })
         
     }

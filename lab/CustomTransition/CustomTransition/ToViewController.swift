@@ -11,22 +11,26 @@ import UIKit
 class ToViewController: UIViewController,UIViewControllerTransitioningDelegate{
     
     @IBOutlet var prevBtn: UIButton?
-    var interactSlideTransition:UIPercentDrivenInteractiveTransition?
+    public var interactSlideTransition:UIPercentDrivenInteractiveTransition?
+    public var isByClick:Bool
     
     init(coder aDecoder: NSCoder!)
     {
+        self.isByClick = true
         super.init(coder: aDecoder)
-        self.modalPresentationStyle = .Custom
-        self.transitioningDelegate = self
     }
     
 
     func handleBack(btn:UIButton)
     {
+        self.isByClick = true
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.modalPresentationStyle = .Custom
+        self.transitioningDelegate = self
+        
         self.prevBtn!.addTarget(self, action: "handleBack:", forControlEvents: UIControlEvents.TouchUpInside)
         
         let edgeSwipeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: "handleEdgePan:")
@@ -43,24 +47,22 @@ class ToViewController: UIViewController,UIViewControllerTransitioningDelegate{
         //println("progress \(progress)")
         if recognizer.state == .Began
         {
+            self.isByClick = false
             self.interactSlideTransition = UIPercentDrivenInteractiveTransition()
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         else if recognizer.state == .Changed
         {
-            println("Changed")
             self.interactSlideTransition?.updateInteractiveTransition(progress)
         }
         else if recognizer.state == .Ended || recognizer.state == .Cancelled
         {
             if progress > 0.5
             {
-                println("finished")
                 self.interactSlideTransition?.finishInteractiveTransition()
             }
             else
             {
-                println("canceled")
                 self.interactSlideTransition?.cancelInteractiveTransition()
             }
             self.interactSlideTransition = nil
@@ -71,7 +73,16 @@ class ToViewController: UIViewController,UIViewControllerTransitioningDelegate{
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning!) -> UIViewControllerInteractiveTransitioning!
+    {
+        return self.isByClick ? nil :  self.interactSlideTransition
+    }
     
+    func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning!) -> UIViewControllerInteractiveTransitioning!
+    {
+        return self.isByClick ? nil : self.interactSlideTransition
+    }
+
     func animationControllerForPresentedController(presented: UIViewController!, presentingController presenting: UIViewController!, sourceController source: UIViewController!) -> UIViewControllerAnimatedTransitioning!
     {
         if presented == self
