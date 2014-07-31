@@ -10,9 +10,13 @@ import UIKit
 
 class PaperViewController: UIViewController ,UIViewControllerTransitioningDelegate{
 
+    @IBOutlet weak var loadingView: UIActivityIndicatorView!
     public var interactSlideTransition:UIPercentDrivenInteractiveTransition?
+    
+    //TODO
     var pageCount = 5
-    var currentIndex = 0
+    public var currentIndex = 0
+    
     
     func generateRandomColor() -> UIColor
     {
@@ -49,7 +53,8 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         
         let edgeSwipeGestureRight = UIScreenEdgePanGestureRecognizer(target: self, action: "handleTransitionRight:")
         edgeSwipeGestureRight.edges = .Right
-        //self.view.clipsToBounds = true
+        
+        
         self.view.addGestureRecognizer(edgeSwipeGestureRight)
         
         self.view.backgroundColor = self.generateRandomColor()
@@ -63,18 +68,12 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         self.initPic()
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func handleTransitionLeft(recognizer:UIScreenEdgePanGestureRecognizer)
     {
         
         var progress:CGFloat  = recognizer.locationInView(self.view.superview).x / (self.view.superview.bounds.size.width * 1.0)
         progress = min(1.0,max(0.0,progress))
-        //println("progress \(progress)")
         if recognizer.state == .Began
         {
             self.interactSlideTransition = UIPercentDrivenInteractiveTransition()
@@ -107,7 +106,8 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         {
             self.interactSlideTransition = UIPercentDrivenInteractiveTransition()
             let toVC = self.storyboard.instantiateViewControllerWithIdentifier("PaperViewController") as PaperViewController
-            toVC.interactSlideTransition = self.interactSlideTransition
+            toVC.currentIndex = self.currentIndex + 1
+            //toVC.interactSlideTransition = self.interactSlideTransition
             
             self.presentViewController(toVC, animated: true, completion: nil)
             
@@ -120,12 +120,10 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         {
             if progress > 0.5
             {
-                println("finished")
                 self.interactSlideTransition?.finishInteractiveTransition()
             }
             else
             {
-                println("canceled")
                 self.interactSlideTransition?.cancelInteractiveTransition()
             }
             self.interactSlideTransition = nil
@@ -181,15 +179,5 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         }
         return nil
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

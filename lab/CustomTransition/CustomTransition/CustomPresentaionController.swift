@@ -18,8 +18,9 @@ class CustomPresentaionController: UIPresentationController {
     
     override func presentationTransitionWillBegin()
     {
+        super.presentationTransitionWillBegin()
         self.containerView.addSubview(self.chromeView)
-        self.containerView.addSubview(self.presentedView())
+        //self.containerView.addSubview(self.presentedView())
         
         // Fade in the dimming view alongside the transition
         let transitionCoordinator = self.presentingViewController.transitionCoordinator()
@@ -32,21 +33,27 @@ class CustomPresentaionController: UIPresentationController {
     {
         if !completed
         {
-            self.chromeView.removeFromSuperview()
+            //self.chromeView.removeFromSuperview()
         }
+    }
+    override func containerViewWillLayoutSubviews()
+    {
+        self.chromeView.frame = self.containerView.bounds
+        self.presentedView().frame = self.frameOfPresentedViewInContainerView()
     }
     
     override func dismissalTransitionWillBegin()
     {
+        super.dismissalTransitionWillBegin()
         let transitionCoordinator = self.presentingViewController.transitionCoordinator()
         transitionCoordinator.animateAlongsideTransition({(context:UIViewControllerTransitionCoordinatorContext!) -> Void in
-            self.chromeView.alpha = 0.2;
+            self.chromeView.alpha = 0;
             }, completion: nil)
     }
     override func dismissalTransitionDidEnd(completed: Bool)
     {
         if completed {
-            self.chromeView.removeFromSuperview()
+            //self.chromeView.removeFromSuperview()
         }
     }
     

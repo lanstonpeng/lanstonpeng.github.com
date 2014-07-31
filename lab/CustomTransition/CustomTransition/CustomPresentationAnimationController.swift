@@ -37,18 +37,26 @@ class CustomPresentationAnimationController: NSObject,UIViewControllerAnimatedTr
         let duration:NSTimeInterval = self.transitionDuration(transitionContext)
         
         let screenBounds = UIScreen.mainScreen().bounds
-        let finalFrame = transitionContext.finalFrameForViewController(toViewController)
+        let finalFrame = transitionContext.finalFrameForViewController(fromViewController)
         
         
-        toViewController.view.frame = CGRectOffset(finalFrame, -screenBounds.size.width, 0)
-        containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
+        //fromViewController.view.frame = CGRectOffset(finalFrame, -screenBounds.size.width, 0)
+        //containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
+        for v in containerView.subviews
+        {
+            println(v.tag)
+        }
+        
+        fromViewController.view.frame = transitionContext.initialFrameForViewController(fromViewController)
+        
         
         UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 3, options: UIViewAnimationOptions.CurveLinear, animations: {() -> Void in
             
-            toViewController.view.frame = finalFrame
-            fromViewController.view.frame = CGRectOffset(fromViewController.view.frame, 160, 0);
+            fromViewController.view.frame = CGRectOffset(finalFrame, 320, 0)
+            //fromViewController.view.frame = CGRectOffset(fromViewController.view.frame, 160, 0);
             
             }, completion: {(completed:Bool) -> Void in
+                fromViewController.view.removeFromSuperview()
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
             })
     }
@@ -70,7 +78,7 @@ class CustomPresentationAnimationController: NSObject,UIViewControllerAnimatedTr
         UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 3, options: UIViewAnimationOptions.CurveEaseOut, animations: {() -> Void in
             
             toViewController.view.frame = finalFrame
-            fromViewController.view.frame = CGRectOffset(fromViewController.view.frame, -160, 0);
+            //fromViewController.view.frame = CGRectOffset(fromViewController.view.frame, -160, 0);
             
             }, completion: {(completed:Bool) -> Void in
                 transitionContext.completeTransition(completed)

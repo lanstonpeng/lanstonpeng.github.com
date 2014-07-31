@@ -12,14 +12,20 @@ class PresentaionViewController: UIViewController,UIViewControllerTransitioningD
 
     @IBOutlet var showText: UILabel?
     @IBOutlet var backBtn: UIButton?
-    public var isByClick:Bool
+    public var isByClick:Bool = false
     var interactSlideTransition:UIPercentDrivenInteractiveTransition?
     
-    init(coder aDecoder: NSCoder!) {
-        self.isByClick = false
+    init(coder aDecoder: NSCoder!)
+    {
         super.init(coder: aDecoder)
+        self.commonInit()
     }
     
+    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!)
+    {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.commonInit()
+    }
     func commonInit() {
         self.modalPresentationStyle = .Custom
         self.transitioningDelegate = self
@@ -27,16 +33,24 @@ class PresentaionViewController: UIViewController,UIViewControllerTransitioningD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.commonInit()
         let edgeSwipeGesture  = UIScreenEdgePanGestureRecognizer(target: self, action: "handleEdgeSwipeRight:")
         edgeSwipeGesture.edges = .Left
+        let screenBounds = UIScreen.mainScreen().bounds
+        //let btn = UIButton(frame: CGRectMake(screenBounds.width/2 - 50 , screenBounds.height/2 - 250, 100, 200))
+        //btn.setTitle("Back", forState: UIControlState.Normal)
+        //btn.backgroundColor = UIColor.blackColor()
+        //btn.addTarget(self, action: "handleBack:", forControlEvents: UIControlEvents.TouchUpInside)
+        //self.view.addSubview(btn)
+        
+        
         self.backBtn!.addTarget(self, action: "handleBack:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addGestureRecognizer(edgeSwipeGesture)
     }
     func handleBack(sender:UIButton)
     {
         self.isByClick = true
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+        //self.dismissViewControllerAnimated(true, completion: nil)
     }
     func handleEdgeSwipeRight(recognizer:UIScreenEdgePanGestureRecognizer)
     {
@@ -92,6 +106,7 @@ class PresentaionViewController: UIViewController,UIViewControllerTransitioningD
         if presented == self
         {
             return CustomPresentationAnimationController(isPresenting: true)
+            //return TransitionManager(isPresent: true)
         }
         return nil
     }
@@ -101,15 +116,14 @@ class PresentaionViewController: UIViewController,UIViewControllerTransitioningD
         if dismissed == self
         {
             return CustomPresentationAnimationController(isPresenting: false)
+            //return TransitionManager(isPresent: false)
         }
         return nil
     }
-    /*
     func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning!) -> UIViewControllerInteractiveTransitioning!
     {
         return isByClick ? nil : self.interactSlideTransition
     }
-    */
     
     /*
     // #pragma mark - Navigation
