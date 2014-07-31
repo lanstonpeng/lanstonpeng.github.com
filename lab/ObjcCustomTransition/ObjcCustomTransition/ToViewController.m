@@ -5,9 +5,9 @@
 //  Created by Lanston Peng on 7/29/14.
 //  Copyright (c) 2014 Vtm. All rights reserved.
 //
-
 #import "ToViewController.h"
 #import "TransitionAnimatior.h"
+#import "CustomPresentaionController.h"
 
 @interface ToViewController()<UIViewControllerTransitioningDelegate>
 
@@ -17,11 +17,30 @@
 
 @implementation ToViewController
 
+//- (instancetype)init
+//{
+//    self = [super init];
+//}
+//- (id)initWithCoder:(NSCoder *)aDecoder
+//{
+//    self= [super initWithCoder:aDecoder];
+//    self.modalPresentationStyle = UIModalPresentationCustom;
+//    self.transitioningDelegate = self;
+//    return self;
+//}
+//- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+//{
+//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    return self;
+//}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
+    self.view.tag = 2;
+    self.modalPresentationStyle = UIModalPresentationCustom;
     self.transitioningDelegate = self;
+    self.view.clipsToBounds = YES;
     
     UIButton* button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
@@ -99,6 +118,15 @@
 - (id<UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id<UIViewControllerAnimatedTransitioning>)animator
 {
     return _isByClick ? nil : self.interactiveTransition;
+}
+
+
+- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
+{
+    if (presented == self) {
+        return [[CustomPresentaionController alloc]initWithPresentedViewController:presented presentingViewController:presenting];
+    }
+    return nil;
 }
 
 

@@ -52,6 +52,10 @@
     
     [containerView addSubview:toVC.view];
     
+    for (UIView* view in containerView.subviews) {
+        NSLog(@"%d",(int)view.tag);
+    }
+    
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
         toVC.view.frame = finalFrame;
@@ -73,11 +77,21 @@
     CGRect finalFrame = [transitionContext finalFrameForViewController:toVC];
     
     toVC.view.frame = CGRectOffset(finalFrame,-screenBounds.size.width,0);
+    
+    for (UIView* view in containerView.subviews) {
+        NSLog(@"%d",(int)view.tag);
+    }
+    
     [containerView insertSubview:toVC.view aboveSubview:fromVC.view];
+    
+    for (UIView* view in containerView.subviews) {
+        NSLog(@"%d",(int)view.tag);
+    }
     
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
         toVC.view.frame = finalFrame;
+        //toVC.view.frame = CGRectOffset(finalFrame, -160, 0);
         fromVC.view.frame = CGRectOffset(fromVC.view.frame, 160, 0);
         
     } completion:^(BOOL finished) {
@@ -87,7 +101,7 @@
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext
 {
-    return 0.3f;
+    return 0.3;
 }
 
 @end

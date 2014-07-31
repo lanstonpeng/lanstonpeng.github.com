@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D1517431989C5510039E58C /* PaperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1517421989C5510039E58C /* PaperViewController.swift */; };
 		9D423F741977C0F2008808CD /* data.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D423F731977C0F2008808CD /* data.plist */; };
 		9D47C2B1196D0FED004840B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47C2B0196D0FED004840B4 /* AppDelegate.swift */; };
 		9D47C2B3196D0FED004840B4 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47C2B2196D0FED004840B4 /* FirstViewController.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D1517421989C5510039E58C /* PaperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperViewController.swift; sourceTree = "<group>"; };
 		9D423F731977C0F2008808CD /* data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = data.plist; sourceTree = "<group>"; };
 		9D47C2AB196D0FED004840B4 /* CustomTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D47C2AF196D0FED004840B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,13 +78,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D1517441989C55C0039E58C /* Demo4 */ = {
+			isa = PBXGroup;
+			children = (
+				9D1517421989C5510039E58C /* PaperViewController.swift */,
+			);
+			name = Demo4;
+			sourceTree = "<group>";
+		};
 		9D423F751977C158008808CD /* Demo2 */ = {
 			isa = PBXGroup;
 			children = (
 				9D5549B31976507600FFE663 /* PresentationInitViewController.swift */,
+				9D5549B91976513A00FFE663 /* PresentaionViewController.swift */,
 				9D5549B71976512900FFE663 /* CustomPresentaionController.swift */,
 				9DE443D619766D28002F5C6D /* CustomPresentationAnimationController.swift */,
-				9D5549B91976513A00FFE663 /* PresentaionViewController.swift */,
 			);
 			name = Demo2;
 			sourceTree = "<group>";
@@ -123,6 +133,7 @@
 				9D423F761977C15F008808CD /* Demo1 */,
 				9D423F751977C158008808CD /* Demo2 */,
 				9D47C2B4196D0FED004840B4 /* Main.storyboard */,
+				9D1517441989C55C0039E58C /* Demo4 */,
 				9DCF25FB197E9E5300D1427D /* Demo3 */,
 				9D47C2B7196D0FED004840B4 /* Images.xcassets */,
 				9D47C2AE196D0FED004840B4 /* Supporting Files */,
@@ -270,6 +281,7 @@
 				9DCF25F8197E9D0600D1427D /* FromViewController.swift in Sources */,
 				9D47C2D0196D514B004840B4 /* TransitionFromFirstToSecond.swift in Sources */,
 				9DCF25FA197E9D0F00D1427D /* ToViewController.swift in Sources */,
+				9D1517431989C5510039E58C /* PaperViewController.swift in Sources */,
 				9D5549BA1976513A00FFE663 /* PresentaionViewController.swift in Sources */,
 				9D47C2CE196D106E004840B4 /* SecondViewController.swift in Sources */,
 				9D64FB94196DA1EC006FDF43 /* TransitionFromSecondToFirst.swift in Sources */,

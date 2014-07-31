@@ -19,10 +19,12 @@
             
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.tag = 1;
     
     UIButton* button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
     self.view.backgroundColor = [UIColor orangeColor];
+    self.view.clipsToBounds = YES;
     [button setTitle:@"Click me" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(handleClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -42,7 +44,7 @@
     
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan:{
-            ToViewController* toVC = [ToViewController new];
+            ToViewController* toVC = [[ToViewController alloc]init];
             toVC.isByClick = NO;
             toVC.interactiveTransition = self.interactiveTransition;
             [self presentViewController:toVC animated:YES completion:nil];
@@ -73,7 +75,7 @@
 
 - (void)handleClick:(UIButton*)btn
 {
-    ToViewController* toVC = [ToViewController new];
+    ToViewController* toVC = [[ToViewController alloc]init];
     toVC.isByClick = YES;
     
     [self presentViewController:toVC animated:YES completion:nil];

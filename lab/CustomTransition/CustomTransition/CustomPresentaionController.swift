@@ -40,7 +40,7 @@ class CustomPresentaionController: UIPresentationController {
     {
         let transitionCoordinator = self.presentingViewController.transitionCoordinator()
         transitionCoordinator.animateAlongsideTransition({(context:UIViewControllerTransitionCoordinatorContext!) -> Void in
-            self.chromeView.alpha = 0;
+            self.chromeView.alpha = 0.2;
             }, completion: nil)
     }
     override func dismissalTransitionDidEnd(completed: Bool)

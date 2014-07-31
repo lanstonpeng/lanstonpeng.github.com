@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D33F5861988C6C400F885CC /* CustomPresentaionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D33F5851988C6C400F885CC /* CustomPresentaionController.m */; };
 		9DE8A5311987936C00BFE252 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE8A5301987936C00BFE252 /* main.m */; };
 		9DE8A5341987936C00BFE252 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE8A5331987936C00BFE252 /* AppDelegate.m */; };
 		9DE8A5371987936C00BFE252 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE8A5361987936C00BFE252 /* ViewController.m */; };
@@ -28,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D33F5841988C6C400F885CC /* CustomPresentaionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPresentaionController.h; sourceTree = "<group>"; };
+		9D33F5851988C6C400F885CC /* CustomPresentaionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPresentaionController.m; sourceTree = "<group>"; };
 		9DE8A52B1987936C00BFE252 /* ObjcCustomTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjcCustomTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DE8A52F1987936C00BFE252 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DE8A5301987936C00BFE252 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -93,6 +96,8 @@
 				9DE8A5521987938600BFE252 /* ToViewController.m */,
 				9DE8A5541987CBD400BFE252 /* TransitionAnimatior.h */,
 				9DE8A5551987CBD400BFE252 /* TransitionAnimatior.m */,
+				9D33F5841988C6C400F885CC /* CustomPresentaionController.h */,
+				9D33F5851988C6C400F885CC /* CustomPresentaionController.m */,
 				9DE8A5381987936C00BFE252 /* Main.storyboard */,
 				9DE8A53B1987936C00BFE252 /* Images.xcassets */,
 				9DE8A52E1987936C00BFE252 /* Supporting Files */,
@@ -226,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DE8A5371987936C00BFE252 /* ViewController.m in Sources */,
+				9D33F5861988C6C400F885CC /* CustomPresentaionController.m in Sources */,
 				9DE8A5341987936C00BFE252 /* AppDelegate.m in Sources */,
 				9DE8A5311987936C00BFE252 /* main.m in Sources */,
 				9DE8A5561987CBD500BFE252 /* TransitionAnimatior.m in Sources */,
@@ -414,6 +420,7 @@
 				9DE8A54D1987936C00BFE252 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9DE8A54E1987936C00BFE252 /* Build configuration list for PBXNativeTarget "ObjcCustomTransitionTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +429,7 @@
 				9DE8A5501987936C00BFE252 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

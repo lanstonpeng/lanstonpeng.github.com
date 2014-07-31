@@ -13,6 +13,7 @@ class PresentationInitViewController: UIViewController {
     @IBOutlet var presentBtn: UIButton?
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.clipsToBounds = true
         self.presentBtn!.addTarget(self, action: "handlePresent:", forControlEvents: UIControlEvents.TouchUpInside);
         
 

@@ -30,38 +30,50 @@ class CustomPresentationAnimationController: NSObject,UIViewControllerAnimatedTr
     }
     func animateForDismissTransition(transitionContext:UIViewControllerContextTransitioning!)
     {
-        let presentedControllerView = transitionContext.viewForKey(UITransitionContextFromViewKey)
-        let presentingControllerView = transitionContext.viewForKey(UITransitionContextToViewKey)
-        let containerView = transitionContext.containerView()
         
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
+        let containerView = transitionContext.containerView()
         let duration:NSTimeInterval = self.transitionDuration(transitionContext)
         
-        containerView.insertSubview(presentedControllerView, belowSubview: presentingControllerView)
+        let screenBounds = UIScreen.mainScreen().bounds
+        let finalFrame = transitionContext.finalFrameForViewController(toViewController)
+        
+        
+        toViewController.view.frame = CGRectOffset(finalFrame, -screenBounds.size.width, 0)
+        containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
+        
         UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 3, options: UIViewAnimationOptions.CurveLinear, animations: {() -> Void in
-                presentedControllerView.center.x += containerView.bounds.size.width;
+            
+            toViewController.view.frame = finalFrame
+            fromViewController.view.frame = CGRectOffset(fromViewController.view.frame, 160, 0);
+            
             }, completion: {(completed:Bool) -> Void in
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
-                println(presentedControllerView.frame)
             })
     }
     
     func animateForPresentTransition(transitionContext:UIViewControllerContextTransitioning!)
     {
-        let presentedController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-        let presentedControllerView = transitionContext.viewForKey(UITransitionContextToViewKey)
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
         let containerView = transitionContext.containerView()
         let duration:NSTimeInterval = self.transitionDuration(transitionContext)
         
-        presentedControllerView.frame = transitionContext.finalFrameForViewController(presentedController)
-        presentedControllerView.center.x += containerView.bounds.size.width
+        let screenBounds = UIScreen.mainScreen().bounds
+        let finalFrame = transitionContext.finalFrameForViewController(toViewController)
         
-        containerView.addSubview(presentedControllerView)
+        toViewController.view.frame = CGRectOffset(finalFrame, screenBounds.size.width, 0)
+        
+        containerView.addSubview(toViewController.view)
         
         UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 3, options: UIViewAnimationOptions.CurveEaseOut, animations: {() -> Void in
-                presentedControllerView.center.x -= containerView.bounds.size.width
+            
+            toViewController.view.frame = finalFrame
+            fromViewController.view.frame = CGRectOffset(fromViewController.view.frame, -160, 0);
+            
             }, completion: {(completed:Bool) -> Void in
                 transitionContext.completeTransition(completed)
-                println(presentedControllerView.frame)
             })
     }
     

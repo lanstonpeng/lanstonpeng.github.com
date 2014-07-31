@@ -12,16 +12,22 @@ class PresentaionViewController: UIViewController,UIViewControllerTransitioningD
 
     @IBOutlet var showText: UILabel?
     @IBOutlet var backBtn: UIButton?
+    public var isByClick:Bool
     var interactSlideTransition:UIPercentDrivenInteractiveTransition?
     
     init(coder aDecoder: NSCoder!) {
+        self.isByClick = false
         super.init(coder: aDecoder)
+    }
+    
+    func commonInit() {
         self.modalPresentationStyle = .Custom
         self.transitioningDelegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.commonInit()
         let edgeSwipeGesture  = UIScreenEdgePanGestureRecognizer(target: self, action: "handleEdgeSwipeRight:")
         edgeSwipeGesture.edges = .Left
         self.backBtn!.addTarget(self, action: "handleBack:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -29,6 +35,7 @@ class PresentaionViewController: UIViewController,UIViewControllerTransitioningD
     }
     func handleBack(sender:UIButton)
     {
+        self.isByClick = true
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     func handleEdgeSwipeRight(recognizer:UIScreenEdgePanGestureRecognizer)
@@ -38,6 +45,7 @@ class PresentaionViewController: UIViewController,UIViewControllerTransitioningD
         //println("progress \(progress)")
         if recognizer.state == .Began
         {
+            self.isByClick = false
             self.interactSlideTransition = UIPercentDrivenInteractiveTransition()
             self.dismissViewControllerAnimated(true, completion: nil)
         }
@@ -68,6 +76,7 @@ class PresentaionViewController: UIViewController,UIViewControllerTransitioningD
     }
     
 
+    
     func presentationControllerForPresentedViewController(presented: UIViewController!, presentingViewController presenting: UIViewController!, sourceViewController source: UIViewController!) -> UIPresentationController!
     {
         if presented == self
@@ -95,14 +104,12 @@ class PresentaionViewController: UIViewController,UIViewControllerTransitioningD
         }
         return nil
     }
+    /*
     func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning!) -> UIViewControllerInteractiveTransitioning!
     {
-        if animator.isKindOfClass(CustomPresentationAnimationController.self)
-        {
-            return self.interactSlideTransition
-        }
-        return nil
+        return isByClick ? nil : self.interactSlideTransition
     }
+    */
     
     /*
     // #pragma mark - Navigation

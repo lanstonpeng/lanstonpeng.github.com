@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RkP-uW-9eW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="b8v-BZ-7rR">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
     </dependencies>
@@ -122,6 +122,24 @@
             </objects>
             <point key="canvasLocation" x="1091" y="2099"/>
         </scene>
+        <!--Paper View Controller-->
+        <scene sceneID="Xd5-Ph-Aqr">
+            <objects>
+                <viewController storyboardIdentifier="PaperViewController" id="b8v-BZ-7rR" customClass="PaperViewController" customModule="CustomTransition" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cR3-qC-5xK"/>
+                        <viewControllerLayoutGuide type="bottom" id="ptJ-La-Ozd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LsO-KM-QVi">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yD5-lJ-9MY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="383" y="2945"/>
+        </scene>
         <!--Second View Controller-->
         <scene sceneID="55s-WI-8Be">
             <objects>
@@ -194,8 +212,8 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="shanekoyczan2" translatesAutoresizingMaskIntoConstraints="NO" id="NcW-wc-sIz">
                                 <rect key="frame" x="-204" y="-222" width="834" height="968"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8e-6g-sfM">
-                                <rect key="frame" x="214" y="430" width="149" height="59"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8e-6g-sfM">
+                                <rect key="frame" x="246" y="276" width="108" height="48"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="30"/>
                                 <state key="normal" title="Present">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -204,6 +222,10 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="b8e-6g-sfM" secondAttribute="centerY" id="Zyq-vp-HhO"/>
+                            <constraint firstAttribute="centerX" secondItem="b8e-6g-sfM" secondAttribute="centerX" id="cZZ-XB-W3O"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="presentBtn" destination="b8e-6g-sfM" id="4dR-HD-7wC"/>

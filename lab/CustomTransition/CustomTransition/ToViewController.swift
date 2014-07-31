@@ -19,17 +19,45 @@ class ToViewController: UIViewController,UIViewControllerTransitioningDelegate{
         self.isByClick = true
         super.init(coder: aDecoder)
     }
-    
+   
+    func commonInit()
+    {
+        self.modalPresentationStyle = .Custom
+        self.transitioningDelegate = self
+    }
 
     func handleBack(btn:UIButton)
     {
         self.isByClick = true
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    func initPic()
+    {
+        var q = dispatch_queue_create("getimage", nil)
+        let screen = UIScreen.mainScreen().bounds
+        let url = NSURL(string: "http://lorempixel.com/320/568/")
+        var data:NSData?
+        var image:UIImage?
+        let imageView:UIImageView = UIImageView(frame: screen)
+        dispatch_async(q, {
+            data = NSData(contentsOfURL: url)
+            image = UIImage(data: data)
+            dispatch_sync(dispatch_get_main_queue(), {
+                imageView.image = image
+                imageView.alpha = 0
+                self.view.insertSubview(imageView, belowSubview: self.prevBtn!)
+                UIView.animateWithDuration(0.3, animations: {()->Void in
+                    imageView.alpha = 1
+                    })
+                })
+            })
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.modalPresentationStyle = .Custom
-        self.transitioningDelegate = self
+        self.view.clipsToBounds = true
+        self.commonInit()
+        
+        self.initPic()
         
         self.prevBtn!.addTarget(self, action: "handleBack:", forControlEvents: UIControlEvents.TouchUpInside)
         
