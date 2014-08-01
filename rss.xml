@@ -8,7 +8,30 @@
     <title>Lanston Peng's ideas</title>
     <link>http://lanstonpeng.github.io</link>
     <description>RSS feed for Lanston Peng's ideas</description>
-    <pubDate>Mon, 28 Apr 2014 07:38:50 +0800</pubDate>
+    <pubDate>Sat, 19 Jul 2014 07:38:49 +0800</pubDate>
+    <item>
+      <title>Surface Pro 3 简评</title>
+      <link>http://lanstonpeng.github.io/2014/07/19/surface_pro_3.html</link>
+      <description>&lt;h3&gt;Pros and Cons:&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;手写功能较市面上同类产品(这里定位为平板产品及其周边触笔设备)好，但是敏捷度仍待提升(当然，终极目标当属与纸质书写一般)，尤其是写字力量仍然无法与正常纸质书写一般，仍需稍微加强用力(但是触笔会有强弱的区分,能书写粗细有别的字体)，但是总体来说没有让自己失望(基本上70%我就是冲着OneNote这个killer app来的)&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+      <pubDate>Sat, 19 Jul 2014 07:38:49 +0800</pubDate>
+      <guid>http://lanstonpeng.github.io/2014/07/19/surface_pro_3.html</guid>
+      <dc:date>2014-07-19T07:38:49+08:00</dc:date>
+    </item>
+    <item>
+      <title>iOS7 到 iOS8 的ViewController Transition</title>
+      <link>http://lanstonpeng.github.io/2014/07/17/viewcontroller_transition.html</link>
+      <description>&lt;p&gt;有时候, 页面关系简单的时候, 我会更加喜欢用&lt;strong&gt;一个&lt;/strong&gt;ViewController来控制整个App, 各个页面都只是各个不同的View进行堆积和切换, 各种View直接的切换动画也相对容易发挥想象力&lt;/p&gt;
+</description>
+      <pubDate>Thu, 17 Jul 2014 07:38:49 +0800</pubDate>
+      <guid>http://lanstonpeng.github.io/2014/07/17/viewcontroller_transition.html</guid>
+      <dc:date>2014-07-17T07:38:49+08:00</dc:date>
+    </item>
     <item>
       <title>Writing a Javascript Module Loader</title>
       <link>http://lanstonpeng.github.io/2014/04/28/writing-a-javascript-module-loader.html</link>
@@ -20,12 +43,22 @@
       <dc:date>2014-04-28T07:38:50+08:00</dc:date>
     </item>
     <item>
-      <title>Implement a simple ScrollView</title>
+      <title>Understanding Bounds and Frame by implementing a simple ScrollView</title>
       <link>http://lanstonpeng.github.io/2014/04/27/implement-a-simple-scrollview.html</link>
-      <description>
+      <description>&lt;p&gt;As we use UIView so commonly in our application,I've been confused about the concept of the &lt;code&gt;bounds&lt;/code&gt; property&lt;br/&gt;
+the docs descript it as&lt;/p&gt;
 </description>
       <pubDate>Sun, 27 Apr 2014 07:38:49 +0800</pubDate>
       <guid>http://lanstonpeng.github.io/2014/04/27/implement-a-simple-scrollview.html</guid>
+      <dc:date>2014-04-27T07:38:49+08:00</dc:date>
+    </item>
+    <item>
+      <title>Editing in UITableView</title>
+      <link>http://lanstonpeng.github.io/2014/04/27/editing-in-UITableView.html</link>
+      <description>&lt;p&gt;As UITableView is used widely in our app,we&lt;/p&gt;
+</description>
+      <pubDate>Sun, 27 Apr 2014 07:38:49 +0800</pubDate>
+      <guid>http://lanstonpeng.github.io/2014/04/27/editing-in-UITableView.html</guid>
       <dc:date>2014-04-27T07:38:49+08:00</dc:date>
     </item>
     <item>
@@ -834,6 +867,6 @@ isinstance(L,list)&lt;/p&gt;
       <guid>http://lanstonpeng.github.io/%E6%9C%AA%E5%88%86%E7%B1%BB/2010/08/26/e7bba7e7bbade68891e79a84e6b58be8af95.html</guid>
       <dc:date>2010-08-26T07:38:49+08:00</dc:date>
     </item>
-    <dc:date>2014-04-28T07:38:50+08:00</dc:date>
+    <dc:date>2014-07-19T07:38:49+08:00</dc:date>
   </channel>
 </rss>

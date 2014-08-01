@@ -12,9 +12,7 @@ class FirstViewController: UIViewController,UINavigationControllerDelegate {
                             
     override func viewDidLoad() {
         super.viewDidLoad()
-        println(self.navigationController.navigationBar)
-        println(self.view)
-        self.navigationController.delegate = self
+        
         self.navigationController.navigationBar.backgroundColor = UIColor.clearColor()
         var line = self.findHairLine(self.navigationController.navigationBar)
         if let l = line{

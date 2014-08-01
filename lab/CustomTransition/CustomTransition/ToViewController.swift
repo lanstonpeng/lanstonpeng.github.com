@@ -56,7 +56,7 @@ class ToViewController: UIViewController,UIViewControllerTransitioningDelegate{
         super.viewDidLoad()
         self.view.clipsToBounds = true
         self.commonInit()
-        
+        self.view.tag = 2
         self.initPic()
         
         self.prevBtn!.addTarget(self, action: "handleBack:", forControlEvents: UIControlEvents.TouchUpInside)

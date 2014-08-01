@@ -51,9 +51,10 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         self.modalPresentationStyle = .Custom
         self.transitioningDelegate = self
         
+        self.view.clipsToBounds = true
+        println(self.view)
         let edgeSwipeGestureRight = UIScreenEdgePanGestureRecognizer(target: self, action: "handleTransitionRight:")
         edgeSwipeGestureRight.edges = .Right
-        
         
         self.view.addGestureRecognizer(edgeSwipeGestureRight)
         
@@ -107,7 +108,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
             self.interactSlideTransition = UIPercentDrivenInteractiveTransition()
             let toVC = self.storyboard.instantiateViewControllerWithIdentifier("PaperViewController") as PaperViewController
             toVC.currentIndex = self.currentIndex + 1
-            //toVC.interactSlideTransition = self.interactSlideTransition
+            toVC.interactSlideTransition = self.interactSlideTransition
             
             self.presentViewController(toVC, animated: true, completion: nil)
             

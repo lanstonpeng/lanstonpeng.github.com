@@ -56,7 +56,10 @@ class CustomPresentationAnimationController: NSObject,UIViewControllerAnimatedTr
             //fromViewController.view.frame = CGRectOffset(fromViewController.view.frame, 160, 0);
             
             }, completion: {(completed:Bool) -> Void in
-                fromViewController.view.removeFromSuperview()
+                if !transitionContext.transitionWasCancelled()
+                {
+                        fromViewController.view.removeFromSuperview()
+                }
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
             })
     }
@@ -74,6 +77,10 @@ class CustomPresentationAnimationController: NSObject,UIViewControllerAnimatedTr
         toViewController.view.frame = CGRectOffset(finalFrame, screenBounds.size.width, 0)
         
         containerView.addSubview(toViewController.view)
+        for v in containerView.subviews
+        {
+            println(v.tag)
+        }
         
         UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 3, options: UIViewAnimationOptions.CurveEaseOut, animations: {() -> Void in
             

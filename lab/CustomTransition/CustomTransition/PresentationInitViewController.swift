@@ -14,6 +14,7 @@ class PresentationInitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.clipsToBounds = true
+        self.view.tag = 1
         self.presentBtn!.addTarget(self, action: "handlePresent:", forControlEvents: UIControlEvents.TouchUpInside);
         
 

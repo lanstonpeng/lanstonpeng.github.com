@@ -22,7 +22,7 @@ class FromViewController: UIViewController,UIViewControllerTransitioningDelegate
         let edgeSwipeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: "handleTransition:")
         edgeSwipeGesture.edges = .Right
         self.view.clipsToBounds = true
-        
+        self.view.tag = 1
         self.nextBtn!.addTarget(self, action: "handleNextButton:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addGestureRecognizer(edgeSwipeGesture)
     }

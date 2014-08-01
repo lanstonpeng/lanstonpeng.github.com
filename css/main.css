@@ -220,3 +220,15 @@ img{
         line-height:2.5em;
     }
 }
+
+img[src*=assets]
+{
+    width:50%;
+    margin-left:25%;
+}
+hr{
+    margin:25px 0;
+}
+strong{
+    padding:0 4px;
+}

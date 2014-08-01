@@ -33,6 +33,7 @@ class PresentaionViewController: UIViewController,UIViewControllerTransitioningD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.tag = 2
         let edgeSwipeGesture  = UIScreenEdgePanGestureRecognizer(target: self, action: "handleEdgeSwipeRight:")
         edgeSwipeGesture.edges = .Left
         let screenBounds = UIScreen.mainScreen().bounds
@@ -65,6 +66,7 @@ class PresentaionViewController: UIViewController,UIViewControllerTransitioningD
         }
         else if recognizer.state == .Changed
         {
+            println(progress)
             self.interactSlideTransition?.updateInteractiveTransition(progress)
         }
         else if recognizer.state == .Ended || recognizer.state == .Cancelled

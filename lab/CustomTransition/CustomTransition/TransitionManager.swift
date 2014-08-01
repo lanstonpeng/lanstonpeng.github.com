@@ -33,6 +33,7 @@ class TransitionManager:NSObject, UIViewControllerAnimatedTransitioning {
     {
         for view in containerView.subviews
         {
+            println(view.tag)
         }
     }
     func animationForDismissTransition(transitionContext:UIViewControllerContextTransitioning!)
@@ -47,7 +48,9 @@ class TransitionManager:NSObject, UIViewControllerAnimatedTransitioning {
         let finalFrame = transitionContext.finalFrameForViewController(toViewContrller)
         
         toViewContrller.view.frame =  CGRectOffset(finalFrame,-screenBounds.size.width,0)
+        self.printPaperControllerView(containerView)
         containerView.insertSubview(toViewContrller.view, aboveSubview: fromViewController.view)
+        self.printPaperControllerView(containerView)
         
         UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: {()->Void in
             
@@ -72,6 +75,7 @@ class TransitionManager:NSObject, UIViewControllerAnimatedTransitioning {
         toViewContrller.view.frame = CGRectOffset(finalFrame,screenBounds.size.width,0)
         
         containerView.addSubview(toViewContrller.view)
+        self.printPaperControllerView(containerView)    
         
         UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: {()->Void in
             
