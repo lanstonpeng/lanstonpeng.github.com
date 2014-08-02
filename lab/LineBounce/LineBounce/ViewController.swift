@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         let x:CGFloat = panGes.translationInView(self.view).x
         if(x > 0)
         {
-            if(x < 270)
+            if(x < 170)
             {
                 verticalLine!.path = self.getLinePathWithAmount(x)
                 
@@ -47,15 +47,15 @@ class ViewController: UIViewController {
     
     func animateLine(PositionX:CGFloat)
     {
-        let keyFA = CAKeyframeAnimation(keyPath: "path")
+        var keyFA = CAKeyframeAnimation(keyPath: "path")
         keyFA.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-        let values = [
+        var values:NSArray = [
             self.getLinePathWithAmount(PositionX),
-            //self.getLinePathWithAmount(-PositionX * 0.9),
-            //self.getLinePathWithAmount(PositionX * 0.6),
-            //self.getLinePathWithAmount(-PositionX * 0.4),
-            //self.getLinePathWithAmount(PositionX * 0.25),
-            //self.getLinePathWithAmount(PositionX * 0)
+            self.getLinePathWithAmount(-PositionX * 0.9),
+            self.getLinePathWithAmount(PositionX * 0.6),
+            self.getLinePathWithAmount(-PositionX * 0.4),
+            self.getLinePathWithAmount(PositionX * 0.25),
+            self.getLinePathWithAmount(PositionX * 0)
         ]
         println(keyFA)
         println(values)
@@ -86,7 +86,7 @@ class ViewController: UIViewController {
         verticalLine = CAShapeLayer()
         verticalLine!.strokeColor = UIColor.greenColor().CGColor
         verticalLine!.lineWidth = 5.0
-        verticalLine!.fillColor = UIColor.clearColor().CGColor
+        verticalLine!.fillColor = UIColor.greenColor().CGColor
         self.view.layer.addSublayer(verticalLine)
     }
     
