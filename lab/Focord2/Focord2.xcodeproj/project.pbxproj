@@ -15,6 +15,8 @@
 		9DFB634E198C6DCD0085FAB5 /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB634C198C6DCD0085FAB5 /* TransitionManager.swift */; };
 		9DFB6355198C73110085FAB5 /* application.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9DFB6354198C73110085FAB5 /* application.plist */; };
 		9DFB6357198C73AA0085FAB5 /* Record.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9DFB6356198C73AA0085FAB5 /* Record.plist */; };
+		9DFB6359198C81C60085FAB5 /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB6358198C81C60085FAB5 /* RecordCell.swift */; };
+		9DFB635B198CA7C10085FAB5 /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB635A198CA7C10085FAB5 /* MotionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		9DFB634C198C6DCD0085FAB5 /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManager.swift; sourceTree = "<group>"; };
 		9DFB6354198C73110085FAB5 /* application.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = application.plist; sourceTree = "<group>"; };
 		9DFB6356198C73AA0085FAB5 /* Record.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Record.plist; sourceTree = "<group>"; };
+		9DFB6358198C81C60085FAB5 /* RecordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
+		9DFB635A198CA7C10085FAB5 /* MotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,8 @@
 				9DA8C855198C6BF8000228D5 /* AppDelegate.swift */,
 				9DFB634B198C6DCD0085FAB5 /* PaperViewController.swift */,
 				9DFB634C198C6DCD0085FAB5 /* TransitionManager.swift */,
+				9DFB6358198C81C60085FAB5 /* RecordCell.swift */,
+				9DFB635A198CA7C10085FAB5 /* MotionManager.swift */,
 				9DA8C85D198C6BF8000228D5 /* Main.storyboard */,
 				9DA8C860198C6BF8000228D5 /* Images.xcassets */,
 				9DA8C853198C6BF8000228D5 /* Supporting Files */,
@@ -220,7 +226,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DFB634E198C6DCD0085FAB5 /* TransitionManager.swift in Sources */,
+				9DFB635B198CA7C10085FAB5 /* MotionManager.swift in Sources */,
 				9DA8C856198C6BF8000228D5 /* AppDelegate.swift in Sources */,
+				9DFB6359198C81C60085FAB5 /* RecordCell.swift in Sources */,
 				9DFB634D198C6DCD0085FAB5 /* PaperViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,14 +11,24 @@ import QuartzCore
 
 class PaperViewController: UIViewController ,UIViewControllerTransitioningDelegate{
 
+    //MARK: macro
+    let RECORD_CELL_WIDTH:CGFloat = 60
     public var interactSlideTransition:UIPercentDrivenInteractiveTransition?
     
-    //TODO
+    //TODO:add page count support
     public var pageCount = 5
     public var currentIndex = 0
     
     var hasNextRecord:Bool = true
     var verticalLine:CAShapeLayer?
+    
+    
+    //MARK: record cell property
+    var pullDownSwipe:UIPanGestureRecognizer?
+    var currentRecordCell:RecordCell?
+    var canDeleteRecordCell:Bool?
+    
+    let sBounds = UIScreen.mainScreen().bounds
     
     func generateRandomColor() -> UIColor
     {
@@ -50,6 +60,8 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //let m:MotionManager = MotionManager()
+        //m.startListen()
         self.createLine()
         //    NSString* levelPath = [[NSBundle mainBundle] pathForResource:@"config" ofType:@"plist"];
         //    _levelConfig = [NSArray arrayWithContentsOfFile:levelPath];
@@ -57,7 +69,6 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         self.transitioningDelegate = self
         
         self.view.clipsToBounds = true
-        println(self.view)
         let edgeSwipeGestureRight = UIScreenEdgePanGestureRecognizer(target: self, action: "handleTransitionRight:")
         edgeSwipeGestureRight.edges = .Right
         
@@ -71,30 +82,58 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         edgeSwipeGestureLeft.edges = .Left
         self.view.addGestureRecognizer(edgeSwipeGestureLeft)
         
-        let pullDownSwipe = UIPanGestureRecognizer(target: self, action: "handlePullDown:")
-        self.view.addGestureRecognizer(pullDownSwipe)
         
+        self.addPullGesture()
         //self.initPic()
         
     }
     
+    //MARK: top pull down cell stuff
+    func removePullGesture()
+    {
+        self.view.removeGestureRecognizer(pullDownSwipe)
+    }
+    
+    func addPullGesture()
+    {
+        pullDownSwipe = UIPanGestureRecognizer(target: self, action: "handlePullDown:")
+        self.view.addGestureRecognizer(pullDownSwipe)
+    }
     func handlePullDown(recoginzer:UIPanGestureRecognizer)
     {
         let deltaY:CGFloat = recoginzer.translationInView(self.view).y
+        
+        if( recoginzer.state == UIGestureRecognizerState.Began)
+        {
+            var recordCell:RecordCell = RecordCell(frame: CGRectMake(sBounds.width/2 - RECORD_CELL_WIDTH/2, -RECORD_CELL_WIDTH, RECORD_CELL_WIDTH, RECORD_CELL_WIDTH))
+            
+            self.currentRecordCell = recordCell
+            self.view.addSubview(recordCell)
+        }
+        //println(self.currentRecordCell!.frame)
+        //println(deltaY)
+        
+        canDeleteRecordCell = true
         if(deltaY > 0)
         {
-            if(deltaY < 170)
+            if(deltaY < 100)
             {
                 verticalLine!.path = self.getLinePathWithAmount(deltaY)
+                self.currentRecordCell!.center.y = deltaY - RECORD_CELL_WIDTH
                 
+                //release your figure during the pulling
                 if recoginzer.state == UIGestureRecognizerState.Ended
                 {
+                    self.currentRecordCell?.removeFromSuperview()
                     self.animateLine(deltaY)
                 }
             }
             else
             {
+                canDeleteRecordCell = false
+                self.removePullGesture()
                 self.animateLine(deltaY)
+                self.presentRecordCell()
             }
         }
     }
@@ -122,6 +161,11 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     override func animationDidStop(anim: CAAnimation!, finished flag: Bool)
     {
         verticalLine!.path = self.getLinePathWithAmount(0.0)
+        self.addPullGesture()
+        if canDeleteRecordCell == true
+        {
+            self.currentRecordCell?.removeFromSuperview()
+        }
         verticalLine?.removeAllAnimations()
         
     }
@@ -131,7 +175,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     {
         verticalLine = CAShapeLayer()
         verticalLine!.strokeColor = UIColor.whiteColor().CGColor
-        verticalLine!.lineWidth = 5.0
+        verticalLine!.lineWidth = 2.0
         verticalLine!.fillColor = UIColor.whiteColor().CGColor
         self.view.layer.addSublayer(verticalLine)
     }
@@ -147,6 +191,17 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         bezierPath.moveToPoint(topPoint)
         bezierPath.addQuadCurveToPoint(bottomPoint, controlPoint: midPoint)
         return bezierPath.CGPath
+    }
+    
+    //MARK: record Cell
+    func presentRecordCell()
+    {
+        
+        UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.2, options: UIViewAnimationOptions.CurveEaseIn, animations: {() -> Void in
+                self.currentRecordCell!.frame = CGRectMake(self.sBounds.width/2 - self.RECORD_CELL_WIDTH/2, self.sBounds.height/2 - self.RECORD_CELL_WIDTH/2, self.RECORD_CELL_WIDTH, self.RECORD_CELL_WIDTH)
+            }, completion: {(completed:Bool ) -> Void in
+            
+            })
     }
     
     func handleTransitionLeft(recognizer:UIScreenEdgePanGestureRecognizer)
