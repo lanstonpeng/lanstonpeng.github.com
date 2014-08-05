@@ -12,7 +12,7 @@ import QuartzCore
 class PaperViewController: UIViewController ,UIViewControllerTransitioningDelegate{
 
     //MARK: macro
-    let RECORD_CELL_WIDTH:CGFloat = 60
+    let RECORD_CELL_WIDTH:CGFloat = 120
     public var interactSlideTransition:UIPercentDrivenInteractiveTransition?
     
     //TODO:add page count support
@@ -28,6 +28,10 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     var currentRecordCell:RecordCell?
     var canDeleteRecordCell:Bool?
     
+    //MARK: motionManager
+    var motionManager:MotionManager?
+    
+    //MARK: helper property
     let sBounds = UIScreen.mainScreen().bounds
     
     func generateRandomColor() -> UIColor
@@ -35,16 +39,8 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         let num = arc4random() % 4
         switch num
         {
-        case 1:
-            return UIColor.redColor()
-        case 2:
-            return UIColor.orangeColor()
-        case 3:
-            return UIColor.blueColor()
-        case 4:
-            return UIColor.greenColor()
         default:
-            return UIColor.yellowColor()
+            return UIColor.orangeColor()
         }
     }
     
@@ -60,8 +56,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //let m:MotionManager = MotionManager()
-        //m.startListen()
+        motionManager = MotionManager()
         self.createLine()
         //    NSString* levelPath = [[NSBundle mainBundle] pathForResource:@"config" ofType:@"plist"];
         //    _levelConfig = [NSArray arrayWithContentsOfFile:levelPath];
@@ -102,6 +97,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     func handlePullDown(recoginzer:UIPanGestureRecognizer)
     {
         let deltaY:CGFloat = recoginzer.translationInView(self.view).y
+        println(recoginzer.velocityInView(self.view))
         
         if( recoginzer.state == UIGestureRecognizerState.Began)
         {
@@ -132,7 +128,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
             {
                 canDeleteRecordCell = false
                 self.removePullGesture()
-                self.animateLine(deltaY)
+                self.animateLine(min(deltaY,100))
                 self.presentRecordCell()
             }
         }
@@ -166,6 +162,8 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         {
             self.currentRecordCell?.removeFromSuperview()
         }
+        motionManager!.boundView = currentRecordCell 
+        motionManager?.startListen()
         verticalLine?.removeAllAnimations()
         
     }
