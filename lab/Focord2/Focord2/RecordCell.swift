@@ -36,7 +36,7 @@ class RecordCell: UIView {
         indicatorLabel.textColor = UIColor.orangeColor()
         indicatorLabel.text = "FLIP"
         //self.layer.transform = CATransform3DMakeRotation( CGFloat(45 * M_PI / 180), 1.0, 1.0, 0.0)
-        //self.addSubview(indicatorLabel)
+        self.addSubview(indicatorLabel)
         
         startX = 20
         startY = 20
@@ -55,6 +55,7 @@ class RecordCell: UIView {
     }
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
+    /*
     override func drawRect(rect: CGRect)
     {
         let context:CGContextRef = UIGraphicsGetCurrentContext()
@@ -66,5 +67,6 @@ class RecordCell: UIView {
         CGContextClosePath(context)
         CGContextDrawPath(context, kCGPathEOFillStroke)
     }
+    */
 
 }

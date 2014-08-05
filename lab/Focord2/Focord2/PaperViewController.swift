@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-class PaperViewController: UIViewController ,UIViewControllerTransitioningDelegate{
+class PaperViewController: UIViewController ,UIViewControllerTransitioningDelegate,UIGestureRecognizerDelegate{
 
     //MARK: macro
     let RECORD_CELL_WIDTH:CGFloat = 120
@@ -39,6 +39,8 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         let num = arc4random() % 4
         switch num
         {
+        case 1,2,3:
+            return UIColor.grayColor()
         default:
             return UIColor.orangeColor()
         }
@@ -63,7 +65,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         self.modalPresentationStyle = .Custom
         self.transitioningDelegate = self
         
-        self.view.clipsToBounds = true
+        //self.view.clipsToBounds = true
         let edgeSwipeGestureRight = UIScreenEdgePanGestureRecognizer(target: self, action: "handleTransitionRight:")
         edgeSwipeGestureRight.edges = .Right
         
@@ -92,12 +94,22 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     func addPullGesture()
     {
         pullDownSwipe = UIPanGestureRecognizer(target: self, action: "handlePullDown:")
+        pullDownSwipe!.delegate = self
         self.view.addGestureRecognizer(pullDownSwipe)
     }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer!) -> Bool
+    {
+        return true
+    }
+    
+    
+    
+    
     func handlePullDown(recoginzer:UIPanGestureRecognizer)
     {
         let deltaY:CGFloat = recoginzer.translationInView(self.view).y
-        println(recoginzer.velocityInView(self.view))
+        //println(recoginzer.velocityInView(self.view))
         
         if( recoginzer.state == UIGestureRecognizerState.Began)
         {
@@ -202,6 +214,8 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
             })
     }
     
+    
+    //MARK: Screen Edge Gesture
     func handleTransitionLeft(recognizer:UIScreenEdgePanGestureRecognizer)
     {
         
@@ -210,6 +224,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         if recognizer.state == .Began
         {
             self.interactSlideTransition = UIPercentDrivenInteractiveTransition()
+            self.removePullGesture()
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         else if recognizer.state == .Changed
@@ -238,6 +253,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         if recognizer.state == .Began
         {
             self.interactSlideTransition = UIPercentDrivenInteractiveTransition()
+            self.removePullGesture()
             let toVC = self.storyboard.instantiateViewControllerWithIdentifier("PaperViewController") as PaperViewController
             toVC.currentIndex = self.currentIndex + 1
             toVC.interactSlideTransition = self.interactSlideTransition
