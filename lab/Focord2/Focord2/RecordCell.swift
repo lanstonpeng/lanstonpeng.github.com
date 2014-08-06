@@ -18,7 +18,10 @@ class RecordCell: UIView {
     var pieCapacity:CGFloat = 10//角度增量值
     var clockwise:Int32 = 1//0=逆时针,1=顺时针
     
-    init(frame: CGRect) {
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
+    }
+    override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.whiteColor()
         self.layer.cornerRadius = frame.size.width/2

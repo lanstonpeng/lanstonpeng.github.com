@@ -11,13 +11,20 @@ import QuartzCore
 
 class PaperViewController: UIViewController ,UIViewControllerTransitioningDelegate,UIGestureRecognizerDelegate{
 
+    //MARK: helper property
+    let sBounds = UIScreen.mainScreen().bounds
+    var centerView : UIView?
+    var animator: UIDynamicAnimator!
+    
     //MARK: macro
     let RECORD_CELL_WIDTH:CGFloat = 120
-    public var interactSlideTransition:UIPercentDrivenInteractiveTransition?
+    let CENTER_VIEW_WIDTH:CGFloat = 2
+    var interactSlideTransition:UIPercentDrivenInteractiveTransition?
     
+    let CELL_FINAL_FRAME:CGRect
     //TODO:add page count support
-    public var pageCount = 5
-    public var currentIndex = 0
+    var pageCount = 5
+    internal var currentIndex = 0
     
     var hasNextRecord:Bool = true
     var verticalLine:CAShapeLayer?
@@ -28,19 +35,26 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     var currentRecordCell:RecordCell?
     var canDeleteRecordCell:Bool?
     
+    //MARK: cell drop gesture
+    var dropCellPan:UIPanGestureRecognizer?
+    var isLineAnimated:Bool
+    
     //MARK: motionManager
     var motionManager:MotionManager?
     
-    //MARK: helper property
-    let sBounds = UIScreen.mainScreen().bounds
     
+    required init(coder aDecoder: NSCoder!)
+    {
+        
+        CELL_FINAL_FRAME = CGRectMake(self.sBounds.width/2 - self.RECORD_CELL_WIDTH/2, self.sBounds.height/2 - self.RECORD_CELL_WIDTH/2, self.RECORD_CELL_WIDTH, self.RECORD_CELL_WIDTH)
+        isLineAnimated = false
+        super.init(coder: aDecoder)
+    }
     func generateRandomColor() -> UIColor
     {
         let num = arc4random() % 4
         switch num
         {
-        case 1,2,3:
-            return UIColor.grayColor()
         default:
             return UIColor.orangeColor()
         }
@@ -60,8 +74,10 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         
         motionManager = MotionManager()
         self.createLine()
+        
         //    NSString* levelPath = [[NSBundle mainBundle] pathForResource:@"config" ofType:@"plist"];
         //    _levelConfig = [NSArray arrayWithContentsOfFile:levelPath];
+        
         self.modalPresentationStyle = .Custom
         self.transitioningDelegate = self
         
@@ -79,23 +95,53 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         edgeSwipeGestureLeft.edges = .Left
         self.view.addGestureRecognizer(edgeSwipeGestureLeft)
         
+        animator = UIDynamicAnimator(referenceView: view)
+        centerView = UIView(frame: CGRectMake(self.sBounds.width/2 - self.CENTER_VIEW_WIDTH/2, self.sBounds.height/2 - self.CENTER_VIEW_WIDTH/2, self.CENTER_VIEW_WIDTH, self.CENTER_VIEW_WIDTH))
+        self.centerView?.alpha = 0
         
         self.addPullGesture()
         //self.initPic()
         
     }
+    //MARK: cell drop Gesture
+    func addDropCellGesture()
+    {
+        dropCellPan = UIPanGestureRecognizer(target: self, action: "handleDropCell:")
+        dropCellPan?.delegate = self
+        self.currentRecordCell?.addGestureRecognizer(dropCellPan!)
+    }
+    func removeDropCellGesture()
+    {
+        self.currentRecordCell?.removeGestureRecognizer(dropCellPan!)
+    }
+    
+    func handleDropCell(recognizer:UIPanGestureRecognizer)
+    {
+        if recognizer.state == .Began
+        {
+            self.removePullGesture()
+            var attach = UIAttachmentBehavior(item: self.currentRecordCell!, attachedToAnchor: CGPointMake(160, 300))
+            animator.addBehavior(attach)
+        }
+        let translation = recognizer.translationInView(self.view)
+        recognizer.view.center = CGPoint(x:recognizer.view.center.x + translation.x,
+            y:recognizer.view.center.y + translation.y)
+        recognizer.setTranslation(CGPointZero, inView: self.view)
+        let v = recognizer.velocityInView(recognizer.view)
+        println(v)
+    }
     
     //MARK: top pull down cell stuff
     func removePullGesture()
     {
-        self.view.removeGestureRecognizer(pullDownSwipe)
+        self.view.removeGestureRecognizer(pullDownSwipe!)
     }
     
     func addPullGesture()
     {
         pullDownSwipe = UIPanGestureRecognizer(target: self, action: "handlePullDown:")
-        pullDownSwipe!.delegate = self
-        self.view.addGestureRecognizer(pullDownSwipe)
+        pullDownSwipe?.delegate = self
+        self.view.addGestureRecognizer(pullDownSwipe!)
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer!, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer!) -> Bool
@@ -109,6 +155,9 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     func handlePullDown(recoginzer:UIPanGestureRecognizer)
     {
         let deltaY:CGFloat = recoginzer.translationInView(self.view).y
+        
+        let location:CGPoint = recoginzer.locationInView(self.view)
+        
         //println(recoginzer.velocityInView(self.view))
         
         if( recoginzer.state == UIGestureRecognizerState.Began)
@@ -116,53 +165,66 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
             var recordCell:RecordCell = RecordCell(frame: CGRectMake(sBounds.width/2 - RECORD_CELL_WIDTH/2, -RECORD_CELL_WIDTH, RECORD_CELL_WIDTH, RECORD_CELL_WIDTH))
             
             self.currentRecordCell = recordCell
+            self.addDropCellGesture()
             self.view.addSubview(recordCell)
         }
-        //println(self.currentRecordCell!.frame)
-        //println(deltaY)
         
         canDeleteRecordCell = true
-        if(deltaY > 0)
+        
+        //release your figure during the pulling
+        if (recoginzer.state == UIGestureRecognizerState.Changed)
         {
-            if(deltaY < 100)
+            if(deltaY > 0)
             {
-                verticalLine!.path = self.getLinePathWithAmount(deltaY)
-                self.currentRecordCell!.center.y = deltaY - RECORD_CELL_WIDTH
-                
-                //release your figure during the pulling
-                if recoginzer.state == UIGestureRecognizerState.Ended
+                //in pulling down process
+                if(deltaY < 100)
                 {
-                    self.currentRecordCell?.removeFromSuperview()
-                    self.animateLine(deltaY)
+                    verticalLine!.path = self.getLinePathWithAmount(deltaY)
+                    self.currentRecordCell!.center.y = deltaY - RECORD_CELL_WIDTH
+                    
+                }
+                // ready to present the dropping cell
+                else
+                {
+                    canDeleteRecordCell = false
+                    self.removePullGesture()
+                    self.animateLine(min(deltaY,100))
+                    self.presentRecordCell()
                 }
             }
-            else
+        }
+        else if recoginzer.state == UIGestureRecognizerState.Ended
+        {
+            if deltaY > 0 && deltaY < 100
             {
-                canDeleteRecordCell = false
-                self.removePullGesture()
-                self.animateLine(min(deltaY,100))
-                self.presentRecordCell()
+                self.currentRecordCell?.removeFromSuperview()
+                self.animateLine(deltaY)
             }
+            
         }
     }
     func animateLine(PositionY:CGFloat)
     {
-        let keyFA = CAKeyframeAnimation(keyPath: "path")
-        keyFA.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-        let values:NSArray = [
-            self.getLinePathWithAmount(PositionY),
-            self.getLinePathWithAmount(-PositionY * 0.9),
-            self.getLinePathWithAmount(PositionY * 0.6),
-            self.getLinePathWithAmount(-PositionY * 0.4),
-            self.getLinePathWithAmount(PositionY * 0.25),
-            self.getLinePathWithAmount(PositionY * 0)
-        ]
-        keyFA.values = values
-        keyFA.duration = 0.6
-        keyFA.removedOnCompletion = false
-        keyFA.fillMode = kCAFillModeForwards
-        keyFA.delegate = self
-        verticalLine?.addAnimation(keyFA, forKey: "pullAnimation")
+        if isLineAnimated == false
+        {
+            isLineAnimated = true
+            let keyFA:CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "path")
+            keyFA.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+            let values:NSArray = [
+                self.getLinePathWithAmount(PositionY),
+                self.getLinePathWithAmount(-PositionY * 0.9),
+                self.getLinePathWithAmount(PositionY * 0.6),
+                self.getLinePathWithAmount(-PositionY * 0.4),
+                self.getLinePathWithAmount(PositionY * 0.25),
+                self.getLinePathWithAmount(PositionY * 0)
+            ]
+            keyFA.values = values
+            keyFA.duration = 0.6
+            keyFA.removedOnCompletion = false
+            keyFA.fillMode = kCAFillModeForwards
+            keyFA.delegate = self
+            verticalLine?.addAnimation(keyFA, forKey: "pullAnimation")
+        }
         
     }
     
@@ -170,12 +232,13 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     {
         verticalLine!.path = self.getLinePathWithAmount(0.0)
         self.addPullGesture()
+        isLineAnimated = false
         if canDeleteRecordCell == true
         {
             self.currentRecordCell?.removeFromSuperview()
         }
-        motionManager!.boundView = currentRecordCell 
-        motionManager?.startListen()
+        //motionManager!.boundView = currentRecordCell
+        //motionManager?.startListen()
         verticalLine?.removeAllAnimations()
         
     }
@@ -219,7 +282,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     func handleTransitionLeft(recognizer:UIScreenEdgePanGestureRecognizer)
     {
         
-        var progress:CGFloat  = recognizer.locationInView(self.view.superview).x / (self.view.superview.bounds.size.width * 1.0)
+        var progress:CGFloat  = recognizer.locationInView(self.view.superview).x / (self.view.superview!.bounds.size.width * 1.0)
         progress = min(1.0,max(0.0,progress))
         if recognizer.state == .Began
         {
@@ -241,13 +304,13 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
             {
                 self.interactSlideTransition?.cancelInteractiveTransition()
             }
-            self.interactSlideTransition = nil
+            //self.interactSlideTransition = nil
         }
     }
     
     func handleTransitionRight(recognizer:UIScreenEdgePanGestureRecognizer)
     {
-        var progress:CGFloat  = recognizer.locationInView(self.view.superview).x / (self.view.superview.bounds.size.width * 1.0)
+        var progress:CGFloat  = recognizer.locationInView(self.view.superview).x / (self.view.superview!.bounds.size.width * 1.0)
         progress = 1.0 - min(1.0,max(0.0,progress))
         //println("progress \(progress)")
         if recognizer.state == .Began
@@ -275,7 +338,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
             {
                 self.interactSlideTransition?.cancelInteractiveTransition()
             }
-            self.interactSlideTransition = nil
+            //self.interactSlideTransition = nil
         }
     }
     

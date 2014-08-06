@@ -18,13 +18,13 @@ public protocol MotionManagerDelegate
 
 class MotionManager: NSObject {
     
-    public var duration:CGFloat
-    public var boundView:UIView?
+    internal var duration:CGFloat
+    internal var boundView:UIView?
     
-    public var delegate:MotionManagerDelegate?
+    internal var delegate:MotionManagerDelegate?
     
     var motionManager:CMMotionManager
-    init()
+    override init()
     {
         motionManager = CMMotionManager()
         motionManager.accelerometerUpdateInterval = 1.0
