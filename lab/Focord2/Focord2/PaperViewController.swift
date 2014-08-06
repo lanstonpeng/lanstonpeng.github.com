@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-class PaperViewController: UIViewController ,UIViewControllerTransitioningDelegate,UIGestureRecognizerDelegate{
+class PaperViewController: UIViewController ,UIViewControllerTransitioningDelegate,UIGestureRecognizerDelegate,MotionManagerDelegate{
 
     //MARK: helper property
     let sBounds = UIScreen.mainScreen().bounds
@@ -33,7 +33,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     //MARK: record cell property
     var pullDownSwipe:UIPanGestureRecognizer?
     var currentRecordCell:RecordCell?
-    var canDeleteRecordCell:Bool?
+    var canDeleteRecordCell:Bool
     
     //MARK: cell drop gesture
     var dropCellPan:UIPanGestureRecognizer?
@@ -48,6 +48,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         
         CELL_FINAL_FRAME = CGRectMake(self.sBounds.width/2 - self.RECORD_CELL_WIDTH/2, self.sBounds.height/2 - self.RECORD_CELL_WIDTH/2, self.RECORD_CELL_WIDTH, self.RECORD_CELL_WIDTH)
         isLineAnimated = false
+        canDeleteRecordCell = false
         super.init(coder: aDecoder)
     }
     func generateRandomColor() -> UIColor
@@ -73,6 +74,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         super.viewDidLoad()
         
         motionManager = MotionManager()
+        motionManager?.delegate = self
         self.createLine()
         
         //    NSString* levelPath = [[NSBundle mainBundle] pathForResource:@"config" ofType:@"plist"];
@@ -103,7 +105,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         //self.initPic()
         
     }
-    //MARK: cell drop Gesture
+    //MARK: cell drop delete Gesture
     func addDropCellGesture()
     {
         dropCellPan = UIPanGestureRecognizer(target: self, action: "handleDropCell:")
@@ -120,15 +122,42 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         if recognizer.state == .Began
         {
             self.removePullGesture()
-            var attach = UIAttachmentBehavior(item: self.currentRecordCell!, attachedToAnchor: CGPointMake(160, 300))
-            animator.addBehavior(attach)
+            //var attach = UIAttachmentBehavior(item: self.currentRecordCell!, attachedToAnchor: CGPointMake(160, 300))
+            //animator.addBehavior(attach)
         }
-        let translation = recognizer.translationInView(self.view)
-        recognizer.view.center = CGPoint(x:recognizer.view.center.x + translation.x,
-            y:recognizer.view.center.y + translation.y)
-        recognizer.setTranslation(CGPointZero, inView: self.view)
-        let v = recognizer.velocityInView(recognizer.view)
-        println(v)
+        else if recognizer.state == .Changed
+        {
+            let translation = recognizer.translationInView(self.view)
+            
+            recognizer.view.center = CGPoint(x:recognizer.view.center.x + translation.x,
+                y:recognizer.view.center.y + translation.y)
+            
+            recognizer.setTranslation(CGPointZero, inView: recognizer.view)
+        }
+        else if recognizer.state == .Ended
+        {
+            let v = recognizer.velocityInView(recognizer.view)
+            
+            if abs(v.x) < 50 && abs(v.y) < 50
+            {
+                UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {() -> Void in
+                    
+                    recognizer.view.center = CGPointMake(self.sBounds.width/2, self.sBounds.height/2)
+                    
+                    }, completion: { (completed) -> Void in
+                })
+            }
+            else
+            {
+                self.currentRecordCell?.removeFromSuperview()
+                canDeleteRecordCell = false
+                self.addPullGesture()
+            }
+        }
+
+    }
+    func removeRecordCell()
+    {
     }
     
     //MARK: top pull down cell stuff
@@ -231,16 +260,21 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     override func animationDidStop(anim: CAAnimation!, finished flag: Bool)
     {
         verticalLine!.path = self.getLinePathWithAmount(0.0)
-        self.addPullGesture()
+        //self.addPullGesture()
         isLineAnimated = false
         if canDeleteRecordCell == true
         {
             self.currentRecordCell?.removeFromSuperview()
         }
         //motionManager!.boundView = currentRecordCell
-        //motionManager?.startListen()
+        self.addRotateAnimation()
+        motionManager?.startListen()
         verticalLine?.removeAllAnimations()
         
+    }
+    func addRotateAnimation()
+    {
+        //TODO:swing after a few milliseconds
     }
     
     
@@ -390,6 +424,22 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
             return TransitionManager(isPresent: false)
         }
         return nil
+    }
+    
+    func addCountingDownCircleAnimation()
+    {
+    }
+    
+    //MARK: Motion Delegate
+    func deviceDidFlipToBack() {
+        self.currentRecordCell?.indicatorLabel.text = "\(motionManager!.duration)"
+        println("did flip to back \(motionManager!.duration)")
+        
+    }
+    
+    func deviceDidFlipToFront() {
+        self.currentRecordCell?.indicatorLabel.text = "youku"
+        println("did flip to front \(motionManager!.duration)")
     }
 
 }

@@ -18,10 +18,10 @@ public protocol MotionManagerDelegate
 
 class MotionManager: NSObject {
     
-    internal var duration:CGFloat
     internal var boundView:UIView?
-    
-    internal var delegate:MotionManagerDelegate?
+    var didFlipToBack:Bool
+    var delegate:MotionManagerDelegate?
+    var duration:CGFloat
     
     var motionManager:CMMotionManager
     override init()
@@ -29,6 +29,7 @@ class MotionManager: NSObject {
         motionManager = CMMotionManager()
         motionManager.accelerometerUpdateInterval = 1.0
         motionManager.deviceMotionUpdateInterval = 1.0 / 60
+        self.didFlipToBack = false
         duration = 0.0;
     }
     func startListen()
@@ -40,6 +41,14 @@ class MotionManager: NSObject {
             let accelData:CMAccelerometerData = self.motionManager.accelerometerData
             if( abs(accelData.acceleration.z - 1) < 0.01 )
             {
+                
+                if self.didFlipToBack == false
+                {
+                    //tell the observer only once
+                }
+                    self.delegate?.deviceDidFlipToBack()
+                
+                self.didFlipToBack = true
                 self.duration += 1.0
                 /*
                 CGFloat angle =  atan2( motion.gravity.x, motion.gravity.y );
@@ -47,7 +56,14 @@ class MotionManager: NSObject {
                 self.horizon.transform = transform; 
                 */
             }
+            else
+            {
+                self.didFlipToBack = false
+                self.delegate?.deviceDidFlipToFront()
+            }
+            
             })
+        /*
         let deviceQueue:NSOperationQueue = NSOperationQueue()
         motionManager.startDeviceMotionUpdatesToQueue(deviceQueue, withHandler: {(motion:CMDeviceMotion! , error:NSError! ) -> Void in
             var transform = CATransform3DMakeRotation(CGFloat(motion.attitude.pitch), 1, 0, 0)
@@ -57,6 +73,7 @@ class MotionManager: NSObject {
                 self.boundView!.layer.transform = transform
                 })
             })
+        */
     }
     func stopListen()
     {

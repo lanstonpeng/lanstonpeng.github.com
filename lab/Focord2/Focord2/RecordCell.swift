@@ -18,10 +18,14 @@ class RecordCell: UIView {
     var pieCapacity:CGFloat = 10//角度增量值
     var clockwise:Int32 = 1//0=逆时针,1=顺时针
     
+    var indicatorLabel:UILabel
+    
     required init(coder aDecoder: NSCoder!) {
+        indicatorLabel = UILabel(frame:CGRectZero)
         super.init(coder: aDecoder)
     }
     override init(frame: CGRect) {
+        indicatorLabel = UILabel(frame: CGRectMake(0, 0, frame.size.width, frame.size.height))
         super.init(frame: frame)
         self.backgroundColor = UIColor.whiteColor()
         self.layer.cornerRadius = frame.size.width/2
@@ -33,7 +37,7 @@ class RecordCell: UIView {
     func initUI()
     {
         // flip label
-        let indicatorLabel = UILabel(frame: CGRectMake(0, 0, frame.size.width, frame.size.height))
+        //indicatorLabel = UILabel(frame: CGRectMake(0, 0, frame.size.width, frame.size.height))
         indicatorLabel.font = UIFont(name: "Apple SD Gothic Neo", size: 20)
         indicatorLabel.textAlignment = NSTextAlignment.Center
         indicatorLabel.textColor = UIColor.orangeColor()
@@ -43,7 +47,7 @@ class RecordCell: UIView {
         
         startX = 20
         startY = 20
-        NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: "updateSector", userInfo: nil, repeats: true)
+        //NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: "updateSector", userInfo: nil, repeats: true)
     }
     
     func updateSector()
