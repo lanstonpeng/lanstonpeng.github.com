@@ -268,6 +268,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         }
         //motionManager!.boundView = currentRecordCell
         self.addRotateAnimation()
+        self.currentRecordCell?.addBreathingAnimation()
         motionManager?.startListen()
         verticalLine?.removeAllAnimations()
         
@@ -426,9 +427,8 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         return nil
     }
     
-    func addCountingDownCircleAnimation()
-    {
-    }
+    
+    
     
     //MARK: Motion Delegate
     func deviceDidFlipToBack() {
@@ -438,7 +438,6 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     }
     
     func deviceDidFlipToFront() {
-        self.currentRecordCell?.indicatorLabel.text = "youku"
         println("did flip to front \(motionManager!.duration)")
     }
 

@@ -44,9 +44,10 @@ class MotionManager: NSObject {
                 
                 if self.didFlipToBack == false
                 {
-                    //tell the observer only once
+                    dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                        self.delegate!.deviceDidFlipToBack()
+                    })
                 }
-                    self.delegate?.deviceDidFlipToBack()
                 
                 self.didFlipToBack = true
                 self.duration += 1.0
@@ -59,7 +60,9 @@ class MotionManager: NSObject {
             else
             {
                 self.didFlipToBack = false
-                self.delegate?.deviceDidFlipToFront()
+                dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                    self.delegate!.deviceDidFlipToFront()
+                })
             }
             
             })

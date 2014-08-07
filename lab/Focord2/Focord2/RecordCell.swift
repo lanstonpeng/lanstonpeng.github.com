@@ -34,6 +34,21 @@ class RecordCell: UIView {
         // Initialization code
     }
     
+    func addBreathingAnimation()
+    {
+        let baseAnimation = CABasicAnimation(keyPath: "transform.scale")
+        baseAnimation.fromValue = NSValue(CATransform3D: CATransform3DIdentity)
+        baseAnimation.toValue = NSValue(CATransform3D: CATransform3DMakeScale(1.3, 1.3, 1.0))
+        baseAnimation.duration = 2.2
+        baseAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        baseAnimation.repeatCount = 100
+        baseAnimation.autoreverses = true
+        self.layer.addAnimation(baseAnimation, forKey: "scaleUpDown")
+    }
+    func addCountingDownCircleAnimation()
+    {
+        
+    }
     func initUI()
     {
         // flip label
