@@ -43,12 +43,20 @@ class RecordCell: UIView {
         baseAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         baseAnimation.repeatCount = 100
         baseAnimation.autoreverses = true
+        baseAnimation.fillMode = "forwards"
         self.layer.addAnimation(baseAnimation, forKey: "scaleUpDown")
     }
+    
     func addCountingDownCircleAnimation()
     {
         
     }
+    
+    func addRotateAnimation()
+    {
+        //TODO:swing after a few milliseconds
+    }
+    
     func initUI()
     {
         // flip label

@@ -136,11 +136,24 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         }
         else if recognizer.state == .Ended
         {
-            let v = recognizer.velocityInView(recognizer.view)
+            let v = recognizer.velocityInView(self.view)
             
-            if abs(v.x) < 50 && abs(v.y) < 50
+            if abs(v.x) < 50 && abs(v.y) < 50 || true
             {
-                UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {() -> Void in
+                let curLocation = recognizer.locationInView(self.view)
+                var factor:CGFloat = 1
+                
+                //if (v.x < 0 && v.y < 0 && ) || (v.x > 0 && v.y < 0) || (v.x > 0 && v.y > 0) || (v.x < 0 && v.y > 0)
+
+                
+                
+                let velocity = sqrt(v.x * v.x + v.y * v.y)
+                let dX = curLocation.x - sBounds.width/2
+                let dY = curLocation.y - sBounds.height/2
+                let distance = sqrt(dX * dX + dY * dY)
+                println(v)
+                
+                UIView.animateWithDuration(2, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: velocity/distance, options: .CurveEaseOut | UIViewAnimationOptions.AllowUserInteraction, animations: {() -> Void in
                     
                     recognizer.view.center = CGPointMake(self.sBounds.width/2, self.sBounds.height/2)
                     
@@ -149,9 +162,9 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
             }
             else
             {
-                self.currentRecordCell?.removeFromSuperview()
-                canDeleteRecordCell = false
-                self.addPullGesture()
+                //self.currentRecordCell?.removeFromSuperview()
+                //canDeleteRecordCell = false
+                //self.addPullGesture()
             }
         }
 
@@ -267,17 +280,11 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
             self.currentRecordCell?.removeFromSuperview()
         }
         //motionManager!.boundView = currentRecordCell
-        self.addRotateAnimation()
-        self.currentRecordCell?.addBreathingAnimation()
+        //self.currentRecordCell?.addBreathingAnimation()
         motionManager?.startListen()
         verticalLine?.removeAllAnimations()
         
     }
-    func addRotateAnimation()
-    {
-        //TODO:swing after a few milliseconds
-    }
-    
     
     func createLine() -> Void
     {
@@ -438,7 +445,8 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     }
     
     func deviceDidFlipToFront() {
-        println("did flip to front \(motionManager!.duration)")
+        self.currentRecordCell?.indicatorLabel.text = "\(motionManager!.duration)"
+        //println("did flip to front \(motionManager!.duration)")
     }
 
 }
