@@ -33,6 +33,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     //MARK: record cell property
     var pullDownSwipe:UIPanGestureRecognizer?
     var currentRecordCell:RecordCell?
+    var copyRecordCell:RecordCell?
     var canDeleteRecordCell:Bool
     
     //MARK: cell drop gesture
@@ -98,11 +99,31 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         self.view.addGestureRecognizer(edgeSwipeGestureLeft)
         
         animator = UIDynamicAnimator(referenceView: view)
-        centerView = UIView(frame: CGRectMake(self.sBounds.width/2 - self.CENTER_VIEW_WIDTH/2, self.sBounds.height/2 - self.CENTER_VIEW_WIDTH/2, self.CENTER_VIEW_WIDTH, self.CENTER_VIEW_WIDTH))
+        centerView = UIView(frame: CELL_FINAL_FRAME)
         self.centerView?.alpha = 0
         
         self.addPullGesture()
         //self.initPic()
+        
+    }
+    
+    //MARK: touches Began
+    override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!) {
+        let t:UITouch = touches.anyObject() as UITouch
+        if self.copyRecordCell != nil
+        {
+            if CGRectContainsPoint(CELL_FINAL_FRAME, t.locationInView(self.view))
+            {
+                self.removePullGesture()
+            }
+            else
+            {
+                if self.pullDownSwipe != nil
+                {
+                    //self.addPullGesture()
+                }
+            }
+        }
         
     }
     //MARK: cell drop delete Gesture
@@ -117,6 +138,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         self.currentRecordCell?.removeGestureRecognizer(dropCellPan!)
     }
     
+    //MARK: paning copy record cell
     func handleDropCell(recognizer:UIPanGestureRecognizer)
     {
         if recognizer.state == .Began
@@ -147,17 +169,18 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
 
                 
                 
+                //TODO: determined the factor
                 let velocity = sqrt(v.x * v.x + v.y * v.y)
                 let dX = curLocation.x - sBounds.width/2
                 let dY = curLocation.y - sBounds.height/2
                 let distance = sqrt(dX * dX + dY * dY)
-                println(v)
                 
-                UIView.animateWithDuration(2, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: velocity/distance, options: .CurveEaseOut | UIViewAnimationOptions.AllowUserInteraction, animations: {() -> Void in
+                UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: -velocity/distance, options: .CurveEaseOut | UIViewAnimationOptions.AllowUserInteraction, animations: {() -> Void in
                     
                     recognizer.view.center = CGPointMake(self.sBounds.width/2, self.sBounds.height/2)
                     
                     }, completion: { (completed) -> Void in
+                        self.addPullGesture()
                 })
             }
             else
@@ -176,6 +199,8 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     //MARK: top pull down cell stuff
     func removePullGesture()
     {
+        pullDownSwipe?.delegate = nil
+
         self.view.removeGestureRecognizer(pullDownSwipe!)
     }
     
@@ -194,24 +219,48 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     
     
     
+    //MARK: handle pull down
     func handlePullDown(recoginzer:UIPanGestureRecognizer)
     {
         let deltaY:CGFloat = recoginzer.translationInView(self.view).y
         
         let location:CGPoint = recoginzer.locationInView(self.view)
         
-        //println(recoginzer.velocityInView(self.view))
         
         if( recoginzer.state == UIGestureRecognizerState.Began)
         {
-            var recordCell:RecordCell = RecordCell(frame: CGRectMake(sBounds.width/2 - RECORD_CELL_WIDTH/2, -RECORD_CELL_WIDTH, RECORD_CELL_WIDTH, RECORD_CELL_WIDTH))
-            
-            self.currentRecordCell = recordCell
-            self.addDropCellGesture()
-            self.view.addSubview(recordCell)
+            //only accept pull down direction
+            println("began \(deltaY)")
+            if deltaY >= -0.5
+            {
+                canDeleteRecordCell = true
+                //init a hidden record cell
+                var recordCell:RecordCell = RecordCell(frame: CGRectMake(sBounds.width/2 - RECORD_CELL_WIDTH/2, -RECORD_CELL_WIDTH, RECORD_CELL_WIDTH, RECORD_CELL_WIDTH))
+                
+                
+                
+                /*
+                self.copyRecordCell = self.currentRecordCell?.copy() as? RecordCell
+                
+                if self.copyRecordCell != nil
+                {
+                    self.view.addSubview(self.copyRecordCell!)
+                }
+                
+                //if it has been dropped,remove it
+                self.currentRecordCell?.removeFromSuperview()
+                
+                //self.copyRecordCell?.removeFromSuperview()
+                */
+                
+                
+                println("setting the new recordCell")
+                self.currentRecordCell = recordCell
+                //self.addDropCellGesture()
+                self.view.addSubview(self.currentRecordCell!)
+            }
         }
         
-        canDeleteRecordCell = true
         
         //release your figure during the pulling
         if (recoginzer.state == UIGestureRecognizerState.Changed)
@@ -222,28 +271,107 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
                 if(deltaY < 100)
                 {
                     verticalLine!.path = self.getLinePathWithAmount(deltaY)
-                    self.currentRecordCell!.center.y = deltaY - RECORD_CELL_WIDTH
+                    self.moveCopyRecordCell(deltaY)
+                    self.currentRecordCell?.center.y = deltaY - RECORD_CELL_WIDTH
                     
                 }
                 // ready to present the dropping cell
                 else
                 {
                     canDeleteRecordCell = false
-                    self.removePullGesture()
+                    //self.removePullGesture()
                     self.animateLine(min(deltaY,100))
+                    println("currentRecord Cell : \(self.currentRecordCell)")
                     self.presentRecordCell()
                 }
             }
         }
         else if recoginzer.state == UIGestureRecognizerState.Ended
         {
+            
             if deltaY > 0 && deltaY < 100
             {
+                canDeleteRecordCell = true
                 self.currentRecordCell?.removeFromSuperview()
                 self.animateLine(deltaY)
+                
+                //back to original state
+                
+                
+                UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+                    self.copyRecordCell?.alpha = 1
+                    self.copyRecordCell?.center = CGPointMake(self.sBounds.width/2, self.sBounds.height/2)
+                    self.copyRecordCell?.transform = CGAffineTransformIdentity
+                }, completion: { (completed) -> Void in
+                })
+                
+            }
+            else
+            {
+                
+                
             }
             
         }
+    }
+    //MARK: record Cell
+    func presentRecordCell()
+    {
+        self.removePullGesture()
+        UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.2, options: UIViewAnimationOptions.CurveEaseIn, animations: {() -> Void in
+            
+                self.currentRecordCell!.frame = self.CELL_FINAL_FRAME
+                if self.copyRecordCell != nil
+                {
+                    self.copyRecordCell!.frame = CGRectOffset(self.copyRecordCell!.frame,0,self.sBounds.height/2 + 100)
+                }
+            }, completion: {(completed:Bool ) -> Void in
+            
+                //copy the current record cell and remove it
+                
+                
+                if self.copyRecordCell != nil
+                {
+                    //self.copyRecordCell?.layer.opacity = 0
+                    self.copyRecordCell?.removeFromSuperview()
+                }
+                
+                self.copyRecordCell = self.currentRecordCell?.copy() as RecordCell?
+                
+                println("present animation end")
+                self.copyRecordCell?.frame = self.CELL_FINAL_FRAME
+                self.view.addSubview(self.copyRecordCell!)
+                self.currentRecordCell?.removeFromSuperview()
+                self.currentRecordCell = nil
+                self.addPullGesture()
+            })
+    }
+    
+    //MARK: animation delegate
+    override func animationDidStop(anim: CAAnimation!, finished flag: Bool)
+    {
+        verticalLine!.path = self.getLinePathWithAmount(0.0)
+        //self.addPullGesture()
+        isLineAnimated = false
+        
+        if canDeleteRecordCell == true
+        {
+//            self.currentRecordCell?.removeFromSuperview()
+//            self.currentRecordCell = nil
+        }
+        //motionManager!.boundView = currentRecordCell
+        //self.currentRecordCell?.addBreathingAnimation()
+        //motionManager?.startListen()
+        verticalLine?.removeAllAnimations()
+        
+    }
+    
+    func moveCopyRecordCell(PositionY:CGFloat)
+    {
+        let value = PositionY / sBounds.height/2 * 2;
+        self.copyRecordCell?.alpha = 1 - value * 2
+        self.copyRecordCell?.center.y = sBounds.height/2 + PositionY * 3.5
+        self.copyRecordCell?.transform = CGAffineTransformMakeScale(1 - value * 2, 1 - value * 2)
     }
     func animateLine(PositionY:CGFloat)
     {
@@ -270,21 +398,6 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         
     }
     
-    override func animationDidStop(anim: CAAnimation!, finished flag: Bool)
-    {
-        verticalLine!.path = self.getLinePathWithAmount(0.0)
-        //self.addPullGesture()
-        isLineAnimated = false
-        if canDeleteRecordCell == true
-        {
-            self.currentRecordCell?.removeFromSuperview()
-        }
-        //motionManager!.boundView = currentRecordCell
-        //self.currentRecordCell?.addBreathingAnimation()
-        motionManager?.startListen()
-        verticalLine?.removeAllAnimations()
-        
-    }
     
     func createLine() -> Void
     {
@@ -308,16 +421,6 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         return bezierPath.CGPath
     }
     
-    //MARK: record Cell
-    func presentRecordCell()
-    {
-        
-        UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.2, options: UIViewAnimationOptions.CurveEaseIn, animations: {() -> Void in
-                self.currentRecordCell!.frame = CGRectMake(self.sBounds.width/2 - self.RECORD_CELL_WIDTH/2, self.sBounds.height/2 - self.RECORD_CELL_WIDTH/2, self.RECORD_CELL_WIDTH, self.RECORD_CELL_WIDTH)
-            }, completion: {(completed:Bool ) -> Void in
-            
-            })
-    }
     
     
     //MARK: Screen Edge Gesture

@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-class RecordCell: UIView {
+class RecordCell: UIView,NSCopying {
 
     var radius:CGFloat = 40//半径
     var startX:CGFloat = 50//圆心x坐标
@@ -19,13 +19,16 @@ class RecordCell: UIView {
     var clockwise:Int32 = 1//0=逆时针,1=顺时针
     
     var indicatorLabel:UILabel
+    internal var f:CGRect
     
     required init(coder aDecoder: NSCoder!) {
         indicatorLabel = UILabel(frame:CGRectZero)
+        f = CGRectZero
         super.init(coder: aDecoder)
     }
     override init(frame: CGRect) {
         indicatorLabel = UILabel(frame: CGRectMake(0, 0, frame.size.width, frame.size.height))
+        f = frame
         super.init(frame: frame)
         self.backgroundColor = UIColor.whiteColor()
         self.layer.cornerRadius = frame.size.width/2
@@ -34,12 +37,17 @@ class RecordCell: UIView {
         // Initialization code
     }
     
+    func copyWithZone(zone: NSZone) -> AnyObject! {
+        let c:RecordCell = RecordCell(frame: self.f)
+        c.indicatorLabel.text = self.indicatorLabel.text
+        return c
+    }
     func addBreathingAnimation()
     {
         let baseAnimation = CABasicAnimation(keyPath: "transform.scale")
         baseAnimation.fromValue = NSValue(CATransform3D: CATransform3DIdentity)
         baseAnimation.toValue = NSValue(CATransform3D: CATransform3DMakeScale(1.3, 1.3, 1.0))
-        baseAnimation.duration = 2.2
+        baseAnimation.duration = 1.2
         baseAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         baseAnimation.repeatCount = 100
         baseAnimation.autoreverses = true
