@@ -71,15 +71,34 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         layer.shadowOffset = CGSizeMake(2, 2)
     }
     
+    func putPreviousRecordCell()
+    {
+        let recordData = DataManipulator.getAllRecords()
+        recordData.enumerateObjectsUsingBlock { (record, idx, stop) -> Void in
+            
+            let f = CGRectMake( CGFloat(idx % 4) * (self.RECORD_CELL_WIDTH/2 + 10) + 10 , CGFloat(idx/4) * (self.RECORD_CELL_WIDTH/2 + 10) + 10, self.RECORD_CELL_WIDTH/2, self.RECORD_CELL_WIDTH/2)
+            
+            let cell = RecordCell(frame: f)
+            cell.duration = record.objectForKey("duration") as CGFloat
+            
+            let tapGes:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handlePreviousRecordRellTap:")
+            cell.addGestureRecognizer(tapGes)
+            self.view.addSubview(cell)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //copy plist file 
+        DataManipulator.initFile()
         motionManager = MotionManager()
         motionManager?.delegate = self
+        self.putPreviousRecordCell()
         self.createLine()
         
-        //    NSString* levelPath = [[NSBundle mainBundle] pathForResource:@"config" ofType:@"plist"];
-        //    _levelConfig = [NSArray arrayWithContentsOfFile:levelPath];
+       
+        
         
         self.modalPresentationStyle = .Custom
         self.transitioningDelegate = self
@@ -131,11 +150,11 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     {
         dropCellPan = UIPanGestureRecognizer(target: self, action: "handleDropCell:")
         dropCellPan?.delegate = self
-        self.currentRecordCell?.addGestureRecognizer(dropCellPan!)
+        self.copyRecordCell?.addGestureRecognizer(dropCellPan!)
     }
     func removeDropCellGesture()
     {
-        self.currentRecordCell?.removeGestureRecognizer(dropCellPan!)
+        self.copyRecordCell?.removeGestureRecognizer(dropCellPan!)
     }
     
     //MARK: paning copy record cell
@@ -180,7 +199,10 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
                     recognizer.view.center = CGPointMake(self.sBounds.width/2, self.sBounds.height/2)
                     
                     }, completion: { (completed) -> Void in
-                        self.addPullGesture()
+                        if self.pullDownSwipe?.delegate == nil
+                        {
+                            self.addPullGesture()
+                        }
                 })
             }
             else
@@ -200,7 +222,6 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     func removePullGesture()
     {
         pullDownSwipe?.delegate = nil
-
         self.view.removeGestureRecognizer(pullDownSwipe!)
     }
     
@@ -216,7 +237,12 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         return true
     }
     
-    
+   
+    //MARK: handle previous record cell tap 
+    func handlePreviousRecordRellTap(recoginzer:UITapGestureRecognizer)
+    {
+        println(recoginzer.view)
+    }
     
     
     //MARK: handle pull down
@@ -256,8 +282,8 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
                 
                 println("setting the new recordCell")
                 self.currentRecordCell = recordCell
-                //self.addDropCellGesture()
                 self.view.addSubview(self.currentRecordCell!)
+                self.removeDropCellGesture()
             }
         }
         
@@ -281,7 +307,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
                     canDeleteRecordCell = false
                     //self.removePullGesture()
                     self.animateLine(min(deltaY,100))
-                    println("currentRecord Cell : \(self.currentRecordCell)")
+                    println("currentRecord Cell --- : \(self.currentRecordCell)")
                     self.presentRecordCell()
                 }
             }
@@ -344,6 +370,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
                 self.currentRecordCell?.removeFromSuperview()
                 self.currentRecordCell = nil
                 self.addPullGesture()
+                self.addDropCellGesture()
             })
     }
     
@@ -423,6 +450,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
     
     
     
+    //MARK: view controller 切换动画相关
     //MARK: Screen Edge Gesture
     func handleTransitionLeft(recognizer:UIScreenEdgePanGestureRecognizer)
     {
@@ -508,6 +536,7 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
                 })
             })
     }
+    
     
     func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning!) -> UIViewControllerInteractiveTransitioning!
     {

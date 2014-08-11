@@ -18,6 +18,7 @@ class RecordCell: UIView,NSCopying {
     var pieCapacity:CGFloat = 10//角度增量值
     var clockwise:Int32 = 1//0=逆时针,1=顺时针
     
+    var duration:CGFloat = 0
     var indicatorLabel:UILabel
     internal var f:CGRect
     
