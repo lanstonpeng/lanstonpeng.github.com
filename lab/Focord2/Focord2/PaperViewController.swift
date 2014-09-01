@@ -71,9 +71,11 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
         layer.shadowOffset = CGSizeMake(2, 2)
     }
     
-    func putPreviousRecordCell()
+    func showPreviousRecordCell()
     {
         let recordData = DataManipulator.getAllRecords()
+        
+        /*
         recordData.enumerateObjectsUsingBlock { (record, idx, stop) -> Void in
             
             let f = CGRectMake( CGFloat(idx % 4) * (self.RECORD_CELL_WIDTH/2 + 10) + 10 , CGFloat(idx/4) * (self.RECORD_CELL_WIDTH/2 + 10) + 10, self.RECORD_CELL_WIDTH/2, self.RECORD_CELL_WIDTH/2)
@@ -85,16 +87,17 @@ class PaperViewController: UIViewController ,UIViewControllerTransitioningDelega
             cell.addGestureRecognizer(tapGes)
             self.view.addSubview(cell)
         }
+        */
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //copy plist file 
+        //copy plist file
         DataManipulator.initFile()
         motionManager = MotionManager()
         motionManager?.delegate = self
-        self.putPreviousRecordCell()
+        self.showPreviousRecordCell()
         self.createLine()
         
        

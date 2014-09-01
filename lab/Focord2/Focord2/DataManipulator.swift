@@ -31,6 +31,23 @@ class DataManipulator: NSObject {
             println("file exists")
         }
     }
+    class func getTodayStringID() -> NSString
+    {
+        let dateFormater = NSDateFormatter()
+        
+        dateFormater.dateFormat = "yyyy-MM-dd"
+        
+        return dateFormater.stringFromDate(NSDate())
+    }
+    class func getCurrentTimeString() -> NSString
+    {
+        let dateFormater = NSDateFormatter()
+        
+        dateFormater.dateFormat = "HH:mm:ss"
+        
+        return dateFormater.stringFromDate(NSDate())
+    }
+    
     class func getPlistDirectory() -> NSString
     {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
@@ -38,26 +55,60 @@ class DataManipulator: NSObject {
         return recordPath
     }
     
-    class func addRecord(cell:RecordCell) -> Bool
+    class func deleteRecord()
+    {
+    }
+    class func addRecord(cell:RecordCell)
     {
         let recordPath = DataManipulator.getPlistDirectory()
-        var recordArr = NSMutableArray(contentsOfFile:recordPath)
+        var todayDic = DataManipulator.getTodayAllRecords()
         
-        var dic = NSMutableDictionary()
-        dic.setObject(NSDate(), forKey: "startTime")
-        dic.setObject(1, forKey: "recordType")
-        dic.setObject(cell.duration, forKey: "duration")
+        func addOneRecord(cell:RecordCell,todayDictionary:NSMutableDictionary)
+        {
+            var dic = NSMutableDictionary()
+            dic.setObject(DataManipulator.getCurrentTimeString(), forKey: "startTime")
+            dic.setObject(1, forKey: "recordType")
+            dic.setObject(cell.duration, forKey: "duration")
+            todayDictionary.setObject(dic, forKey: dic.objectForKey("startTime") as NSString)
+        }
         
-        recordArr.insertObject(dic, atIndex: 0)
-        recordArr.writeToFile(recordPath, atomically: true)
-        return true
+        if let td = todayDic
+        {
+            //add a new record
+            addOneRecord(cell, td)
+        }
+        else
+        {
+            //add today item
+            var allRecordDic = NSMutableDictionary(contentsOfFile:recordPath)
+            let todayDic = NSMutableDictionary()
+            allRecordDic.setObject(todayDic, forKey: DataManipulator.getTodayStringID())
+            //add a new record
+            addOneRecord(cell, todayDic)
+        }
     }
     
-    class func getAllRecords() -> NSArray
+    class func getAllRecords() -> NSMutableDictionary
     {
         let recordPath = DataManipulator.getPlistDirectory()
         println(recordPath)
-        return NSArray(contentsOfFile: recordPath)
+        return NSMutableDictionary(contentsOfFile: recordPath)
+    }
+    
+    class func getTodayAllRecords() -> NSMutableDictionary?
+    {
+        let allRecord = DataManipulator.getAllRecords()
+        
+        let todayString = DataManipulator.getTodayStringID()
+        
+        if allRecord.objectForKey(todayString)
+        {
+            return allRecord.objectForKey(todayString) as? NSMutableDictionary
+        }
+        else
+        {
+            return nil
+        }
     }
     
     
