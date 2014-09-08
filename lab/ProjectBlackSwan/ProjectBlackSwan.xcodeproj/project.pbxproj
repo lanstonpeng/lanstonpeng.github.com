@@ -21,6 +21,7 @@
 		9D7EE18619B418670057A838 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7EE16819B418670057A838 /* UIKit.framework */; };
 		9D7EE18E19B418670057A838 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D7EE18C19B418670057A838 /* InfoPlist.strings */; };
 		9D7EE19019B418670057A838 /* ProjectBlackSwanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7EE18F19B418670057A838 /* ProjectBlackSwanTests.m */; };
+		9D7EE19B19B418D20057A838 /* TestCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7EE19A19B418D20057A838 /* TestCollection.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		9D7EE18B19B418670057A838 /* ProjectBlackSwanTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProjectBlackSwanTests-Info.plist"; sourceTree = "<group>"; };
 		9D7EE18D19B418670057A838 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9D7EE18F19B418670057A838 /* ProjectBlackSwanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectBlackSwanTests.m; sourceTree = "<group>"; };
+		9D7EE19919B418D20057A838 /* TestCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestCollection.h; sourceTree = "<group>"; };
+		9D7EE19A19B418D20057A838 /* TestCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestCollection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,8 @@
 				9D7EE17619B418670057A838 /* Main.storyboard */,
 				9D7EE17919B418670057A838 /* ViewController.h */,
 				9D7EE17A19B418670057A838 /* ViewController.m */,
+				9D7EE19919B418D20057A838 /* TestCollection.h */,
+				9D7EE19A19B418D20057A838 /* TestCollection.m */,
 				9D7EE17C19B418670057A838 /* Images.xcassets */,
 				9D7EE16B19B418670057A838 /* Supporting Files */,
 			);
@@ -252,6 +257,7 @@
 				9D7EE17B19B418670057A838 /* ViewController.m in Sources */,
 				9D7EE17519B418670057A838 /* AppDelegate.m in Sources */,
 				9D7EE17119B418670057A838 /* main.m in Sources */,
+				9D7EE19B19B418D20057A838 /* TestCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

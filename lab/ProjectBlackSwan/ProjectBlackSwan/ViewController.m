@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "TestCollection.h"
 
 @interface ViewController ()
 
@@ -18,6 +19,23 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    dispatch_queue_t t1 = dispatch_queue_create("com.test.q1",  DISPATCH_QUEUE_CONCURRENT);
+    
+    __block TestCollection* tc = [TestCollection singleton];
+    [tc addTestCollectionObj:@(1)];
+    
+    [tc getTestCollectionArr];
+    dispatch_async(t1, ^{
+        [tc addTestCollectionObj:@(1)];
+    });
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        [tc addTestCollectionObj:@(1)];
+    });
+    
+    [tc getTestCollectionArr];
+    
+    __weak id o = [NSObject new];
 }
 
 - (void)didReceiveMemoryWarning
