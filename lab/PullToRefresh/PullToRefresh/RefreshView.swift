@@ -35,7 +35,8 @@ class RefreshView: UIView {
     func ScrollViewDidScroll(scrollView:UIScrollView) -> Void
     {
         let visibleHeight:CGFloat = max(-scrollView.contentOffset.y - scrollView.contentInset.top, 0);
-        cat?.center = CGPointMake(cat!.center.x, cat!.center.y + visibleHeight)
+        println(scrollView.contentOffset.y)
+        cat?.center = CGPointMake(cat!.center.x, cat!.center.y - scrollView.contentOffset.y)
     }
 
 }
