@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "NSString+upperCase.h"
 
 @interface ViewController ()<NSURLSessionDataDelegate>
 
@@ -67,7 +68,21 @@
     };
     blockObject();
 }
-
+- (void)viewDidAppear:(BOOL)animated
+{
+    NSString* str = @"youku";
+    NSLog(@"%@",[str upperMySelf]);
+    //NSLog(@"%@",str.sucker);
+    str.sucker = @"sadf";
+//    NSMutableAttributedString* atrStr = [[NSMutableAttributedString alloc]initWithString:str];
+//    [atrStr addAttribute:NSForegroundColorAttributeName value: range:NSMakeRange(0, str.length)];
+    [@"Sdfaasdf" drawInRect:CGRectMake(100, 100, 100, 100) withAttributes:@{
+                                                                NSForegroundColorAttributeName : [UIColor blackColor],
+                                                                NSFontAttributeName:[UIFont systemFontOfSize:20]
+                                                                }];
+   
+    CGAffineTransform
+}
 - (void)download
 {
     

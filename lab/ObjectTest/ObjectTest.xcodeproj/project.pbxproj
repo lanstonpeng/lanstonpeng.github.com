@@ -14,6 +14,8 @@
 		9D12712B19C802E3002A787E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D12712A19C802E3002A787E /* Images.xcassets */; };
 		9D12712E19C802E3002A787E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D12712C19C802E3002A787E /* LaunchScreen.xib */; };
 		9D12713A19C802E3002A787E /* ObjectTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D12713919C802E3002A787E /* ObjectTestTests.m */; };
+		9DB2997919D113C200AD1784 /* NSString+upperCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB2997819D113C200AD1784 /* NSString+upperCase.m */; };
+		9DB2998D19D140A600AD1784 /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB2998C19D140A600AD1784 /* CustomView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,10 @@
 		9D12713319C802E3002A787E /* ObjectTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjectTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D12713819C802E3002A787E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D12713919C802E3002A787E /* ObjectTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjectTestTests.m; sourceTree = "<group>"; };
+		9DB2997719D113C200AD1784 /* NSString+upperCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+upperCase.h"; sourceTree = "<group>"; };
+		9DB2997819D113C200AD1784 /* NSString+upperCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+upperCase.m"; sourceTree = "<group>"; };
+		9DB2998B19D140A600AD1784 /* CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomView.h; sourceTree = "<group>"; };
+		9DB2998C19D140A600AD1784 /* CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +91,10 @@
 				9D12712219C802E3002A787E /* AppDelegate.m */,
 				9D12712419C802E3002A787E /* ViewController.h */,
 				9D12712519C802E3002A787E /* ViewController.m */,
+				9DB2998B19D140A600AD1784 /* CustomView.h */,
+				9DB2998C19D140A600AD1784 /* CustomView.m */,
+				9DB2997719D113C200AD1784 /* NSString+upperCase.h */,
+				9DB2997819D113C200AD1784 /* NSString+upperCase.m */,
 				9D12712719C802E3002A787E /* Main.storyboard */,
 				9D12712A19C802E3002A787E /* Images.xcassets */,
 				9D12712C19C802E3002A787E /* LaunchScreen.xib */,
@@ -219,8 +229,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DB2998D19D140A600AD1784 /* CustomView.m in Sources */,
 				9D12712619C802E3002A787E /* ViewController.m in Sources */,
 				9D12712319C802E3002A787E /* AppDelegate.m in Sources */,
+				9DB2997919D113C200AD1784 /* NSString+upperCase.m in Sources */,
 				9D12712019C802E3002A787E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,6 +424,7 @@
 				9D12713F19C802E3002A787E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9D12714019C802E3002A787E /* Build configuration list for PBXNativeTarget "ObjectTestTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +433,7 @@
 				9D12714219C802E3002A787E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

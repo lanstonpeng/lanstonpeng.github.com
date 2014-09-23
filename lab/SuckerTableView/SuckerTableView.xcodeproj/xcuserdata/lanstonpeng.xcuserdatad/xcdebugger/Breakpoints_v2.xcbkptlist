@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SuckerTableView/ViewController.swift"
+            timestampString = "433167342.882841"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SuckerTableView.ViewController.tableView (SuckerTableView.ViewController)(ObjectiveC.UITableView, cellForRowAtIndexPath : ObjectiveC.NSIndexPath) -&gt; ObjectiveC.UITableViewCell"
+                  moduleName = "SuckerTableView"
+                  urlString = "file:///Users/lanstonpeng/Desktop/lanstonpeng.github.com/lab/SuckerTableView/SuckerTableView/ViewController.swift"
+                  timestampString = "433167496.012713"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "456">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "reabstraction thunk helper from @callee_owned (@unowned ObjectiveC.NSCopying) -&gt; (@autoreleased Swift.Optional&lt;Swift.AnyObject&gt;) to @callee_owned (@owned ObjectiveC.NSCopying) -&gt; (@owned Swift.Optional&lt;Swift.AnyObject&gt;)"
+                  moduleName = "SuckerTableView"
+                  urlString = "file:///Users/lanstonpeng/Desktop/lanstonpeng.github.com/lab/SuckerTableView/SuckerTableView/ViewController.swift"
+                  timestampString = "433167496.012861"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "0">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
