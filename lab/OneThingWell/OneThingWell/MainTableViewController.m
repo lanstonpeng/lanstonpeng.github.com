@@ -12,10 +12,13 @@
 #import "RSSFetcher.h"
 
 #define maxScrollToHide 50
+#define barHeight 44
 
 static int screenHeight = 0;
 
-@interface MainTableViewController ()
+@interface MainTableViewController ()<RSSFetcherDelegate>
+
+@property (strong,nonatomic)RSSFetcher* fetcher;
 
 @end
 
@@ -24,6 +27,8 @@ static int screenHeight = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     screenHeight = (int)[UIScreen mainScreen].bounds.size.height;
+    self.fetcher = [RSSFetcher singleton];
+    self.fetcher.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,8 +80,8 @@ static int screenHeight = 0;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGRect frame = self.navigationController.navigationBar.frame;
-    NSLog(@"%f",scrollView.contentOffset.y);
+    //CGRect frame = self.navigationController.navigationBar.frame;
+    //NSLog(@"%f",scrollView.contentOffset.y);
     if(scrollView.contentOffset.y  > maxScrollToHide)
     {
         //self.navigationController.navigationBar.hidden = YES;
@@ -85,11 +90,28 @@ static int screenHeight = 0;
         //self.navigationController.navigationBar.hidden = NO;
     }
     
-    if(scrollView.contentOffset.y > 0 && scrollView.contentOffset.y > scrollView.contentSize.height - screenHeight)
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if(scrollView.contentOffset.y > 0 && scrollView.contentOffset.y > scrollView.contentSize.height - screenHeight + 100)
     {
-        RSSFetcher* fetcher = [RSSFetcher singleton];
-        [fetcher fetchNextPosts];
+        //inset scrollView
+        [UIView animateWithDuration:0.3 animations:^{
+            UIEdgeInsets edgeInset = UIEdgeInsetsMake(barHeight, 0, 20, 0);
+            scrollView.contentInset = edgeInset;
+        }];
+        [_fetcher fetchNextPosts];
     }
+    
+}
+
+- (void)didFinishFecthPosts:(NSArray *)result
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        UIEdgeInsets edgeInset = UIEdgeInsetsMake(barHeight, 0, 0, 0);
+        self.tableView.contentInset = edgeInset;
+    }];
 }
 /*
 // Override to support conditional editing of the table view.

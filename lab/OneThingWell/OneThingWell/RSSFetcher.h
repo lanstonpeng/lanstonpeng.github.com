@@ -8,9 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol RSSFetcherDelegate <NSObject>
+
+@optional
+- (void)didFinishFecthPosts:(NSArray*)result;
+
+@end
+
+
 @interface RSSFetcher : NSObject
 
 @property (strong,nonatomic)UIWindow* window;
+
+@property (strong,nonatomic)id<RSSFetcherDelegate> delegate;
 
 +(instancetype)singleton;
 

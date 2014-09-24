@@ -23,17 +23,19 @@
 
 @end
 
-#define kLimitNumber  @10
+#define kLimitNumber  @3
 #define kThumblrURL @"onethingwell.tumblr.com"
+
+static UIWindow* privateWindow;
 
 @implementation RSSFetcher
 
 - (void)setWindow:(UIWindow *)window
 {
-    static dispatch_once_t windowToken;
-    dispatch_once(&windowToken, ^{
-        _window = window;
-    });
+    //static dispatch_once_t windowToken;
+    //dispatch_once(&windowToken, ^{
+    //});
+    privateWindow = window;
 }
 
 +(instancetype)singleton{
@@ -62,6 +64,9 @@
     [task resume];
 }
 
+-(void)fetchCurrentSectionPosts{
+    self.currentOffset = 0;
+}
 - (void)fetchNextPosts
 {
     if (!_isDone) {
@@ -85,14 +90,21 @@
                                        MainTableViewController* tableViewController = [self getMainViewController];
                                        
                                        NSMutableArray* result = [NSMutableArray new];
+                                       NSMutableArray* idxPaths = [NSMutableArray new];
+                                       __block NSUInteger currentRow = tableViewController.result.count;
                                        
                                        
                                        [arr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                           NSIndexPath* idxPath = [NSIndexPath indexPathForRow:currentRow++ inSection:0];
+                                           [idxPaths addObject:idxPath];
                                            OneThingModel* item = [OneThingModel new];
                                            item.appName = (NSString*)obj[@"title"];
                                            item.appURL = (NSString*)obj[@"url"];
                                            
-                                           HTMLDocument *document = [HTMLDocument documentWithString:(NSString*)obj[@"description"]];
+                                           NSString* des = (NSString*)obj[@"description"];
+                                           des = des?:@"";
+                                           
+                                           HTMLDocument *document = [HTMLDocument documentWithString:des];
                                            item.appDescription = [document firstNodeMatchingSelector:@"p"].textContent;
                                            if ([document firstNodeMatchingSelector:@"img"].attributes[@"src"]) {
                                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -130,9 +142,15 @@
                                            tableViewController.result = result;
                                        }
                                        
-                                       [tableViewController.tableView reloadData];
+                                       UITableView* tableView = tableViewController.tableView;
+                                       //[tableView reloadData];
+                                       [tableView insertRowsAtIndexPaths:idxPaths withRowAnimation:UITableViewRowAnimationAutomatic];
                                        self.currentOffset += 10;
                                        self.isDone = YES;
+                                       
+                                       if ([self.delegate respondsToSelector:@selector(didFinishFecthPosts:)]) {
+                                           [self.delegate performSelector:@selector(didFinishFecthPosts:) withObject:result];
+                                       }
                                    });
                                }];
 
@@ -140,8 +158,8 @@
 
 - (MainTableViewController*)getMainViewController
 {
-    if ([[(UINavigationController*)self.window.rootViewController topViewController] class] == [MainTableViewController class]) {
-        return (MainTableViewController*)[(UINavigationController*)self.window.rootViewController topViewController];
+    if ([[(UINavigationController*)privateWindow.rootViewController topViewController] class] == [MainTableViewController class]) {
+        return (MainTableViewController*)[(UINavigationController*)privateWindow.rootViewController topViewController];
     }
     return nil;
 }
