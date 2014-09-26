@@ -17,4 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIView *textBackgroundAlpahView;
 
 @property (nonatomic)NSUInteger row;
+
+
+- (void)addTags:(NSArray*)tags;
 @end

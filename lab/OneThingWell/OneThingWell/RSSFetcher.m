@@ -23,7 +23,7 @@
 
 @end
 
-#define kLimitNumber  @3
+#define kLimitNumber  @5
 #define kThumblrURL @"onethingwell.tumblr.com"
 
 static UIWindow* privateWindow;
@@ -102,6 +102,7 @@ static UIWindow* privateWindow;
                                            item.appURL = (NSString*)obj[@"url"];
                                            NSString* pubStr =[(NSString*)obj[@"date"] componentsSeparatedByString:@" "][0];
                                            item.pubTimeStr = pubStr;
+                                           item.tags = (NSArray*)obj[@"tags"];
                                            
                                            NSString* des = (NSString*)obj[@"description"];
                                            des = des?:@"";

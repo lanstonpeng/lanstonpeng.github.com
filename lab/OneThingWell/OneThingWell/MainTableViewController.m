@@ -30,34 +30,28 @@ static int screenHeight = 0;
     self.fetcher = [RSSFetcher singleton];
     self.fetcher.delegate = self;
     
-    UISwipeGestureRecognizer* swipeFromRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeRight:)];
-    swipeFromRight.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.tableView addGestureRecognizer:swipeFromRight];
-    
-    
     self.tableView.backgroundColor = [UIColor whiteColor];
     //self.navigationController.navigationBar.hidden = YES;
 }
 - (void)viewDidLayoutSubviews
 {
-    
+    [[self.tableView visibleCells] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        CustomTableViewCell* cell = (CustomTableViewCell*)obj;
+        NSTextContainer* textContainer  = cell.textView.textContainer;
+        NSLayoutManager *layoutManager = textContainer.layoutManager;
+        
+        CGRect textRect = [layoutManager usedRectForTextContainer:textContainer];
+        
+        UIEdgeInsets inset = UIEdgeInsetsZero;
+        inset.top = cell.textView.bounds.size.height / 2 - textRect.size.height / 2;
+        cell.textView.textContainerInset = inset;
+    }];
 }
 
 - (void)viewWillLayoutSubviews
 {
-    //self.navigationController.navigationBar.frame = CGRectOffset(self.navigationController.navigationBar.frame, 0, -20);
 }
 
-- (void)handleSwipeRight:(UIGestureRecognizer*)gesture
-{
-    CGPoint location = [gesture locationInView:self.tableView];
-    NSIndexPath* indexPath = [self.tableView indexPathForRowAtPoint:location];
-    if(indexPath)
-    {
-        CustomTableViewCell* cell = (CustomTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    }
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -84,8 +78,6 @@ static int screenHeight = 0;
     
     if (model.appDescription.length > 0) {
         cell.textView.text = model.appDescription;
-//        NSMutableAttributedString* atrStr = [[NSMutableAttributedString alloc]initWithString:model.appDescription];
-//        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
         cell.textBackgroundAlpahView.hidden = NO;
     }
     else
@@ -93,6 +85,8 @@ static int screenHeight = 0;
         cell.textView.text = @"";
         cell.textBackgroundAlpahView.hidden = YES;
     }
+    
+    
     if (model.screenShoot) {
         cell.backgroundImageView.image =  model.screenShoot;
         cell.backgroundAlphaView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
@@ -101,7 +95,9 @@ static int screenHeight = 0;
         cell.backgroundImageView.image =  nil;
         cell.backgroundAlphaView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
     }
-    //[cell.textView removeObserver:self forKeyPath:@"contentSize"];
+    
+    [cell addTags:model.tags];
+    
     return cell;
 }
 

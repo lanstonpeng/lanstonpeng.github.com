@@ -16,6 +16,6 @@
 @property(strong,nonatomic)NSString* appURL;
 @property(strong,nonatomic)UIImage*  screenShoot;
 @property(strong,nonatomic)NSString* pubTimeStr;
-
+@property(strong,nonatomic)NSArray*  tags;
 
 @end

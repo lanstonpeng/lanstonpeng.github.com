@@ -12,6 +12,7 @@
 
 @interface CustomTableViewCell()
 
+@property (weak, nonatomic) IBOutlet UIView *tagViewContainer;
 @end
 
 @implementation CustomTableViewCell
@@ -33,6 +34,32 @@
 //    UIView* spaceView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, 20)];
 //    spaceView.backgroundColor = [UIColor whiteColor];
 //    [self addSubview:spaceView];
+}
+
+- (void)addTags:(NSArray*)tags{
+    __block CGFloat offset = 0;
+    
+    [[self.tagViewContainer subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [(UIView*)obj removeFromSuperview];
+    }];
+    
+    [tags enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        UILabel* tagLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 20)];
+        tagLabel.numberOfLines = 1;
+        tagLabel.text = (NSString*)obj;
+        tagLabel.backgroundColor = [UIColor whiteColor];
+        tagLabel.font = [UIFont systemFontOfSize:10];
+        [tagLabel sizeToFit];
+        tagLabel.frame = CGRectOffset(tagLabel.frame, offset, 0);
+        tagLabel.frame = CGRectInset(tagLabel.frame, -5, -5);
+        tagLabel.textAlignment = NSTextAlignmentCenter;
+        tagLabel.layer.cornerRadius = 4;
+        tagLabel.layer.borderWidth = 1;
+        tagLabel.layer.borderColor = [UIColor orangeColor].CGColor;
+        tagLabel.layer.masksToBounds = YES;
+        offset += tagLabel.frame.size.width + 5;
+        [self.tagViewContainer addSubview:tagLabel];
+    }];
 }
 
 - (UIColor*)getBackgroundColor
