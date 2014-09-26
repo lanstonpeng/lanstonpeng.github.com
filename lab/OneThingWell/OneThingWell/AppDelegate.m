@@ -22,7 +22,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    ((UINavigationController*)self.window.rootViewController).navigationBar.topItem.title = @"One Thing Well";
+    
+    //((UINavigationController*)self.window.rootViewController).navigationBar.topItem.title = @"One Thing Well";
     RSSFetcher* fetcher = [RSSFetcher singleton];
     fetcher.window = self.window;
     [fetcher fetchNextPosts];
@@ -51,12 +52,5 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (MainTableViewController*)getMainViewController
-{
-    if ([[(UINavigationController*)self.window.rootViewController topViewController] class] == [MainTableViewController class]) {
-        return (MainTableViewController*)[(UINavigationController*)self.window.rootViewController topViewController];
-    }
-    return nil;
-}
 
 @end

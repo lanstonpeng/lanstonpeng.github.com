@@ -57,6 +57,11 @@
 		9DF4433119D28B760003D6E8 /* JXURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4432519D28B760003D6E8 /* JXURLConnectionOperation.m */; };
 		9DF4433219D28B760003D6E8 /* JXURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4432719D28B760003D6E8 /* JXURLEncoding.m */; };
 		9DF4436019D2979C0003D6E8 /* WebPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4435F19D2979C0003D6E8 /* WebPageViewController.m */; };
+		9DF4436E19D3CDBE0003D6E8 /* RankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4436D19D3CDBE0003D6E8 /* RankViewController.m */; };
+		9DF4437219D3CDF50003D6E8 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4437119D3CDF50003D6E8 /* AboutViewController.m */; };
+		9DF7B2BD19D4022C00FE0B15 /* AppDataManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF7B2BC19D4022C00FE0B15 /* AppDataManipulator.m */; };
+		9DF7B2C019D402F200FE0B15 /* FavCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF7B2BF19D402F200FE0B15 /* FavCollectionViewController.m */; };
+		9DF7B2C419D405ED00FE0B15 /* FavCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF7B2C319D405ED00FE0B15 /* FavCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +180,16 @@
 		9DF4435D19D28D750003D6E8 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		9DF4435E19D2979C0003D6E8 /* WebPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebPageViewController.h; sourceTree = "<group>"; };
 		9DF4435F19D2979C0003D6E8 /* WebPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebPageViewController.m; sourceTree = "<group>"; };
+		9DF4436C19D3CDBE0003D6E8 /* RankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankViewController.h; sourceTree = "<group>"; };
+		9DF4436D19D3CDBE0003D6E8 /* RankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankViewController.m; sourceTree = "<group>"; };
+		9DF4437019D3CDF50003D6E8 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		9DF4437119D3CDF50003D6E8 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		9DF7B2BB19D4022C00FE0B15 /* AppDataManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDataManipulator.h; sourceTree = "<group>"; };
+		9DF7B2BC19D4022C00FE0B15 /* AppDataManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDataManipulator.m; sourceTree = "<group>"; };
+		9DF7B2BE19D402F200FE0B15 /* FavCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavCollectionViewController.h; sourceTree = "<group>"; };
+		9DF7B2BF19D402F200FE0B15 /* FavCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavCollectionViewController.m; sourceTree = "<group>"; };
+		9DF7B2C219D405ED00FE0B15 /* FavCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavCollectionViewCell.h; sourceTree = "<group>"; };
+		9DF7B2C319D405ED00FE0B15 /* FavCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,15 +233,13 @@
 			children = (
 				9DF4420B19D262690003D6E8 /* AppDelegate.h */,
 				9DF4420C19D262690003D6E8 /* AppDelegate.m */,
-				9DF4422D19D2629A0003D6E8 /* MainTableViewController.h */,
-				9DF4422E19D2629A0003D6E8 /* MainTableViewController.m */,
-				9DF4423719D26A160003D6E8 /* CustomTableViewCell.h */,
-				9DF4423819D26A160003D6E8 /* CustomTableViewCell.m */,
+				9DF4436F19D3CDD40003D6E8 /* ViewController */,
+				9DF7B2C119D405DF00FE0B15 /* View */,
 				9DF4421119D262690003D6E8 /* Main.storyboard */,
-				9DF4435E19D2979C0003D6E8 /* WebPageViewController.h */,
-				9DF4435F19D2979C0003D6E8 /* WebPageViewController.m */,
 				9DF4423019D262EE0003D6E8 /* RSSFetcher.h */,
 				9DF4423119D262EE0003D6E8 /* RSSFetcher.m */,
+				9DF7B2BB19D4022C00FE0B15 /* AppDataManipulator.h */,
+				9DF7B2BC19D4022C00FE0B15 /* AppDataManipulator.m */,
 				9DF4430D19D28B760003D6E8 /* JXHTTP */,
 				9DF4427419D285E50003D6E8 /* TMTumblrSDK */,
 				9DF4427319D26F780003D6E8 /* Model */,
@@ -427,6 +440,34 @@
 			path = JXHTTP;
 			sourceTree = "<group>";
 		};
+		9DF4436F19D3CDD40003D6E8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9DF4422D19D2629A0003D6E8 /* MainTableViewController.h */,
+				9DF4422E19D2629A0003D6E8 /* MainTableViewController.m */,
+				9DF4436C19D3CDBE0003D6E8 /* RankViewController.h */,
+				9DF4436D19D3CDBE0003D6E8 /* RankViewController.m */,
+				9DF4435E19D2979C0003D6E8 /* WebPageViewController.h */,
+				9DF4435F19D2979C0003D6E8 /* WebPageViewController.m */,
+				9DF4437019D3CDF50003D6E8 /* AboutViewController.h */,
+				9DF4437119D3CDF50003D6E8 /* AboutViewController.m */,
+				9DF7B2BE19D402F200FE0B15 /* FavCollectionViewController.h */,
+				9DF7B2BF19D402F200FE0B15 /* FavCollectionViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		9DF7B2C119D405DF00FE0B15 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9DF4423719D26A160003D6E8 /* CustomTableViewCell.h */,
+				9DF4423819D26A160003D6E8 /* CustomTableViewCell.m */,
+				9DF7B2C219D405ED00FE0B15 /* FavCollectionViewCell.h */,
+				9DF7B2C319D405ED00FE0B15 /* FavCollectionViewCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -543,10 +584,12 @@
 				9DF4432C19D28B760003D6E8 /* JXHTTPMultipartBody.m in Sources */,
 				9DF4432819D28B760003D6E8 /* JXHTTPDataBody.m in Sources */,
 				9DF4433119D28B760003D6E8 /* JXURLConnectionOperation.m in Sources */,
+				9DF4437219D3CDF50003D6E8 /* AboutViewController.m in Sources */,
 				9DF4423219D262EE0003D6E8 /* RSSFetcher.m in Sources */,
 				9DF4426E19D26EF50003D6E8 /* HTMLTreeEnumerator.m in Sources */,
 				9DF4426019D26EF50003D6E8 /* HTMLComment.m in Sources */,
 				9DF4432E19D28B760003D6E8 /* JXHTTPOperation.m in Sources */,
+				9DF7B2C419D405ED00FE0B15 /* FavCollectionViewCell.m in Sources */,
 				9DF4432B19D28B760003D6E8 /* JXHTTPJSONBody.m in Sources */,
 				9DF4432D19D28B760003D6E8 /* JXHTTPOperation+Convenience.m in Sources */,
 				9DF4423919D26A160003D6E8 /* CustomTableViewCell.m in Sources */,
@@ -560,6 +603,7 @@
 				9DF4426619D26EF50003D6E8 /* HTMLOrderedDictionary.m in Sources */,
 				9DF4426F19D26EF50003D6E8 /* NSString+HTMLEntities.m in Sources */,
 				9DF4420A19D262690003D6E8 /* main.m in Sources */,
+				9DF7B2BD19D4022C00FE0B15 /* AppDataManipulator.m in Sources */,
 				9DF4429219D285E50003D6E8 /* TMAPIClient.m in Sources */,
 				9DF4427219D26F710003D6E8 /* OneThingModel.m in Sources */,
 				9DF4433219D28B760003D6E8 /* JXURLEncoding.m in Sources */,
@@ -567,9 +611,11 @@
 				9DF4426A19D26EF50003D6E8 /* HTMLSerialization.m in Sources */,
 				9DF4426C19D26EF50003D6E8 /* HTMLTextNode.m in Sources */,
 				9DF4429419D285E50003D6E8 /* TMOAuth.m in Sources */,
+				9DF7B2C019D402F200FE0B15 /* FavCollectionViewController.m in Sources */,
 				9DF4433019D28B760003D6E8 /* JXOperation.m in Sources */,
 				9DF4432919D28B760003D6E8 /* JXHTTPFileBody.m in Sources */,
 				9DF4426319D26EF50003D6E8 /* HTMLElement.m in Sources */,
+				9DF4436E19D3CDBE0003D6E8 /* RankViewController.m in Sources */,
 				9DF4426219D26EF50003D6E8 /* HTMLDocumentType.m in Sources */,
 				9DF4422F19D2629A0003D6E8 /* MainTableViewController.m in Sources */,
 				9DF4426919D26EF50003D6E8 /* HTMLSelector.m in Sources */,
@@ -765,6 +811,7 @@
 				9DF4422919D262690003D6E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9DF4422A19D262690003D6E8 /* Build configuration list for PBXNativeTarget "OneThingWellTests" */ = {
 			isa = XCConfigurationList;
@@ -773,6 +820,7 @@
 				9DF4422C19D262690003D6E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

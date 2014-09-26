@@ -30,10 +30,15 @@
 {
     _row = row;
     self.backgroundColor = [self getBackgroundColor];
+//    UIView* spaceView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, 20)];
+//    spaceView.backgroundColor = [UIColor whiteColor];
+//    [self addSubview:spaceView];
 }
 
 - (UIColor*)getBackgroundColor
 {
+    return [UIColor whiteColor];
+    /*
     switch (_row % 3) {
         case 0:
             return UIColorFromRGB(0x7C56E4);
@@ -49,5 +54,6 @@
             return UIColorFromRGB(0x7C56E4);
             break;
     }
+     */
 }
 @end

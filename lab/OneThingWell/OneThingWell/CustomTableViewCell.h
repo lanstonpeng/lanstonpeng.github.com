@@ -12,6 +12,9 @@
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UILabel *title;
+@property (weak, nonatomic) IBOutlet UILabel *pubTime;
+@property (weak, nonatomic) IBOutlet UIView *backgroundAlphaView;
+@property (weak, nonatomic) IBOutlet UIView *textBackgroundAlpahView;
 
 @property (nonatomic)NSUInteger row;
 @end

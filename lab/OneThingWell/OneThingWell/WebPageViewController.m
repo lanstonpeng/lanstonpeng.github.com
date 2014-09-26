@@ -23,7 +23,8 @@
 
 - (void)loadView{
     [super loadView];
-    WKWebView* webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 30, 320, 600)];
+    CGRect sFrame = [UIScreen mainScreen].bounds;
+    WKWebView* webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, self.view.frame.size.height)];
 //    [self.view addConstraints:@[
 //                                [NSLayoutConstraint constraintWithItem:webView
 //                                                             attribute:NSLayoutAttributeWidth

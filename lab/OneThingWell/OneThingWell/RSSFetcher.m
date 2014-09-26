@@ -100,6 +100,8 @@ static UIWindow* privateWindow;
                                            OneThingModel* item = [OneThingModel new];
                                            item.appName = (NSString*)obj[@"title"];
                                            item.appURL = (NSString*)obj[@"url"];
+                                           NSString* pubStr =[(NSString*)obj[@"date"] componentsSeparatedByString:@" "][0];
+                                           item.pubTimeStr = pubStr;
                                            
                                            NSString* des = (NSString*)obj[@"description"];
                                            des = des?:@"";
@@ -158,8 +160,11 @@ static UIWindow* privateWindow;
 
 - (MainTableViewController*)getMainViewController
 {
-    if ([[(UINavigationController*)privateWindow.rootViewController topViewController] class] == [MainTableViewController class]) {
-        return (MainTableViewController*)[(UINavigationController*)privateWindow.rootViewController topViewController];
+    UITabBarController* tabBarController = (UITabBarController*)privateWindow.rootViewController;
+    if ([tabBarController.selectedViewController class] == [UINavigationController class]) {
+        if ([[(UINavigationController*)tabBarController.selectedViewController topViewController] class] == [MainTableViewController class]) {
+            return (MainTableViewController*)[(UINavigationController*)tabBarController.selectedViewController topViewController];
+        }
     }
     return nil;
 }

@@ -15,6 +15,7 @@
 @property(strong,nonatomic)NSString* appDescription;
 @property(strong,nonatomic)NSString* appURL;
 @property(strong,nonatomic)UIImage*  screenShoot;
+@property(strong,nonatomic)NSString* pubTimeStr;
 
 
 @end
