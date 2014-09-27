@@ -12,6 +12,7 @@
 #import "TMAPIClient.h"
 #import "HTMLReader.h"
 #import "OneThingModel.h"
+#import "AppDataManipulator.h"
 
 @interface RSSFetcher()
 
@@ -103,12 +104,17 @@ static UIWindow* privateWindow;
                                            NSString* pubStr =[(NSString*)obj[@"date"] componentsSeparatedByString:@" "][0];
                                            item.pubTimeStr = pubStr;
                                            item.tags = (NSArray*)obj[@"tags"];
+                                           item.appID = [obj[@"id"] stringValue];
+                                           
+                                           item.isFav = [[AppDataManipulator singleton]isInLocalFav:item.appID];
+                                           
                                            
                                            NSString* des = (NSString*)obj[@"description"];
                                            des = des?:@"";
                                            
                                            HTMLDocument *document = [HTMLDocument documentWithString:des];
                                            item.appDescription = [document firstNodeMatchingSelector:@"p"].textContent;
+                                           
                                            if ([document firstNodeMatchingSelector:@"img"].attributes[@"src"]) {
                                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                    NSString* imgURL = [document firstNodeMatchingSelector:@"img"].attributes[@"src"];

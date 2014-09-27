@@ -70,8 +70,11 @@ static int screenHeight = 0;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CustomTableViewCell *cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"reuseCell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     OneThingModel* model = (OneThingModel*)self.result[indexPath.row];
+    
+    cell.cellDataModel = model;
     cell.title.text = model.appName;
     cell.row = indexPath.row;
     cell.pubTime.text = model.pubTimeStr;
@@ -95,6 +98,8 @@ static int screenHeight = 0;
         cell.backgroundImageView.image =  nil;
         cell.backgroundAlphaView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
     }
+    
+    cell.favButton.backgroundColor = cell.cellDataModel.isFav ? [UIColor redColor] : [UIColor yellowColor];
     
     [cell addTags:model.tags];
     

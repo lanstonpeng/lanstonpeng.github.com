@@ -17,5 +17,7 @@
 @property(strong,nonatomic)UIImage*  screenShoot;
 @property(strong,nonatomic)NSString* pubTimeStr;
 @property(strong,nonatomic)NSArray*  tags;
+@property(strong,nonatomic)NSString* appID;
+@property(nonatomic)BOOL isFav;
 
 @end

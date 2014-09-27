@@ -13,7 +13,7 @@
 
 @interface FavCollectionViewController ()
 
-@property (strong,nonatomic)AppDataManipulator* favDataManipulator;
+@property (strong,nonatomic)NSArray* result;
 
 @end
 
@@ -23,6 +23,7 @@ static NSString * const reuseIdentifier = @"reuseCollectionCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -38,6 +39,12 @@ static NSString * const reuseIdentifier = @"reuseCollectionCell";
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.result = [[AppDataManipulator singleton]fetchAllSavedItem];
+    [self.collectionView reloadData];
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -47,7 +54,12 @@ static NSString * const reuseIdentifier = @"reuseCollectionCell";
     if([segue.identifier isEqualToString: @"showDetailCell"])
     {
         WebPageViewController* controller = (WebPageViewController*)segue.destinationViewController;
-        controller.webpageURLString = @"http://lanstonpeng.github.io";
+        NSArray* selectedArr = [self.collectionView indexPathsForSelectedItems];
+        if (selectedArr.count > 0) {
+            NSIndexPath* idxPath = selectedArr[0];
+            OneThingModel* model  = (OneThingModel*)self.result[idxPath.row];
+            controller.webpageURLString = model.appURL;
+        }
     }
 }
 
@@ -59,13 +71,13 @@ static NSString * const reuseIdentifier = @"reuseCollectionCell";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    return self.result.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     FavCollectionViewCell *cell = (FavCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"reuseCollectionCell" forIndexPath:indexPath];
-    cell.titleLabel.text = @"hulala";
-    
+    OneThingModel* currentModel = (OneThingModel*)self.result[indexPath.row];
+    cell.titleLabel.text = currentModel.appName;
     return cell;
 }
 

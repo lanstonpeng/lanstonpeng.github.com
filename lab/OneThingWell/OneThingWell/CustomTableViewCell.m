@@ -7,12 +7,17 @@
 //
 
 #import "CustomTableViewCell.h"
+#import "AppDataManipulator.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface CustomTableViewCell()
 
 @property (weak, nonatomic) IBOutlet UIView *tagViewContainer;
+
+
+@property (weak, nonatomic) IBOutlet UIButton *shareButton;
+
 @end
 
 @implementation CustomTableViewCell
@@ -26,6 +31,23 @@
 
     // Configure the view for the selected state
 }
+
+- (IBAction)clickShareButton:(id)sender {
+    
+}
+
+- (IBAction)clickFavButton:(id)sender {
+    self.cellDataModel.isFav = !self.cellDataModel.isFav;
+    if (self.cellDataModel.isFav == NO) {
+        [[AppDataManipulator singleton]deleteAnItem:self.cellDataModel];
+    }
+    else
+    {
+        [[AppDataManipulator singleton]addAnItem:self.cellDataModel];
+    }
+    self.favButton.backgroundColor = self.cellDataModel.isFav ? [UIColor redColor] : [UIColor yellowColor];
+}
+
 
 - (void)setRow:(NSUInteger)row
 {

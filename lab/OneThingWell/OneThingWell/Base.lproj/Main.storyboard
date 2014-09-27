@@ -20,10 +20,10 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9SA-tt-yRd" id="TNF-cD-mpL">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XBK-eQ-RUg">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XBK-eQ-RUg">
                                             <rect key="frame" x="0.0" y="8" width="600" height="226"/>
                                         </imageView>
-                                        <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NNC-8B-Ne0" userLabel="BackgroundAlphaView">
+                                        <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NNC-8B-Ne0" userLabel="BackgroundAlphaView">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="242"/>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
@@ -40,7 +40,7 @@
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             <dataDetectorType key="dataDetectorTypes" address="YES"/>
                                         </textView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgB-Dr-AdQ">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="jgB-Dr-AdQ">
                                             <rect key="frame" x="35" y="21" width="105" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="105" id="a6O-v1-vdr"/>
@@ -48,14 +48,19 @@
                                             <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="25"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
+                                            <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SnX-VV-Mn9">
                                             <rect key="frame" x="35" y="197" width="30" height="30"/>
-                                            <color key="backgroundColor" red="0.99607843139999996" green="0.83529411760000005" blue="0.19215686269999999" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <state key="normal" title="Fav">
                                                 <color key="titleColor" red="0.98823529409999999" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="clickFavButton:" destination="9SA-tt-yRd" eventType="touchUpInside" id="hsZ-9g-xtb"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhM-hE-O3Y" userLabel="PubTime">
                                             <rect key="frame" x="550" y="206" width="35" height="21"/>
@@ -72,6 +77,9 @@
                                             <state key="normal" title="Share">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="clickShareButton:" destination="9SA-tt-yRd" eventType="touchUpInside" id="bzt-nE-4bL"/>
+                                            </connections>
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GxM-Sp-NN5" userLabel="tagViewContainer">
                                             <rect key="frame" x="148" y="41" width="437" height="10"/>
@@ -128,7 +136,9 @@
                                 <connections>
                                     <outlet property="backgroundAlphaView" destination="NNC-8B-Ne0" id="gvj-C9-UWU"/>
                                     <outlet property="backgroundImageView" destination="XBK-eQ-RUg" id="N4O-WB-dOC"/>
+                                    <outlet property="favButton" destination="SnX-VV-Mn9" id="VZw-IQ-6pU"/>
                                     <outlet property="pubTime" destination="vhM-hE-O3Y" id="kWA-tn-7pl"/>
+                                    <outlet property="shareButton" destination="VAc-Qx-21j" id="gUm-1O-EUj"/>
                                     <outlet property="tagViewContainer" destination="GxM-Sp-NN5" id="nyZ-da-GtB"/>
                                     <outlet property="textBackgroundAlpahView" destination="Zo7-3z-vMx" id="OxT-pP-y6v"/>
                                     <outlet property="textView" destination="rs6-40-Fqn" id="0Ff-sY-7Ff"/>

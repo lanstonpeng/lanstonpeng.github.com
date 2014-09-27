@@ -11,6 +11,20 @@
 
 @interface AppDataManipulator : NSObject
 
+
++ (instancetype)singleton;
+
 - (void)saveItem:(OneThingModel*)model;
+
 - (NSArray*)fetchAllSavedItem;
+
+- (void)flushDataToFile;
+
+- (void)addAnItem:(OneThingModel*)model;
+
+- (void)deleteAnItem:(OneThingModel*)model;
+
+- (void)updateAnItem:(OneThingModel*)model;
+
+- (BOOL)isInLocalFav:(NSString*)appID;
 @end
