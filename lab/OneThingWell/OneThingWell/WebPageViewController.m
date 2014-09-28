@@ -8,8 +8,9 @@
 
 #import "WebPageViewController.h"
 #import <WebKit/WebKit.h>
+#import <QuartzCore/QuartzCore.h>
 
-@interface WebPageViewController ()<WKNavigationDelegate>
+@interface WebPageViewController ()<WKNavigationDelegate,UINavigationBarDelegate>
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
 
 @end
@@ -19,6 +20,58 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
+}
+
+- (void)willMoveToParentViewController:(UIViewController *)parent
+{
+    if(!parent)
+    {
+        //self.tabBarController.tabBar.hidden = NO;
+    }
+}
+- (IBAction)clickShareButton:(id)sender {
+    
+    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, NO, 0);
+    
+    
+    [self.view.window drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:NO];
+    
+    UIImage *copied = UIGraphicsGetImageFromCurrentImageContext();
+    UIImageView* imgView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+    imgView.image = copied;
+    UIBlurEffect* effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    UIVisualEffectView* visualEffectView = [[UIVisualEffectView alloc]initWithEffect:effect];
+    visualEffectView.frame = self.view.bounds;
+    [imgView addSubview:visualEffectView];
+    
+    UIGraphicsEndImageContext();
+    //[self.view addSubview:imgView];
+    
+    //self.view.hidden = !self.view.hidden;
+    self.navigationController.navigationBar.hidden = self.navigationController.navigationBar.hidden;
+    
+    UIAlertControllerStyle alertStyle = UIAlertControllerStyleActionSheet;
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                   message:self.webpageURLString
+                                                            preferredStyle:alertStyle];
+    UIAlertAction* copyAction = [UIAlertAction actionWithTitle:@"Copy URL" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = self.webpageURLString;
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"CANCEL"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction *action) {
+                                                             
+                                                             NSLog(@"CANCEL!");
+                                                         }];
+    [alert addAction:copyAction];
+    [alert addAction:cancelAction];
+    [self presentViewController:alert
+                       animated:YES
+                     completion:^{
+                         //[imgView removeFromSuperview];
+                     }];
 }
 
 - (void)loadView{
@@ -46,6 +99,7 @@
     webView.allowsBackForwardNavigationGestures = YES;
     [self.view insertSubview:webView belowSubview:self.loadingIndicator];
     [webView loadRequest:request];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,7 +110,11 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     NSLog(@"%@",navigation);
-    [self.loadingIndicator stopAnimating];
+    //[self.loadingIndicator stopAnimating];
+    [webView evaluateJavaScript:@"document.title" completionHandler:^(id obj, NSError* error) {
+        self.title = (NSString*)obj;
+    }];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 

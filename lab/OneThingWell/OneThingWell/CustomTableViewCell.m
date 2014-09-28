@@ -15,15 +15,13 @@
 
 @property (weak, nonatomic) IBOutlet UIView *tagViewContainer;
 
-
-@property (weak, nonatomic) IBOutlet UIButton *shareButton;
-
 @end
 
 @implementation CustomTableViewCell
 
 - (void)awakeFromNib {
     self.textView.clipsToBounds = YES;
+    self.separatorInset = UIEdgeInsetsZero;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -32,9 +30,6 @@
     // Configure the view for the selected state
 }
 
-- (IBAction)clickShareButton:(id)sender {
-    
-}
 
 - (IBAction)clickFavButton:(id)sender {
     self.cellDataModel.isFav = !self.cellDataModel.isFav;
@@ -46,6 +41,10 @@
         [[AppDataManipulator singleton]addAnItem:self.cellDataModel];
     }
     self.favButton.backgroundColor = self.cellDataModel.isFav ? [UIColor redColor] : [UIColor yellowColor];
+}
+- (UIEdgeInsets)layoutMargins
+{
+    return UIEdgeInsetsZero;
 }
 
 

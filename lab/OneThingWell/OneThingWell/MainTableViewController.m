@@ -10,6 +10,7 @@
 #import "OneThingModel.h"
 #import "WebPageViewController.h"
 #import "RSSFetcher.h"
+#import "UIImage+Strech.h"
 
 #define maxScrollToHide 50
 #define barHeight 44
@@ -31,6 +32,7 @@ static int screenHeight = 0;
     self.fetcher.delegate = self;
     
     self.tableView.backgroundColor = [UIColor whiteColor];
+    self.tableView.layoutMargins = UIEdgeInsetsZero;
     //self.navigationController.navigationBar.hidden = YES;
 }
 - (void)viewDidLayoutSubviews
@@ -45,6 +47,7 @@ static int screenHeight = 0;
         UIEdgeInsets inset = UIEdgeInsetsZero;
         inset.top = cell.textView.bounds.size.height / 2 - textRect.size.height / 2;
         cell.textView.textContainerInset = inset;
+        cell.layoutMargins = UIEdgeInsetsZero;
     }];
 }
 
@@ -90,6 +93,7 @@ static int screenHeight = 0;
     }
     
     
+    //display screenshot if there got one
     if (model.screenShoot) {
         cell.backgroundImageView.image =  model.screenShoot;
         cell.backgroundAlphaView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
@@ -100,13 +104,13 @@ static int screenHeight = 0;
     }
     
     cell.favButton.backgroundColor = cell.cellDataModel.isFav ? [UIColor redColor] : [UIColor yellowColor];
-    
+//    UIImage* bgImg = [UIImage stretchableImageWithLeftCapWidth:6 topCapHeight:7 targetImage:[UIImage imageNamed:@"cell"]];
+//    cell.backgroundView = [[UIImageView alloc]initWithImage:bgImg];
     [cell addTags:model.tags];
+    
     
     return cell;
 }
-
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -117,8 +121,8 @@ static int screenHeight = 0;
         OneThingModel* model = (OneThingModel*)self.result[selectedIdxPath.row];
         WebPageViewController* controller = (WebPageViewController*)segue.destinationViewController;
         controller.webpageURLString = model.appURL;
-        //self.navigationController.navigationBar.hidden = NO;
         self.navigationController.navigationBar.alpha = 1;
+        //self.tabBarController.tabBar.hidden = YES;
     }
 }
 

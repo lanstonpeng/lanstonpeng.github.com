@@ -168,11 +168,15 @@ static UIWindow* privateWindow;
 - (MainTableViewController*)getMainViewController
 {
     UITabBarController* tabBarController = (UITabBarController*)privateWindow.rootViewController;
+    
+    return (MainTableViewController*)[tabBarController.viewControllers[0] topViewController];
+    /*
     if ([tabBarController.selectedViewController class] == [UINavigationController class]) {
         if ([[(UINavigationController*)tabBarController.selectedViewController topViewController] class] == [MainTableViewController class]) {
             return (MainTableViewController*)[(UINavigationController*)tabBarController.selectedViewController topViewController];
         }
     }
     return nil;
+     */
 }
 @end
