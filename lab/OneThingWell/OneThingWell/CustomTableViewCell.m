@@ -21,7 +21,7 @@
 
 - (void)awakeFromNib {
     self.textView.clipsToBounds = YES;
-    self.separatorInset = UIEdgeInsetsZero;
+    self.backgroundColor = UIColorFromRGB(0x1197C7);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -33,6 +33,16 @@
 
 - (IBAction)clickFavButton:(id)sender {
     self.cellDataModel.isFav = !self.cellDataModel.isFav;
+    UIImage* img;
+    if (self.cellDataModel.isFav) {
+        img = [UIImage imageNamed:@"star_selected"];
+    }
+    else
+    {
+        img = [UIImage imageNamed:@"star_deselected"];
+    }
+    //self.favButton.imageView.image = [UIImage imageNamed:self.cellDataModel.isFav? @"star_selected": @"star_deselected"];
+    self.favButton.imageView.image = img;
     if (self.cellDataModel.isFav == NO) {
         [[AppDataManipulator singleton]deleteAnItem:self.cellDataModel];
     }
@@ -40,7 +50,7 @@
     {
         [[AppDataManipulator singleton]addAnItem:self.cellDataModel];
     }
-    self.favButton.backgroundColor = self.cellDataModel.isFav ? [UIColor redColor] : [UIColor yellowColor];
+    [self setNeedsDisplay];
 }
 - (UIEdgeInsets)layoutMargins
 {

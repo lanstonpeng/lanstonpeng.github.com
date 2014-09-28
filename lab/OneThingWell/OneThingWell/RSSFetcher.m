@@ -14,7 +14,7 @@
 #import "OneThingModel.h"
 #import "AppDataManipulator.h"
 
-@interface RSSFetcher()
+@interface RSSFetcher()<NSURLSessionDownloadDelegate>
 
 @property (nonatomic, copy) void (^completeBlock)(NSArray*);
 
@@ -22,6 +22,9 @@
 
 @property (nonatomic)BOOL isDone;
 
+@property (strong,nonatomic)NSMutableDictionary* urlPicDic;
+
+@property (strong,nonatomic)NSOperationQueue* downloadQueue;
 @end
 
 #define kLimitNumber  @5
@@ -46,6 +49,10 @@ static UIWindow* privateWindow;
         rssFetcher = [[RSSFetcher alloc]init];
         rssFetcher.currentOffset = 0;
         rssFetcher.isDone = YES;
+        rssFetcher.urlPicDic = [NSMutableDictionary new];
+        rssFetcher.downloadQueue = [[NSOperationQueue alloc]init];
+        rssFetcher.downloadQueue.maxConcurrentOperationCount = 3;
+        rssFetcher.resultArr = [NSMutableArray new];
     });
     return rssFetcher;
 }
@@ -92,7 +99,7 @@ static UIWindow* privateWindow;
                                        
                                        NSMutableArray* result = [NSMutableArray new];
                                        NSMutableArray* idxPaths = [NSMutableArray new];
-                                       __block NSUInteger currentRow = tableViewController.result.count;
+                                       __block NSUInteger currentRow = self.resultArr.count;
                                        
                                        
                                        [arr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -115,6 +122,7 @@ static UIWindow* privateWindow;
                                            HTMLDocument *document = [HTMLDocument documentWithString:des];
                                            item.appDescription = [document firstNodeMatchingSelector:@"p"].textContent;
                                            
+                                           //someone has already upload an screenshot
                                            if ([document firstNodeMatchingSelector:@"img"].attributes[@"src"]) {
                                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                    NSString* imgURL = [document firstNodeMatchingSelector:@"img"].attributes[@"src"];
@@ -133,15 +141,24 @@ static UIWindow* privateWindow;
                                                        [visiableIndexPaths enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                                            NSIndexPath* item = (NSIndexPath*)obj;
                                                            if (item.row == idxPath.row && item.section == idxPath.section) {
-                                                               [tableViewController.tableView reloadRowsAtIndexPaths:@[idxPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                                                               [tableViewController.tableView reloadRowsAtIndexPaths:@[idxPath] withRowAnimation:UITableViewRowAnimationFade];
                                                            }
                                                        }];
                                                    });
                                                });
                                            }
+                                           //otherwise we fetch the first image from the app website
+                                           else
+                                           {
+                                               [self.urlPicDic setObject:@{
+                                                                           @"idx":@(currentRow - 1)
+                                                                           } forKey:item.appURL];
+                                               [self getAppWebSiteImage:item.appURL];
+                                           }
                                            
                                            [result addObject:item];
                                        }];
+                                       /*
                                        if (tableViewController.result.count > 0)
                                        {
                                            [tableViewController.result addObjectsFromArray:result];
@@ -150,10 +167,18 @@ static UIWindow* privateWindow;
                                        {
                                            tableViewController.result = result;
                                        }
+                                        */
+                                       if (self.resultArr.count > 0 ) {
+                                           [self.resultArr addObjectsFromArray:result];
+                                       }
+                                       else
+                                       {
+                                           self.resultArr = result;
+                                       }
                                        
                                        UITableView* tableView = tableViewController.tableView;
-                                       //[tableView reloadData];
-                                       [tableView insertRowsAtIndexPaths:idxPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+                                       [tableView reloadData];
+                                       //[tableView insertRowsAtIndexPaths:idxPaths withRowAnimation:UITableViewRowAnimationFade];
                                        self.currentOffset += 10;
                                        self.isDone = YES;
                                        
@@ -165,10 +190,68 @@ static UIWindow* privateWindow;
 
 }
 
+- (void)getAppWebSiteImage:(NSString*)urlStr
+{
+    NSURL* url = [NSURL URLWithString:urlStr];
+    NSURLSessionConfiguration* configure = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:configure delegate:self delegateQueue:self.downloadQueue];
+    NSURLSessionDownloadTask* downloadTask = [session downloadTaskWithRequest:[NSURLRequest requestWithURL:url]];
+    [downloadTask resume];
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location
+{
+    NSData* data = [NSData dataWithContentsOfURL:location];
+    NSString* html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    HTMLDocument *document = [HTMLDocument documentWithString:html];
+    if ([document firstNodeMatchingSelector:@"img"].attributes[@"src"]) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            NSString* imgURL = [document firstNodeMatchingSelector:@"img"].attributes[@"src"];
+            if ([imgURL componentsSeparatedByString:@"http"].count < 2) {
+                imgURL = [downloadTask.originalRequest.URL.absoluteString stringByAppendingString:imgURL];
+            }
+            NSURL* url = [NSURL URLWithString:imgURL];
+            NSData* imgData = [NSData dataWithContentsOfURL:url];
+            if (imgData) {
+                NSDictionary* dic = self.urlPicDic[downloadTask.originalRequest.URL.absoluteString];
+                int idx = (int)[[dic objectForKey:@"idx"]integerValue];
+                OneThingModel* model = (OneThingModel*)[self.resultArr objectAtIndex:idx];
+                model.screenShoot = [UIImage imageWithData:imgData];
+                //update UITableView
+                MainTableViewController* tableViewController = [self getMainViewController];
+                if (tableViewController == nil) {
+                    return;
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    MainTableViewController* tableViewController = [self getMainViewController];
+                    if (tableViewController == nil) {
+                        return;
+                    }
+                    NSArray* visiableIndexPaths = [tableViewController.tableView indexPathsForVisibleRows];
+                    NSIndexPath* idxPath = [NSIndexPath indexPathForItem:idx inSection:0];
+                    
+                    [visiableIndexPaths enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        NSIndexPath* item = (NSIndexPath*)obj;
+                        if (item.row == idxPath.row && item.section == idxPath.section) {
+                            [tableViewController.tableView reloadRowsAtIndexPaths:@[idxPath] withRowAnimation:UITableViewRowAnimationFade];
+                        }
+                    }];
+                });
+                
+            }
+        });
+    }
+}
+
+
 - (MainTableViewController*)getMainViewController
 {
     UITabBarController* tabBarController = (UITabBarController*)privateWindow.rootViewController;
     
+    if ([[tabBarController.viewControllers[0] topViewController]class] != [MainTableViewController class]) {
+        return nil;
+    }
     return (MainTableViewController*)[tabBarController.viewControllers[0] topViewController];
     /*
     if ([tabBarController.selectedViewController class] == [UINavigationController class]) {
@@ -179,4 +262,5 @@ static UIWindow* privateWindow;
     return nil;
      */
 }
+
 @end

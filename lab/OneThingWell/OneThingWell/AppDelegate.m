@@ -9,6 +9,8 @@
 #import "RSSFetcher.h"
 #import "AppDataManipulator.h"
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 #define kLimitNumber  @10
 #define kThumblrURL @"onethingwell.tumblr.com"
 @interface AppDelegate ()
@@ -21,9 +23,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     //((UINavigationController*)self.window.rootViewController).navigationBar.topItem.title = @"One Thing Well";
+    //[[UITabBar appearance] setBarTintColor:[UIColor orangeColor]];
+    [[UITabBar appearance] setTintColor:UIColorFromRGB(0x6200FF)];
+    [[UINavigationBar appearance]setTintColor:UIColorFromRGB(0x6200FF)];
+    //[[UINavigationBar appearance]setBarTintColor:UIColorFromRGB(0x1A1331)];
     RSSFetcher* fetcher = [RSSFetcher singleton];
     fetcher.window = self.window;
     [fetcher fetchNextPosts];
+    
     return YES;
 }
 

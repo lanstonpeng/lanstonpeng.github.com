@@ -22,6 +22,8 @@
 
 @property (strong,nonatomic)id<RSSFetcherDelegate> delegate;
 
+@property (strong,nonatomic)NSMutableArray* resultArr;
+
 +(instancetype)singleton;
 
 -(void)fetchRSSFeed:(void (^)(NSArray* arr))complete;

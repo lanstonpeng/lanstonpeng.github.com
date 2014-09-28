@@ -15,6 +15,8 @@
 #define maxScrollToHide 50
 #define barHeight 44
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 static int screenHeight = 0;
 
 @interface MainTableViewController ()<RSSFetcherDelegate>
@@ -47,7 +49,6 @@ static int screenHeight = 0;
         UIEdgeInsets inset = UIEdgeInsetsZero;
         inset.top = cell.textView.bounds.size.height / 2 - textRect.size.height / 2;
         cell.textView.textContainerInset = inset;
-        cell.layoutMargins = UIEdgeInsetsZero;
     }];
 }
 
@@ -68,14 +69,16 @@ static int screenHeight = 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.result.count;
+    //return self.result.count;
+    return [RSSFetcher singleton].resultArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CustomTableViewCell *cell = (CustomTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"reuseCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    //cell.frame = CGRectInset(cell.frame, 10, 10);
     
-    OneThingModel* model = (OneThingModel*)self.result[indexPath.row];
+    OneThingModel* model = (OneThingModel*)[RSSFetcher singleton].resultArr[indexPath.row];
     
     cell.cellDataModel = model;
     cell.title.text = model.appName;
@@ -96,14 +99,18 @@ static int screenHeight = 0;
     //display screenshot if there got one
     if (model.screenShoot) {
         cell.backgroundImageView.image =  model.screenShoot;
+        cell.backgroundImageView.alpha = 1;
         cell.backgroundAlphaView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
     }
     else{
         cell.backgroundImageView.image =  nil;
+        cell.backgroundImageView.alpha = 0;
         cell.backgroundAlphaView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
     }
     
-    cell.favButton.backgroundColor = cell.cellDataModel.isFav ? [UIColor redColor] : [UIColor yellowColor];
+    //cell.favButton.backgroundColor = cell.cellDataModel.isFav ? [UIColor redColor] : [UIColor yellowColor];
+    cell.favButton.imageView.image = [UIImage imageNamed:cell.cellDataModel.isFav? @"star_selected": @"star_deselected"];
+    //cell.backgroundColor = UIColorFromRGB(0xEB1E23);
 //    UIImage* bgImg = [UIImage stretchableImageWithLeftCapWidth:6 topCapHeight:7 targetImage:[UIImage imageNamed:@"cell"]];
 //    cell.backgroundView = [[UIImageView alloc]initWithImage:bgImg];
     [cell addTags:model.tags];
@@ -118,7 +125,7 @@ static int screenHeight = 0;
     if([segue.identifier isEqualToString: @"showAppURL"])
     {
         NSIndexPath* selectedIdxPath = [self.tableView indexPathForSelectedRow];
-        OneThingModel* model = (OneThingModel*)self.result[selectedIdxPath.row];
+        OneThingModel* model = (OneThingModel*)[RSSFetcher singleton].resultArr[selectedIdxPath.row];
         WebPageViewController* controller = (WebPageViewController*)segue.destinationViewController;
         controller.webpageURLString = model.appURL;
         self.navigationController.navigationBar.alpha = 1;
