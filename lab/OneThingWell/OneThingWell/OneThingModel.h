@@ -18,6 +18,7 @@
 @property(strong,nonatomic)NSString* pubTimeStr;
 @property(strong,nonatomic)NSArray*  tags;
 @property(strong,nonatomic)NSString* appID;
+@property(strong,nonatomic)NSString* websiteContent;
 @property(nonatomic)BOOL isFav;
 
 @end

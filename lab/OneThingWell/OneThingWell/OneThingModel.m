@@ -25,6 +25,7 @@
         copyItem.tags = self.tags;
         copyItem.appID = self.appID;
         copyItem.isFav = self.isFav;
+        copyItem.websiteContent = self.websiteContent;
     }
     return copyItem;
 }
@@ -36,6 +37,7 @@
     [aCoder encodeObject:self.pubTimeStr forKey:@"pubTimeStr"];
     [aCoder encodeObject:self.tags forKey:@"tags"];
     [aCoder encodeObject:self.appID forKey:@"appID"];
+    [aCoder encodeObject:self.websiteContent forKey:@"websiteContent"];
     [aCoder encodeBool:self.isFav forKey:@"isFav"];
 }
 
@@ -48,6 +50,7 @@
         self.pubTimeStr = [aDecoder decodeObjectForKey:@"pubTimeStr"];
         self.tags = [aDecoder decodeObjectForKey:@"tags"];
         self.appID = [aDecoder decodeObjectForKey:@"appID"];
+        self.websiteContent = [aDecoder decodeObjectForKey:@"websiteContent"];
         self.isFav = [aDecoder decodeBoolForKey:@"isFav"];
     }
     return self;

@@ -13,6 +13,7 @@
 #import "HTMLReader.h"
 #import "OneThingModel.h"
 #import "AppDataManipulator.h"
+#import "MainPageCollectionViewController.h"
 
 @interface RSSFetcher()<NSURLSessionDownloadDelegate>
 
@@ -95,12 +96,10 @@ static UIWindow* privateWindow;
                                    NSArray* arr = dic[@"posts"];
                                    
                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                       MainTableViewController* tableViewController = [self getMainViewController];
                                        
                                        NSMutableArray* result = [NSMutableArray new];
                                        NSMutableArray* idxPaths = [NSMutableArray new];
                                        __block NSUInteger currentRow = self.resultArr.count;
-                                       
                                        
                                        [arr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                                            NSIndexPath* idxPath = [NSIndexPath indexPathForRow:currentRow++ inSection:0];
@@ -131,19 +130,25 @@ static UIWindow* privateWindow;
                                                    item.screenShoot = [UIImage imageWithData:imgData];
                                                    
                                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                                       MainTableViewController* tableViewController = [self getMainViewController];
-                                                       if (tableViewController == nil) {
-                                                           return;
-                                                       }
-                                                       NSArray* visiableIndexPaths = [tableViewController.tableView indexPathsForVisibleRows];
-                                                       NSIndexPath* idxPath = [NSIndexPath indexPathForItem:idx inSection:0];
                                                        
-                                                       [visiableIndexPaths enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                                                           NSIndexPath* item = (NSIndexPath*)obj;
-                                                           if (item.row == idxPath.row && item.section == idxPath.section) {
-                                                               [tableViewController.tableView reloadRowsAtIndexPaths:@[idxPath] withRowAnimation:UITableViewRowAnimationFade];
-                                                           }
-                                                       }];
+//                                                       MainTableViewController* tableViewController = [self getMainViewController];
+//                                                       if (tableViewController == nil) {
+//                                                           return;
+//                                                       }
+//                                                       NSArray* visiableIndexPaths = [tableViewController.tableView indexPathsForVisibleRows];
+//                                                       NSIndexPath* idxPath = [NSIndexPath indexPathForItem:idx inSection:0];
+//                                                       
+//                                                       [visiableIndexPaths enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//                                                           NSIndexPath* item = (NSIndexPath*)obj;
+//                                                           if (item.row == idxPath.row && item.section == idxPath.section) {
+//                                                               [tableViewController.tableView reloadRowsAtIndexPaths:@[idxPath] withRowAnimation:UITableViewRowAnimationFade];
+//                                                           }
+//                                                       }];
+                                                       
+                                                       if([self.delegate respondsToSelector:@selector(didFinishFecthImg:withImageData:)])
+                                                       {
+                                                           [self.delegate didFinishFecthImg:idxPath withImageData:[UIImage imageWithData:imgData]];
+                                                       }
                                                    });
                                                });
                                            }
@@ -153,21 +158,11 @@ static UIWindow* privateWindow;
                                                [self.urlPicDic setObject:@{
                                                                            @"idx":@(currentRow - 1)
                                                                            } forKey:item.appURL];
-                                               [self getAppWebSiteImage:item.appURL];
+                                               //[self getAppWebSiteImage:item.appURL];
                                            }
                                            
                                            [result addObject:item];
                                        }];
-                                       /*
-                                       if (tableViewController.result.count > 0)
-                                       {
-                                           [tableViewController.result addObjectsFromArray:result];
-                                       }
-                                       else
-                                       {
-                                           tableViewController.result = result;
-                                       }
-                                        */
                                        if (self.resultArr.count > 0 ) {
                                            [self.resultArr addObjectsFromArray:result];
                                        }
@@ -176,15 +171,15 @@ static UIWindow* privateWindow;
                                            self.resultArr = result;
                                        }
                                        
-                                       UITableView* tableView = tableViewController.tableView;
-                                       [tableView reloadData];
+                                       //UITableView* tableView = tableViewController.tableView;
+                                       //[tableView reloadData];
                                        //[tableView insertRowsAtIndexPaths:idxPaths withRowAnimation:UITableViewRowAnimationFade];
-                                       self.currentOffset += 10;
-                                       self.isDone = YES;
-                                       
                                        if ([self.delegate respondsToSelector:@selector(didFinishFecthPosts:)]) {
                                            [self.delegate performSelector:@selector(didFinishFecthPosts:) withObject:result];
                                        }
+                                       self.currentOffset += 10;
+                                       self.isDone = YES;
+                                       
                                    });
                                }];
 
@@ -245,14 +240,14 @@ static UIWindow* privateWindow;
 }
 
 
-- (MainTableViewController*)getMainViewController
+- (MainPageCollectionViewController*)getMainViewController
 {
     UITabBarController* tabBarController = (UITabBarController*)privateWindow.rootViewController;
     
-    if ([[tabBarController.viewControllers[0] topViewController]class] != [MainTableViewController class]) {
+    if ([[tabBarController.viewControllers[0] topViewController]class] != [MainPageCollectionViewController class]) {
         return nil;
     }
-    return (MainTableViewController*)[tabBarController.viewControllers[0] topViewController];
+    return (MainPageCollectionViewController*)[tabBarController.viewControllers[0] topViewController];
     /*
     if ([tabBarController.selectedViewController class] == [UINavigationController class]) {
         if ([[(UINavigationController*)tabBarController.selectedViewController topViewController] class] == [MainTableViewController class]) {

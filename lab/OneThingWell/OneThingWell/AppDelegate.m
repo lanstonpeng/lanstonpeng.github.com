@@ -30,7 +30,6 @@
     RSSFetcher* fetcher = [RSSFetcher singleton];
     fetcher.window = self.window;
     [fetcher fetchNextPosts];
-    
     return YES;
 }
 

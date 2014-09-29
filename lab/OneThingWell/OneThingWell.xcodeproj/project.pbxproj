@@ -60,6 +60,9 @@
 		9DF4436019D2979C0003D6E8 /* WebPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4435F19D2979C0003D6E8 /* WebPageViewController.m */; };
 		9DF4436E19D3CDBE0003D6E8 /* RankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4436D19D3CDBE0003D6E8 /* RankViewController.m */; };
 		9DF4437219D3CDF50003D6E8 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4437119D3CDF50003D6E8 /* AboutViewController.m */; };
+		9DF5E6AE19D90686007FFB50 /* MainPageCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF5E6AD19D90686007FFB50 /* MainPageCollectionViewController.m */; };
+		9DF5E6B119D908CE007FFB50 /* MainPageViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF5E6B019D908CE007FFB50 /* MainPageViewLayout.m */; };
+		9DF5E6B519D92314007FFB50 /* AppCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF5E6B419D92314007FFB50 /* AppCollectionViewCell.m */; };
 		9DF7B2BD19D4022C00FE0B15 /* AppDataManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF7B2BC19D4022C00FE0B15 /* AppDataManipulator.m */; };
 		9DF7B2C019D402F200FE0B15 /* FavCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF7B2BF19D402F200FE0B15 /* FavCollectionViewController.m */; };
 		9DF7B2C419D405ED00FE0B15 /* FavCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF7B2C319D405ED00FE0B15 /* FavCollectionViewCell.m */; };
@@ -187,6 +190,12 @@
 		9DF4436D19D3CDBE0003D6E8 /* RankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankViewController.m; sourceTree = "<group>"; };
 		9DF4437019D3CDF50003D6E8 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		9DF4437119D3CDF50003D6E8 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		9DF5E6AC19D90686007FFB50 /* MainPageCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageCollectionViewController.h; sourceTree = "<group>"; };
+		9DF5E6AD19D90686007FFB50 /* MainPageCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageCollectionViewController.m; sourceTree = "<group>"; };
+		9DF5E6AF19D908CE007FFB50 /* MainPageViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageViewLayout.h; sourceTree = "<group>"; };
+		9DF5E6B019D908CE007FFB50 /* MainPageViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageViewLayout.m; sourceTree = "<group>"; };
+		9DF5E6B319D92314007FFB50 /* AppCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCollectionViewCell.h; sourceTree = "<group>"; };
+		9DF5E6B419D92314007FFB50 /* AppCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCollectionViewCell.m; sourceTree = "<group>"; };
 		9DF7B2BB19D4022C00FE0B15 /* AppDataManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDataManipulator.h; sourceTree = "<group>"; };
 		9DF7B2BC19D4022C00FE0B15 /* AppDataManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDataManipulator.m; sourceTree = "<group>"; };
 		9DF7B2BE19D402F200FE0B15 /* FavCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavCollectionViewController.h; sourceTree = "<group>"; };
@@ -238,6 +247,7 @@
 				9DF4420C19D262690003D6E8 /* AppDelegate.m */,
 				9DF4427319D26F780003D6E8 /* Model */,
 				9DF4436F19D3CDD40003D6E8 /* ViewController */,
+				9DF5E6B219D908D9007FFB50 /* Layout */,
 				9DF7B2C119D405DF00FE0B15 /* View */,
 				9DF4421119D262690003D6E8 /* Main.storyboard */,
 				9DF4423619D266D80003D6E8 /* Util */,
@@ -458,8 +468,19 @@
 				9DF4437119D3CDF50003D6E8 /* AboutViewController.m */,
 				9DF7B2BE19D402F200FE0B15 /* FavCollectionViewController.h */,
 				9DF7B2BF19D402F200FE0B15 /* FavCollectionViewController.m */,
+				9DF5E6AC19D90686007FFB50 /* MainPageCollectionViewController.h */,
+				9DF5E6AD19D90686007FFB50 /* MainPageCollectionViewController.m */,
 			);
 			name = ViewController;
+			sourceTree = "<group>";
+		};
+		9DF5E6B219D908D9007FFB50 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				9DF5E6AF19D908CE007FFB50 /* MainPageViewLayout.h */,
+				9DF5E6B019D908CE007FFB50 /* MainPageViewLayout.m */,
+			);
+			name = Layout;
 			sourceTree = "<group>";
 		};
 		9DF7B2C119D405DF00FE0B15 /* View */ = {
@@ -469,6 +490,8 @@
 				9DF4423819D26A160003D6E8 /* CustomTableViewCell.m */,
 				9DF7B2C219D405ED00FE0B15 /* FavCollectionViewCell.h */,
 				9DF7B2C319D405ED00FE0B15 /* FavCollectionViewCell.m */,
+				9DF5E6B319D92314007FFB50 /* AppCollectionViewCell.h */,
+				9DF5E6B419D92314007FFB50 /* AppCollectionViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -588,14 +611,17 @@
 				9DF4429619D285E50003D6E8 /* TMSDKFunctions.m in Sources */,
 				9DF4426B19D26EF50003D6E8 /* HTMLString.m in Sources */,
 				9DF4432C19D28B760003D6E8 /* JXHTTPMultipartBody.m in Sources */,
+				9DF5E6B119D908CE007FFB50 /* MainPageViewLayout.m in Sources */,
 				9DF4432819D28B760003D6E8 /* JXHTTPDataBody.m in Sources */,
 				9DF4433119D28B760003D6E8 /* JXURLConnectionOperation.m in Sources */,
 				9DF4437219D3CDF50003D6E8 /* AboutViewController.m in Sources */,
 				9DF4423219D262EE0003D6E8 /* RSSFetcher.m in Sources */,
 				9DF4426E19D26EF50003D6E8 /* HTMLTreeEnumerator.m in Sources */,
+				9DF5E6B519D92314007FFB50 /* AppCollectionViewCell.m in Sources */,
 				9DF4426019D26EF50003D6E8 /* HTMLComment.m in Sources */,
 				9DF4432E19D28B760003D6E8 /* JXHTTPOperation.m in Sources */,
 				9DF7B2C419D405ED00FE0B15 /* FavCollectionViewCell.m in Sources */,
+				9DF5E6AE19D90686007FFB50 /* MainPageCollectionViewController.m in Sources */,
 				9DF4432B19D28B760003D6E8 /* JXHTTPJSONBody.m in Sources */,
 				9DF4432D19D28B760003D6E8 /* JXHTTPOperation+Convenience.m in Sources */,
 				9DF4423919D26A160003D6E8 /* CustomTableViewCell.m in Sources */,

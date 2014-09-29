@@ -78,22 +78,14 @@
     [super loadView];
     CGRect sFrame = [UIScreen mainScreen].bounds;
     WKWebView* webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, self.view.frame.size.height)];
-//    [self.view addConstraints:@[
-//                                [NSLayoutConstraint constraintWithItem:webView
-//                                                             attribute:NSLayoutAttributeWidth
-//                                                             relatedBy:NSLayoutRelationEqual
-//                                                                toItem:self.view
-//                                                             attribute:NSLayoutAttributeWidth
-//                                                            multiplier:1.0
-//                                                              constant:0],
-//                                [NSLayoutConstraint constraintWithItem:webView
-//                                                             attribute:NSLayoutAttributeHeight
-//                                                             relatedBy:NSLayoutRelationEqual
-//                                                                toItem:self.view
-//                                                             attribute:NSLayoutAttributeHeight
-//                                                            multiplier:1.0
-//                                                              constant:0]
-//                                ]];
+    
+    //load page from cache
+//    if (self.webpageContent) {
+//    }
+//    else
+//    {
+//    }
+    
     NSURLRequest* request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:_webpageURLString]];
     webView.navigationDelegate = self;
     webView.allowsBackForwardNavigationGestures = YES;

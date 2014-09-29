@@ -12,6 +12,7 @@
 
 @optional
 - (void)didFinishFecthPosts:(NSArray*)result;
+- (void)didFinishFecthImg:(NSIndexPath*)indexPath withImageData:(UIImage*)imgData;
 
 @end
 

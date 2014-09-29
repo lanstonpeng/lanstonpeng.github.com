@@ -11,5 +11,6 @@
 @interface WebPageViewController : UIViewController
 
 @property (strong,nonatomic)NSString* webpageURLString;
+@property (strong,nonatomic)NSString* webpageContent;
 
 @end

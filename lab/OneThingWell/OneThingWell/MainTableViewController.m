@@ -34,7 +34,7 @@ static int screenHeight = 0;
     self.fetcher.delegate = self;
     
     self.tableView.backgroundColor = [UIColor whiteColor];
-    self.tableView.layoutMargins = UIEdgeInsetsZero;
+    self.tableView.layoutMargins = UIEdgeInsetsMake(0,10,10,10);
     //self.navigationController.navigationBar.hidden = YES;
 }
 - (void)viewDidLayoutSubviews
