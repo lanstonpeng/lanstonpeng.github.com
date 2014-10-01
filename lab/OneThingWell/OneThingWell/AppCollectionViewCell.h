@@ -11,8 +11,8 @@
 
 @interface AppCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *appTitle;
-@property (weak, nonatomic) IBOutlet UIView *tagContainerView;
 @property (weak, nonatomic) IBOutlet UIButton *favButton;
+@property (weak, nonatomic) IBOutlet UILabel *pubTimeLabel;
 
 @property (strong,nonatomic)UITextView* appDescriptionTextView;
 

@@ -17,6 +17,8 @@
 
 @end
 
+static int screenHeight = 0;
+
 @implementation MainPageCollectionViewController
 
 static NSString * const reuseIdentifier = @"reuseMainCell";
@@ -26,6 +28,7 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
     
     self.fetcher = [RSSFetcher singleton];
     self.fetcher.delegate = self;
+    screenHeight = (int)[UIScreen mainScreen].bounds.size.height;
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -84,6 +87,7 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
         NSIndexPath* item = (NSIndexPath*)obj;
         if (item.row == indexPath.row && item.section == indexPath.section) {
             //[tableViewController.tableView reloadRowsAtIndexPaths:@[idxPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
         }
     }];
 }
@@ -112,6 +116,24 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
 }
 
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if(scrollView.contentOffset.y > 0 && scrollView.contentOffset.y > scrollView.contentSize.height - screenHeight + 100)
+    {
+        //inset scrollView
+        //        [UIView animateWithDuration:0.3 animations:^{
+        //            UIEdgeInsets edgeInset = UIEdgeInsetsMake(0, 0, 20, 0);
+        //            scrollView.contentInset = edgeInset;
+        //        }];
+        [self.fetcher fetchNextPosts];
+    }
+    
+}
 #pragma mark <UICollectionViewDelegate>
 
 

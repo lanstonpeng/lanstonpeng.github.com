@@ -60,6 +60,7 @@
 		9DF4436019D2979C0003D6E8 /* WebPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4435F19D2979C0003D6E8 /* WebPageViewController.m */; };
 		9DF4436E19D3CDBE0003D6E8 /* RankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4436D19D3CDBE0003D6E8 /* RankViewController.m */; };
 		9DF4437219D3CDF50003D6E8 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4437119D3CDF50003D6E8 /* AboutViewController.m */; };
+		9DF4D9FD19DBB01F000B9EAA /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4D9FC19DBB01F000B9EAA /* UIImage+animatedGIF.m */; };
 		9DF5E6AE19D90686007FFB50 /* MainPageCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF5E6AD19D90686007FFB50 /* MainPageCollectionViewController.m */; };
 		9DF5E6B119D908CE007FFB50 /* MainPageViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF5E6B019D908CE007FFB50 /* MainPageViewLayout.m */; };
 		9DF5E6B519D92314007FFB50 /* AppCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF5E6B419D92314007FFB50 /* AppCollectionViewCell.m */; };
@@ -190,6 +191,8 @@
 		9DF4436D19D3CDBE0003D6E8 /* RankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankViewController.m; sourceTree = "<group>"; };
 		9DF4437019D3CDF50003D6E8 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		9DF4437119D3CDF50003D6E8 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		9DF4D9FB19DBB01F000B9EAA /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
+		9DF4D9FC19DBB01F000B9EAA /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		9DF5E6AC19D90686007FFB50 /* MainPageCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageCollectionViewController.h; sourceTree = "<group>"; };
 		9DF5E6AD19D90686007FFB50 /* MainPageCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainPageCollectionViewController.m; sourceTree = "<group>"; };
 		9DF5E6AF19D908CE007FFB50 /* MainPageViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainPageViewLayout.h; sourceTree = "<group>"; };
@@ -291,6 +294,8 @@
 		9DF4423619D266D80003D6E8 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				9DF4D9FB19DBB01F000B9EAA /* UIImage+animatedGIF.h */,
+				9DF4D9FC19DBB01F000B9EAA /* UIImage+animatedGIF.m */,
 				9DF4423019D262EE0003D6E8 /* RSSFetcher.h */,
 				9DF4423119D262EE0003D6E8 /* RSSFetcher.m */,
 				9DF7B2BB19D4022C00FE0B15 /* AppDataManipulator.h */,
@@ -611,6 +616,7 @@
 				9DF4429619D285E50003D6E8 /* TMSDKFunctions.m in Sources */,
 				9DF4426B19D26EF50003D6E8 /* HTMLString.m in Sources */,
 				9DF4432C19D28B760003D6E8 /* JXHTTPMultipartBody.m in Sources */,
+				9DF4D9FD19DBB01F000B9EAA /* UIImage+animatedGIF.m in Sources */,
 				9DF5E6B119D908CE007FFB50 /* MainPageViewLayout.m in Sources */,
 				9DF4432819D28B760003D6E8 /* JXHTTPDataBody.m in Sources */,
 				9DF4433119D28B760003D6E8 /* JXURLConnectionOperation.m in Sources */,
