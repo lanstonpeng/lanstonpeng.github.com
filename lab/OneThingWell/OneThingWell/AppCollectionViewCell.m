@@ -73,7 +73,8 @@
     }
     if (self.tagScrollView == nil)
     {
-        self.tagScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(self.frame.size.width * 0.3, self.maskView.frame.origin.y + self.maskView.frame.size.height, self.frame.size.width * 0.7, 30)];
+        //self.tagScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(self.frame.size.width * 0.3, self.maskView.frame.origin.y + self.maskView.frame.size.height, self.frame.size.width * 0.7, 30)];
+        self.tagScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(self.frame.size.width * 0.3, self.frame.size.height - 27, self.frame.size.width * 0.7, 30)];
         self.tagScrollView.backgroundColor = [UIColor clearColor];
         self.tagScrollView.showsHorizontalScrollIndicator = NO;
         [self addSubview:self.tagScrollView];
@@ -126,10 +127,10 @@
         tagLabel.font = [UIFont systemFontOfSize:10];
         [tagLabel sizeToFit];
         tagLabel.frame = CGRectOffset(tagLabel.frame, offset, 0);
-        tagLabel.frame = CGRectInset(tagLabel.frame, -4, -4);
-        tagLabel.frame = CGRectOffset(tagLabel.frame, 2, 2);
+        tagLabel.frame = CGRectInset(tagLabel.frame, -5, -4);
+        tagLabel.frame = CGRectOffset(tagLabel.frame, 2.5, 2);
         tagLabel.textAlignment = NSTextAlignmentCenter;
-        tagLabel.layer.cornerRadius = 7;
+        tagLabel.layer.cornerRadius = 8;
         tagLabel.layer.borderWidth = 1;
         tagLabel.layer.borderColor = [UIColor orangeColor].CGColor;
         tagLabel.layer.masksToBounds = YES;

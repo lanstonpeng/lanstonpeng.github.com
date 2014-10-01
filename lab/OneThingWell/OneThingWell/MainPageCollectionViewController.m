@@ -15,9 +15,12 @@
 
 @property (strong,nonatomic)RSSFetcher* fetcher;
 
+@property (strong,nonatomic)UIActivityIndicatorView*  loadingView;
+
 @end
 
 static int screenHeight = 0;
+static UIEdgeInsets originalInset;
 
 @implementation MainPageCollectionViewController
 
@@ -28,15 +31,15 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
     
     self.fetcher = [RSSFetcher singleton];
     self.fetcher.delegate = self;
+    self.loadingView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.loadingView.frame = CGRectMake(self.view.frame.size.width/2 - self.loadingView.frame.size.width/2, self.view.frame.size.height -self.tabBarController.tabBar.frame.size.height, 20, 20);
+    [self.view addSubview:self.loadingView];
+    self.loadingView.hidden = YES;
     screenHeight = (int)[UIScreen mainScreen].bounds.size.height;
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Register cell classes
-    //[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    
-    
-    // Do any additional setup after loading the view.
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+    originalInset = self.collectionView.contentInset;
 }
 //- (void)viewDidLayoutSubviews
 //{
@@ -78,6 +81,11 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
 - (void)didFinishFecthPosts:(NSArray *)result
 {
     [self.collectionView reloadData];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.collectionView.contentInset = originalInset;
+        self.loadingView.hidden = YES;
+        [self.loadingView stopAnimating];
+    }];
 }
 
 - (void)didFinishFecthImg:(NSIndexPath *)indexPath withImageData:(UIImage *)imgData
@@ -126,11 +134,14 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
     if(scrollView.contentOffset.y > 0 && scrollView.contentOffset.y > scrollView.contentSize.height - screenHeight + 100)
     {
         //inset scrollView
-        //        [UIView animateWithDuration:0.3 animations:^{
-        //            UIEdgeInsets edgeInset = UIEdgeInsetsMake(0, 0, 20, 0);
-        //            scrollView.contentInset = edgeInset;
-        //        }];
         [self.fetcher fetchNextPosts];
+        [UIView animateWithDuration:0.3 animations:^{
+            UIEdgeInsets edgeInset = UIEdgeInsetsMake(originalInset.top, originalInset.left, originalInset.bottom +  40, originalInset.right);
+            scrollView.contentInset = edgeInset;
+            self.loadingView.frame = CGRectMake(self.view.frame.size.width/2 - self.loadingView.frame.size.width/2, self.view.frame.size.height -self.tabBarController.tabBar.frame.size.height - 30, self.loadingView.frame.size.width, self.loadingView.frame.size.height);
+            self.loadingView.hidden = NO;
+            [self.loadingView startAnimating];
+        }];
     }
     
 }
