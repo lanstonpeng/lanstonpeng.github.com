@@ -10,6 +10,7 @@
 #import "AppCollectionViewCell.h"
 #import "RSSFetcher.h"
 #import "WebPageViewController.h"
+#import "AddNewAppViewController.h"
 
 @interface MainPageCollectionViewController ()<RSSFetcherDelegate>
 
@@ -17,44 +18,37 @@
 
 @property (strong,nonatomic)UIActivityIndicatorView*  loadingView;
 
+
 @end
 
 static int screenHeight = 0;
 static UIEdgeInsets originalInset;
+static CGRect navigatorBarFrame;
+
 
 @implementation MainPageCollectionViewController
+{
+    CGFloat lastContentOffsetY;
+}
 
 static NSString * const reuseIdentifier = @"reuseMainCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.fetcher = [RSSFetcher singleton];
     self.fetcher.delegate = self;
     self.loadingView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.loadingView.frame = CGRectMake(self.view.frame.size.width/2 - self.loadingView.frame.size.width/2, self.view.frame.size.height -self.tabBarController.tabBar.frame.size.height, 20, 20);
+    navigatorBarFrame = self.navigationController.navigationBar.frame;
     [self.view addSubview:self.loadingView];
     self.loadingView.hidden = YES;
     screenHeight = (int)[UIScreen mainScreen].bounds.size.height;
+    lastContentOffsetY = -9999999;
 }
 - (void)viewDidAppear:(BOOL)animated
 {
     originalInset = self.collectionView.contentInset;
 }
-//- (void)viewDidLayoutSubviews
-//{
-//    [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-//        AppCollectionViewCell* cell = (AppCollectionViewCell*)obj;
-//        NSTextContainer* textContainer  = cell.appDescriptionTextView.textContainer;
-//        NSLayoutManager* layoutManager = textContainer.layoutManager;
-//        
-//        CGRect textRect = [layoutManager usedRectForTextContainer:textContainer];
-//        
-//        UIEdgeInsets inset = UIEdgeInsetsZero;
-//        inset.top = cell.appDescriptionTextView.bounds.size.height / 2 - textRect.size.height / 2;
-//        cell.appDescriptionTextView.textContainerInset = inset;
-//    }];
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -74,6 +68,7 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
         OneThingModel* model = (OneThingModel*)[RSSFetcher singleton].resultArr[selectedIdxPath.row];
         WebPageViewController* controller = (WebPageViewController*)segue.destinationViewController;
         controller.webpageURLString = model.appURL;
+        self.navigationController.navigationBar.frame = navigatorBarFrame;
         //self.navigationController.navigationBar.alpha = 1;
     }
 }
@@ -100,6 +95,12 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
     }];
 }
 
+- (IBAction)recommendNewThing:(id)sender {
+    AddNewAppViewController* addNewAppVC = [self.storyboard instantiateViewControllerWithIdentifier:@"newAppViewController"];
+    [self presentViewController:addNewAppVC animated:YES completion:nil];
+    //[self.navigationController presentViewController:addNewAppVC animated:YES completion:nil];
+    //[self.navigationController pushViewController:addNewAppVC animated:YES];
+}
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -126,7 +127,25 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    
+    //I'll be back
+    return;
+    CGRect f = self.navigationController.navigationBar.frame;
+    if (lastContentOffsetY == -9999999) {
+        lastContentOffsetY = scrollView.contentOffset.y;
+    }
+    CGFloat deltaY = scrollView.contentOffset.y - lastContentOffsetY;
+    NSLog(@"delta %f",deltaY);
+    if (deltaY >= 0) {
+        //NSLog(@"%f",scrollView.contentOffset.y);
+        //self.navigationController.navigationBar.frame = CGRectMake(f.origin.x, f.origin.y, f.size.width, MAX(navigatorBarFrame.size.height -  scrollView.contentOffset.y, 0));
+        self.navigationController.navigationBar.frame = CGRectMake(f.origin.x,MAX(-scrollView.contentOffset.y,navigatorBarFrame.origin.y - f.size.height) , f.size.width,f.size.height);
+        //NSLog(@"-->%f",self.navigationController.navigationBar.frame.size.height);
+    }
+    else
+    {
+        self.navigationController.navigationBar.frame = CGRectMake(f.origin.x, navigatorBarFrame.origin.y, f.size.width, f.size.height);
+    }
+    lastContentOffsetY = scrollView.contentOffset.y;
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate

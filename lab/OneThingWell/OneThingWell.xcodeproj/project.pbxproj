@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D157E3819DC077500445F3D /* AddNewAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D157E3719DC077500445F3D /* AddNewAppViewController.m */; };
 		9D597A0819D71B000029318A /* UIImage+Strech.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D597A0719D71B000029318A /* UIImage+Strech.m */; };
+		9DE1861A19DCF56C008D4363 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE1861919DCF56C008D4363 /* MessageUI.framework */; };
 		9DF4420A19D262690003D6E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4420919D262690003D6E8 /* main.m */; };
 		9DF4420D19D262690003D6E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4420C19D262690003D6E8 /* AppDelegate.m */; };
 		9DF4421319D262690003D6E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DF4421119D262690003D6E8 /* Main.storyboard */; };
@@ -80,8 +82,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D157E3619DC077500445F3D /* AddNewAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewAppViewController.h; sourceTree = "<group>"; };
+		9D157E3719DC077500445F3D /* AddNewAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewAppViewController.m; sourceTree = "<group>"; };
 		9D597A0619D71B000029318A /* UIImage+Strech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Strech.h"; sourceTree = "<group>"; };
 		9D597A0719D71B000029318A /* UIImage+Strech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Strech.m"; sourceTree = "<group>"; };
+		9DE1861919DCF56C008D4363 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		9DF4420419D262690003D6E8 /* OneThingWell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneThingWell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DF4420819D262690003D6E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DF4420919D262690003D6E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -212,6 +217,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DE1861A19DCF56C008D4363 /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +234,7 @@
 		9DF441FB19D262680003D6E8 = {
 			isa = PBXGroup;
 			children = (
+				9DE1861919DCF56C008D4363 /* MessageUI.framework */,
 				9DF4420619D262690003D6E8 /* OneThingWell */,
 				9DF4422019D262690003D6E8 /* OneThingWellTests */,
 				9DF4420519D262690003D6E8 /* Products */,
@@ -475,6 +482,8 @@
 				9DF7B2BF19D402F200FE0B15 /* FavCollectionViewController.m */,
 				9DF5E6AC19D90686007FFB50 /* MainPageCollectionViewController.h */,
 				9DF5E6AD19D90686007FFB50 /* MainPageCollectionViewController.m */,
+				9D157E3619DC077500445F3D /* AddNewAppViewController.h */,
+				9D157E3719DC077500445F3D /* AddNewAppViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -625,6 +634,7 @@
 				9DF4426E19D26EF50003D6E8 /* HTMLTreeEnumerator.m in Sources */,
 				9DF5E6B519D92314007FFB50 /* AppCollectionViewCell.m in Sources */,
 				9DF4426019D26EF50003D6E8 /* HTMLComment.m in Sources */,
+				9D157E3819DC077500445F3D /* AddNewAppViewController.m in Sources */,
 				9DF4432E19D28B760003D6E8 /* JXHTTPOperation.m in Sources */,
 				9DF7B2C419D405ED00FE0B15 /* FavCollectionViewCell.m in Sources */,
 				9DF5E6AE19D90686007FFB50 /* MainPageCollectionViewController.m in Sources */,

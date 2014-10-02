@@ -7,6 +7,7 @@
 //
 
 #import "AppCollectionViewCell.h"
+#import "AppDataManipulator.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -22,12 +23,39 @@
 
 @implementation AppCollectionViewCell
 
+- (IBAction)clickFavButton:(id)sender {
+    self.cellDataModel.isFav = !self.cellDataModel.isFav;
+    UIImage* img;
+    if (self.cellDataModel.isFav) {
+        img = [UIImage imageNamed:@"star_selected"];
+        NSLog(@"isFav");
+    }
+    else
+    {
+        img = [UIImage imageNamed:@"star_deselected"];
+        NSLog(@"is not Fav");
+    }
+    //self.favButton.imageView.image = [UIImage imageNamed:self.cellDataModel.isFav? @"star_selected": @"star_deselected"];
+    //self.favButton.imageView.image = img;
+    [self.favButton setImage:img forState:UIControlStateNormal];
+    if (self.cellDataModel.isFav == NO) {
+        [[AppDataManipulator singleton]deleteAnItem:self.cellDataModel];
+    }
+    else
+    {
+        [[AppDataManipulator singleton]addAnItem:self.cellDataModel];
+    }
+    [self setNeedsDisplay];
+}
 
 - (void)configureCellData{
     self.appTitle.text = self.cellDataModel.appName;
     self.appDescriptionTextView.text = self.cellDataModel.appDescription;
     [self centerTextView];
     self.pubTimeLabel.text = self.cellDataModel.pubTimeStr;
+    UIImage* img = [UIImage imageNamed:self.cellDataModel.isFav ? @"star_selected": @"star_deselected"];
+    [self.favButton setImage:img forState:UIControlStateNormal];
+    
     if(self.cellDataModel.screenShoot)
     {
         self.appImageView.image = self.cellDataModel.screenShoot;
@@ -37,9 +65,6 @@
         self.appImageView.image = nil;
     }
     [self addTags:self.cellDataModel.tags];
-    //[self.appTitle sizeToFit];
-    //self.pubTimeLabel.frame = CGRectMake(self.appTitle.frame.origin.x + self.appTitle.frame.size.width + 10, self.appTitle.frame.origin.y, 50, self.appTitle.frame.origin.y + self.appTitle.frame.size.height - 10);
-    //[self.pubTimeLabel sizeToFit];
 }
 - (void)configureCellUI{
     
@@ -68,7 +93,6 @@
         seperatorLineBottom.alpha = 0.5;
         [maskView addSubview:seperatorLineTop];
         [maskView addSubview:seperatorLineBottom];
-        
         
     }
     if (self.tagScrollView == nil)
@@ -99,17 +123,6 @@
         self.appImageView = imgView;
         [self.maskView addSubview:imgView];
     }
-    
-    
-//    if (self.pubTimeLabel == nil)
-//    {
-//        UILabel* label = [[UILabel alloc]init];
-//        label.textColor = [UIColor grayColor];
-//        label.font = [UIFont systemFontOfSize:10];
-//        label.alpha = 0.8;
-//        self.pubTimeLabel = label;
-//        [self addSubview:label];
-//    }
 }
 
 - (void)addTags:(NSArray*)tags{
@@ -139,7 +152,12 @@
         self.tagScrollView.contentSize = CGSizeMake(self.tagScrollView.contentSize.width + tagLabel.frame.size.width + 5, 30);
     }];
     if (self.tagScrollView.contentSize.width < self.tagScrollView.frame.size.width) {
+        NSLog(@"resize conetentOffset");
         self.tagScrollView.contentOffset = CGPointMake(- (self.tagScrollView.frame.size.width - self.tagScrollView.contentSize.width), 0);
+    }
+    else
+    {
+        NSLog(@"won't resize conetentOffset");
     }
 }
 
