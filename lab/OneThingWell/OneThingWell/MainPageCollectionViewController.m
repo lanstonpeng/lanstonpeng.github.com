@@ -44,6 +44,7 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
     self.loadingView.hidden = YES;
     screenHeight = (int)[UIScreen mainScreen].bounds.size.height;
     lastContentOffsetY = -9999999;
+    //self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor colorWithRed:98.0/255 green:0 blue:1.0 alpha:1]};
 }
 - (void)viewDidAppear:(BOOL)animated
 {

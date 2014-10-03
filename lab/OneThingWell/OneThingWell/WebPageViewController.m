@@ -9,6 +9,7 @@
 #import "WebPageViewController.h"
 #import <WebKit/WebKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import <Social/Social.h>
 
 @interface WebPageViewController ()<WKNavigationDelegate,UINavigationBarDelegate>
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
@@ -31,41 +32,67 @@
 }
 - (IBAction)clickShareButton:(id)sender {
     
-    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, NO, 0);
-    
-    
-    [self.view.window drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:NO];
-    
-    UIImage *copied = UIGraphicsGetImageFromCurrentImageContext();
-    UIImageView* imgView = [[UIImageView alloc]initWithFrame:self.view.bounds];
-    imgView.image = copied;
-    UIBlurEffect* effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    UIVisualEffectView* visualEffectView = [[UIVisualEffectView alloc]initWithEffect:effect];
-    visualEffectView.frame = self.view.bounds;
-    [imgView addSubview:visualEffectView];
-    
-    UIGraphicsEndImageContext();
-    //[self.view addSubview:imgView];
-    
-    //self.view.hidden = !self.view.hidden;
-    self.navigationController.navigationBar.hidden = self.navigationController.navigationBar.hidden;
+//    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, NO, 0);
+//    
+//    
+//    [self.view.window drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:NO];
+//    
+//    UIImage *copied = UIGraphicsGetImageFromCurrentImageContext();
+//    UIImageView* imgView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+//    imgView.image = copied;
+//    UIBlurEffect* effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+//    UIVisualEffectView* visualEffectView = [[UIVisualEffectView alloc]initWithEffect:effect];
+//    visualEffectView.frame = self.view.bounds;
+//    [imgView addSubview:visualEffectView];
+//    
+//    UIGraphicsEndImageContext();
+//    //[self.view addSubview:imgView];
+//    
+//    //self.view.hidden = !self.view.hidden;
+//    self.navigationController.navigationBar.hidden = self.navigationController.navigationBar.hidden;
     
     UIAlertControllerStyle alertStyle = UIAlertControllerStyleActionSheet;
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
                                                                    message:self.webpageURLString
                                                             preferredStyle:alertStyle];
+    
     UIAlertAction* copyAction = [UIAlertAction actionWithTitle:@"Copy URL" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.string = self.webpageURLString;
     }];
     
+    UIAlertAction* twitterAction = [UIAlertAction actionWithTitle:@"Twitter" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+        {
+            SLComposeViewController *tweetSheetOBJ = [SLComposeViewController
+                                                      composeViewControllerForServiceType:SLServiceTypeTwitter];
+            NSString* str = [NSString stringWithFormat:@"I like this thing: %@",self.webpageURLString];
+            [tweetSheetOBJ setInitialText:str];
+            [self presentViewController:tweetSheetOBJ animated:YES completion:nil];
+        }
+
+    }];
+    
+    UIAlertAction* faceBookAction = [UIAlertAction actionWithTitle:@"Facebook" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+            SLComposeViewController *fbSheetOBJ = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+            
+            NSString* str2 = [NSString stringWithFormat:@"I like this thing: %@",self.webpageURLString];
+            [fbSheetOBJ setInitialText:str2];
+            [self presentViewController:fbSheetOBJ animated:YES completion:Nil];
+        }
+
+    }];
+    
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"CANCEL"
-                                                           style:UIAlertActionStyleCancel
+                                                           style:UIAlertActionStyleDestructive
                                                          handler:^(UIAlertAction *action) {
                                                              
                                                              NSLog(@"CANCEL!");
                                                          }];
     [alert addAction:copyAction];
+    [alert addAction:twitterAction];
+    [alert addAction:faceBookAction];
     [alert addAction:cancelAction];
     [self presentViewController:alert
                        animated:YES

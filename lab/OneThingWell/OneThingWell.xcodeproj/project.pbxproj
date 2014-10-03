@@ -10,6 +10,7 @@
 		9D157E3819DC077500445F3D /* AddNewAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D157E3719DC077500445F3D /* AddNewAppViewController.m */; };
 		9D597A0819D71B000029318A /* UIImage+Strech.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D597A0719D71B000029318A /* UIImage+Strech.m */; };
 		9DE1861A19DCF56C008D4363 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE1861919DCF56C008D4363 /* MessageUI.framework */; };
+		9DE1861C19DD37B8008D4363 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE1861B19DD37B8008D4363 /* StoreKit.framework */; };
 		9DF4420A19D262690003D6E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4420919D262690003D6E8 /* main.m */; };
 		9DF4420D19D262690003D6E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4420C19D262690003D6E8 /* AppDelegate.m */; };
 		9DF4421319D262690003D6E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DF4421119D262690003D6E8 /* Main.storyboard */; };
@@ -87,6 +88,7 @@
 		9D597A0619D71B000029318A /* UIImage+Strech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Strech.h"; sourceTree = "<group>"; };
 		9D597A0719D71B000029318A /* UIImage+Strech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Strech.m"; sourceTree = "<group>"; };
 		9DE1861919DCF56C008D4363 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		9DE1861B19DD37B8008D4363 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9DF4420419D262690003D6E8 /* OneThingWell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneThingWell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DF4420819D262690003D6E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DF4420919D262690003D6E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DE1861C19DD37B8008D4363 /* StoreKit.framework in Frameworks */,
 				9DE1861A19DCF56C008D4363 /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -234,6 +237,7 @@
 		9DF441FB19D262680003D6E8 = {
 			isa = PBXGroup;
 			children = (
+				9DE1861B19DD37B8008D4363 /* StoreKit.framework */,
 				9DE1861919DCF56C008D4363 /* MessageUI.framework */,
 				9DF4420619D262690003D6E8 /* OneThingWell */,
 				9DF4422019D262690003D6E8 /* OneThingWellTests */,
@@ -559,6 +563,7 @@
 				TargetAttributes = {
 					9DF4420319D262690003D6E8 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = NQ2JYG7N6U;
 					};
 					9DF4421C19D262690003D6E8 = {
 						CreatedOnToolsVersion = 6.1;
@@ -788,10 +793,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = OneThingWell/PrefixHeader.pch;
 				INFOPLIST_FILE = OneThingWell/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ac7f3099-32e1-43d0-92da-fecc2c8d29a0";
 			};
 			name = Debug;
 		};
@@ -799,10 +807,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = OneThingWell/PrefixHeader.pch;
 				INFOPLIST_FILE = OneThingWell/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ac7f3099-32e1-43d0-92da-fecc2c8d29a0";
 			};
 			name = Release;
 		};

@@ -23,6 +23,7 @@ static NSString * const reuseIdentifier = @"reuseCollectionCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor colorWithRed:98/255 green:0 blue:1 alpha:1]};
     
     
     // Uncomment the following line to preserve selection between presentations
