@@ -411,17 +411,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon,We need some further data to show the content of this page" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXY-f5-nZa">
-                                <rect key="frame" x="34" y="289.5" width="532" height="20.5"/>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Comming Soon" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.30000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="cXY-f5-nZa">
+                                <rect key="frame" x="122" y="257" width="357" height="86"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
                                 <color key="textColor" red="0.3843137254901961" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="cXY-f5-nZa" secondAttribute="centerX" id="Efh-Zd-7ge"/>
-                            <constraint firstAttribute="centerY" secondItem="cXY-f5-nZa" secondAttribute="centerY" id="eAG-p2-71g"/>
+                            <constraint firstItem="cXY-f5-nZa" firstAttribute="centerX" secondItem="SLu-ZZ-nyY" secondAttribute="centerX" id="a3Z-XI-9VB"/>
+                            <constraint firstItem="cXY-f5-nZa" firstAttribute="top" secondItem="fU4-4d-X6S" secondAttribute="bottom" constant="193" id="bSj-g5-lAM"/>
+                            <constraint firstItem="cXY-f5-nZa" firstAttribute="centerY" secondItem="SLu-ZZ-nyY" secondAttribute="centerY" id="xN7-rc-EtA"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Thing Rank" id="Zvi-9W-nY4"/>
