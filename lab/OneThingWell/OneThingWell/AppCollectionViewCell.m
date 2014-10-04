@@ -97,8 +97,11 @@
     }
     if (self.tagScrollView == nil)
     {
-        //self.tagScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(self.frame.size.width * 0.3, self.maskView.frame.origin.y + self.maskView.frame.size.height, self.frame.size.width * 0.7, 30)];
-        self.tagScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(self.frame.size.width * 0.3, self.frame.size.height - 27, self.frame.size.width * 0.7, 30)];
+        //self.tagScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(self.frame.size.width * 0.3, self.maskView.frame.origin.y + self.maskView.frame.size.height , self.frame.size.width * 0.7, 30)];
+        CGFloat bottomHeight = self.frame.size.height - ( self.maskView.frame.origin.y + self.maskView.frame.size.height);
+        
+        self.tagScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(self.frame.size.width * 0.3, self.maskView.frame.origin.y + self.maskView.frame.size.height + bottomHeight/2 - 13, self.frame.size.width * 0.7, 30)];
+        //self.tagScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(self.frame.size.width * 0.3, self.frame.size.height - 27, self.frame.size.width * 0.7, 30)];
         self.tagScrollView.backgroundColor = [UIColor clearColor];
         self.tagScrollView.showsHorizontalScrollIndicator = NO;
         [self addSubview:self.tagScrollView];

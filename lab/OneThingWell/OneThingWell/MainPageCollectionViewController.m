@@ -43,7 +43,6 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
     [self.view addSubview:self.loadingView];
     self.loadingView.hidden = YES;
     screenHeight = (int)[UIScreen mainScreen].bounds.size.height;
-    lastContentOffsetY = -9999999;
     //self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor colorWithRed:98.0/255 green:0 blue:1.0 alpha:1]};
 }
 - (void)viewDidAppear:(BOOL)animated
@@ -131,9 +130,11 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
     //I'll be back
     return;
     CGRect f = self.navigationController.navigationBar.frame;
-    if (lastContentOffsetY == -9999999) {
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         lastContentOffsetY = scrollView.contentOffset.y;
-    }
+    });
     CGFloat deltaY = scrollView.contentOffset.y - lastContentOffsetY;
     NSLog(@"delta %f",deltaY);
     if (deltaY >= 0) {
