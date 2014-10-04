@@ -73,6 +73,8 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
     }
 }
 
+#pragma makr --
+#pragma mark - Fetcher Delegate
 - (void)didFinishFecthPosts:(NSArray *)result
 {
     [self.collectionView reloadData];
@@ -94,6 +96,17 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
         }
     }];
 }
+
+- (void)didFinishFecthNewestPosts:(NSArray *)result
+{
+    [self.collectionView reloadData];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.collectionView.contentInset = originalInset;
+        self.loadingView.hidden = YES;
+        [self.loadingView stopAnimating];
+    }];
+}
+
 
 - (IBAction)recommendNewThing:(id)sender {
     AddNewAppViewController* addNewAppVC = [self.storyboard instantiateViewControllerWithIdentifier:@"newAppViewController"];
@@ -128,13 +141,14 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     //I'll be back
-    return;
-    CGRect f = self.navigationController.navigationBar.frame;
-    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         lastContentOffsetY = scrollView.contentOffset.y;
     });
+    return;
+    /*
+    CGRect f = self.navigationController.navigationBar.frame;
+    
     CGFloat deltaY = scrollView.contentOffset.y - lastContentOffsetY;
     NSLog(@"delta %f",deltaY);
     if (deltaY >= 0) {
@@ -148,18 +162,31 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
         self.navigationController.navigationBar.frame = CGRectMake(f.origin.x, navigatorBarFrame.origin.y, f.size.width, f.size.height);
     }
     lastContentOffsetY = scrollView.contentOffset.y;
+     */
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    NSLog(@"%f",scrollView.contentOffset.y);
     if(scrollView.contentOffset.y > 0 && scrollView.contentOffset.y > scrollView.contentSize.height - screenHeight + 100)
     {
         //inset scrollView
         [self.fetcher fetchNextPosts];
+        self.loadingView.frame = CGRectMake(self.view.frame.size.width/2 - self.loadingView.frame.size.width/2, self.view.frame.size.height -self.tabBarController.tabBar.frame.size.height - 30, self.loadingView.frame.size.width, self.loadingView.frame.size.height);
         [UIView animateWithDuration:0.3 animations:^{
             UIEdgeInsets edgeInset = UIEdgeInsetsMake(originalInset.top, originalInset.left, originalInset.bottom +  40, originalInset.right);
             scrollView.contentInset = edgeInset;
-            self.loadingView.frame = CGRectMake(self.view.frame.size.width/2 - self.loadingView.frame.size.width/2, self.view.frame.size.height -self.tabBarController.tabBar.frame.size.height - 30, self.loadingView.frame.size.width, self.loadingView.frame.size.height);
+            self.loadingView.hidden = NO;
+            [self.loadingView startAnimating];
+        }];
+    }
+    else if(scrollView.contentOffset.y < originalInset.top - 100)
+    {
+        [self.fetcher fetchNewestPosts];
+        self.loadingView.frame = CGRectMake(self.view.frame.size.width/2 - self.loadingView.frame.size.width/2, self.view.frame.origin.y + self.tabBarController.tabBar.frame.size.height + 24, self.loadingView.frame.size.width, self.loadingView.frame.size.height);
+        [UIView animateWithDuration:0.3 animations:^{
+            UIEdgeInsets edgeInset = UIEdgeInsetsMake(originalInset.top + 40, originalInset.left, originalInset.bottom , originalInset.right);
+            scrollView.contentInset = edgeInset;
             self.loadingView.hidden = NO;
             [self.loadingView startAnimating];
         }];

@@ -77,8 +77,10 @@ static UIWindow* privateWindow;
 -(void)fetchCurrentSectionPosts{
     self.currentOffset = 0;
 }
-- (void)fetchNextPosts
+
+-(void)fetchPosts:(int)offset withCallback:(void(^)(NSMutableArray* result))callback
 {
+    
     if (!_isDone) {
         return;
     }
@@ -90,7 +92,7 @@ static UIWindow* privateWindow;
     [[TMAPIClient sharedInstance] posts:kThumblrURL
                                    type:nil
                              parameters:@{ @"limit" : @(kLimitNumber),
-                                           @"offset" : @(self.currentOffset)
+                                           @"offset" : @(offset)
                                            }
                                callback:^ (id result, NSError *error) {
                                    NSDictionary* dic = (NSDictionary*)result;
@@ -159,26 +161,41 @@ static UIWindow* privateWindow;
                                            
                                            [result addObject:item];
                                        }];
-                                       if (self.resultArr.count > 0 ) {
-                                           [self.resultArr addObjectsFromArray:result];
-                                       }
-                                       else
-                                       {
-                                           self.resultArr = result;
-                                       }
                                        
-                                       //UITableView* tableView = tableViewController.tableView;
-                                       //[tableView reloadData];
-                                       //[tableView insertRowsAtIndexPaths:idxPaths withRowAnimation:UITableViewRowAnimationFade];
-                                       if ([self.delegate respondsToSelector:@selector(didFinishFecthPosts:)]) {
-                                           [self.delegate performSelector:@selector(didFinishFecthPosts:) withObject:result];
+                                       if (callback) {
+                                           callback(result);
                                        }
-                                       self.currentOffset += 5;
                                        self.isDone = YES;
-                                       
                                    });
                                }];
+}
+-(void)fetchNewestPosts{
+    [self fetchPosts:0 withCallback:^(NSMutableArray *result) {
+        self.currentOffset = 5;
+        self.resultArr = result ;
+        if ([self.delegate respondsToSelector:@selector(didFinishFecthNewestPosts:)]) {
+            [self.delegate didFinishFecthNewestPosts:result];
+        }
+    }];
+}
 
+- (void)fetchNextPosts
+{
+    [self fetchPosts:self.currentOffset withCallback:^(NSMutableArray* result){
+        self.currentOffset += 5;
+        
+        if (self.resultArr.count > 0 ) {
+            [self.resultArr addObjectsFromArray:result];
+        }
+        else
+        {
+            self.resultArr = result;
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(didFinishFecthPosts:)]) {
+            [self.delegate performSelector:@selector(didFinishFecthPosts:) withObject:result];
+        }
+    }];
 }
 
 - (void)getAppWebSiteImage:(NSString*)urlStr
@@ -192,6 +209,8 @@ static UIWindow* privateWindow;
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location
 {
+    return;
+    /*
     NSData* data = [NSData dataWithContentsOfURL:location];
     NSString* html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     HTMLDocument *document = [HTMLDocument documentWithString:html];
@@ -233,6 +252,7 @@ static UIWindow* privateWindow;
             }
         });
     }
+     */
 }
 
 

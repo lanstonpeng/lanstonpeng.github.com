@@ -13,7 +13,7 @@
 @optional
 - (void)didFinishFecthPosts:(NSArray*)result;
 - (void)didFinishFecthImg:(NSIndexPath*)indexPath withImageData:(UIImage*)imgData;
-
+- (void)didFinishFecthNewestPosts:(NSArray*)result;
 @end
 
 
@@ -30,4 +30,6 @@
 -(void)fetchRSSFeed:(void (^)(NSArray* arr))complete;
 
 -(void)fetchNextPosts;
+
+-(void)fetchNewestPosts;
 @end
