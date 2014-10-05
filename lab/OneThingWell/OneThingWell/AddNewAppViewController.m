@@ -47,6 +47,10 @@
     [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 10)];
@@ -72,6 +76,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation

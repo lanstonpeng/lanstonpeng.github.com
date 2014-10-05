@@ -167,7 +167,7 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    NSLog(@"%f",scrollView.contentOffset.y);
+    //NSLog(@"%f",scrollView.contentOffset.y);
     if(scrollView.contentOffset.y > 0 && scrollView.contentOffset.y > scrollView.contentSize.height - screenHeight + 100)
     {
         //inset scrollView
@@ -180,7 +180,7 @@ static NSString * const reuseIdentifier = @"reuseMainCell";
             [self.loadingView startAnimating];
         }];
     }
-    else if(scrollView.contentOffset.y < originalInset.top - 100)
+    else if(scrollView.contentOffset.y < -originalInset.top - 100)
     {
         [self.fetcher fetchNewestPosts];
         self.loadingView.frame = CGRectMake(self.view.frame.size.width/2 - self.loadingView.frame.size.width/2, self.view.frame.origin.y + self.tabBarController.tabBar.frame.size.height + 24, self.loadingView.frame.size.width, self.loadingView.frame.size.height);
