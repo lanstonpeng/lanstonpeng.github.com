@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "OneThingModel.h"
 
 @protocol RSSFetcherDelegate <NSObject>
 
@@ -32,4 +33,6 @@
 -(void)fetchNextPosts;
 
 -(void)fetchNewestPosts;
+
+-(void)updateFavCount:(OneThingModel*)model byAmout:(int)amount;
 @end

@@ -8,9 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		9D157E3819DC077500445F3D /* AddNewAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D157E3719DC077500445F3D /* AddNewAppViewController.m */; };
+		9D24280519E2508C00E6DABD /* RankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D24280419E2508C00E6DABD /* RankTableViewCell.m */; };
 		9D597A0819D71B000029318A /* UIImage+Strech.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D597A0719D71B000029318A /* UIImage+Strech.m */; };
 		9DE1861A19DCF56C008D4363 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE1861919DCF56C008D4363 /* MessageUI.framework */; };
 		9DE1861C19DD37B8008D4363 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE1861B19DD37B8008D4363 /* StoreKit.framework */; };
+		9DF07A4619E2394A0053DA97 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF07A4519E2394A0053DA97 /* AVOSCloud.framework */; };
+		9DF07A4819E239600053DA97 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF07A4719E239600053DA97 /* SystemConfiguration.framework */; };
+		9DF07A4A19E2397A0053DA97 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF07A4919E2397A0053DA97 /* MobileCoreServices.framework */; };
+		9DF07A4C19E239850053DA97 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF07A4B19E239850053DA97 /* CoreTelephony.framework */; };
+		9DF07A4E19E2398B0053DA97 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF07A4D19E2398B0053DA97 /* CoreLocation.framework */; };
+		9DF07A5019E239930053DA97 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF07A4F19E239930053DA97 /* libicucore.dylib */; };
 		9DF4420A19D262690003D6E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4420919D262690003D6E8 /* main.m */; };
 		9DF4420D19D262690003D6E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF4420C19D262690003D6E8 /* AppDelegate.m */; };
 		9DF4421319D262690003D6E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DF4421119D262690003D6E8 /* Main.storyboard */; };
@@ -85,10 +92,18 @@
 /* Begin PBXFileReference section */
 		9D157E3619DC077500445F3D /* AddNewAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewAppViewController.h; sourceTree = "<group>"; };
 		9D157E3719DC077500445F3D /* AddNewAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewAppViewController.m; sourceTree = "<group>"; };
+		9D24280319E2508C00E6DABD /* RankTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankTableViewCell.h; sourceTree = "<group>"; };
+		9D24280419E2508C00E6DABD /* RankTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankTableViewCell.m; sourceTree = "<group>"; };
 		9D597A0619D71B000029318A /* UIImage+Strech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Strech.h"; sourceTree = "<group>"; };
 		9D597A0719D71B000029318A /* UIImage+Strech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Strech.m"; sourceTree = "<group>"; };
 		9DE1861919DCF56C008D4363 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		9DE1861B19DD37B8008D4363 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		9DF07A4519E2394A0053DA97 /* AVOSCloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVOSCloud.framework; path = "../../../../Downloads/iOS/release-v2.6.5.1/AVOSCloud.framework"; sourceTree = "<group>"; };
+		9DF07A4719E239600053DA97 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9DF07A4919E2397A0053DA97 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		9DF07A4B19E239850053DA97 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		9DF07A4D19E2398B0053DA97 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9DF07A4F19E239930053DA97 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		9DF4420419D262690003D6E8 /* OneThingWell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneThingWell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DF4420819D262690003D6E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DF4420919D262690003D6E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -219,6 +234,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DF07A5019E239930053DA97 /* libicucore.dylib in Frameworks */,
+				9DF07A4E19E2398B0053DA97 /* CoreLocation.framework in Frameworks */,
+				9DF07A4C19E239850053DA97 /* CoreTelephony.framework in Frameworks */,
+				9DF07A4A19E2397A0053DA97 /* MobileCoreServices.framework in Frameworks */,
+				9DF07A4819E239600053DA97 /* SystemConfiguration.framework in Frameworks */,
+				9DF07A4619E2394A0053DA97 /* AVOSCloud.framework in Frameworks */,
 				9DE1861C19DD37B8008D4363 /* StoreKit.framework in Frameworks */,
 				9DE1861A19DCF56C008D4363 /* MessageUI.framework in Frameworks */,
 			);
@@ -237,6 +258,12 @@
 		9DF441FB19D262680003D6E8 = {
 			isa = PBXGroup;
 			children = (
+				9DF07A4F19E239930053DA97 /* libicucore.dylib */,
+				9DF07A4D19E2398B0053DA97 /* CoreLocation.framework */,
+				9DF07A4B19E239850053DA97 /* CoreTelephony.framework */,
+				9DF07A4919E2397A0053DA97 /* MobileCoreServices.framework */,
+				9DF07A4719E239600053DA97 /* SystemConfiguration.framework */,
+				9DF07A4519E2394A0053DA97 /* AVOSCloud.framework */,
 				9DE1861B19DD37B8008D4363 /* StoreKit.framework */,
 				9DE1861919DCF56C008D4363 /* MessageUI.framework */,
 				9DF4420619D262690003D6E8 /* OneThingWell */,
@@ -510,6 +537,8 @@
 				9DF7B2C319D405ED00FE0B15 /* FavCollectionViewCell.m */,
 				9DF5E6B319D92314007FFB50 /* AppCollectionViewCell.h */,
 				9DF5E6B419D92314007FFB50 /* AppCollectionViewCell.m */,
+				9D24280319E2508C00E6DABD /* RankTableViewCell.h */,
+				9D24280419E2508C00E6DABD /* RankTableViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -656,6 +685,7 @@
 				9DF4426619D26EF50003D6E8 /* HTMLOrderedDictionary.m in Sources */,
 				9DF4426F19D26EF50003D6E8 /* NSString+HTMLEntities.m in Sources */,
 				9DF4420A19D262690003D6E8 /* main.m in Sources */,
+				9D24280519E2508C00E6DABD /* RankTableViewCell.m in Sources */,
 				9DF7B2BD19D4022C00FE0B15 /* AppDataManipulator.m in Sources */,
 				9DF4429219D285E50003D6E8 /* TMAPIClient.m in Sources */,
 				9DF4427219D26F710003D6E8 /* OneThingModel.m in Sources */,
@@ -795,6 +825,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/lanstonpeng/Downloads/iOS/release-v2.6.5.1",
+				);
 				GCC_PREFIX_HEADER = OneThingWell/PrefixHeader.pch;
 				INFOPLIST_FILE = OneThingWell/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -809,6 +843,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/lanstonpeng/Downloads/iOS/release-v2.6.5.1",
+				);
 				GCC_PREFIX_HEADER = OneThingWell/PrefixHeader.pch;
 				INFOPLIST_FILE = OneThingWell/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

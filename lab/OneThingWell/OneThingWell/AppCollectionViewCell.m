@@ -8,6 +8,7 @@
 
 #import "AppCollectionViewCell.h"
 #import "AppDataManipulator.h"
+#import "RSSFetcher.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -28,15 +29,13 @@
     UIImage* img;
     if (self.cellDataModel.isFav) {
         img = [UIImage imageNamed:@"star_selected"];
-        NSLog(@"isFav");
+        [[RSSFetcher singleton]updateFavCount:self.cellDataModel byAmout:1];
     }
     else
     {
         img = [UIImage imageNamed:@"star_deselected"];
-        NSLog(@"is not Fav");
+        [[RSSFetcher singleton]updateFavCount:self.cellDataModel byAmout:-1];
     }
-    //self.favButton.imageView.image = [UIImage imageNamed:self.cellDataModel.isFav? @"star_selected": @"star_deselected"];
-    //self.favButton.imageView.image = img;
     [self.favButton setImage:img forState:UIControlStateNormal];
     if (self.cellDataModel.isFav == NO) {
         [[AppDataManipulator singleton]deleteAnItem:self.cellDataModel];
@@ -115,6 +114,7 @@
         textView.backgroundColor = [UIColor clearColor];
         textView.editable = NO;
         textView.userInteractionEnabled = NO;
+        textView.font = [UIFont fontWithName:@"Apple SD Gothic Neo" size:14];
         [self addSubview:textView];
         self.appDescriptionTextView = textView;
     }

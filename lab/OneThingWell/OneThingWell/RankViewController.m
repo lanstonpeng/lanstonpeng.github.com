@@ -7,8 +7,13 @@
 //
 
 #import "RankViewController.h"
+#import <AVOSCloud/AVOSCloud.h>
+#import "RankTableViewCell.h"
+#import "WebPageViewController.h"
 
 @interface RankViewController ()
+
+@property (strong,nonatomic)NSArray* favDataArr;
 
 @end
 
@@ -16,12 +21,48 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    NSString *cql = [NSString stringWithFormat:@"select * from %@ limit 10 order by FavCount desc", @"AppTest"];
+    [AVQuery doCloudQueryInBackgroundWithCQL:cql callback:^(AVCloudQueryResult *result, NSError *error) {
+        self.favDataArr = result.results;
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _favDataArr.count;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    RankTableViewCell* cell = (RankTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"rankCell"];
+    AVObject* obj = [_favDataArr objectAtIndex:indexPath.row];
+    cell.webURLStr = [obj objectForKey:@"AppUrl"]?:@"http://lanstonpeng.github.io";
+    cell.titleLabel.text = [obj objectForKey:@"Name"] ;
+    cell.detailLabel.text = [[obj objectForKey:@"FavCount"] stringValue];
+    
+    return cell;
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"showFavDetail"]) {
+        WebPageViewController* controller = (WebPageViewController*)segue.destinationViewController;
+        NSIndexPath* selectedIdxPath = [self.tableView indexPathForSelectedRow];
+        controller.webpageURLString = [(RankTableViewCell*)[self.tableView cellForRowAtIndexPath:selectedIdxPath] webURLStr];
+    }
 }
 
 /*

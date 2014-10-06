@@ -8,6 +8,7 @@
 #import "AppDelegate.h"
 #import "RSSFetcher.h"
 #import "AppDataManipulator.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -30,6 +31,20 @@
     RSSFetcher* fetcher = [RSSFetcher singleton];
     fetcher.window = self.window;
     [fetcher fetchNextPosts];
+    
+    [AVOSCloud setApplicationId:@"ax5s838wknvwpsloon0cct1z01sjnxkm8hpqcxwarusfnaje"
+                      clientKey:@"x0b1v2bqxm9qp6829t24h56w83o7nqjda268zrqksheatzke"];
+    [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    /*
+    AVObject *testObject = [AVObject objectWithClassName:@"TestObject"];
+    [testObject setObject:@"bar" forKey:@"foo"];
+    [testObject incrementKey:@"score"];
+    [testObject saveEventually:^(BOOL succeeded, NSError *error) {
+        NSLog(succeeded?@"hulala":@"oops");
+    }];
+     */
+    
     return YES;
 }
 

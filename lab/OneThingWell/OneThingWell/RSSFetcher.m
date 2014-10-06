@@ -11,10 +11,10 @@
 #import "MainTableViewController.h"
 #import "TMAPIClient.h"
 #import "HTMLReader.h"
-#import "OneThingModel.h"
 #import "AppDataManipulator.h"
 #import "MainPageCollectionViewController.h"
 #import "UIImage+animatedGIF.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 @interface RSSFetcher()<NSURLSessionDownloadDelegate>
 
@@ -31,6 +31,7 @@
 
 #define kLimitNumber  5
 #define kThumblrURL @"onethingwell.tumblr.com"
+#define kDataTableName @"AppTest"
 
 static UIWindow* privateWindow;
 
@@ -165,6 +166,7 @@ static UIWindow* privateWindow;
                                        if (callback) {
                                            callback(result);
                                        }
+                                       [self saveViewedInfoToCloud:result];
                                        self.isDone = YES;
                                    });
                                }];
@@ -194,6 +196,50 @@ static UIWindow* privateWindow;
         
         if ([self.delegate respondsToSelector:@selector(didFinishFecthPosts:)]) {
             [self.delegate performSelector:@selector(didFinishFecthPosts:) withObject:result];
+        }
+    }];
+}
+
+- (void)insertNewCloudData:(OneThingModel*)item
+{
+    AVObject *appAVObject = [AVObject objectWithClassName:kDataTableName];
+    [appAVObject setObject:item.appName forKey:@"Name"];
+    [appAVObject setObject:item.appURL forKey:@"AppUrl"];
+    [appAVObject setObject:@(1) forKey:@"ViewedCount"];
+    [appAVObject setObject:@(0) forKey:@"FavCount"];
+    [appAVObject saveEventually:^(BOOL succeeded, NSError *error) {
+        
+    }];
+}
+
+- (void)saveViewedInfoToCloud:(NSArray*)result
+{
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        OneThingModel* item = (OneThingModel*)obj;
+        AVQuery* query = [AVQuery queryWithClassName:kDataTableName];
+        [query whereKey:@"Name" equalTo:item.appName];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (objects.count > 0 ) {
+                AVObject* obj = [objects firstObject];
+                [obj incrementKey:@"ViewedCount"];
+                [obj saveInBackground];
+            }
+            else
+            {
+                [self insertNewCloudData:item];
+            }
+        }];
+    }];
+}
+
+-(void)updateFavCount:(OneThingModel*)model byAmout:(int)amount{
+    AVQuery* query = [AVQuery queryWithClassName:kDataTableName];
+    [query whereKey:@"Name" equalTo:model.appName];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects.count > 0 ) {
+            AVObject* obj = [objects firstObject];
+            [obj incrementKey:@"FavCount" byAmount:@(amount)];
+            [obj saveInBackground];
         }
     }];
 }
