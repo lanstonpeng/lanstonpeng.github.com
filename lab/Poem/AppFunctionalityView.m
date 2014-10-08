@@ -37,7 +37,7 @@
         _easterEggLabel.textColor = [UIColor whiteColor];
         _easterEggLabel.textAlignment = NSTextAlignmentRight;
         _easterEggLabel.numberOfLines = 0;
-        _easterEggLabel.text = @"Thanks to @charsunny and @vinqon \n @lanstonpeng";
+        _easterEggLabel.text = @"@lanstonpeng";
     }
     return _easterEggLabel;
 }

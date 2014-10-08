@@ -11,6 +11,7 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "GAI.h"
 #import "GAIDictionaryBuilder.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 @interface PoemReader()
 {
@@ -39,14 +40,31 @@
 {
     return @{};
 }
+
+-(void)getAllPoemsFromServer
+{
+    AVQuery* query = [AVQuery queryWithClassName:@"poem"];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if([self.delegate respondsToSelector:@selector(AllPoemDidDownload:)]) {
+            [self.delegate AllPoemDidDownload:objects];
+        }
+    }];
+    
+}
+
+-(void)downloadImg:(NSString*)bgImgID
+{
+    AVObject* imgDataClass = [AVObject objectWithClassName:@"poemImage"];
+    AVFile *applicantResume = [imgDataClass objectForKey:@"applicantResumeFile"];
+}
+
 -(NSArray*)getAllPoems
 {
     tracker = [[GAI sharedInstance] defaultTracker];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     _basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-    //NSString *filePath = [[NSBundle mainBundle] pathForResource:@"poemdata" ofType:@"json" inDirectory:@"Documents"];
     NSString *filePath = [_basePath stringByAppendingString:@"/poemdata.json"];
-    NSLog(@"path: %@",filePath);
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     NSArray *json;
     if(data)

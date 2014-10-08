@@ -12,7 +12,8 @@
 typedef enum
 {
     PoemDetailType = 0,
-    PoemIntroduction
+    PoemIntroduction,
+    PoemList
 }PoemTypeEnum;
 
 @protocol PoemCellScrollDelegate;
@@ -23,6 +24,7 @@ typedef enum
 @property (weak,nonatomic)id<PoemCellScrollDelegate> delegate;
 @property (strong,nonatomic)NSDictionary* poemData;
 @property (nonatomic)PoemTypeEnum presentationType;
+@property (strong,nonatomic)UIImageView* bgView;
 
 - (void)setUpPoem:(NSDictionary*)poem;
 - (void)startAnimation;

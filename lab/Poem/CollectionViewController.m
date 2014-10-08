@@ -8,7 +8,6 @@
 
 #import "CollectionViewController.h"
 #import "PoemReader.h"
-#import "CustomTestCell.h"
 #import "PoemDetailView.h"
 #import "PoemIntroductionView.h"
 #import "UIImage+PoemResouces.h"
@@ -16,8 +15,11 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 #import "GAI.h"
+#import <AVOSCloud/AVOSCloud.h>
+#import "PoemCell.h"
+#import "PoemListView.h"
 
-@interface CollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,PoemCellScrollDelegate,AppFunctionalityDelegate>
+@interface CollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,PoemCellScrollDelegate,AppFunctionalityDelegate,PoemReaderDelegate>
 {
     NSMutableArray* poemArr;
     UIView* currentEmbedView;
@@ -26,15 +28,16 @@
     CGPoint dragStartPoint;
     CALayer* uppperShadow;
     CALayer* bottomShadow;
-    
-    //LoadingView* loadingView;
 }
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UIScrollView *poemMixedInfoScrollView;
 @property (strong,nonatomic) PoemDetailView* poemDetailView;
-@property (strong,nonatomic)PoemIntroductionView* introductionView;
+@property (strong,nonatomic) PoemIntroductionView* introductionView;
+@property (strong,nonatomic) PoemListView* poemListTableView;
 @end
 
+
+static CGRect sFrame;
 @implementation CollectionViewController
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -50,12 +53,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"CollectionView did load");
-    //loadingView = [[LoadingView alloc]initWithFrame:CGRectMake(0, 0, 320, 568)];
-    //[self.view addSubview:loadingView];
-    // Do any additional setup after loading the view.
-    CGRect sFrame = [UIScreen mainScreen].bounds;
-    self.view = [[UIView alloc]initWithFrame:sFrame];
+    sFrame = [UIScreen mainScreen].bounds;
     
     UIView* backgroundView = [[UIView alloc]initWithFrame:sFrame];
     UIImage* bgImg = (UIImage*)[[UIImage alloc]initWithName:@"black_linen_v2_@2X"];
@@ -68,7 +66,8 @@
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.minimumLineSpacing = 0;
     
-    _collectionView = [[UICollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:flowLayout];
+    CGRect collectionViewFrame = CGRectOffset(sFrame, sFrame.size.width, 0);
+    _collectionView = [[UICollectionView alloc]initWithFrame:collectionViewFrame collectionViewLayout:flowLayout];
     _collectionView.backgroundColor = [UIColor clearColor];
     _collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.pagingEnabled = YES;
@@ -79,12 +78,13 @@
     
     
     _poemMixedInfoScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    _poemMixedInfoScrollView.contentSize = CGSizeMake(self.view.frame.size.width*2, self.view.frame.size.height);
+    _poemMixedInfoScrollView.contentSize = CGSizeMake(self.view.frame.size.width*3, self.view.frame.size.height);
     _poemMixedInfoScrollView.tag = 100;
     _poemMixedInfoScrollView.delegate = self;
     _poemMixedInfoScrollView.pagingEnabled = YES;
     _poemMixedInfoScrollView.bounces = NO;
     _poemMixedInfoScrollView.showsHorizontalScrollIndicator = NO;
+    _poemMixedInfoScrollView.contentOffset = CGPointMake(sFrame.size.width, 0);
     [_poemMixedInfoScrollView addSubview:_collectionView];
     
     
@@ -94,14 +94,30 @@
     [_collectionView registerClass:[PoemCell class] forCellWithReuseIdentifier:@"reused"];
     
     PoemReader* reader = [PoemReader sharedPoemReader];
-    poemArr = (NSMutableArray*)[reader getAllPoems];
-    CGRect poemDetailFrame = CGRectMake(self.view.frame.size.width, 0, self.view.frame.size.width * 2, self.view.frame.size.height);
+    reader.delegate = self;
+    [reader getAllPoemsFromServer];
+    
+    
+    CGRect poemDetailFrame = CGRectMake(self.view.frame.size.width*2, 0, self.view.frame.size.width * 2, self.view.frame.size.height);
+    
+    _poemListTableView = [[PoemListView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, sFrame.size.height)];
+    [_poemMixedInfoScrollView addSubview:_poemListTableView];
+    
     _poemDetailView = [[PoemDetailView alloc]initWithFrame:poemDetailFrame];
     [_poemMixedInfoScrollView addSubview:_poemDetailView];
     
     _introductionView = [[PoemIntroductionView alloc]initWithFrame:poemDetailFrame];
     [_poemMixedInfoScrollView addSubview:_introductionView];
     
+    
+    
+    AppFunctionalityView* appFunctionalityView = [[AppFunctionalityView alloc]initWithFrame:CGRectMake(0, -70, sFrame.size.width, 50)];
+    appFunctionalityView.delegate = self;
+    [_collectionView addSubview:appFunctionalityView];
+}
+
+- (void)setupShadowLayer
+{
     uppperShadow = [CALayer layer];
     uppperShadow.shadowOffset = CGSizeMake(0, -3);
     uppperShadow.backgroundColor= [UIColor orangeColor].CGColor;
@@ -118,28 +134,21 @@
     bottomShadow.shadowRadius = 3.0f;
     [bottomShadow setShadowColor:[UIColor blackColor].CGColor];
     [bottomShadow setShadowOpacity:0.8];
-    [_collectionView.layer addSublayer:bottomShadow];
-    
-    AppFunctionalityView* appFunctionalityView = [[AppFunctionalityView alloc]initWithFrame:CGRectMake(0, -70, sFrame.size.width, 50)];
-    appFunctionalityView.delegate = self;
-    [_collectionView addSubview:appFunctionalityView];
+    [_collectionView.layer addSublayer:bottomShadow];   
 }
+
+- (void)AllPoemDidDownload:(NSArray *)poemDataArr
+{
+    poemArr = [[NSMutableArray alloc] initWithArray: poemDataArr];
+    [self.collectionView reloadData];
+    
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGPoint offset  = scrollView.contentOffset;
-    CGPoint velocity = [[scrollView panGestureRecognizer]velocityInView:self.view];
-    //NSLog(@"x:%f,y:%f",velocity.x,velocity.y);
-    /*
-    if(abs(velocity.x) - abs(velocity.y) < 0)
-    {
-        NSLog(@"no scroll,%f,%f",offset.x,offset.y);
-        scrollView.contentOffset = CGPointMake(320, 0);
-    }
-     */
     if(offset.y < -60)
     {
-        //scrollView.contentOffset = CGPointMake(0, -70);
-        //Confusing
         scrollView.contentInset =  UIEdgeInsetsMake(70, 0, 0, 0);
         if(offset.y < -260)
         {
@@ -155,7 +164,6 @@
         switch (currentPoemType) {
             case PoemDetailType:
             {
-                //[_poemDetailView showToolBarView];
                 break;
             }
             case PoemIntroduction:
@@ -175,7 +183,6 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return poemArr.count;
-    //return 5;
 }
 
 
@@ -186,6 +193,24 @@
     poemCell.delegate = self;
     
     [poemCell setUpPoem:poemArr[indexPath.row]];;
+    
+    AVObject* item = (AVObject*)[poemArr objectAtIndex:indexPath.row];
+    AVObject* img = [item objectForKey:@"imgPointer"];
+    
+    //TODO :show loading indicator
+    [img fetchIfNeededInBackgroundWithBlock:^(AVObject *object, NSError *error) {
+        AVFile* file = (AVFile*)[object objectForKey:@"url"];
+        [file getThumbnail:YES width:poemCell.frame.size.width height:poemCell.frame.size.height withBlock:^(UIImage *image, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                poemCell.bgView.image = image;
+                [poemCell setNeedsDisplay];
+            });
+        }];
+//        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+//        } progressBlock:^(NSInteger percentDone) {
+//        }];
+    }];
+    
     return poemCell;
 }
 
@@ -223,6 +248,11 @@
             [tracker set:kGAIScreenName value:@"Poem Introduction"];
             break;
         }
+        case PoemList:
+        {
+            currentPoemType = PoemList;
+            [tracker set:kGAIScreenName value:@"Poem List"];
+        }
         default:
             break;
     }
@@ -231,22 +261,15 @@
 }
 - (void)poemCell:(PoemCell *)cell didChangePullOffset:(CGFloat)offset
 {
-    _poemMixedInfoScrollView.contentOffset = CGPointMake(offset,0);
+    //_poemMixedInfoScrollView.contentOffset = CGPointMake(offset,0);
+    NSLog(@"-->: %f",offset);
+    _poemMixedInfoScrollView.contentOffset = CGPointMake(sFrame.size.width + offset,0);
 }
 -(void)poemCellDidEndPulling:(PoemCell *)cell
 {
     _poemMixedInfoScrollView.scrollEnabled = YES;
 }
 
-/*
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    UITouch* touch = [touches anyObject];
-    CGPoint curPoint = [touch locationInView:self];
-    CGPoint prevPoint = [touch previousLocationInView:self];
-    NSLog(@"%f,%f",curPoint.x - prevPoint.x ,curPoint.y - prevPoint.y);
-}
- */
 #pragma mark appFunctionalityView delegate
 - (void)MailDidDismiss
 {

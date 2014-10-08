@@ -10,6 +10,11 @@
 		9D0669C8193855AE0046750E /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0669C7193855AE0046750E /* ContainerViewController.m */; };
 		9D1152541944313000F67743 /* ToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0669C119384B490046750E /* ToolBarView.m */; };
 		9D1152571944A71100F67743 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D1152561944A71100F67743 /* icomoon.ttf */; };
+		9D30AC8C19E4D3F30063577B /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D30AC8819E4D3630063577B /* AVOSCloud.framework */; };
+		9D30AC8F19E4D46F0063577B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D30AC8E19E4D46F0063577B /* MobileCoreServices.framework */; };
+		9D30AC9119E4D4770063577B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D30AC9019E4D4770063577B /* CoreTelephony.framework */; };
+		9D30AC9319E4D47E0063577B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D30AC9219E4D47E0063577B /* CoreLocation.framework */; };
+		9D30AC9519E4D48F0063577B /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D30AC9419E4D48F0063577B /* libicucore.dylib */; };
 		9D329CA5193AD0D800B50C55 /* PoemDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329CA4193AD0D800B50C55 /* PoemDetailView.m */; };
 		9D329CAF193C1C2F00B50C55 /* PoemReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329CAE193C1C2F00B50C55 /* PoemReader.m */; };
 		9D329CB2193C3C2200B50C55 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D329CB1193C3C2200B50C55 /* CollectionViewController.m */; };
@@ -24,6 +29,7 @@
 		9DA03990195BB3C20063DD59 /* PoemSharingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA0398F195BB3C20063DD59 /* PoemSharingView.m */; };
 		9DC62DA2194603B30072BF76 /* icomoonlight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DC62DA1194603B30072BF76 /* icomoonlight.ttf */; };
 		9DCAD6AB1944165500EEFB21 /* CygnetRound.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DCAD6AA1944165500EEFB21 /* CygnetRound.ttf */; };
+		9DCCFD5219E5198A00D38C31 /* PoemListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DCCFD5119E5198A00D38C31 /* PoemListView.m */; };
 		9DD43B3319405AE300259CF1 /* PoemLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD43B3219405AE300259CF1 /* PoemLineView.m */; };
 		9DD447BD195859610043590B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD447BC195859610043590B /* CoreData.framework */; };
 		9DD447BF1958596C0043590B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DD447BE1958596C0043590B /* SystemConfiguration.framework */; };
@@ -67,6 +73,12 @@
 		9D0669C7193855AE0046750E /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
 		9D1152531944280000F67743 /* CollectionViewScrollDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewScrollDelegate.h; sourceTree = "<group>"; };
 		9D1152561944A71100F67743 /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoon.ttf; sourceTree = "<group>"; };
+		9D30AC8819E4D3630063577B /* AVOSCloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVOSCloud.framework; path = "../../../../Downloads/avoscloud-ios-sdk-v2.6.5.1/iOS/release-v2.6.5.1/AVOSCloud.framework"; sourceTree = "<group>"; };
+		9D30AC8A19E4D36C0063577B /* AVOSCloudSNS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVOSCloudSNS.framework; path = "../../../../Downloads/avoscloud-ios-sdk-v2.6.5.1/iOS 2/release-v2.6.5.1/AVOSCloudSNS.framework"; sourceTree = "<group>"; };
+		9D30AC8E19E4D46F0063577B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		9D30AC9019E4D4770063577B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		9D30AC9219E4D47E0063577B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9D30AC9419E4D48F0063577B /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		9D329CA3193AD0D800B50C55 /* PoemDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoemDetailView.h; sourceTree = "<group>"; };
 		9D329CA4193AD0D800B50C55 /* PoemDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemDetailView.m; sourceTree = "<group>"; };
 		9D329CAD193C1C2F00B50C55 /* PoemReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoemReader.h; sourceTree = "<group>"; };
@@ -93,6 +105,8 @@
 		9DC62DA1194603B30072BF76 /* icomoonlight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = icomoonlight.ttf; sourceTree = "<group>"; };
 		9DCAD6AA1944165500EEFB21 /* CygnetRound.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CygnetRound.ttf; sourceTree = "<group>"; };
 		9DCAD6AC194417A800EEFB21 /* QuicksandLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = QuicksandLight.ttf; sourceTree = "<group>"; };
+		9DCCFD5019E5198A00D38C31 /* PoemListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoemListView.h; sourceTree = "<group>"; };
+		9DCCFD5119E5198A00D38C31 /* PoemListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemListView.m; sourceTree = "<group>"; };
 		9DD43B3119405AE300259CF1 /* PoemLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoemLineView.h; sourceTree = "<group>"; };
 		9DD43B3219405AE300259CF1 /* PoemLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoemLineView.m; sourceTree = "<group>"; };
 		9DD447B71958592B0043590B /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = ../../../../Downloads/GoogleAnalyticsServicesiOS_3.07/libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
@@ -142,10 +156,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D30AC9519E4D48F0063577B /* libicucore.dylib in Frameworks */,
+				9D30AC9319E4D47E0063577B /* CoreLocation.framework in Frameworks */,
+				9D30AC9119E4D4770063577B /* CoreTelephony.framework in Frameworks */,
+				9D30AC8F19E4D46F0063577B /* MobileCoreServices.framework in Frameworks */,
+				9DD447BF1958596C0043590B /* SystemConfiguration.framework in Frameworks */,
+				9D30AC8C19E4D3F30063577B /* AVOSCloud.framework in Frameworks */,
 				9DA0398D195BA77E0063DD59 /* StoreKit.framework in Frameworks */,
 				9DD4481C19585A1E0043590B /* libGoogleAnalyticsServices.a in Frameworks */,
 				9DD447C1195859760043590B /* libz.dylib in Frameworks */,
-				9DD447BF1958596C0043590B /* SystemConfiguration.framework in Frameworks */,
 				9DD447BD195859610043590B /* CoreData.framework in Frameworks */,
 				9DF6864D194BE8A400816BEC /* MessageUI.framework in Frameworks */,
 				9DD4ADF119381111009C414E /* CoreGraphics.framework in Frameworks */,
@@ -198,6 +217,8 @@
 				9D329CA4193AD0D800B50C55 /* PoemDetailView.m */,
 				9D329CB3193C3C4E00B50C55 /* PoemCell.h */,
 				9D329CB4193C3C4E00B50C55 /* PoemCell.m */,
+				9DCCFD5019E5198A00D38C31 /* PoemListView.h */,
+				9DCCFD5119E5198A00D38C31 /* PoemListView.m */,
 				9DD43B3119405AE300259CF1 /* PoemLineView.h */,
 				9DD43B3219405AE300259CF1 /* PoemLineView.m */,
 				9D329CBD193C6F2200B50C55 /* PoemIntroductionView.h */,
@@ -260,6 +281,12 @@
 		9DD4ADED19381111009C414E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9D30AC9419E4D48F0063577B /* libicucore.dylib */,
+				9D30AC9219E4D47E0063577B /* CoreLocation.framework */,
+				9D30AC9019E4D4770063577B /* CoreTelephony.framework */,
+				9D30AC8E19E4D46F0063577B /* MobileCoreServices.framework */,
+				9D30AC8A19E4D36C0063577B /* AVOSCloudSNS.framework */,
+				9D30AC8819E4D3630063577B /* AVOSCloud.framework */,
 				9DA0398C195BA77E0063DD59 /* StoreKit.framework */,
 				9DD447C2195859AD0043590B /* libGoogleAnalyticsServices.a */,
 				9DD447C0195859760043590B /* libz.dylib */,
@@ -463,6 +490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D1152541944313000F67743 /* ToolBarView.m in Sources */,
+				9DCCFD5219E5198A00D38C31 /* PoemListView.m in Sources */,
 				9DF68638194A892300816BEC /* LoadingView.m in Sources */,
 				9D329CB5193C3C4E00B50C55 /* PoemCell.m in Sources */,
 				9DD7B0AB193A0B1700689F1B /* UIImage+PoemResouces.m in Sources */,
@@ -598,6 +626,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/lanstonpeng/Downloads/avoscloud-ios-sdk-v2.6.5.1/iOS/release-v2.6.5.1",
+					"/Users/lanstonpeng/Downloads/avoscloud-ios-sdk-v2.6.5.1/iOS",
+					"2/release-v2.6.5.1",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Poem/Poem-Prefix.pch";
 				INFOPLIST_FILE = "Poem/Poem-Info.plist";
@@ -621,6 +655,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/lanstonpeng/Downloads/avoscloud-ios-sdk-v2.6.5.1/iOS/release-v2.6.5.1",
+					"/Users/lanstonpeng/Downloads/avoscloud-ios-sdk-v2.6.5.1/iOS",
+					"2/release-v2.6.5.1",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Poem/Poem-Prefix.pch";
 				INFOPLIST_FILE = "Poem/Poem-Info.plist";

@@ -16,12 +16,6 @@
 #define BgViewOpacityStartPoint 0.95
 #define BgViewOpacityEndPoint  0.3
 #define RightMargin 10
-//#define TitleFont @"STHeitiSC-Light"
-
-//#define TitleFont @"AppleSDGothicNeo-Thin"
-//#define AuthorFont @"AmericanTyperwriter-Light"
-
-//#define TitleFont @"QuicksandLight"
 #define TitleFont @"AppleSDGothicNeo-Thin"
 #define AuthorFont @"AppleSDGothicNeo-Thin"
 
@@ -29,11 +23,10 @@
 @interface PoemCell()<UIScrollViewDelegate,UIGestureRecognizerDelegate>
 {
     CGRect sFrame;
-    UIImageView* bgView;
     //the poem scrollView
     UIScrollView* bgScrollView;
     //the author / poem background scrollView
-    UIScrollView* poemBackgroundScrollView;
+    UIScrollView* poemIntroductionScrollView;
     
     UIView* scrollIndicatorView;
     UIView* scrollIndicatorViewRight;
@@ -53,7 +46,7 @@
     CGRect poemIntroductionViewFrame;
     
     CGRect bgScrollViewFrame;
-    CGRect poemBackgroundScrollViewFrame;
+    CGRect poemIntroductionFrame;
     
     BOOL pulling;
     BOOL isScrollDecelarating;
@@ -79,12 +72,13 @@
 - (void)initData:(NSDictionary*)poem
 {
     
-    UIImage* backgroundImg = (UIImage*)[[UIImage alloc]initWithName:poem[@"bgimg"]];
+    //UIImage* backgroundImg = (UIImage*)[[UIImage alloc]initWithName:poem[@"bgimg"]];
+    UIImage* backgroundImg = nil;
     self.poemData = poem;
-    bgView.image = backgroundImg;
-    bgView.contentMode = UIViewContentModeScaleAspectFill;
+    self.bgView.image = backgroundImg;
+    self.bgView.contentMode = UIViewContentModeScaleAspectFill;
     
-    bgView.layer.anchorPoint = CGPointMake(0.5,0.5);
+    self.bgView.layer.anchorPoint = CGPointMake(0.5,0.5);
     
     author.text = poem[@"author"];
     title.text = poem[@"title"];
@@ -92,7 +86,7 @@
     if(title.text.length>30)
     {
         title.numberOfLines = 3;
-        title.frame = CGRectMake(0, bgScrollViewFrame.size.height - 150 , bgScrollViewFrame.size.width - MaxScrollPull - RightMargin , 150);
+        title.frame = CGRectMake(title.frame.origin.x, bgScrollViewFrame.size.height - 150 , bgScrollViewFrame.size.width - MaxScrollPull - RightMargin , 150);
     }
     NSMutableAttributedString* attrStr = [[NSMutableAttributedString alloc]initWithString:title.text];
     NSRange range = NSMakeRange(0, title.text.length);
@@ -114,12 +108,12 @@
     CAAnimationGroup* group = [CAAnimationGroup animation];
     group.duration = 30;
     CABasicAnimation* horizontalMove = [CABasicAnimation animationWithKeyPath:@"position.x"];
-    horizontalMove.fromValue = @(bgView.layer.position.x);
-    horizontalMove.toValue = @((int)(bgView.layer.position.x) + (int)((arc4random() % 15 + 5 ) * xPositiveSymbol));
+    horizontalMove.fromValue = @(self.bgView.layer.position.x);
+    horizontalMove.toValue = @((int)(self.bgView.layer.position.x) + (int)((arc4random() % 15 + 5 ) * xPositiveSymbol));
     
     CABasicAnimation* verticalMove = [CABasicAnimation animationWithKeyPath:@"position.y"];
-    verticalMove.fromValue = @(bgView.layer.position.y);
-    verticalMove.toValue = @((int)(bgView.layer.position.y) + (int)((arc4random() % 15 + 5 ) * yPositiveSymbol));
+    verticalMove.fromValue = @(self.bgView.layer.position.y);
+    verticalMove.toValue = @((int)(self.bgView.layer.position.y) + (int)((arc4random() % 15 + 5 ) * yPositiveSymbol));
     
     CABasicAnimation* scale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     [scale setFromValue:[NSNumber numberWithFloat:1.0f]];
@@ -138,15 +132,15 @@
     
     [group setRemovedOnCompletion:NO];
     [group setFillMode:kCAFillModeForwards];
-    [bgView.layer addAnimation:group forKey:@"groupAnimation"];
+    [self.bgView.layer addAnimation:group forKey:@"groupAnimation"];
     [bgMaskLayer addAnimation:opacity forKey:@"maskLayerAnimation"];
      bgMaskLayer.opacity = BgViewOpacityEndPoint;
 }
 - (void)stopAnimation
 {
     //reset the animatable property
-    [bgView.layer removeAllAnimations];
-    bgView.frame = CGRectMake(-20, 0, sFrame.size.width + 40, sFrame.size.height + 40);
+    [self.bgView.layer removeAllAnimations];
+    self.bgView.frame = CGRectMake(-20, 0, sFrame.size.width + 40, sFrame.size.height + 40);
     bgMaskLayer.opacity = BgViewOpacityStartPoint;
 }
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -156,40 +150,39 @@
 - (void)initUI
 {
     sFrame = [UIScreen mainScreen].bounds;
-    bgView = [[UIImageView alloc]initWithFrame:CGRectMake(-20, 0, sFrame.size.width + 40, sFrame.size.height + 40)];
+    self.bgView = [[UIImageView alloc]initWithFrame:CGRectMake(-20, 0, sFrame.size.width + 40, sFrame.size.height + 40)];
     bgMaskLayer = [CALayer layer];
     bgMaskLayer.opacity = BgViewOpacityStartPoint;
-    bgMaskLayer.frame = CGRectMake(0, 0, bgView.frame.size.width, bgView.frame.size.height);
+    bgMaskLayer.frame = CGRectMake(0, 0, self.bgView.frame.size.width, self.bgView.frame.size.height);
     bgMaskLayer.backgroundColor = [UIColor blackColor].CGColor;
-    [bgView.layer addSublayer:bgMaskLayer];
+    [self.bgView.layer addSublayer:bgMaskLayer];
     
-    //gradient layer
+    //TODO replace it with images
     CALayer* shadowLayer = [CALayer layer];
-    //bgView.clipsToBounds = NO;
-    shadowLayer.frame = CGRectMake(-20,bgView.frame.size.height - sFrame.size.height/8, sFrame.size.width+40 ,  sFrame.size.height /4);
+    shadowLayer.frame = CGRectMake(-20,self.bgView.frame.size.height - sFrame.size.height/8, sFrame.size.width+40 ,  sFrame.size.height /4);
     shadowLayer.shadowPath = [[UIBezierPath bezierPathWithRect:CGRectMake(0,-40,sFrame.size.width +80, shadowLayer.frame.size.height)]  CGPath];
     [shadowLayer setShadowColor:UIColorFromRGB(0x00000).CGColor];
     //[shadowLayer setShadowColor:UIColorFromRGB(0x9A74E4).CGColor];
     [shadowLayer setShadowOpacity:0.9];
     [shadowLayer setShadowRadius:30.0];
     [shadowLayer setShadowOffset:CGSizeMake(0, -2.0)];
-    [bgView.layer addSublayer:shadowLayer];
+    [self.bgView.layer addSublayer:shadowLayer];
     
-    [self addSubview:bgView];
+    [self addSubview:self.bgView];
 
     
     CGFloat pageWidth = sFrame.size.width + MaxScrollPull;
-    bgScrollViewFrame = CGRectMake(0, 0, pageWidth, bgView.frame.size.height - 120);
-    poemBackgroundScrollViewFrame = CGRectMake(0, bgScrollViewFrame.size.height, pageWidth, sFrame.size.height - bgScrollViewFrame.size.height);
+    bgScrollViewFrame = CGRectMake(0, 0, pageWidth, self.bgView.frame.size.height - 120);
+    poemIntroductionFrame = CGRectMake(0, bgScrollViewFrame.size.height, pageWidth, sFrame.size.height - bgScrollViewFrame.size.height);
     
     bgScrollView = [[UIScrollView alloc]initWithFrame:bgScrollViewFrame];
     bgScrollView.tag = 100;
-    //bgScrollView.backgroundColor = [UIColor redColor];
-    poemBackgroundScrollView = [[UIScrollView alloc]initWithFrame:poemBackgroundScrollViewFrame];
-    poemBackgroundScrollView.tag = 200;
+    poemIntroductionScrollView = [[UIScrollView alloc]initWithFrame:poemIntroductionFrame];
+    poemIntroductionScrollView.tag = 200;
     
-    bgScrollView.contentSize = CGSizeMake(pageWidth*2, bgScrollView.frame.size.height);
-    poemBackgroundScrollView.contentSize = CGSizeMake(pageWidth*2,poemBackgroundScrollView.frame.size.height );
+    bgScrollView.contentSize = CGSizeMake(pageWidth * 3, bgScrollView.frame.size.height);
+    bgScrollView.contentOffset = CGPointMake(pageWidth, 0);
+    poemIntroductionScrollView.contentSize = CGSizeMake(pageWidth * 2,poemIntroductionScrollView.frame.size.height );
     
     bgScrollView.delegate = self;
     bgScrollView.showsVerticalScrollIndicator = NO;
@@ -197,33 +190,25 @@
     bgScrollView.pagingEnabled = YES;
     bgScrollView.clipsToBounds = NO;
     
-    poemBackgroundScrollView.delegate = self;
-    poemBackgroundScrollView.showsVerticalScrollIndicator = NO;
-    poemBackgroundScrollView.showsHorizontalScrollIndicator = NO;
-    poemBackgroundScrollView.pagingEnabled = YES;
-    poemBackgroundScrollView.clipsToBounds = NO;
+    poemIntroductionScrollView.delegate = self;
+    poemIntroductionScrollView.showsVerticalScrollIndicator = NO;
+    poemIntroductionScrollView.showsHorizontalScrollIndicator = NO;
+    poemIntroductionScrollView.pagingEnabled = YES;
+    poemIntroductionScrollView.clipsToBounds = NO;
     
-    //bgScrollView.directionalLockEnabled = YES;
-    //bgScrollView.alwaysBounceVertical = YES;
-    //bgScrollView.bounces = NO;
-    [bgScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+    //[bgScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
-    CGRect titleFrame = CGRectMake(0, bgScrollViewFrame.size.height - 100 , bgScrollViewFrame.size.width - MaxScrollPull - RightMargin, 100);
-    CGRect authorFrame = CGRectMake(0, 10 , poemBackgroundScrollViewFrame.size.width - MaxScrollPull - RightMargin , poemBackgroundScrollViewFrame.size.height - 10);
+    CGRect titleFrame = CGRectMake(pageWidth, bgScrollViewFrame.size.height - 100 , pageWidth - MaxScrollPull - RightMargin, 100);
+    CGRect authorFrame = CGRectMake(0, 10 , poemIntroductionFrame.size.width - MaxScrollPull - RightMargin , poemIntroductionFrame.size.height - 10);
     
     author = [[UILabel alloc]initWithFrame:authorFrame];
     author.adjustsFontSizeToFitWidth = YES;
     author.numberOfLines = 2;
     author.textAlignment = NSTextAlignmentRight;
-    //author.font = [UIFont fontWithName: @"Helvetica-Bold" size:20];
     author.font = [UIFont fontWithName:AuthorFont size:20];
     author.textColor = [UIColor whiteColor];
-    //author.backgroundColor = [UIColor orangeColor];
-    //author.lineBreakMode = NSLineBreakByCharWrapping;
     
     title = [[UILabel alloc]initWithFrame:titleFrame];
-    //title.backgroundColor = [UIColor blueColor];
-    //title.adjustsFontSizeToFitWidth = YES;
     title.font = [UIFont fontWithName:TitleFont size:40];
     title.numberOfLines = 3;
     title.textColor = [UIColor whiteColor];
@@ -235,13 +220,6 @@
     [titleLayer setShadowOpacity:1];
     [titleLayer setShadowRadius:0.5];
     [titleLayer setShadowOffset:CGSizeMake(1, 1)];
-    
-
-    //title.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
-    //UIView* titleBgView = [[UIView alloc]initWithFrame: CGRectMake(-2* MaxScrollPull,  title.frame.origin.y, 2* sFrame.size.width, title.frame.size.height)];
-    //titleBgView.backgroundColor =[UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
-    //[self addSubview:titleBgView];
-    
     
     
     UIView* separator = [[UIView alloc]initWithFrame:CGRectMake(0, titleFrame.origin.y + titleFrame.size.height + 10, sFrame.size.width , 0.5 )];
@@ -255,63 +233,64 @@
     [self addSubview:scrollIndicatorViewRight];
     
     [bgScrollView addSubview:title];
-    [poemBackgroundScrollView addSubview:author];
+    [poemIntroductionScrollView addSubview:author];
     [self addSubview:bgScrollView];
-    [self addSubview:poemBackgroundScrollView];
+    [self addSubview:poemIntroductionScrollView];
+    
     poemDetailFrame = CGRectMake(self.frame.size.width, 0, self.frame.size.width * 2, self.frame.size.height);
     poemIntroductionViewFrame = CGRectMake(self.frame.size.width, 0, self.frame.size.width * 2, self.frame.size.height);
 }
 - (void)setUpPoem:(NSDictionary*)poem
 {
     [self initData:poem];
-    
-    //poemDetailView = [[PoemDetailView alloc]initWithFrame:poemDetailFrame];
-    //poemIntroductionView = [[PoemIntroductionView alloc]initWithFrame:poemIntroductionViewFrame];
-    //[bgScrollView addSubview:poemDetailView];
-    //[poemBackgroundScrollView addSubview:poemIntroductionView];
-    
 }
 
 -(void)bgScrollViewDidScroll:(UIScrollView *)scrollView
 {
-    //[bgView.layer removeAllAnimations];
-    
-    //CGFloat bgViewOffset =  MAX(0, scrollView.contentOffset.x / 10);
-    //CGRect f = [[bgView.layer presentationLayer] frame];
-   // bgView.frame = CGRectMake(f.origin.x - bgViewOffset, f.origin.y, bgView.frame.size.width, bgView.frame.size.height);
-    
-    //NSLog(@"bgView.frame %f",bgViewOffset);
-    float offsetPercent =  scrollView.contentOffset.x / (poemDetailFrame.size.width/2);
+    float offsetPercent =  (scrollView.contentOffset.x - sFrame.size.width - MaxScrollPull ) / (poemDetailFrame.size.width/2);
+    //float offsetPercent =  (scrollView.contentOffset.x) / (poemDetailFrame.size.width/2);
     [bgMaskLayer removeAnimationForKey:@"maskLayerAnimation"];
     bgMaskLayer.opacity = BgViewOpacityEndPoint + 2 * offsetPercent * (1 - BgViewOpacityEndPoint);
-    //NSLog(@"did scroll %f",bgMaskLayer.opacity);
-    //poemDetailView.bgMaskLayer.opacity = 0.8 + offsetPercent * 0.2;
-    //author.frame = CGRectMake(-scrollView.contentOffset.x /20, author.frame.origin.y, author.frame.size.width, author.frame.size.height);
-    title.frame = CGRectMake(-scrollView.contentOffset.x /20, title.frame.origin.y, title.frame.size.width, title.frame.size.height);
+    //title.frame = CGRectMake(-scrollView.contentOffset.x/20, title.frame.origin.y, title.frame.size.width, title.frame.size.height);
+    //title.frame = CGRectOffset(title.frame,-(scrollView.contentOffset.x - sFrame.size.width - MaxScrollPull )/20, 0);
     
     author.alpha = 1.0 - offsetPercent;
     title.alpha = 1.0 - offsetPercent;
     
     
-    CGFloat offset = scrollView.contentOffset.x ;
+    //CGFloat offset = scrollView.contentOffset.x ;
+    CGFloat offset = scrollView.contentOffset.x - sFrame.size.width - MaxScrollPull ;
+    NSLog(@"before: %f",offset);
     if ( offset > MaxScrollPull && !pulling) {
-        //[self.delegate willBeginPull:scrollView.contentOffset];
         pulling = YES;
         self.presentationType = PoemDetailType;
         [self.delegate poemCellDidBeginPulling:self];
+    }
+    else if(offset < -MaxScrollPull && !pulling)
+    {
+        pulling = YES;
+        self.presentationType = PoemList;
+        [self. delegate poemCellDidBeginPulling:self];
     }
     if(pulling)
     {
         CGFloat pulloffset;
         if(!isScrollDecelarating)
         {
-            pulloffset =  MAX(0, offset - MaxScrollPull);
+            if (offset > 0) {
+                pulloffset = offset - MaxScrollPull;
+            }
+            else if(offset < 0)
+            {
+                pulloffset = offset + MaxScrollPull;
+            }
         }
         else
         {
             pulloffset = offset * inOutScrollDecelerateRatio;
         }
         [self.delegate poemCell:self didChangePullOffset:pulloffset];
+        //TODO
         bgScrollView.transform = CGAffineTransformMakeTranslation(pulloffset, 0);
     }
 }
@@ -337,7 +316,8 @@
             pulloffset = offset * inOutScrollDecelerateRatio;
         }
         [self.delegate poemCell:self didChangePullOffset:pulloffset];
-        poemBackgroundScrollView.transform = CGAffineTransformMakeTranslation(pulloffset, 0);
+        
+        poemIntroductionScrollView.transform = CGAffineTransformMakeTranslation(pulloffset, 0);
     }
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -356,22 +336,37 @@
 
 - (void)scrollingEnd
 {
+    NSLog(@"scrolling End");
     [self.delegate poemCellDidEndPulling:self];
     pulling = NO;
     isScrollDecelarating = NO;
-    poemBackgroundScrollView.contentOffset = CGPointZero;
-    poemBackgroundScrollView.transform =CGAffineTransformIdentity;
-    bgScrollView.contentOffset = CGPointZero;
-    bgScrollView.transform =CGAffineTransformIdentity;
+    poemIntroductionScrollView.contentOffset = CGPointZero;
+    poemIntroductionScrollView.transform = CGAffineTransformIdentity;
+    bgScrollView.contentOffset = CGPointMake(sFrame.size.width + MaxScrollPull, 0);
+    bgScrollView.transform = CGAffineTransformIdentity;
+    //title.frame = CGRectMake(sFrame.size.width + MaxScrollPull, bgScrollViewFrame.size.height - 100 , sFrame.size.width + MaxScrollPull - MaxScrollPull - RightMargin, 100);
 }
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
     CGFloat offset =  scrollView.contentOffset.x;
-    if (offset > 0 && (*targetContentOffset).x == 0)
-    {
+//    if (offset > 0 && (*targetContentOffset).x == 0)
+//    {
+//        isScrollDecelarating = YES;
+//        CGFloat pullOffset = MAX(0,offset - MaxScrollPull);
+//        inOutScrollDecelerateRatio = pullOffset / offset;
+//    }
+    if ((*targetContentOffset).x == sFrame.size.width + MaxScrollPull) {
         isScrollDecelarating = YES;
-        CGFloat pullOffset = MAX(0,offset - MaxScrollPull);
-        inOutScrollDecelerateRatio = pullOffset / offset;
+        CGFloat pullOffset;
+        if (offset - sFrame.size.width - MaxScrollPull > 0) {
+            pullOffset = offset - sFrame.size.width - MaxScrollPull;
+            inOutScrollDecelerateRatio = pullOffset / offset;
+        }
+        else
+        {
+            pullOffset = offset + sFrame.size.width + MaxScrollPull;
+            inOutScrollDecelerateRatio = offset / pullOffset;
+        }
     }
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
@@ -384,10 +379,7 @@
 }
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    //[scrollView setContentOffset:scrollView.contentOffset animated:YES];
-    //[self.delegate poemCellDidEndPulling:self];
     [self scrollingEnd];
-    
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
@@ -427,6 +419,8 @@
     fadeInTimer = nil;
     [self fadeOutAuthorImage];
 }
+//TODO
+/*
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if([keyPath isEqualToString:@"contentOffset"])
@@ -443,4 +437,5 @@
         }
     }
 }
+ */
 @end

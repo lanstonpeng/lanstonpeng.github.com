@@ -10,11 +10,19 @@
 #import "ContainerViewController.h"
 #import "CollectionViewController.h"
 #import "GAI.h"
+#import <AVOSCloud/AVOSCloud.h>
+
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //setenv("LOG_CURL", "YES", 0);
+    [AVOSCloud setApplicationId:@"sf7dhz3fv68frccaxxnulrrrmpxpbv1w9c6vsd2df8sib6qk"
+                      clientKey:@"g0rdzfuh9zq8nfsb83zwuyjzmu5nf4wgmoqutk8q6ukwuq89"];
+
+    [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = [ContainerViewController sharedViewController];
     // Override point for customization after application launch.
@@ -33,6 +41,8 @@
     
     // Initialize tracker. Replace with your tracking ID.
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-52183031-1"];
+    
+    
     return YES;
 }
 
