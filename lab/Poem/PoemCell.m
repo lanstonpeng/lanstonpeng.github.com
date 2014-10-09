@@ -248,19 +248,15 @@
 -(void)bgScrollViewDidScroll:(UIScrollView *)scrollView
 {
     float offsetPercent =  (scrollView.contentOffset.x - sFrame.size.width - MaxScrollPull ) / (poemDetailFrame.size.width/2);
-    //float offsetPercent =  (scrollView.contentOffset.x) / (poemDetailFrame.size.width/2);
     [bgMaskLayer removeAnimationForKey:@"maskLayerAnimation"];
     bgMaskLayer.opacity = BgViewOpacityEndPoint + 2 * offsetPercent * (1 - BgViewOpacityEndPoint);
-    //title.frame = CGRectMake(-scrollView.contentOffset.x/20, title.frame.origin.y, title.frame.size.width, title.frame.size.height);
-    //title.frame = CGRectOffset(title.frame,-(scrollView.contentOffset.x - sFrame.size.width - MaxScrollPull )/20, 0);
     
     author.alpha = 1.0 - offsetPercent;
     title.alpha = 1.0 - offsetPercent;
     
     
-    //CGFloat offset = scrollView.contentOffset.x ;
     CGFloat offset = scrollView.contentOffset.x - sFrame.size.width - MaxScrollPull ;
-    NSLog(@"before: %f",offset);
+    
     if ( offset > MaxScrollPull && !pulling) {
         pulling = YES;
         self.presentationType = PoemDetailType;
@@ -272,6 +268,7 @@
         self.presentationType = PoemList;
         [self. delegate poemCellDidBeginPulling:self];
     }
+    
     if(pulling)
     {
         CGFloat pulloffset;
@@ -289,23 +286,26 @@
         {
             pulloffset = offset * inOutScrollDecelerateRatio;
         }
+        NSLog(@"~~> %f",pulloffset);
         [self.delegate poemCell:self didChangePullOffset:pulloffset];
         //TODO
         bgScrollView.transform = CGAffineTransformMakeTranslation(pulloffset, 0);
     }
 }
+//introducation view
 -(void)poemBackgroundViewDidScroll:(UIScrollView *)scrollView
 {
     
-    CGFloat offset = scrollView.contentOffset.x ;
+    //CGFloat offset = scrollView.contentOffset.x ;
+    CGFloat offset = scrollView.contentOffset.x;
     if ( offset > MaxScrollPull && !pulling) {
-        //[self.delegate willBeginPull:scrollView.contentOffset];
         pulling = YES;
         self.presentationType = PoemIntroduction;
         [self.delegate poemCellDidBeginPulling:self];
     }
     if(pulling)
     {
+        /*
         CGFloat pulloffset;
         if(!isScrollDecelarating)
         {
@@ -316,7 +316,22 @@
             pulloffset = offset * inOutScrollDecelerateRatio;
         }
         [self.delegate poemCell:self didChangePullOffset:pulloffset];
-        
+         
+        */
+        CGFloat pulloffset;
+        if(!isScrollDecelarating)
+        {
+//            if (offset > 0) {
+//                pulloffset = offset - MaxScrollPull;
+//            }
+            pulloffset =  MAX(0, offset - MaxScrollPull);
+        }
+        else
+        {
+            pulloffset = offset * inOutScrollDecelerateRatio;
+        }
+        NSLog(@"==> %f",pulloffset);
+        [self.delegate poemCell:self didChangePullOffset:pulloffset];
         poemIntroductionScrollView.transform = CGAffineTransformMakeTranslation(pulloffset, 0);
     }
 }
@@ -344,28 +359,33 @@
     poemIntroductionScrollView.transform = CGAffineTransformIdentity;
     bgScrollView.contentOffset = CGPointMake(sFrame.size.width + MaxScrollPull, 0);
     bgScrollView.transform = CGAffineTransformIdentity;
-    //title.frame = CGRectMake(sFrame.size.width + MaxScrollPull, bgScrollViewFrame.size.height - 100 , sFrame.size.width + MaxScrollPull - MaxScrollPull - RightMargin, 100);
 }
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
     CGFloat offset =  scrollView.contentOffset.x;
-//    if (offset > 0 && (*targetContentOffset).x == 0)
-//    {
-//        isScrollDecelarating = YES;
-//        CGFloat pullOffset = MAX(0,offset - MaxScrollPull);
-//        inOutScrollDecelerateRatio = pullOffset / offset;
-//    }
-    if ((*targetContentOffset).x == sFrame.size.width + MaxScrollPull) {
-        isScrollDecelarating = YES;
-        CGFloat pullOffset;
-        if (offset - sFrame.size.width - MaxScrollPull > 0) {
-            pullOffset = offset - sFrame.size.width - MaxScrollPull;
-            inOutScrollDecelerateRatio = pullOffset / offset;
+    
+    if (scrollView.tag == 100) {
+        if ((*targetContentOffset).x == sFrame.size.width + MaxScrollPull) {
+            isScrollDecelarating = YES;
+            CGFloat pullOffset;
+            if (offset - sFrame.size.width - MaxScrollPull > 0) {
+                pullOffset = offset - sFrame.size.width - MaxScrollPull;
+                inOutScrollDecelerateRatio = pullOffset / offset;
+            }
+            else
+            {
+                pullOffset = offset + sFrame.size.width + MaxScrollPull;
+                inOutScrollDecelerateRatio = offset / pullOffset;
+            }
         }
-        else
+    }
+    else if (scrollView.tag == 200)
+    {
+        if (offset > 0 && (*targetContentOffset).x == 0)
         {
-            pullOffset = offset + sFrame.size.width + MaxScrollPull;
-            inOutScrollDecelerateRatio = offset / pullOffset;
+            isScrollDecelarating = YES;
+            CGFloat pullOffset = MAX(0,offset - MaxScrollPull);
+            inOutScrollDecelerateRatio = pullOffset / offset;
         }
     }
 }

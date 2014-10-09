@@ -266,9 +266,8 @@ static CGRect sFrame;
 }
 - (void)poemCell:(PoemCell *)cell didChangePullOffset:(CGFloat)offset
 {
-    //_poemMixedInfoScrollView.contentOffset = CGPointMake(offset,0);
-    NSLog(@"-->: %f",offset);
     _poemMixedInfoScrollView.contentOffset = CGPointMake(sFrame.size.width + offset,0);
+    //NSLog(@"contentoffset x %f",_poemMixedInfoScrollView.contentOffset.x);
 }
 -(void)poemCellDidEndPulling:(PoemCell *)cell
 {

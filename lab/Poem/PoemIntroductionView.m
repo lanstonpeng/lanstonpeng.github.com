@@ -9,6 +9,7 @@
 #import "PoemIntroductionView.h"
 #import "UIImage+PoemResouces.h"
 #import "UIImage+ImageEffects.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 @interface PoemIntroductionView()<NSLayoutManagerDelegate>
 
@@ -29,20 +30,25 @@
     _blackBgView.alpha = 1;
     _bgView.image = nil;
     _bgView.alpha = 0;
-    _introTextView.text = _poemData[@"poemIntroduction"][@"text"];
+    _introTextView.text = _poemData[@"poemIntroduction"];
     [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(setUpBgView) userInfo:nil repeats:NO];
 }
 - (void)setUpBgView
 {
-    UIImage* backgroundImg = (UIImage*)[[UIImage alloc]initWithName:_poemData[@"bgimg"]];
-    _bgView.image = [backgroundImg applyDarkEffect];
-    //_bgView.image = backgroundImg;
-    _bgView.contentMode = UIViewContentModeScaleAspectFill;
-    [UIView animateWithDuration:0.9 animations:^{
-        _bgView.alpha = 1.0f;
-        //_blackBgView.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        [self addParallelEffect];
+    AVObject* img = [_poemData objectForKey:@"imgPointer"];
+    [img fetchIfNeededInBackgroundWithBlock:^(AVObject *object, NSError *error) {
+        AVFile* file = (AVFile*)[object objectForKey:@"url"];
+        [file getThumbnail:YES width:self.frame.size.width height:self.frame.size.height withBlock:^(UIImage *image, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _bgView.image = [image applyDarkEffect];
+                _bgView.contentMode = UIViewContentModeScaleAspectFill;
+                [UIView animateWithDuration:0.9 animations:^{
+                    _bgView.alpha = 1.0f;
+                } completion:^(BOOL finished) {
+                    [self addParallelEffect];
+                }];
+            });
+        }];
     }];
 }
 - (id)initWithFrame:(CGRect)frame
@@ -73,15 +79,9 @@
         _bgView = [[UIImageView alloc]initWithFrame:CGRectMake(-20, 0, sFrame.size.width + 40, sFrame.size.height + 40)];
         _bgView.alpha = 0.0f;
         
-        //textView.text = _poemData[@"poemIntroduction"][@"text"];
-//        _introductionScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, sFrame.size.height)];
-//        _introductionScrollView.showsHorizontalScrollIndicator = NO;
-//        _introductionScrollView.showsVerticalScrollIndicator = NO;
-//        [_introductionScrollView addSubview:_introTextView];
         [self addSubview:_blackBgView];
         [self addSubview:_bgView];
         [self addSubview:_introTextView];
-        //[self addParallelEffect];
         
     }
     return self;
@@ -126,12 +126,4 @@
     // Add both effects to your view
     [_bgView addMotionEffect:group];
 }
-
-/*
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
-{
-    NSLog(@"Introduction View");
-    return [super hitTest:point withEvent:event];
-}
- */
 @end
