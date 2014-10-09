@@ -36,27 +36,18 @@
     });
     return instance;
 }
--(NSDictionary*)getRandomPoemReader
-{
-    return @{};
-}
 
 -(void)getAllPoemsFromServer
 {
     AVQuery* query = [AVQuery queryWithClassName:@"poem"];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        self.poemListDataArr = objects;
         if([self.delegate respondsToSelector:@selector(AllPoemDidDownload:)]) {
             [self.delegate AllPoemDidDownload:objects];
         }
     }];
     
-}
-
--(void)downloadImg:(NSString*)bgImgID
-{
-    AVObject* imgDataClass = [AVObject objectWithClassName:@"poemImage"];
-    AVFile *applicantResume = [imgDataClass objectForKey:@"applicantResumeFile"];
 }
 
 -(NSArray*)getAllPoems

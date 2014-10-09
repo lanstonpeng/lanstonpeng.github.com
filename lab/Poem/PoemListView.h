@@ -8,6 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PoemListView : UITableView
+
+@protocol PoemListViewDelegate <NSObject>
+
+- (void)PoemListViewDidSelect:(NSIndexPath*)idxPath;
 
 @end
+
+@interface PoemListView : UITableView
+
+@property (strong,nonatomic)NSArray* poemListDataArr;
+
+@property (strong,nonatomic)NSIndexPath* currentIndexPath;
+
+@property (weak,nonatomic)id<PoemListViewDelegate> listViewDelegate;
+
+@end
+

@@ -19,8 +19,9 @@
 
 @property (strong,nonatomic)id<PoemReaderDelegate> delegate;
 
+@property (strong,nonatomic)NSArray* poemListDataArr;
+
 + (instancetype)sharedPoemReader;
--(NSDictionary*)getRandomPoemReader;
 -(NSArray*)getAllPoems;
 -(NSDictionary*)getPoemByID;
 -(void)getAllPoemsFromServer;

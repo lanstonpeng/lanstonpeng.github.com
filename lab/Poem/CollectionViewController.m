@@ -19,7 +19,7 @@
 #import "PoemCell.h"
 #import "PoemListView.h"
 
-@interface CollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,PoemCellScrollDelegate,AppFunctionalityDelegate,PoemReaderDelegate>
+@interface CollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,PoemCellScrollDelegate,AppFunctionalityDelegate,PoemReaderDelegate,PoemListViewDelegate>
 {
     NSMutableArray* poemArr;
     UIView* currentEmbedView;
@@ -101,6 +101,7 @@ static CGRect sFrame;
     CGRect poemDetailFrame = CGRectMake(self.view.frame.size.width*2, 0, self.view.frame.size.width * 2, self.view.frame.size.height);
     
     _poemListTableView = [[PoemListView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, sFrame.size.height)];
+    _poemListTableView.listViewDelegate = self;
     [_poemMixedInfoScrollView addSubview:_poemListTableView];
     
     _poemDetailView = [[PoemDetailView alloc]initWithFrame:poemDetailFrame];
@@ -251,6 +252,10 @@ static CGRect sFrame;
         case PoemList:
         {
             currentPoemType = PoemList;
+            _poemListTableView.poemListDataArr = poemArr;
+            NSIndexPath* currentIdxPath = [[self.collectionView indexPathsForVisibleItems] firstObject];
+            _poemListTableView.currentIndexPath = currentIdxPath;
+            [_poemListTableView reloadData];
             [tracker set:kGAIScreenName value:@"Poem List"];
         }
         default:
@@ -274,6 +279,16 @@ static CGRect sFrame;
 - (void)MailDidDismiss
 {
     _poemMixedInfoScrollView.contentInset = UIEdgeInsetsZero;
+}
+
+#pragma PoemListViewDelegate
+- (void)PoemListViewDidSelect:(NSIndexPath *)idxPath
+{
+    [UIView animateWithDuration:0.2 animations:^{
+        self.poemMixedInfoScrollView.contentOffset = CGPointMake(sFrame.size.width, 0);
+    } completion:^(BOOL finished) {
+        [self.collectionView scrollToItemAtIndexPath:idxPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+    }];
 }
 
 @end
