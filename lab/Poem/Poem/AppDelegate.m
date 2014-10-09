@@ -11,6 +11,7 @@
 #import "CollectionViewController.h"
 #import "GAI.h"
 #import <AVOSCloud/AVOSCloud.h>
+#import "PoemReader.h"
 
 
 @implementation AppDelegate
@@ -63,8 +64,12 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [[PoemReader sharedPoemReader] fetchNewData];
+    
     CollectionViewController* cv =  (CollectionViewController*)[ContainerViewController sharedViewController].currentViewController;
     [cv.currentPoemCell startAnimation];
+    
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

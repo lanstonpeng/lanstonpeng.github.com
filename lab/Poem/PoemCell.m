@@ -72,10 +72,8 @@
 - (void)initData:(NSDictionary*)poem
 {
     
-    //UIImage* backgroundImg = (UIImage*)[[UIImage alloc]initWithName:poem[@"bgimg"]];
-    UIImage* backgroundImg = nil;
     self.poemData = poem;
-    self.bgView.image = backgroundImg;
+    self.bgView.image = nil;
     self.bgView.contentMode = UIViewContentModeScaleAspectFill;
     
     self.bgView.layer.anchorPoint = CGPointMake(0.5,0.5);
@@ -305,25 +303,9 @@
     }
     if(pulling)
     {
-        /*
         CGFloat pulloffset;
         if(!isScrollDecelarating)
         {
-            pulloffset =  MAX(0, offset - MaxScrollPull);
-        }
-        else
-        {
-            pulloffset = offset * inOutScrollDecelerateRatio;
-        }
-        [self.delegate poemCell:self didChangePullOffset:pulloffset];
-         
-        */
-        CGFloat pulloffset;
-        if(!isScrollDecelarating)
-        {
-//            if (offset > 0) {
-//                pulloffset = offset - MaxScrollPull;
-//            }
             pulloffset =  MAX(0, offset - MaxScrollPull);
         }
         else

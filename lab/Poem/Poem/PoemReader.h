@@ -22,7 +22,12 @@
 @property (strong,nonatomic)NSArray* poemListDataArr;
 
 + (instancetype)sharedPoemReader;
+
 -(NSArray*)getAllPoems;
+
 -(NSDictionary*)getPoemByID;
+
 -(void)getAllPoemsFromServer;
+
+-(void)fetchNewData;
 @end

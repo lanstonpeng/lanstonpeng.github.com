@@ -37,12 +37,31 @@
     return instance;
 }
 
+- (void)fetchNewData
+{
+    AVQuery* query = [AVQuery queryWithClassName:@"status"];
+    AVObject* item = [[query findObjects] firstObject];
+    if ([[item objectForKey:@"hasNewPoem"] boolValue]) {
+        [self getAllPoemsFromServer];
+    }
+}
+
 -(void)getAllPoemsFromServer
 {
     AVQuery* query = [AVQuery queryWithClassName:@"poem"];
+    [query orderByDescending:@"updatedAt"];
+    __block NSMutableArray* releasePoemArr = [[NSMutableArray alloc]init];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        self.poemListDataArr = objects;
+        [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            AVObject* item = (AVObject*)obj;
+            if ([[item objectForKey:@"isDebug"]boolValue]) {
+                [releasePoemArr addObject:item];
+            }
+        }];
+        
+        self.poemListDataArr = [[NSArray alloc]initWithArray:releasePoemArr];
+        releasePoemArr = nil;
         if([self.delegate respondsToSelector:@selector(AllPoemDidDownload:)]) {
             [self.delegate AllPoemDidDownload:objects];
         }

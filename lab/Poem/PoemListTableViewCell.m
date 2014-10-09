@@ -28,13 +28,14 @@
         self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, sFrame.size.height)];
         self.bgImageView.contentMode = UIViewContentModeScaleAspectFill;
         self.bgImageView.clipsToBounds = YES;
-        self.bgImageView.alpha = 0.6;
+        self.bgImageView.alpha = 1;
         
         CALayer* maskLayer = [CALayer layer];
         maskLayer.frame = CGRectMake(0, 0, sFrame.size.width, sFrame.size.height);
         maskLayer.backgroundColor = [UIColor blackColor].CGColor;
-        maskLayer.opacity = 0.6;
-        [self.bgImageView.layer addSublayer:maskLayer];
+        maskLayer.opacity = 0.8;
+        [self.bgImageView.layer insertSublayer:maskLayer atIndex:0];
+        //[self.bgImageView.layer addSublayer:maskLayer];
         
         [self addSubview:self.bgImageView];
     }

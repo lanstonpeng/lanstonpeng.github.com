@@ -32,8 +32,6 @@
 		<string>QuicksandLight.ttf</string>
 		<string>方正清刻本悦宋简体.ttf</string>
 	</array>
-	<key>UIMainStoryboardFile</key>
-	<string>Storyboard</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

@@ -30,7 +30,7 @@
     _blackBgView.alpha = 1;
     _bgView.image = nil;
     _bgView.alpha = 0;
-    _introTextView.text = _poemData[@"poemIntroduction"];
+    _introTextView.text = _poemData[@"authorIntroduction"];
     [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(setUpBgView) userInfo:nil repeats:NO];
 }
 - (void)setUpBgView

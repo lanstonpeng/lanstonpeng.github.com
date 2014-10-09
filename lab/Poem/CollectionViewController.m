@@ -204,7 +204,7 @@ static CGRect sFrame;
         [file getThumbnail:YES width:poemCell.frame.size.width height:poemCell.frame.size.height withBlock:^(UIImage *image, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 poemCell.bgView.image = image;
-                [poemCell setNeedsDisplay];
+                //[poemCell startAnimation];
             });
         }];
 //        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
@@ -286,7 +286,7 @@ static CGRect sFrame;
     [UIView animateWithDuration:0.2 animations:^{
         self.poemMixedInfoScrollView.contentOffset = CGPointMake(sFrame.size.width, 0);
     } completion:^(BOOL finished) {
-        [self.collectionView scrollToItemAtIndexPath:idxPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+        [self.collectionView scrollToItemAtIndexPath:idxPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
     }];
 }
 
