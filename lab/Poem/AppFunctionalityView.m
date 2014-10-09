@@ -12,16 +12,16 @@
 #import "ContainerViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+PoemResouces.h"
-#import <StoreKit/StoreKit.h>
 
 
-@interface AppFunctionalityView()<MFMailComposeViewControllerDelegate,SKStoreProductViewControllerDelegate>
+@interface AppFunctionalityView()<MFMailComposeViewControllerDelegate,UIAlertViewDelegate>
 
 @property(strong,nonatomic)UIButton* recommendPoem;
 @property(strong,nonatomic)UIButton* rateApp;
 @property(strong,nonatomic)UIImageView* easterEggImageView;
 @property(strong,nonatomic)UILabel* easterEggLabel;
 @property(strong,nonatomic)ContainerViewController* sharedContainer;
+@property(strong,nonatomic)UIButton* refreshButton;
 
 
 @end
@@ -65,9 +65,15 @@
         [_rateApp setTitle:@"h" forState:UIControlStateNormal];
         [_rateApp addTarget:self action:@selector(writeAppReview) forControlEvents:UIControlEventTouchUpInside];
         [self setUpButton:_rateApp];
-        //http://stackoverflow.com/questions/18905686/itunes-review-url-and-ios-7-ask-user-to-rate-our-app-appstore-show-a-blank-pag
         
-        //_recommendPoem.backgroundColor = [UIColor orangeColor];
+        if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"hasClickFiveStar"] boolValue]) {
+            _refreshButton = [[UIButton alloc]initWithFrame:CGRectMake(sFrame.size.width/3 * 2, 0, sFrame.size.width/3, 70)];
+            UIImage* img =[UIImage imageNamed:@"refresh"];
+            [_refreshButton setImage:img forState:UIControlStateNormal];
+            [_refreshButton addTarget:self action:@selector(getBouncesPoem) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:_refreshButton];
+        }
+        
         [_recommendPoem addTarget:self action:@selector(showMail) forControlEvents:UIControlEventTouchUpInside];
         _sharedContainer= [ContainerViewController sharedViewController];
         [self addSubview:_recommendPoem];
@@ -76,16 +82,29 @@
     }
     return self;
 }
+
+- (void)getBouncesPoem
+{
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Get Extra Poem"
+                                                      message:@"Give a 5 star to get extra poems"
+                                                     delegate:nil
+                                            cancelButtonTitle:@"Nope"
+                                            otherButtonTitles:@"Sincerely Love to",nil];
+    message.delegate = self;
+    [message show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [self writeAppReview];
+        [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:@"hasClickFiveStar"];
+    }
+}
 - (void)writeAppReview
 {
-    SKStoreProductViewController* skVC = [[SKStoreProductViewController alloc]init];
-    
-    skVC.delegate = self;
-    [skVC loadProductWithParameters:@{
-                                      SKStoreProductParameterITunesItemIdentifier : @"893065675"
-                                      } completionBlock:^(BOOL result, NSError *error) {
-    }];
-    [_sharedContainer presentViewController:skVC animated:YES completion:NULL];
+    NSString *str = @"itms-apps://itunes.com/apps/poemee";
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 }
 - (void)showMail
 {
@@ -96,9 +115,6 @@
     NSArray *toRecipents = [NSArray arrayWithObject:@"lanstonpeng@gmail.com"];
     
     MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-//    [UINavigationBar appearance].barTintColor = [UIColor clearColor];
-//    [UINavigationBar appearance].tintColor = [UIColor whiteColor];
-//
     mc.mailComposeDelegate = self;
     [mc setSubject:emailTitle];
     [mc setMessageBody:messageBody isHTML:NO];
@@ -134,9 +150,4 @@
     [_sharedContainer dismissViewControllerAnimated:YES completion:NULL];
 }
 
-#pragma mark SKStore delegate
-- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
-{
-    [_sharedContainer dismissViewControllerAnimated:YES completion:NULL];
-}
 @end

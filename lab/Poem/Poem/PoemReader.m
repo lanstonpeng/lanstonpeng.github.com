@@ -44,26 +44,37 @@
     if ([[item objectForKey:@"hasNewPoem"] boolValue]) {
         [self getAllPoemsFromServer];
     }
+    else if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"hasClickFiveStar"] boolValue]) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            [self getAllPoemsFromServer];
+        });
+    }
 }
 
 -(void)getAllPoemsFromServer
 {
     AVQuery* query = [AVQuery queryWithClassName:@"poem"];
     [query orderByDescending:@"updatedAt"];
+    [query orderByDescending:@"isBonus"];
     __block NSMutableArray* releasePoemArr = [[NSMutableArray alloc]init];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             AVObject* item = (AVObject*)obj;
-            if ([[item objectForKey:@"isDebug"]boolValue]) {
+            if (![[item objectForKey:@"isDebug"]boolValue]) {
                 [releasePoemArr addObject:item];
             }
+            if ([[item objectForKey:@"isBonus"] boolValue]) {
+                if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"hasClickFiveStar"] boolValue]) {
+                    [releasePoemArr addObject:item];
+                }
+            }
         }];
-        
         self.poemListDataArr = [[NSArray alloc]initWithArray:releasePoemArr];
         releasePoemArr = nil;
         if([self.delegate respondsToSelector:@selector(AllPoemDidDownload:)]) {
-            [self.delegate AllPoemDidDownload:objects];
+            [self.delegate AllPoemDidDownload:self.poemListDataArr];
         }
     }];
     
