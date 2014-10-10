@@ -15,7 +15,7 @@
 
 #define BgViewOpacityStartPoint 0.95
 #define BgViewOpacityEndPoint  0.3
-#define RightMargin 10
+#define RightMargin 0
 #define TitleFont @"AppleSDGothicNeo-Thin"
 #define AuthorFont @"AppleSDGothicNeo-Thin"
 
@@ -37,13 +37,15 @@
     CALayer* bgMaskLayer;
     CGPoint currentContentOffset;
     UILabel* author;
-    UILabel* title;
+    UITextView* poemTitleTextView;
     
     CGPoint startPos;
     int     scrollDirection;
     
     CGRect poemDetailFrame;
     CGRect poemIntroductionViewFrame;
+    
+    CGRect titleFrame;
     
     CGRect bgScrollViewFrame;
     CGRect poemIntroductionFrame;
@@ -69,6 +71,24 @@
     }
     return self;
 }
+
+- (void)alignPoemTitleTextView
+{
+    
+    NSTextContainer* textContainer  = poemTitleTextView.textContainer;
+    NSLayoutManager* layoutManager = textContainer.layoutManager;
+    
+    CGRect textRect = [layoutManager usedRectForTextContainer:textContainer];
+    
+    UIEdgeInsets inset = UIEdgeInsetsZero;
+    inset.top = (poemTitleTextView.bounds.size.height - textRect.size.height)/1;
+    poemTitleTextView.textContainer.maximumNumberOfLines = 3;
+    //poemTitleTextView.textContainerInset = inset;
+    //poemTitleTextView.textContainer.size = poemTitleTextView.bounds.size;
+    NSLog(@"inset top : %f",inset.top);
+    poemTitleTextView.frame = CGRectOffset(titleFrame, 0, inset.top);
+    //[poemTitleTextView setNeedsDisplay];
+}
 - (void)initData:(NSDictionary*)poem
 {
     
@@ -79,22 +99,25 @@
     self.bgView.layer.anchorPoint = CGPointMake(0.5,0.5);
     
     author.text = poem[@"author"];
-    title.text = poem[@"title"];
-    
-    if(title.text.length>30)
+    poemTitleTextView.text = poem[@"title"];
+    poemTitleTextView.frame = titleFrame;
+    [self alignPoemTitleTextView];
+    /*
+    if(poemTitleTextView.text.length>30)
     {
-        title.numberOfLines = 3;
-        title.frame = CGRectMake(title.frame.origin.x, bgScrollViewFrame.size.height - 150 , bgScrollViewFrame.size.width - MaxScrollPull - RightMargin , 150);
+        poemTitleTextView.numberOfLines = 3;
+        poemTitleTextView.frame = CGRectMake(poemTitleTextView.frame.origin.x, bgScrollViewFrame.size.height - 150 , bgScrollViewFrame.size.width - MaxScrollPull - RightMargin , 150);
     }
-    NSMutableAttributedString* attrStr = [[NSMutableAttributedString alloc]initWithString:title.text];
-    NSRange range = NSMakeRange(0, title.text.length);
+    NSMutableAttributedString* attrStr = [[NSMutableAttributedString alloc]initWithString:poemTitleTextView.text];
+    NSRange range = NSMakeRange(0, poemTitleTextView.text.length);
     [attrStr addAttribute:NSFontAttributeName value:[UIFont fontWithName:TitleFont size:40] range:range];
     [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:range];
     NSMutableParagraphStyle *paragrapStyle = [[NSMutableParagraphStyle alloc] init];
     paragrapStyle.alignment = NSTextAlignmentRight;
     paragrapStyle.firstLineHeadIndent = 20;
     [attrStr addAttribute:NSParagraphStyleAttributeName value:paragrapStyle range:range];
-    title.attributedText = attrStr;
+    poemTitleTextView.attributedText = attrStr;
+    */
     
     [self startAnimation];
 }
@@ -196,8 +219,8 @@
     
     //[bgScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
-    CGRect titleFrame = CGRectMake(pageWidth, bgScrollViewFrame.size.height - 100 , pageWidth - MaxScrollPull - RightMargin, 100);
-    CGRect authorFrame = CGRectMake(0, 10 , poemIntroductionFrame.size.width - MaxScrollPull - RightMargin , poemIntroductionFrame.size.height - 10);
+    titleFrame = CGRectMake(pageWidth, bgScrollViewFrame.size.height - 150 , pageWidth - MaxScrollPull - RightMargin, 150);
+    CGRect authorFrame = CGRectMake(0, 10 , poemIntroductionFrame.size.width - MaxScrollPull - 10 , poemIntroductionFrame.size.height - 10);
     
     author = [[UILabel alloc]initWithFrame:authorFrame];
     author.adjustsFontSizeToFitWidth = YES;
@@ -206,18 +229,22 @@
     author.font = [UIFont fontWithName:AuthorFont size:20];
     author.textColor = [UIColor whiteColor];
     
-    title = [[UILabel alloc]initWithFrame:titleFrame];
-    title.font = [UIFont fontWithName:TitleFont size:40];
-    title.numberOfLines = 3;
-    title.textColor = [UIColor whiteColor];
-    title.textAlignment = NSTextAlignmentRight;
+    poemTitleTextView = [[UITextView alloc]initWithFrame:titleFrame];
+    poemTitleTextView.userInteractionEnabled = NO;
+    poemTitleTextView.backgroundColor = [UIColor clearColor];
+    poemTitleTextView.font = [UIFont fontWithName:TitleFont size:40];
+    poemTitleTextView.textColor = [UIColor whiteColor];
+    poemTitleTextView.textAlignment = NSTextAlignmentRight;
+    //poemTitleTextView.alpha = 0.6;
+    //poemTitleTextView.clipsToBounds = NO;
     
-    CALayer* titleLayer = title.layer;
-    titleLayer.masksToBounds = NO;
-    titleLayer.shadowColor = [UIColor blackColor].CGColor;
-    [titleLayer setShadowOpacity:1];
-    [titleLayer setShadowRadius:0.5];
-    [titleLayer setShadowOffset:CGSizeMake(1, 1)];
+    //TODO:what is this
+//    CALayer* titleLayer = author.layer;
+//    titleLayer.masksToBounds = NO;
+//    titleLayer.shadowColor = [UIColor blackColor].CGColor;
+//    [titleLayer setShadowOpacity:1];
+//    [titleLayer setShadowRadius:0.5];
+//    [titleLayer setShadowOffset:CGSizeMake(1, 1)];
     
     
     UIView* separator = [[UIView alloc]initWithFrame:CGRectMake(0, titleFrame.origin.y + titleFrame.size.height + 10, sFrame.size.width , 0.5 )];
@@ -230,7 +257,7 @@
     [self addSubview:scrollIndicatorView];
     [self addSubview:scrollIndicatorViewRight];
     
-    [bgScrollView addSubview:title];
+    [bgScrollView addSubview:poemTitleTextView];
     [poemIntroductionScrollView addSubview:author];
     [self addSubview:bgScrollView];
     [self addSubview:poemIntroductionScrollView];
@@ -250,7 +277,7 @@
     bgMaskLayer.opacity = BgViewOpacityEndPoint + 2 * offsetPercent * (1 - BgViewOpacityEndPoint);
     
     author.alpha = 1.0 - offsetPercent;
-    title.alpha = 1.0 - offsetPercent;
+    poemTitleTextView.alpha = 1.0 - offsetPercent;
     
     
     CGFloat offset = scrollView.contentOffset.x - sFrame.size.width - MaxScrollPull ;
@@ -284,7 +311,7 @@
         {
             pulloffset = offset * inOutScrollDecelerateRatio;
         }
-        NSLog(@"~~> %f",pulloffset);
+        //NSLog(@"~~> %f",pulloffset);
         [self.delegate poemCell:self didChangePullOffset:pulloffset];
         //TODO
         bgScrollView.transform = CGAffineTransformMakeTranslation(pulloffset, 0);
@@ -312,7 +339,7 @@
         {
             pulloffset = offset * inOutScrollDecelerateRatio;
         }
-        NSLog(@"==> %f",pulloffset);
+        //NSLog(@"==> %f",pulloffset);
         [self.delegate poemCell:self didChangePullOffset:pulloffset];
         poemIntroductionScrollView.transform = CGAffineTransformMakeTranslation(pulloffset, 0);
     }

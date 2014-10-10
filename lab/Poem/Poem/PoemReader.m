@@ -55,8 +55,8 @@
 -(void)getAllPoemsFromServer
 {
     AVQuery* query = [AVQuery queryWithClassName:@"poem"];
-    [query orderByDescending:@"updatedAt"];
-    [query orderByDescending:@"isBonus"];
+    [query orderByDescending:@"createdAt"];
+    //[query orderByDescending:@"isBonus"];
     __block NSMutableArray* releasePoemArr = [[NSMutableArray alloc]init];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {

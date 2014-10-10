@@ -42,7 +42,7 @@
     
     if(!self.titleLabel)
     {
-        self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, sFrame.size.width, sFrame.size.height)];
+        self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, sFrame.size.width, sFrame.size.height)];
         self.titleLabel.backgroundColor = [UIColor clearColor];
         self.titleLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Thin" size:16];
         self.titleLabel.textColor = [UIColor whiteColor];

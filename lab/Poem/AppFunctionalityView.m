@@ -110,7 +110,7 @@
 {
     NSString *emailTitle = @"[Poemee]Recommendation && Suggestion";
     // Email Content
-    NSString *messageBody = @"hi,welcome:\n if you have any touching poems or suggestion to this app,please let me know,thanks";
+    NSString *messageBody = @"hi poemeer:\n if you have any touching poems or suggestion to this app,please let me know,thanks";
     // To address
     NSArray *toRecipents = [NSArray arrayWithObject:@"lanstonpeng@gmail.com"];
     
@@ -119,8 +119,6 @@
     [mc setSubject:emailTitle];
     [mc setMessageBody:messageBody isHTML:NO];
     [mc setToRecipients:toRecipents];
-    
-    // Present mail view controller on screen
     [_sharedContainer presentViewController:mc animated:YES completion:NULL];
 }
 
