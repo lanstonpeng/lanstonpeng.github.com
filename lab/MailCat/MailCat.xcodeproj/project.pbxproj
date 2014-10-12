@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		9D93F85C19E8CA1100112CFA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D93F85B19E8CA1100112CFA /* main.m */; };
 		9D93F85F19E8CA1100112CFA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D93F85E19E8CA1100112CFA /* AppDelegate.m */; };
-		9D93F86219E8CA1100112CFA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D93F86119E8CA1100112CFA /* ViewController.m */; };
 		9D93F86519E8CA1100112CFA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D93F86319E8CA1100112CFA /* Main.storyboard */; };
 		9D93F86719E8CA1100112CFA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D93F86619E8CA1100112CFA /* Images.xcassets */; };
 		9D93F86A19E8CA1100112CFA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D93F86819E8CA1100112CFA /* LaunchScreen.xib */; };
@@ -20,6 +19,10 @@
 		9D93F88819E8D61600112CFA /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F88719E8D61600112CFA /* CoreTelephony.framework */; };
 		9D93F88A19E8D61E00112CFA /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F88919E8D61E00112CFA /* libicucore.dylib */; };
 		9DFD789119E8F6FF00B4393A /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F87F19E8D5E400112CFA /* AVOSCloud.framework */; };
+		9DFD789C19EA1E3300B4393A /* WritingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD789B19EA1E3300B4393A /* WritingViewController.m */; };
+		9DFD789E19EA246000B4393A /* 方正清刻本悦宋简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DFD789919EA1DF700B4393A /* 方正清刻本悦宋简体.ttf */; };
+		9DFD78A119EA3BE800B4393A /* EntranceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD78A019EA3BE800B4393A /* EntranceViewController.m */; };
+		9DFD78A419EA3DFA00B4393A /* TransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD78A319EA3DFA00B4393A /* TransitionManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +41,6 @@
 		9D93F85B19E8CA1100112CFA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9D93F85D19E8CA1100112CFA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9D93F85E19E8CA1100112CFA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		9D93F86019E8CA1100112CFA /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		9D93F86119E8CA1100112CFA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		9D93F86419E8CA1100112CFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9D93F86619E8CA1100112CFA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9D93F86919E8CA1100112CFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -52,6 +53,13 @@
 		9D93F88519E8D60B00112CFA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9D93F88719E8D61600112CFA /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		9D93F88919E8D61E00112CFA /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		9DFD789919EA1DF700B4393A /* 方正清刻本悦宋简体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "方正清刻本悦宋简体.ttf"; sourceTree = "<group>"; };
+		9DFD789A19EA1E3300B4393A /* WritingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WritingViewController.h; sourceTree = "<group>"; };
+		9DFD789B19EA1E3300B4393A /* WritingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WritingViewController.m; sourceTree = "<group>"; };
+		9DFD789F19EA3BE800B4393A /* EntranceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntranceViewController.h; sourceTree = "<group>"; };
+		9DFD78A019EA3BE800B4393A /* EntranceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntranceViewController.m; sourceTree = "<group>"; };
+		9DFD78A219EA3DFA00B4393A /* TransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionManager.h; sourceTree = "<group>"; };
+		9DFD78A319EA3DFA00B4393A /* TransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +115,8 @@
 			children = (
 				9D93F85D19E8CA1100112CFA /* AppDelegate.h */,
 				9D93F85E19E8CA1100112CFA /* AppDelegate.m */,
-				9D93F86019E8CA1100112CFA /* ViewController.h */,
-				9D93F86119E8CA1100112CFA /* ViewController.m */,
+				9DFD78A519EA3E0100B4393A /* Animation */,
+				9DFD789D19EA232000B4393A /* ViewController */,
 				9D93F86319E8CA1100112CFA /* Main.storyboard */,
 				9D93F86619E8CA1100112CFA /* Images.xcassets */,
 				9D93F86819E8CA1100112CFA /* LaunchScreen.xib */,
@@ -120,6 +128,7 @@
 		9D93F85919E8CA1100112CFA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9DFD789919EA1DF700B4393A /* 方正清刻本悦宋简体.ttf */,
 				9D93F85A19E8CA1100112CFA /* Info.plist */,
 				9D93F85B19E8CA1100112CFA /* main.m */,
 			);
@@ -141,6 +150,26 @@
 				9D93F87419E8CA1100112CFA /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9DFD789D19EA232000B4393A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9DFD789A19EA1E3300B4393A /* WritingViewController.h */,
+				9DFD789B19EA1E3300B4393A /* WritingViewController.m */,
+				9DFD789F19EA3BE800B4393A /* EntranceViewController.h */,
+				9DFD78A019EA3BE800B4393A /* EntranceViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		9DFD78A519EA3E0100B4393A /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				9DFD78A219EA3DFA00B4393A /* TransitionManager.h */,
+				9DFD78A319EA3DFA00B4393A /* TransitionManager.m */,
+			);
+			name = Animation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,6 +252,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DFD789E19EA246000B4393A /* 方正清刻本悦宋简体.ttf in Resources */,
 				9D93F86519E8CA1100112CFA /* Main.storyboard in Resources */,
 				9D93F86A19E8CA1100112CFA /* LaunchScreen.xib in Resources */,
 				9D93F86719E8CA1100112CFA /* Images.xcassets in Resources */,
@@ -243,9 +273,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D93F86219E8CA1100112CFA /* ViewController.m in Sources */,
+				9DFD789C19EA1E3300B4393A /* WritingViewController.m in Sources */,
 				9D93F85F19E8CA1100112CFA /* AppDelegate.m in Sources */,
+				9DFD78A119EA3BE800B4393A /* EntranceViewController.m in Sources */,
 				9D93F85C19E8CA1100112CFA /* main.m in Sources */,
+				9DFD78A419EA3DFA00B4393A /* TransitionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
