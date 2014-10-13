@@ -14,38 +14,91 @@
 
 
 @property (strong,nonatomic)UIPercentDrivenInteractiveTransition* interactiveTransition;
-@property (weak, nonatomic) IBOutlet UIImageView *paperImageView;
+@property (strong, nonatomic) UIImageView *paperImageView;
+
 @property (weak, nonatomic) IBOutlet UIImageView *folderImageView;
+
+@property (strong,nonatomic)UIAttachmentBehavior* attachmentBehavior;
+
+@property (strong,nonatomic)UIDynamicAnimator* animator;
 
 @end
 
+
 @implementation EntranceViewController
+{
+    CGFloat startPanY;
+    CGRect paperImageViewOriginalFrame;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.interactiveTransition = [UIPercentDrivenInteractiveTransition new];
+    self.paperImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"paper"]];
+    self.paperImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view insertSubview:self.paperImageView belowSubview:self.folderImageView];
     // Do any additional setup after loading the view.
+    
+    self.animator = [[UIDynamicAnimator alloc]initWithReferenceView:self.view];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     CGRect folderFrame = self.folderImageView.frame;
-    CGRect papaerFrame = self.paperImageView.frame;
-    _paperImageView.frame = CGRectMake(_paperImageView.frame.origin.x, folderFrame.origin.y - 50, papaerFrame.size.width, papaerFrame.size.height);
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    paperImageViewOriginalFrame = CGRectMake(screenBounds.size.width * 0.1,
+                                             folderFrame.origin.y - screenBounds.size.height * 0.2,
+                                             screenBounds.size.width * 0.8,
+                                             screenBounds.size.height * 0.2);
+    _paperImageView.frame = paperImageViewOriginalFrame;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 - (IBAction)handlePanUpGesture:(UIPanGestureRecognizer *)recognizer {
-    CGFloat progress  =[recognizer locationInView:self.view.superview].y /self.view.superview.bounds.size.height;
     
-    progress = 1.0 - MIN(1.0,MAX(0 , progress));
-    NSLog(@"%f",progress);
+    CGPoint paperLocation = [recognizer locationInView:self.paperImageView];
+    CGPoint viewLocation  = [recognizer locationInView:self.view];
+    self.attachmentBehavior.anchorPoint = [recognizer locationInView:self.view];
     
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        
+        //UIDynamic
+        [self.animator removeAllBehaviors];
+       
+        UIOffset centerOffset = UIOffsetMake(paperLocation.x - CGRectGetMidX(self.paperImageView.bounds), paperLocation.y - CGRectGetMidY(self.paperImageView.bounds));
+        
+        self.attachmentBehavior = [[UIAttachmentBehavior alloc]initWithItem:self.paperImageView offsetFromCenter:centerOffset attachedToAnchor:viewLocation];
+        [self.animator addBehavior:self.attachmentBehavior];
+    }
+    else if(recognizer.state == UIGestureRecognizerStateChanged)
+    {
+        self.attachmentBehavior.anchorPoint = viewLocation;
+    }
+    else if(recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled)
+    {
+        [self.animator removeAllBehaviors];
+        CGPoint point = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.paperImageView.frame));
+        UISnapBehavior* snapBehavior = [[UISnapBehavior alloc]initWithItem:self.paperImageView snapToPoint:point];
+        [self.animator addBehavior:snapBehavior];
+    }
+    
+    //CGFloat progress  =[recognizer locationInView:self.view.superview].y /self.view.superview.bounds.size.height;
+    
+    /*
+    CGFloat progress;
     if(recognizer.state == UIGestureRecognizerStateBegan)
     {
+        startPanY = [recognizer locationInView:self.view.superview].y;
+        CGFloat currentY = [recognizer locationInView:self.view.superview].y;
+        progress = ( currentY - startPanY ) / (self.view.superview.bounds.size.height * 0.2);
+        
+        NSLog(@"currentY: %f",currentY);
+        NSLog(@"progress: %f",progress);
+        if (progress >=  0) {
+            return;
+        }
+        
+        progress = 1.0 - MIN(1.0,MAX(0 , progress));
+        
         WritingViewController * writingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Writing"];
         writingViewController.interactiveTransition = self.interactiveTransition;
         [self presentViewController:writingViewController animated:YES completion:nil];
@@ -66,7 +119,13 @@
         }
         self.interactiveTransition = nil;
     }
+    */
 
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 /*

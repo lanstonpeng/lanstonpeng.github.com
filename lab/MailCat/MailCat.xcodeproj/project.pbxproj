@@ -18,7 +18,7 @@
 		9D93F88619E8D60B00112CFA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F88519E8D60B00112CFA /* CoreLocation.framework */; };
 		9D93F88819E8D61600112CFA /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F88719E8D61600112CFA /* CoreTelephony.framework */; };
 		9D93F88A19E8D61E00112CFA /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F88919E8D61E00112CFA /* libicucore.dylib */; };
-		9DFD789119E8F6FF00B4393A /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F87F19E8D5E400112CFA /* AVOSCloud.framework */; };
+		9DFC1D5A19EB7DB7002BCDB5 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F87F19E8D5E400112CFA /* AVOSCloud.framework */; };
 		9DFD789C19EA1E3300B4393A /* WritingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD789B19EA1E3300B4393A /* WritingViewController.m */; };
 		9DFD789E19EA246000B4393A /* 方正清刻本悦宋简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DFD789919EA1DF700B4393A /* 方正清刻本悦宋简体.ttf */; };
 		9DFD78A119EA3BE800B4393A /* EntranceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD78A019EA3BE800B4393A /* EntranceViewController.m */; };
@@ -67,7 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DFD789119E8F6FF00B4393A /* AVOSCloud.framework in Frameworks */,
+				9DFC1D5A19EB7DB7002BCDB5 /* AVOSCloud.framework in Frameworks */,
 				9D93F88A19E8D61E00112CFA /* libicucore.dylib in Frameworks */,
 				9D93F88819E8D61600112CFA /* CoreTelephony.framework in Frameworks */,
 				9D93F88619E8D60B00112CFA /* CoreLocation.framework in Frameworks */,
@@ -405,6 +405,8 @@
 					"2/release-v2.6.5.1",
 					/Users/lanstonpeng/Downloads/iOS,
 					"2/release-v2.6.5.1",
+					/Users/lanstonpeng/Downloads/iOS,
+					"2/release-v2.6.5.1",
 				);
 				INFOPLIST_FILE = MailCat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -418,6 +420,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					/Users/lanstonpeng/Downloads/iOS,
+					"2/release-v2.6.5.1",
 					/Users/lanstonpeng/Downloads/iOS,
 					"2/release-v2.6.5.1",
 					/Users/lanstonpeng/Downloads/iOS,
