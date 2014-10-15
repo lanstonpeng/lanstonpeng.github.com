@@ -15,6 +15,8 @@
             <string>FZQKBYSJW--GB1-0</string>
             <string>FZQKBYSJW--GB1-0</string>
             <string>FZQKBYSJW--GB1-0</string>
+            <string>FZQKBYSJW--GB1-0</string>
+            <string>FZQKBYSJW--GB1-0</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -147,8 +149,8 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="信件预计在4天后到达" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0O-zj-zZQ">
-                                <rect key="frame" x="228" y="421" width="142" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="信件预计在 ?天后 到达" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0O-zj-zZQ">
+                                <rect key="frame" x="224" y="421" width="149" height="30"/>
                                 <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -215,16 +217,16 @@
                                     <constraint firstAttribute="width" constant="199" id="tBb-oO-zur"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
                             </textField>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SEb-rN-F8K">
+                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SEb-rN-F8K">
                                 <rect key="frame" x="149" y="247" width="120" height="162"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Xpg-pt-r3t" id="3vV-bW-81V"/>
                                     <outlet property="delegate" destination="Xpg-pt-r3t" id="yik-ka-P8z"/>
                                 </connections>
                             </pickerView>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h49-XZ-v1u">
+                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h49-XZ-v1u">
                                 <rect key="frame" x="149" y="31" width="120" height="162"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="162" id="GTr-E6-6io"/>
@@ -235,16 +237,35 @@
                                     <outlet property="delegate" destination="Xpg-pt-r3t" id="GCt-fz-dDZ"/>
                                 </connections>
                             </pickerView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T82-GP-fRn">
+                                <rect key="frame" x="154" y="101" width="110" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="7ZO-hW-lSJ"/>
+                                    <constraint firstAttribute="height" constant="21" id="Yr3-aI-egO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dp0-T1-UHe">
+                                <rect key="frame" x="149" y="320" width="110" height="16.5"/>
+                                <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="dOr-Yy-EMa" firstAttribute="top" secondItem="G0O-zj-zZQ" secondAttribute="bottom" constant="36" id="2s7-Bb-mWr"/>
+                            <constraint firstItem="dp0-T1-UHe" firstAttribute="centerY" secondItem="yDG-Ue-xyn" secondAttribute="centerY" constant="1" id="39E-mG-zVI"/>
                             <constraint firstItem="SEb-rN-F8K" firstAttribute="width" secondItem="h49-XZ-v1u" secondAttribute="width" id="4DT-Re-eVy"/>
                             <constraint firstItem="kri-Ts-XY4" firstAttribute="leading" secondItem="yDG-Ue-xyn" secondAttribute="trailing" constant="8" id="54e-qS-OSU"/>
                             <constraint firstItem="MgO-xN-17L" firstAttribute="top" secondItem="0b9-Lr-BaI" secondAttribute="top" constant="4" id="61r-2B-wwx"/>
                             <constraint firstItem="clJ-k9-zK2" firstAttribute="leading" secondItem="MgO-xN-17L" secondAttribute="leading" id="9g3-Zu-8Pv"/>
                             <constraint firstItem="hJ5-cv-uGq" firstAttribute="leading" secondItem="clJ-k9-zK2" secondAttribute="trailing" constant="8" id="AJU-up-p73"/>
+                            <constraint firstItem="T82-GP-fRn" firstAttribute="centerY" secondItem="clJ-k9-zK2" secondAttribute="centerY" id="CKh-2p-K2w"/>
                             <constraint firstItem="G0O-zj-zZQ" firstAttribute="top" secondItem="OVK-YH-19L" secondAttribute="bottom" constant="401" id="DbB-Qf-OvB"/>
+                            <constraint firstItem="T82-GP-fRn" firstAttribute="leading" secondItem="h49-XZ-v1u" secondAttribute="leading" constant="5" id="KcZ-MF-erK"/>
                             <constraint firstItem="hJ5-cv-uGq" firstAttribute="top" secondItem="clJ-k9-zK2" secondAttribute="top" id="MaC-0O-DH8"/>
                             <constraint firstItem="h49-XZ-v1u" firstAttribute="leading" secondItem="clJ-k9-zK2" secondAttribute="trailing" constant="61" id="OG4-dG-4vL"/>
                             <constraint firstItem="G0O-zj-zZQ" firstAttribute="centerX" secondItem="dOr-Yy-EMa" secondAttribute="centerX" id="RUg-Uf-fBh"/>
@@ -257,11 +278,13 @@
                             <constraint firstItem="SEb-rN-F8K" firstAttribute="height" secondItem="h49-XZ-v1u" secondAttribute="height" id="cBM-mp-2Wi"/>
                             <constraint firstItem="SEb-rN-F8K" firstAttribute="leading" secondItem="h49-XZ-v1u" secondAttribute="leading" id="eLn-Oq-QMx"/>
                             <constraint firstItem="yDG-Ue-xyn" firstAttribute="leading" secondItem="MgO-xN-17L" secondAttribute="leading" id="i4F-tB-1yr"/>
+                            <constraint firstItem="dp0-T1-UHe" firstAttribute="width" secondItem="T82-GP-fRn" secondAttribute="width" id="mXc-k7-APe"/>
                             <constraint firstItem="SEb-rN-F8K" firstAttribute="width" secondItem="h49-XZ-v1u" secondAttribute="width" constant="74" id="ovP-j9-rc5"/>
                             <constraint firstItem="Dgg-pG-QjB" firstAttribute="top" secondItem="dOr-Yy-EMa" secondAttribute="bottom" constant="78" id="qfy-GH-UbY"/>
                             <constraint firstItem="SEb-rN-F8K" firstAttribute="centerY" secondItem="yDG-Ue-xyn" secondAttribute="centerY" constant="0.5" id="sfW-7e-yZ0"/>
                             <constraint firstItem="0b9-Lr-BaI" firstAttribute="leading" secondItem="MgO-xN-17L" secondAttribute="trailing" constant="44" id="tWi-2n-ttZ"/>
                             <constraint firstItem="yDG-Ue-xyn" firstAttribute="top" secondItem="MgO-xN-17L" secondAttribute="bottom" constant="87" id="uMb-Fn-xtk"/>
+                            <constraint firstItem="dp0-T1-UHe" firstAttribute="leading" secondItem="SEb-rN-F8K" secondAttribute="leading" id="v4Q-XX-dA8"/>
                             <constraint firstItem="clJ-k9-zK2" firstAttribute="leading" secondItem="D6g-uE-xLV" secondAttribute="leadingMargin" constant="20" id="wNC-6v-RZA"/>
                             <constraint firstAttribute="centerX" secondItem="dOr-Yy-EMa" secondAttribute="centerX" id="yZO-UV-0Q7"/>
                         </constraints>
@@ -272,8 +295,11 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="daySpendLabel" destination="G0O-zj-zZQ" id="38H-I4-tVX"/>
                         <outlet property="emailTextField" destination="0b9-Lr-BaI" id="GJ8-uI-8yq"/>
+                        <outlet property="receiverCityLabel" destination="dp0-T1-UHe" id="ZVL-f7-Qjf"/>
                         <outlet property="receiverPickerView" destination="SEb-rN-F8K" id="tpx-hC-uiw"/>
+                        <outlet property="senderCityLabel" destination="T82-GP-fRn" id="BUR-PL-MJF"/>
                         <outlet property="senderCityPickerView" destination="h49-XZ-v1u" id="WDx-fW-LRj"/>
                         <outlet property="startWritingBtn" destination="dOr-Yy-EMa" id="Hxw-zj-aWb"/>
                     </connections>

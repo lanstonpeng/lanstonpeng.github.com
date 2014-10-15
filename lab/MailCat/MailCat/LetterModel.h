@@ -21,6 +21,7 @@ typedef enum
 
 @property (strong,nonatomic)NSString* senderCity;
 @property (strong,nonatomic)NSString* sendToEmail;
+@property (strong,nonatomic)NSString* senderEmail;
 @property (strong,nonatomic)NSString* receiverCity;
 @property (strong,nonatomic)NSString* receiverName;
 @property (strong,nonatomic)NSString* letterBody;

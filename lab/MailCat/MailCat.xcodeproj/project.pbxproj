@@ -23,6 +23,8 @@
 		9DFBFB9619EE567A004D1715 /* PreviewLetterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9519EE567A004D1715 /* PreviewLetterViewController.m */; };
 		9DFBFB9919EE6FC2004D1715 /* LetterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9819EE6FC2004D1715 /* LetterModel.m */; };
 		9DFBFB9D19EE8494004D1715 /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9C19EE8494004D1715 /* ResultViewController.m */; };
+		9DFBFBA019EEE4CD004D1715 /* LetterUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9F19EEE4CD004D1715 /* LetterUser.m */; };
+		9DFBFBA419EEED36004D1715 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFBA319EEED36004D1715 /* MBProgressHUD.m */; };
 		9DFD789C19EA1E3300B4393A /* WritingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD789B19EA1E3300B4393A /* WritingViewController.m */; };
 		9DFD789E19EA246000B4393A /* 方正清刻本悦宋简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DFD789919EA1DF700B4393A /* 方正清刻本悦宋简体.ttf */; };
 		9DFD78A119EA3BE800B4393A /* EntranceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD78A019EA3BE800B4393A /* EntranceViewController.m */; };
@@ -65,6 +67,10 @@
 		9DFBFB9819EE6FC2004D1715 /* LetterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterModel.m; sourceTree = "<group>"; };
 		9DFBFB9B19EE8494004D1715 /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
 		9DFBFB9C19EE8494004D1715 /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
+		9DFBFB9E19EEE4CD004D1715 /* LetterUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterUser.h; sourceTree = "<group>"; };
+		9DFBFB9F19EEE4CD004D1715 /* LetterUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterUser.m; sourceTree = "<group>"; };
+		9DFBFBA219EEED36004D1715 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		9DFBFBA319EEED36004D1715 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		9DFD789919EA1DF700B4393A /* 方正清刻本悦宋简体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "方正清刻本悦宋简体.ttf"; sourceTree = "<group>"; };
 		9DFD789A19EA1E3300B4393A /* WritingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WritingViewController.h; sourceTree = "<group>"; };
 		9DFD789B19EA1E3300B4393A /* WritingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WritingViewController.m; sourceTree = "<group>"; };
@@ -128,6 +134,8 @@
 				9D93F85D19E8CA1100112CFA /* AppDelegate.h */,
 				9D93F85E19E8CA1100112CFA /* AppDelegate.m */,
 				9DFD78A519EA3E0100B4393A /* Animation */,
+				9DFBFBA519EEED3D004D1715 /* ThirdParty */,
+				9DFBFBA119EEE4D5004D1715 /* Util */,
 				9DFBFB9A19EE6FCB004D1715 /* Model */,
 				9DFD789D19EA232000B4393A /* ViewController */,
 				9D93F86319E8CA1100112CFA /* Main.storyboard */,
@@ -172,6 +180,24 @@
 				9DFBFB9819EE6FC2004D1715 /* LetterModel.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		9DFBFBA119EEE4D5004D1715 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				9DFBFB9E19EEE4CD004D1715 /* LetterUser.h */,
+				9DFBFB9F19EEE4CD004D1715 /* LetterUser.m */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		9DFBFBA519EEED3D004D1715 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				9DFBFBA219EEED36004D1715 /* MBProgressHUD.h */,
+				9DFBFBA319EEED36004D1715 /* MBProgressHUD.m */,
+			);
+			name = ThirdParty;
 			sourceTree = "<group>";
 		};
 		9DFD789D19EA232000B4393A /* ViewController */ = {
@@ -305,10 +331,12 @@
 				9DFBFB9919EE6FC2004D1715 /* LetterModel.m in Sources */,
 				9D93F85F19E8CA1100112CFA /* AppDelegate.m in Sources */,
 				9DFD78A119EA3BE800B4393A /* EntranceViewController.m in Sources */,
+				9DFBFBA419EEED36004D1715 /* MBProgressHUD.m in Sources */,
 				9D93F85C19E8CA1100112CFA /* main.m in Sources */,
 				9DFD78A419EA3DFA00B4393A /* TransitionManager.m in Sources */,
 				9DFBFB9319EE3EB1004D1715 /* PrepareWritingViewController.m in Sources */,
 				9DFBFB9619EE567A004D1715 /* PreviewLetterViewController.m in Sources */,
+				9DFBFBA019EEE4CD004D1715 /* LetterUser.m in Sources */,
 				9DFBFB9D19EE8494004D1715 /* ResultViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

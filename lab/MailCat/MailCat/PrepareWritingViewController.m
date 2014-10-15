@@ -9,6 +9,7 @@
 #import "PrepareWritingViewController.h"
 #import "LetterModel.h"
 #import "WritingViewController.h"
+#import "MBProgressHUD.h"
 
 @interface PrepareWritingViewController ()<UIPickerViewDataSource,UIPickerViewDelegate>
 
@@ -17,8 +18,15 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *senderCityPickerView;
 @property (weak, nonatomic) IBOutlet UIPickerView *receiverPickerView;
 
+@property (weak, nonatomic) IBOutlet UILabel *senderCityLabel;
+@property (weak, nonatomic) IBOutlet UILabel *receiverCityLabel;
+@property (weak, nonatomic) IBOutlet UILabel *daySpendLabel;
 
 @property (strong,nonatomic)LetterModel* letterModel;
+
+@property (strong,nonatomic)NSTimer* pickerTimer;
+
+@property (strong,nonatomic)MBProgressHUD* toastMsg;
 @end
 
 @implementation PrepareWritingViewController
@@ -34,22 +42,53 @@
     
     self.letterModel = [LetterModel new];
     
-    chinaProvinceArr =  @[@"河北省", @"山西省", @"辽宁省", @"吉林省", @"黑龙江省", @"江苏省", @"浙江省", @"安徽省", @"福建省", @"江西省", @"山东省", @"河南省", @"湖北省", @"湖南省", @"广东省", @"海南省", @"四川省", @"贵州省", @"云南省", @"陕西省", @"甘肃省",@"青海省", @"台湾省", @"内蒙古自治区", @"广西壮族自治区", @"西藏自治区", @"宁夏回族自治区", @"新疆维吾尔自治区", @"香港特别行政区", @"澳门特别行政区"];
+    chinaProvinceArr =  @[@"北京",@"上海",@"广州",@"深圳",@"厦门",@"天津",@"杭州",@"重庆",@"武汉",@"南京",@"苏州",@"无锡",@"成都",@"沈阳",@"长春",@"宁波",@"济南",@"福州",@"长沙",@"郑州",@"青岛",@"大连",@"西安",@"哈尔滨",@"温州"];
     
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+}
+
+- (void)displayToastMsg:(NSString*)str
+{
+    self.toastMsg = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.toastMsg.mode = MBProgressHUDModeText;
+    self.toastMsg.labelText = str;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.toastMsg hide:YES];
+    });
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    self.letterModel.sendToEmail = self.emailTextField.text;
+    if (self.letterModel.senderCity == nil ) {
+        [self displayToastMsg:@"请选择你所在城市"];
+        return NO;
+    }
+    if (self.letterModel.receiverCity == nil) {
+        [self displayToastMsg:@"请选择她所在城市"];
+        return NO;
+    }
+    if (self.letterModel.sendToEmail == nil || ![self validateEmail:self.letterModel.sendToEmail]) {
+        [self displayToastMsg:@"请输入她的邮箱"];
+        return NO;
+    }
+    return YES;
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //TODO:check form is finished
-    self.letterModel.sendToEmail = self.emailTextField.text;
     WritingViewController* writingVC = (WritingViewController*)segue.destinationViewController;
     writingVC.letterModel = self.letterModel;
 }
 - (IBAction)pickSenderCity:(id)sender {
-    //TODO:show pickerview
+    self.senderCityPickerView.hidden = NO;
+    self.senderCityLabel.hidden = YES;
     //TODO:change the popup button color
 }
 - (IBAction)pickReceiverCity:(id)sender {
-    //TODO:show pickerview
+    self.receiverPickerView.hidden = NO;
+    self.receiverCityLabel.hidden = YES;
     //TODO:change the popup button color
 }
 - (IBAction)focusOnEmailTextField:(id)sender {
@@ -98,12 +137,45 @@
 {
     if (pickerView.tag == 100) {
         self.letterModel.senderCity = [chinaProvinceArr objectAtIndex:row];
+        
     }
     else if (pickerView.tag  == 200)
     {
         self.letterModel.receiverCity = [chinaProvinceArr objectAtIndex:row];
     }
+    [self.pickerTimer invalidate];
+    self.pickerTimer = [NSTimer scheduledTimerWithTimeInterval:0.8 target:self selector:@selector(showPickerResult:) userInfo:@{
+                                                                                                                              @"tag":@(pickerView.tag)
+                                                                                                                              } repeats:NO];
 }
+
+- (void)showPickerResult:(NSTimer*)timer
+{
+    NSUInteger tag = [[timer.userInfo objectForKey:@"tag"] integerValue];
+    if (tag == 100) {
+        self.senderCityPickerView.hidden = YES;
+        self.senderCityLabel.text = self.letterModel.senderCity;
+        self.senderCityLabel.hidden = NO;
+    }
+    else
+    {
+        self.receiverPickerView.hidden = YES;
+        self.receiverCityLabel.text = self.letterModel.receiverCity;
+        self.receiverCityLabel.hidden = NO;
+    }
+    if (self.letterModel.senderCity.length > 0 && self.letterModel.receiverCity.length > 0) {
+        
+        self.daySpendLabel.text = [NSString stringWithFormat:@"信件预计在 %d天后 到达", arc4random() % 4 + 2];
+    }
+}
+
+- (BOOL) validateEmail: (NSString *) candidate {
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    
+    return [emailTest evaluateWithObject:candidate];
+}
+
 /*
 #pragma mark - Navigation
 
