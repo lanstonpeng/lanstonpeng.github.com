@@ -7,6 +7,7 @@
 //
 
 #import "PreviewLetterViewController.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 @interface PreviewLetterViewController ()
 
@@ -24,6 +25,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)sendLetterData
+{
+    AVObject *appAVObject = [AVObject objectWithClassName:@"LetterData"];
+    [appAVObject setObject:self.letterModel.senderCity forKey:@"senderCity"];
+    [appAVObject setObject:self.letterModel.sendToEmail forKey:@"sendToEmail"];
+    [appAVObject setObject:self.letterModel.receiverCity forKey:@"receiverCity"];
+    [appAVObject setObject:self.letterModel.receiverName forKey:@"receiverName"];
+    [appAVObject setObject:self.letterModel.letterBody forKey:@"letterBody"];
+    [appAVObject saveEventually:^(BOOL succeeded, NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
 /*
 #pragma mark - Navigation
 

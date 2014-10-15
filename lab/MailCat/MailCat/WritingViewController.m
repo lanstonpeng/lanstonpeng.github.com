@@ -30,6 +30,15 @@
     
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    //TODO:check segue identifier
+    //TODO:check letter count
+    //TDDO:check form is finished
+    self.letterModel.receiverName = self.titleField.text;
+    self.letterModel.letterBody = self.bodyTextView.text;
+}
+
 -(IBAction)unwindSegue:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];

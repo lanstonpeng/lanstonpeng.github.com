@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+
+typedef enum
+{
+    Draft = 1,
+    Pending,
+    Sent,
+    Received
+}LetterStatus;
+
 @interface LetterModel : NSObject
 
 @property (strong,nonatomic)NSString* senderCity;
@@ -15,4 +24,5 @@
 @property (strong,nonatomic)NSString* receiverCity;
 @property (strong,nonatomic)NSString* receiverName;
 @property (strong,nonatomic)NSString* letterBody;
+@property (nonatomic)LetterStatus letterStatus;
 @end

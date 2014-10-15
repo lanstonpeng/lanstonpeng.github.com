@@ -22,6 +22,7 @@
 		9DFBFB9319EE3EB1004D1715 /* PrepareWritingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9219EE3EB1004D1715 /* PrepareWritingViewController.m */; };
 		9DFBFB9619EE567A004D1715 /* PreviewLetterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9519EE567A004D1715 /* PreviewLetterViewController.m */; };
 		9DFBFB9919EE6FC2004D1715 /* LetterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9819EE6FC2004D1715 /* LetterModel.m */; };
+		9DFBFB9D19EE8494004D1715 /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9C19EE8494004D1715 /* ResultViewController.m */; };
 		9DFD789C19EA1E3300B4393A /* WritingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD789B19EA1E3300B4393A /* WritingViewController.m */; };
 		9DFD789E19EA246000B4393A /* 方正清刻本悦宋简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DFD789919EA1DF700B4393A /* 方正清刻本悦宋简体.ttf */; };
 		9DFD78A119EA3BE800B4393A /* EntranceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD78A019EA3BE800B4393A /* EntranceViewController.m */; };
@@ -62,6 +63,8 @@
 		9DFBFB9519EE567A004D1715 /* PreviewLetterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewLetterViewController.m; sourceTree = "<group>"; };
 		9DFBFB9719EE6FC2004D1715 /* LetterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterModel.h; sourceTree = "<group>"; };
 		9DFBFB9819EE6FC2004D1715 /* LetterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterModel.m; sourceTree = "<group>"; };
+		9DFBFB9B19EE8494004D1715 /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
+		9DFBFB9C19EE8494004D1715 /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
 		9DFD789919EA1DF700B4393A /* 方正清刻本悦宋简体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "方正清刻本悦宋简体.ttf"; sourceTree = "<group>"; };
 		9DFD789A19EA1E3300B4393A /* WritingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WritingViewController.h; sourceTree = "<group>"; };
 		9DFD789B19EA1E3300B4393A /* WritingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WritingViewController.m; sourceTree = "<group>"; };
@@ -174,9 +177,11 @@
 		9DFD789D19EA232000B4393A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				9DFD789A19EA1E3300B4393A /* WritingViewController.h */,
+				9DFBFB9B19EE8494004D1715 /* ResultViewController.h */,
+				9DFBFB9C19EE8494004D1715 /* ResultViewController.m */,
 				9DFBFB9419EE567A004D1715 /* PreviewLetterViewController.h */,
 				9DFBFB9519EE567A004D1715 /* PreviewLetterViewController.m */,
+				9DFD789A19EA1E3300B4393A /* WritingViewController.h */,
 				9DFD789B19EA1E3300B4393A /* WritingViewController.m */,
 				9DFD789F19EA3BE800B4393A /* EntranceViewController.h */,
 				9DFD78A019EA3BE800B4393A /* EntranceViewController.m */,
@@ -304,6 +309,7 @@
 				9DFD78A419EA3DFA00B4393A /* TransitionManager.m in Sources */,
 				9DFBFB9319EE3EB1004D1715 /* PrepareWritingViewController.m in Sources */,
 				9DFBFB9619EE567A004D1715 /* PreviewLetterViewController.m in Sources */,
+				9DFBFB9D19EE8494004D1715 /* ResultViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

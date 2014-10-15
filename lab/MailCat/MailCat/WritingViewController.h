@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LetterModel.h"
 
 @interface WritingViewController : UIViewController
 
 @property (strong,nonatomic)UIPercentDrivenInteractiveTransition* interactiveTransition;
+
+@property (strong,nonatomic)LetterModel* letterModel;
 
 @end
