@@ -1,0 +1,1 @@
+- how to bind email with user
