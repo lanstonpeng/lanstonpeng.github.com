@@ -29,6 +29,12 @@
     self.bodyTextView.font = [UIFont fontWithName:ChineseFont size:14];
     
 }
+
+-(IBAction)unwindSegue:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)cancelEditing:(id)sender {
     self.editing = NO;
 }
@@ -38,6 +44,7 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)handlePanUpGesture:(UIPanGestureRecognizer *)recognizer {
+    return;
     CGFloat progress  =[recognizer locationInView:self.view.superview].y / (self.view.superview.bounds.size.height * 1.0);
     progress =  MIN(1.0,MAX(0 , progress));
     

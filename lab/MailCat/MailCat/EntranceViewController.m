@@ -21,6 +21,7 @@
 @property (strong,nonatomic)UIAttachmentBehavior* attachmentBehavior;
 
 @property (strong,nonatomic)UIDynamicAnimator* animator;
+@property (weak, nonatomic) IBOutlet UIButton *prepareWritingBtn;
 
 @end
 
@@ -31,15 +32,32 @@
     CGRect paperImageViewOriginalFrame;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.interactiveTransition = [UIPercentDrivenInteractiveTransition new];
+- (void)initUI
+{
+    self.prepareWritingBtn.layer.cornerRadius = 3;
+    
     self.paperImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"paper"]];
     self.paperImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view insertSubview:self.paperImageView belowSubview:self.folderImageView];
-    // Do any additional setup after loading the view.
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.interactiveTransition = [UIPercentDrivenInteractiveTransition new];
+    
+    [self initUI];
     
     self.animator = [[UIDynamicAnimator alloc]initWithReferenceView:self.view];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -47,7 +65,7 @@
     CGRect folderFrame = self.folderImageView.frame;
     CGRect screenBounds = [UIScreen mainScreen].bounds;
     paperImageViewOriginalFrame = CGRectMake(screenBounds.size.width * 0.1,
-                                             folderFrame.origin.y - screenBounds.size.height * 0.2,
+                                             folderFrame.origin.y - screenBounds.size.height * 0.03,
                                              screenBounds.size.width * 0.8,
                                              screenBounds.size.height * 0.2);
     _paperImageView.frame = paperImageViewOriginalFrame;

@@ -18,7 +18,9 @@
 		9D93F88619E8D60B00112CFA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F88519E8D60B00112CFA /* CoreLocation.framework */; };
 		9D93F88819E8D61600112CFA /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F88719E8D61600112CFA /* CoreTelephony.framework */; };
 		9D93F88A19E8D61E00112CFA /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F88919E8D61E00112CFA /* libicucore.dylib */; };
-		9DFC1D5A19EB7DB7002BCDB5 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F87F19E8D5E400112CFA /* AVOSCloud.framework */; };
+		9DFBFB9019EE3D06004D1715 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F87F19E8D5E400112CFA /* AVOSCloud.framework */; };
+		9DFBFB9319EE3EB1004D1715 /* PrepareWritingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9219EE3EB1004D1715 /* PrepareWritingViewController.m */; };
+		9DFBFB9619EE567A004D1715 /* PreviewLetterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9519EE567A004D1715 /* PreviewLetterViewController.m */; };
 		9DFD789C19EA1E3300B4393A /* WritingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD789B19EA1E3300B4393A /* WritingViewController.m */; };
 		9DFD789E19EA246000B4393A /* 方正清刻本悦宋简体.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9DFD789919EA1DF700B4393A /* 方正清刻本悦宋简体.ttf */; };
 		9DFD78A119EA3BE800B4393A /* EntranceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFD78A019EA3BE800B4393A /* EntranceViewController.m */; };
@@ -53,6 +55,10 @@
 		9D93F88519E8D60B00112CFA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9D93F88719E8D61600112CFA /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		9D93F88919E8D61E00112CFA /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		9DFBFB9119EE3EB1004D1715 /* PrepareWritingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrepareWritingViewController.h; sourceTree = "<group>"; };
+		9DFBFB9219EE3EB1004D1715 /* PrepareWritingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrepareWritingViewController.m; sourceTree = "<group>"; };
+		9DFBFB9419EE567A004D1715 /* PreviewLetterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewLetterViewController.h; sourceTree = "<group>"; };
+		9DFBFB9519EE567A004D1715 /* PreviewLetterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewLetterViewController.m; sourceTree = "<group>"; };
 		9DFD789919EA1DF700B4393A /* 方正清刻本悦宋简体.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "方正清刻本悦宋简体.ttf"; sourceTree = "<group>"; };
 		9DFD789A19EA1E3300B4393A /* WritingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WritingViewController.h; sourceTree = "<group>"; };
 		9DFD789B19EA1E3300B4393A /* WritingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WritingViewController.m; sourceTree = "<group>"; };
@@ -67,7 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DFC1D5A19EB7DB7002BCDB5 /* AVOSCloud.framework in Frameworks */,
+				9DFBFB9019EE3D06004D1715 /* AVOSCloud.framework in Frameworks */,
 				9D93F88A19E8D61E00112CFA /* libicucore.dylib in Frameworks */,
 				9D93F88819E8D61600112CFA /* CoreTelephony.framework in Frameworks */,
 				9D93F88619E8D60B00112CFA /* CoreLocation.framework in Frameworks */,
@@ -156,9 +162,13 @@
 			isa = PBXGroup;
 			children = (
 				9DFD789A19EA1E3300B4393A /* WritingViewController.h */,
+				9DFBFB9419EE567A004D1715 /* PreviewLetterViewController.h */,
+				9DFBFB9519EE567A004D1715 /* PreviewLetterViewController.m */,
 				9DFD789B19EA1E3300B4393A /* WritingViewController.m */,
 				9DFD789F19EA3BE800B4393A /* EntranceViewController.h */,
 				9DFD78A019EA3BE800B4393A /* EntranceViewController.m */,
+				9DFBFB9119EE3EB1004D1715 /* PrepareWritingViewController.h */,
+				9DFBFB9219EE3EB1004D1715 /* PrepareWritingViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -278,6 +288,8 @@
 				9DFD78A119EA3BE800B4393A /* EntranceViewController.m in Sources */,
 				9D93F85C19E8CA1100112CFA /* main.m in Sources */,
 				9DFD78A419EA3DFA00B4393A /* TransitionManager.m in Sources */,
+				9DFBFB9319EE3EB1004D1715 /* PrepareWritingViewController.m in Sources */,
+				9DFBFB9619EE567A004D1715 /* PreviewLetterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +419,8 @@
 					"2/release-v2.6.5.1",
 					/Users/lanstonpeng/Downloads/iOS,
 					"2/release-v2.6.5.1",
+					/Users/lanstonpeng/Downloads/iOS,
+					"2/release-v2.6.5.1",
 				);
 				INFOPLIST_FILE = MailCat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -420,6 +434,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					/Users/lanstonpeng/Downloads/iOS,
+					"2/release-v2.6.5.1",
 					/Users/lanstonpeng/Downloads/iOS,
 					"2/release-v2.6.5.1",
 					/Users/lanstonpeng/Downloads/iOS,
