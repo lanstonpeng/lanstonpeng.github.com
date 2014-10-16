@@ -31,6 +31,9 @@
     CGFloat startPanY;
     CGRect paperImageViewOriginalFrame;
 }
+- (IBAction)showSideMenu:(id)sender {
+    
+}
 
 - (void)initUI
 {
@@ -65,7 +68,7 @@
     CGRect folderFrame = self.folderImageView.frame;
     CGRect screenBounds = [UIScreen mainScreen].bounds;
     paperImageViewOriginalFrame = CGRectMake(screenBounds.size.width * 0.1,
-                                             folderFrame.origin.y - screenBounds.size.height * 0.03,
+                                             folderFrame.origin.y - screenBounds.size.height * 0.01,
                                              screenBounds.size.width * 0.8,
                                              screenBounds.size.height * 0.2);
     _paperImageView.frame = paperImageViewOriginalFrame;
@@ -94,7 +97,7 @@
     else if(recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled)
     {
         [self.animator removeAllBehaviors];
-        CGPoint point = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.paperImageView.frame));
+        CGPoint point = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(paperImageViewOriginalFrame));
         UISnapBehavior* snapBehavior = [[UISnapBehavior alloc]initWithItem:self.paperImageView snapToPoint:point];
         [self.animator addBehavior:snapBehavior];
     }

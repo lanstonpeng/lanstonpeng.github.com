@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LetterModel.h"
 
 @interface ResultViewController : UIViewController
+
+@property(strong,nonatomic)LetterModel* letterModel;
 
 @end

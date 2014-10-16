@@ -44,7 +44,6 @@
     UIView* containerView = [transitionContext containerView];
     NSTimeInterval duraiton = [self transitionDuration:transitionContext];
     
-    
     toViewController.view.alpha = 0;
     [containerView addSubview:toViewController.view];
     
@@ -55,6 +54,7 @@
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 }
+
 
 - (void)animateTransitionForDismiss:(id<UIViewControllerContextTransitioning>)transitionContext
 {
@@ -75,7 +75,7 @@
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext
 {
-    return 0.5;
+    return 0.3;
 }
 
 @end

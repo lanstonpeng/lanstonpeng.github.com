@@ -8,35 +8,118 @@
 
 #import "WritingViewController.h"
 #import "TransitionManager.h"
+#import "MBProgressHUD.h"
+#import "ResultViewController.h"
 
 #define ChineseFont @"FZQKBYSJW--GB1-0"
 #define ChineseFont3  @"FZQingKeBenYueSongS-R-GB"
 
-@interface WritingViewController ()<UIViewControllerTransitioningDelegate>
+@interface WritingViewController ()<UIViewControllerTransitioningDelegate,NSLayoutManagerDelegate,UITextFieldDelegate,UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextView *bodyTextView;
-
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIButton *okButton;
+@property (weak, nonatomic) IBOutlet UILabel *wordCountLabel;
+@property (strong,nonatomic)MBProgressHUD* toastMsg;
 @end
 
 @implementation WritingViewController
+{
+    BOOL isAnimationFinished;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.modalPresentationStyle = UIModalPresentationCustom;
     self.transitioningDelegate = self;
-    // Do any additional setup after loading the view.
-    self.titleField.font = [UIFont fontWithName:ChineseFont size:14];
-    self.bodyTextView.font = [UIFont fontWithName:ChineseFont size:14];
+    self.titleField.font = [UIFont fontWithName:ChineseFont size:20];
+    self.bodyTextView.font = [UIFont fontWithName:ChineseFont size:15];
+    self.bodyTextView.layoutManager.delegate = self;
+    self.backButton.alpha = 0;
+    self.okButton.alpha = 0;
+    isAnimationFinished = YES;
+//    UIImageView* bgView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+//    bgView.image = [UIImage imageNamed:@"paisaje_azul_2880x1800"];
+//    bgView.contentMode = UIViewContentModeScaleAspectFill;
+//    bgView.alpha = 0.7;
+//    [self.view insertSubview:bgView atIndex:0];
+}
+-  (void)textViewDidChange:(UITextView *)textView
+{
+    self.wordCountLabel.text = [NSString stringWithFormat:@"(%lu) %d",(unsigned long)textView.text.length, MAX(0,140 - (int)textView.text.length)];
+}
+
+#pragma mark --
+#pragma mark titleTextField delegate
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    textField.text = [NSString stringWithFormat:@"%@:",textField.text];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (CGFloat)layoutManager:(NSLayoutManager *)layoutManager lineSpacingAfterGlyphAtIndex:(NSUInteger)glyphIndex withProposedLineFragmentRect:(CGRect)rect
+{
+    return 7;
+}
+
+- (void)displayToastMsg:(NSString*)str
+{
+    self.toastMsg = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.toastMsg.mode = MBProgressHUDModeText;
+    self.toastMsg.labelText = str;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.toastMsg hide:YES];
+    });
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if (self.titleField.text.length < 1) {
+        [self displayToastMsg:@"信件的开头需要把对方的称呼加上呀"];
+        return NO;
+    }
+    if (self.bodyTextView.text.length < 14) {
+        [self displayToastMsg:@"请安静下来,慢慢讲诉你想说的事情,想分享的内容"];
+        return NO;
+    }
+    return YES;
+}
+- (IBAction)tapViewShowNaviButton:(id)sender {
     
+    if (!isAnimationFinished) {
+        return;
+    }
+    
+    isAnimationFinished = NO;
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+        self.backButton.alpha = 1;
+        self.okButton.alpha = 1;
+    } completion:^(BOOL finished) {
+        [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(hideNaviButton) userInfo:nil repeats:NO];
+    }];
+}
+- (void)hideNaviButton
+{
+        [UIView animateWithDuration:0.3 delay:0 options:(UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction) animations:^{
+            self.backButton.alpha = 0;
+            self.okButton.alpha = 0;
+        } completion:^(BOOL finished){
+            isAnimationFinished = YES;
+        }];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //TODO:check segue identifier
-    //TODO:check letter count
-    //TDDO:check form is finished
     self.letterModel.receiverName = self.titleField.text;
     self.letterModel.letterBody = self.bodyTextView.text;
+    ResultViewController* resultVC = (ResultViewController*)segue.destinationViewController;
+    //resultVC.letterModel = [self.letterModel copy];
+    resultVC.letterModel = self.letterModel;
 }
 
 -(IBAction)unwindSegue:(id)sender
@@ -45,7 +128,7 @@
 }
 
 - (IBAction)cancelEditing:(id)sender {
-    self.editing = NO;
+    //self.editing = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,6 +137,7 @@
 }
 - (IBAction)handlePanUpGesture:(UIPanGestureRecognizer *)recognizer {
     return;
+    /*
     CGFloat progress  =[recognizer locationInView:self.view.superview].y / (self.view.superview.bounds.size.height * 1.0);
     progress =  MIN(1.0,MAX(0 , progress));
     
@@ -77,7 +161,7 @@
         }
         self.interactiveTransition = nil;
     }
- 
+     */
 }
 
 

@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import <AVOSCloud/AVOSCloud.h>
-#import "LetterUser.h"
 
 @interface AppDelegate ()
 
@@ -27,7 +26,6 @@
     [AVOSCloud setApplicationId:@"tkb80z5s7ezqq8et6fd26s6y6jz3u7eopgg5bboypom7ojk2"
                       clientKey:@"s4784nd8ucpcp2083fgf2b246okzzy34agbghhf5zk2hee15"];
     
-    //[LetterUser signUp:@"email@example.com" userName:@"youku" pwd:@"123"];
     return YES;
 }
 

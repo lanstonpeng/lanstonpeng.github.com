@@ -11,7 +11,7 @@
 #import "WritingViewController.h"
 #import "MBProgressHUD.h"
 
-@interface PrepareWritingViewController ()<UIPickerViewDataSource,UIPickerViewDelegate>
+@interface PrepareWritingViewController ()<UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UIButton *startWritingBtn;
@@ -22,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *receiverCityLabel;
 @property (weak, nonatomic) IBOutlet UILabel *daySpendLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *senderCityBtn;
+@property (weak, nonatomic) IBOutlet UIButton *herEmailButton;
+@property (weak, nonatomic) IBOutlet UIButton *receiverCityBtn;
 @property (strong,nonatomic)LetterModel* letterModel;
 
 @property (strong,nonatomic)NSTimer* pickerTimer;
@@ -45,10 +48,29 @@
     chinaProvinceArr =  @[@"北京",@"上海",@"广州",@"深圳",@"厦门",@"天津",@"杭州",@"重庆",@"武汉",@"南京",@"苏州",@"无锡",@"成都",@"沈阳",@"长春",@"宁波",@"济南",@"福州",@"长沙",@"郑州",@"青岛",@"大连",@"西安",@"哈尔滨",@"温州"];
     
 }
-- (void)viewDidAppear:(BOOL)animated
+
+
+#pragma mark --
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    if ([self validateEmail: self.emailTextField.text]) {
+        self.letterModel.sendToEmail = self.emailTextField.text;
+        [self toggleButton:YES withButton:self.herEmailButton];
+    }
+    else
+    {
+        [self toggleButton:NO withButton:self.herEmailButton];
+    }
+    [self.emailTextField resignFirstResponder];
+    return YES;
 }
 
+- (void)toggleButton:(BOOL)isGreen withButton:(UIButton*)button
+{
+    [button setImage:[UIImage imageNamed:isGreen ? @"arrowGreen":@"selectedBtn"] forState:UIControlStateNormal];
+}
 - (void)displayToastMsg:(NSString*)str
 {
     self.toastMsg = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -61,7 +83,7 @@
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    self.letterModel.sendToEmail = self.emailTextField.text;
+    return YES;
     if (self.letterModel.senderCity == nil ) {
         [self displayToastMsg:@"请选择你所在城市"];
         return NO;
@@ -156,12 +178,14 @@
         self.senderCityPickerView.hidden = YES;
         self.senderCityLabel.text = self.letterModel.senderCity;
         self.senderCityLabel.hidden = NO;
+        [self toggleButton:YES withButton:self.senderCityBtn];
     }
     else
     {
         self.receiverPickerView.hidden = YES;
         self.receiverCityLabel.text = self.letterModel.receiverCity;
         self.receiverCityLabel.hidden = NO;
+        [self toggleButton:YES withButton:self.receiverCityBtn];
     }
     if (self.letterModel.senderCity.length > 0 && self.letterModel.receiverCity.length > 0) {
         
