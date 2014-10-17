@@ -20,6 +20,8 @@
 		9D93F88819E8D61600112CFA /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F88719E8D61600112CFA /* CoreTelephony.framework */; };
 		9D93F88A19E8D61E00112CFA /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F88919E8D61E00112CFA /* libicucore.dylib */; };
 		9DAA25E719EF9E6E00F5DEA6 /* LetterStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA25E619EF9E6E00F5DEA6 /* LetterStatusViewController.m */; };
+		9DAA25EA19F0B33800F5DEA6 /* InboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA25E919F0B33800F5DEA6 /* InboxViewController.m */; };
+		9DAA25ED19F0B64A00F5DEA6 /* MailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA25EC19F0B64A00F5DEA6 /* MailTableViewCell.m */; };
 		9DFBFB9319EE3EB1004D1715 /* PrepareWritingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9219EE3EB1004D1715 /* PrepareWritingViewController.m */; };
 		9DFBFB9919EE6FC2004D1715 /* LetterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9819EE6FC2004D1715 /* LetterModel.m */; };
 		9DFBFB9D19EE8494004D1715 /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9C19EE8494004D1715 /* ResultViewController.m */; };
@@ -62,6 +64,10 @@
 		9D93F88919E8D61E00112CFA /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		9DAA25E519EF9E6E00F5DEA6 /* LetterStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterStatusViewController.h; sourceTree = "<group>"; };
 		9DAA25E619EF9E6E00F5DEA6 /* LetterStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterStatusViewController.m; sourceTree = "<group>"; };
+		9DAA25E819F0B33800F5DEA6 /* InboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InboxViewController.h; sourceTree = "<group>"; };
+		9DAA25E919F0B33800F5DEA6 /* InboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InboxViewController.m; sourceTree = "<group>"; };
+		9DAA25EB19F0B64A00F5DEA6 /* MailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailTableViewCell.h; sourceTree = "<group>"; };
+		9DAA25EC19F0B64A00F5DEA6 /* MailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailTableViewCell.m; sourceTree = "<group>"; };
 		9DFBFB9119EE3EB1004D1715 /* PrepareWritingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrepareWritingViewController.h; sourceTree = "<group>"; };
 		9DFBFB9219EE3EB1004D1715 /* PrepareWritingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrepareWritingViewController.m; sourceTree = "<group>"; };
 		9DFBFB9719EE6FC2004D1715 /* LetterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterModel.h; sourceTree = "<group>"; };
@@ -138,6 +144,7 @@
 				9DFD78A519EA3E0100B4393A /* Animation */,
 				9DFBFBA519EEED3D004D1715 /* ThirdParty */,
 				9DFBFBA119EEE4D5004D1715 /* Util */,
+				9DAA25EE19F0B64D00F5DEA6 /* View */,
 				9DFBFB9A19EE6FCB004D1715 /* Model */,
 				9DFD789D19EA232000B4393A /* ViewController */,
 				9D93F86319E8CA1100112CFA /* Main.storyboard */,
@@ -173,6 +180,15 @@
 				9D93F87419E8CA1100112CFA /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9DAA25EE19F0B64D00F5DEA6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9DAA25EB19F0B64A00F5DEA6 /* MailTableViewCell.h */,
+				9DAA25EC19F0B64A00F5DEA6 /* MailTableViewCell.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		9DFBFB9A19EE6FCB004D1715 /* Model */ = {
@@ -215,6 +231,8 @@
 				9DFD78A019EA3BE800B4393A /* EntranceViewController.m */,
 				9DFBFB9119EE3EB1004D1715 /* PrepareWritingViewController.h */,
 				9DFBFB9219EE3EB1004D1715 /* PrepareWritingViewController.m */,
+				9DAA25E819F0B33800F5DEA6 /* InboxViewController.h */,
+				9DAA25E919F0B33800F5DEA6 /* InboxViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -339,7 +357,9 @@
 				9DFD78A419EA3DFA00B4393A /* TransitionManager.m in Sources */,
 				9DFBFB9319EE3EB1004D1715 /* PrepareWritingViewController.m in Sources */,
 				9DFBFBA019EEE4CD004D1715 /* LetterUser.m in Sources */,
+				9DAA25ED19F0B64A00F5DEA6 /* MailTableViewCell.m in Sources */,
 				9DFBFB9D19EE8494004D1715 /* ResultViewController.m in Sources */,
+				9DAA25EA19F0B33800F5DEA6 /* InboxViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

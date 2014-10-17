@@ -19,11 +19,27 @@
 
 @implementation ResultViewController
 
-- (void)sendEmailToUser
+- (void)sendEmailToUser:(NSString*)sendToEmail
 {
     //check if the sendToEmail is registered
+    AVQuery* query = [AVQuery queryWithClassName:@"_User"];
+    [query whereKey:@"username" equalTo:sendToEmail];
+    [AVCloud setProductionMode:NO];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects.count < 1) {
+            //run cloud code to send real email
+            NSDictionary* parameters =  @{
+                                          @"sendToMail":sendToEmail,
+                                          @"body":self.letterModel.letterBody,
+                                          @"senderMail":self.letterModel.senderEmail?:@""
+                                          };
+            [AVCloud callFunctionInBackground:@"newSendMail" withParameters: parameters block:^(id object, NSError *error) {
+                        NSLog(@"result:%@",object);
+            }];
+        }
+    }];
     
-    //run cloud code to send real email
+    
 }
 - (IBAction)sendLetter:(id)sender {
     AVObject *appAVObject = [AVObject objectWithClassName:@"LetterData"];
@@ -39,7 +55,8 @@
     MBProgressHUD* toastMsg = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     toastMsg.mode = MBProgressHUDModeIndeterminate;
     [appAVObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            [toastMsg hide:YES];
+        [toastMsg hide:YES];
+        [self sendEmailToUser:self.letterModel.sendToEmail];
     }];
 }
 
