@@ -83,6 +83,7 @@
         [self displayToastMsg:@"信件的开头需要把对方的称呼加上呀"];
         return NO;
     }
+    //TODO:change this word count number
     if (self.bodyTextView.text.length < 14) {
         [self displayToastMsg:@"请安静下来,慢慢讲诉你想说的事情,想分享的内容"];
         return NO;

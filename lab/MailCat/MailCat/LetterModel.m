@@ -24,7 +24,7 @@
         copyItem.receiverName = self.receiverName;
         copyItem.letterBody = self.letterBody;
         copyItem.letterStatus = self.letterStatus;
-        copyItem.sendDate = self.sendDate;
+        copyItem.receiveDate = self.receiveDate;
     }
     return copyItem;
 }

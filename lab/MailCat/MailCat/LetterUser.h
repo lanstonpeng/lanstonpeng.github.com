@@ -11,6 +11,8 @@
 
 @interface LetterUser : NSObject
 
-+ (void)signUp:(NSString*)email userName:(NSString*)userName pwd:(NSString*)password;
 
++ (void)signUp:(NSString*)email withCallback:(void (^)(BOOL succeeded, NSError *error))callback;
+
++ (void)checkUserVerfied:(void (^)(BOOL isVerified))callback;
 @end

@@ -126,6 +126,9 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+- (IBAction)touchUpOuside:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (BOOL)prefersStatusBarHidden
 {
@@ -189,7 +192,9 @@
     }
     if (self.letterModel.senderCity.length > 0 && self.letterModel.receiverCity.length > 0) {
         
-        self.daySpendLabel.text = [NSString stringWithFormat:@"信件预计在 %d天后 到达", arc4random() % 4 + 2];
+        int dayNeeded = arc4random() % 4 + 2;
+        self.daySpendLabel.text = [NSString stringWithFormat:@"信件预计在 %d天后 到达", dayNeeded];
+        self.letterModel.receiveDate = [[NSDate alloc]initWithTimeInterval:86400 * dayNeeded sinceDate:[NSDate new]];
     }
 }
 

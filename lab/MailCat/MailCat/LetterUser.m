@@ -10,17 +10,27 @@
 
 @implementation LetterUser
 
-+ (void)signUp:(NSString*)email userName:(NSString*)userName pwd:(NSString*)password{
++ (void)signUp:(NSString*)email withCallback:(void (^)(BOOL succeeded, NSError *error))callback{
     AVUser * user = [AVUser user];
-    user.username = userName;
-    user.password = password;
+    user.username = email;
+    user.password = @"@mailcat@";
     user.email = email;
     [user setObject:@"" forKey:@"city"];
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            NSLog(@"sign up success");
-        } else {
-            NSLog(@"sign up failed %@",error);
+        callback(succeeded,error);
+    }];
+    [[NSUserDefaults standardUserDefaults]setObject:email forKey:@"userEmail"];
+}
+
++ (void)checkUserVerfied:(void (^)(BOOL isVerified))callback{
+    NSString* email = [[NSUserDefaults standardUserDefaults] objectForKey:@"userEmail"];
+    [AVUser logInWithUsernameInBackground:email password:@"@mailcat@" block:^(AVUser *user, NSError *error) {
+        if (user != nil) {
+            callback([[user objectForKey:@"emailVerified"]boolValue]);
+        }
+        else
+        {
+            callback(NO);
         }
     }];
 }

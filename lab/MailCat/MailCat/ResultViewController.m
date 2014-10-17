@@ -19,14 +19,21 @@
 
 @implementation ResultViewController
 
+- (void)sendEmailToUser
+{
+    //check if the sendToEmail is registered
+    
+    //run cloud code to send real email
+}
 - (IBAction)sendLetter:(id)sender {
     AVObject *appAVObject = [AVObject objectWithClassName:@"LetterData"];
     [appAVObject setObject:self.letterModel.senderCity forKey:@"senderCity"];
     [appAVObject setObject:self.letterModel.sendToEmail forKey:@"sendToEmail"];
+    [appAVObject setObject:self.letterModel.senderEmail forKey:@"senderEmail"];
     [appAVObject setObject:self.letterModel.receiverCity forKey:@"receiverCity"];
     [appAVObject setObject:self.letterModel.receiverName forKey:@"receiverName"];
     [appAVObject setObject:self.letterModel.letterBody forKey:@"letterBody"];
-    [appAVObject setObject:self.letterModel.sendDate forKey:@"sendDate"];
+    [appAVObject setObject:self.letterModel.receiveDate forKey:@"receiveDate"];
     [appAVObject setObject:@(self.letterModel.letterStatus) forKey:@"letterStatus"];
     
     MBProgressHUD* toastMsg = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -49,7 +56,6 @@
     self.letterTextView.layoutManager.delegate = self;
     NSString* text = [NSString stringWithFormat:@"%@\n    %@",self.letterModel.receiverName,self.letterModel.letterBody];
     self.letterTextView.text = text;
-    self.letterModel.sendDate = [NSDate new];
 }
 
 - (CGFloat)layoutManager:(NSLayoutManager *)layoutManager lineSpacingAfterGlyphAtIndex:(NSUInteger)glyphIndex withProposedLineFragmentRect:(CGRect)rect
