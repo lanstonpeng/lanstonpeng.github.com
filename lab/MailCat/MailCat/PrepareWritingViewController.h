@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MailCatBaseViewController.h"
 
-@interface PrepareWritingViewController : UIViewController
+@interface PrepareWritingViewController : MailCatBaseViewController
 
 @end

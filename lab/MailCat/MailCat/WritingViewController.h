@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "LetterModel.h"
+#import "MailCatBaseViewController.h"
 
-@interface WritingViewController : UIViewController
-
-@property (strong,nonatomic)UIPercentDrivenInteractiveTransition* interactiveTransition;
+@interface WritingViewController : MailCatBaseViewController
 
 @property (strong,nonatomic)LetterModel* letterModel;
 

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MailCatBaseViewController.h"
 
-@interface EntranceViewController : UIViewController
+@interface EntranceViewController : MailCatBaseViewController
 
 @end

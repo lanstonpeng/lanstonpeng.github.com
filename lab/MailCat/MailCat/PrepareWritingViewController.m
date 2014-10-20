@@ -12,7 +12,7 @@
 #import "MBProgressHUD.h"
 #import "TransitionManager.h"
 
-@interface PrepareWritingViewController ()<UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate,UIViewControllerTransitioningDelegate>
+@interface PrepareWritingViewController ()<UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UIButton *startWritingBtn;
@@ -43,8 +43,7 @@
     self.startWritingBtn.layer.cornerRadius = 3;
     self.senderCityPickerView.tag = 100;
     self.receiverPickerView.tag = 200;
-    self.modalPresentationStyle = UIModalPresentationCustom;
-    self.transitioningDelegate = self;
+    self.storyBoardIdentifier = @"prepareViewController";
     
     self.letterModel = [LetterModel new];
     
@@ -137,10 +136,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
@@ -226,21 +221,21 @@
 //    return self.interactiveTransition;
 //}
 
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
-{
-    if (presented == self) {
-        return (id<UIViewControllerAnimatedTransitioning>)[[TransitionManager alloc]init:YES];
-    }
-    return nil;
-}
-
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
-{
-    if (dismissed == self) {
-        return (id<UIViewControllerAnimatedTransitioning>)[[TransitionManager alloc]init:NO];
-    }
-    return nil;
-}
+//- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+//{
+//    if (presented == self) {
+//        return (id<UIViewControllerAnimatedTransitioning>)[[TransitionManager alloc]init:YES];
+//    }
+//    return nil;
+//}
+//
+//- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+//{
+//    if (dismissed == self) {
+//        return (id<UIViewControllerAnimatedTransitioning>)[[TransitionManager alloc]init:NO];
+//    }
+//    return nil;
+//}
 /*
 #pragma mark - Navigation
 

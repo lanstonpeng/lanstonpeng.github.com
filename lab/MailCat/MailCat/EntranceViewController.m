@@ -13,7 +13,6 @@
 @interface EntranceViewController ()
 
 
-@property (strong,nonatomic)UIPercentDrivenInteractiveTransition* interactiveTransition;
 @property (strong, nonatomic) UIImageView *paperImageView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *folderImageView;
@@ -28,7 +27,7 @@
 
 @implementation EntranceViewController
 {
-    CGFloat startPanY;
+    //CGFloat startPanY;
     CGRect paperImageViewOriginalFrame;
 }
 - (IBAction)showSideMenu:(id)sender {
@@ -38,7 +37,6 @@
 - (void)initUI
 {
     self.prepareWritingBtn.layer.cornerRadius = 3;
-    
     self.paperImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"paper"]];
     self.paperImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view insertSubview:self.paperImageView belowSubview:self.folderImageView];
@@ -46,10 +44,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.interactiveTransition = [UIPercentDrivenInteractiveTransition new];
+    self.storyBoardIdentifier = @"entranceViewController";
     
     [self initUI];
-    
     self.animator = [[UIDynamicAnimator alloc]initWithReferenceView:self.view];
 }
 
@@ -58,10 +55,6 @@
     
 }
 
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {

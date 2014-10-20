@@ -30,8 +30,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.modalPresentationStyle = UIModalPresentationCustom;
-    self.transitioningDelegate = self;
+    self.storyBoardIdentifier = @"writingViewController";
+//    self.modalPresentationStyle = UIModalPresentationCustom;
+//    self.transitioningDelegate = self;
     self.titleField.font = [UIFont fontWithName:ChineseFont size:20];
     self.bodyTextView.font = [UIFont fontWithName:ChineseFont size:15];
     self.bodyTextView.layoutManager.delegate = self;
@@ -137,7 +138,6 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)handlePanUpGesture:(UIPanGestureRecognizer *)recognizer {
-    return;
     /*
     CGFloat progress  =[recognizer locationInView:self.view.superview].y / (self.view.superview.bounds.size.height * 1.0);
     progress =  MIN(1.0,MAX(0 , progress));
@@ -163,39 +163,6 @@
         self.interactiveTransition = nil;
     }
      */
-}
-
-
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
-
-- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id<UIViewControllerAnimatedTransitioning>)animator
-{
-    return self.interactiveTransition;
-}
-
-- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator
-{
-    return self.interactiveTransition;
-}
-
-
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
-{
-    if (presented == self) {
-        return (id<UIViewControllerAnimatedTransitioning>)[[TransitionManager alloc]init:YES];
-    }
-    return nil;
-}
-
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
-{
-    if (dismissed == self) {
-        return (id<UIViewControllerAnimatedTransitioning>)[[TransitionManager alloc]init:NO];
-    }
-    return nil;
 }
 
 

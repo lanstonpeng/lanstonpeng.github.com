@@ -294,7 +294,7 @@
         <!--Entrance View Controller-->
         <scene sceneID="Yfr-hD-jre">
             <objects>
-                <viewController id="J5r-Zr-DZJ" customClass="EntranceViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="entranceViewController" id="J5r-Zr-DZJ" customClass="EntranceViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dvl-GA-F25"/>
                         <viewControllerLayoutGuide type="bottom" id="Cw7-UG-bUQ"/>
@@ -397,7 +397,7 @@
         <!--Prepare Writing View Controller-->
         <scene sceneID="cJI-ou-7uJ">
             <objects>
-                <viewController id="Xpg-pt-r3t" customClass="PrepareWritingViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="prepareViewController" id="Xpg-pt-r3t" customClass="PrepareWritingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OVK-YH-19L"/>
                         <viewControllerLayoutGuide type="bottom" id="Dgg-pG-QjB"/>
@@ -621,7 +621,7 @@
         <!--Writing-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController storyboardIdentifier="Writing" title="Writing" id="vXZ-lx-hvc" customClass="WritingViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="writingViewController" title="Writing" id="vXZ-lx-hvc" customClass="WritingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
