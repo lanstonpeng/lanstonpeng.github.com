@@ -12,7 +12,7 @@
 @interface LetterUser : NSObject
 
 
-+ (void)signUp:(NSString*)email withCallback:(void (^)(BOOL succeeded, NSError *error))callback;
++ (void)signUp:(NSString*)email pwd:(NSString*)pwd withCallback:(void (^)(BOOL succeeded, NSError *error))callback;
 
 + (void)checkUserVerfied:(void (^)(BOOL isVerified))callback;
 @end

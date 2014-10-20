@@ -22,6 +22,7 @@
 		9DAA25E719EF9E6E00F5DEA6 /* LetterStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA25E619EF9E6E00F5DEA6 /* LetterStatusViewController.m */; };
 		9DAA25EA19F0B33800F5DEA6 /* InboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA25E919F0B33800F5DEA6 /* InboxViewController.m */; };
 		9DAA25ED19F0B64A00F5DEA6 /* MailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA25EC19F0B64A00F5DEA6 /* MailTableViewCell.m */; };
+		9DF7222519F4EB5200453F05 /* MailCatUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF7222419F4EB5200453F05 /* MailCatUtil.m */; };
 		9DFBFB9319EE3EB1004D1715 /* PrepareWritingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9219EE3EB1004D1715 /* PrepareWritingViewController.m */; };
 		9DFBFB9919EE6FC2004D1715 /* LetterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9819EE6FC2004D1715 /* LetterModel.m */; };
 		9DFBFB9D19EE8494004D1715 /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9C19EE8494004D1715 /* ResultViewController.m */; };
@@ -68,6 +69,8 @@
 		9DAA25E919F0B33800F5DEA6 /* InboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InboxViewController.m; sourceTree = "<group>"; };
 		9DAA25EB19F0B64A00F5DEA6 /* MailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailTableViewCell.h; sourceTree = "<group>"; };
 		9DAA25EC19F0B64A00F5DEA6 /* MailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailTableViewCell.m; sourceTree = "<group>"; };
+		9DF7222319F4EB5200453F05 /* MailCatUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailCatUtil.h; sourceTree = "<group>"; };
+		9DF7222419F4EB5200453F05 /* MailCatUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailCatUtil.m; sourceTree = "<group>"; };
 		9DFBFB9119EE3EB1004D1715 /* PrepareWritingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrepareWritingViewController.h; sourceTree = "<group>"; };
 		9DFBFB9219EE3EB1004D1715 /* PrepareWritingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrepareWritingViewController.m; sourceTree = "<group>"; };
 		9DFBFB9719EE6FC2004D1715 /* LetterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterModel.h; sourceTree = "<group>"; };
@@ -203,6 +206,8 @@
 		9DFBFBA119EEE4D5004D1715 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				9DF7222319F4EB5200453F05 /* MailCatUtil.h */,
+				9DF7222419F4EB5200453F05 /* MailCatUtil.m */,
 				9DFBFB9E19EEE4CD004D1715 /* LetterUser.h */,
 				9DFBFB9F19EEE4CD004D1715 /* LetterUser.m */,
 			);
@@ -358,6 +363,7 @@
 				9DFBFB9319EE3EB1004D1715 /* PrepareWritingViewController.m in Sources */,
 				9DFBFBA019EEE4CD004D1715 /* LetterUser.m in Sources */,
 				9DAA25ED19F0B64A00F5DEA6 /* MailTableViewCell.m in Sources */,
+				9DF7222519F4EB5200453F05 /* MailCatUtil.m in Sources */,
 				9DFBFB9D19EE8494004D1715 /* ResultViewController.m in Sources */,
 				9DAA25EA19F0B33800F5DEA6 /* InboxViewController.m in Sources */,
 			);

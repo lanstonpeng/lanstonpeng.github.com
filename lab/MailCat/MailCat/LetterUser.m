@@ -8,23 +8,27 @@
 
 #import "LetterUser.h"
 
+
 @implementation LetterUser
 
-+ (void)signUp:(NSString*)email withCallback:(void (^)(BOOL succeeded, NSError *error))callback{
+
++ (void)signUp:(NSString*)email pwd:(NSString*)pwd withCallback:(void (^)(BOOL succeeded, NSError *error))callback{
     AVUser * user = [AVUser user];
     user.username = email;
-    user.password = @"@mailcat@";
+    user.password = pwd;
     user.email = email;
     [user setObject:@"" forKey:@"city"];
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         callback(succeeded,error);
     }];
-    [[NSUserDefaults standardUserDefaults]setObject:email forKey:@"userEmail"];
+    [[NSUserDefaults standardUserDefaults]setObject:user.password forKey:@"oops"];
 }
 
 + (void)checkUserVerfied:(void (^)(BOOL isVerified))callback{
-    NSString* email = [[NSUserDefaults standardUserDefaults] objectForKey:@"userEmail"];
-    [AVUser logInWithUsernameInBackground:email password:@"@mailcat@" block:^(AVUser *user, NSError *error) {
+    AVUser * currentUser = [AVUser currentUser];
+    
+    NSString* pwd = [[NSUserDefaults standardUserDefaults]objectForKey:@"oops"];
+    [AVUser logInWithUsernameInBackground:currentUser.email password:pwd  block:^(AVUser *user, NSError *error) {
         if (user != nil) {
             callback([[user objectForKey:@"emailVerified"]boolValue]);
         }

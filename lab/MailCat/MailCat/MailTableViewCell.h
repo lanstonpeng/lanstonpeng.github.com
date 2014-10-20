@@ -10,4 +10,8 @@
 
 @interface MailTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *senderMailLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeNeededLabel;
+@property (weak, nonatomic) IBOutlet UILabel *clipContentLabel;
+
 @end
