@@ -20,4 +20,6 @@
 - (void)hideLodingView;
 
 - (UIImage*)renderImage:(UIView*)view ofRect:(CGRect)frame;
+
+- (NSUInteger)calcuateLeftDays:(NSDate*)avaiableDate;
 @end

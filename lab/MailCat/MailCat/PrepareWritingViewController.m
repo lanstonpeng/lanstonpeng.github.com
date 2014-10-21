@@ -11,6 +11,7 @@
 #import "WritingViewController.h"
 #import "MBProgressHUD.h"
 #import "TransitionManager.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 @interface PrepareWritingViewController ()<UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate>
 
@@ -45,8 +46,17 @@
     self.receiverPickerView.tag = 200;
     self.storyBoardIdentifier = @"prepareViewController";
     self.letterModel = [LetterModel new];
-    self.panDirection = UIRectEdgeLeft;
     
+    if ([AVUser currentUser]) {
+        self.letterModel.senderEmail = [AVUser currentUser].email;
+    }
+    else
+    {
+        NSString* randomEmail = [NSString stringWithFormat:@"cat_%ld@mailcat.com",arc4random()% 10000000000];
+        self.letterModel.senderEmail = randomEmail;
+        [[NSUserDefaults standardUserDefaults]setObject:randomEmail forKey:@"randomEmail"];
+    }
+    self.panDirection = UIRectEdgeLeft;
     chinaProvinceArr =  @[@"北京",@"上海",@"广州",@"深圳",@"厦门",@"天津",@"杭州",@"重庆",@"武汉",@"南京",@"苏州",@"无锡",@"成都",@"沈阳",@"长春",@"宁波",@"济南",@"福州",@"长沙",@"郑州",@"青岛",@"大连",@"西安",@"哈尔滨",@"温州"];
     
 }
@@ -102,6 +112,7 @@
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    self.letterModel.sendToEmail = self.emailTextField.text;
     WritingViewController* writingVC = (WritingViewController*)segue.destinationViewController;
     writingVC.letterModel = self.letterModel;
 }

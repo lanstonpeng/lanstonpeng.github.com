@@ -10,6 +10,9 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import "LetterStatusViewController.h"
 #import "MBProgressHUD.h"
+#import "MailCatUtil.h"
+
+//TODO:delete MBrogressHD code
 
 @interface ResultViewController ()<NSLayoutManagerDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *letterTextView;
@@ -24,17 +27,22 @@
     //check if the sendToEmail is registered
     AVQuery* query = [AVQuery queryWithClassName:@"_User"];
     [query whereKey:@"username" equalTo:sendToEmail];
-    [AVCloud setProductionMode:NO];
+    [AVCloud setProductionMode:YES];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count < 1) {
             //run cloud code to send real email
             NSDictionary* parameters =  @{
                                           @"sendToMail":sendToEmail,
                                           @"body":self.letterModel.letterBody,
-                                          @"senderMail":self.letterModel.senderEmail?:@""
+                                          @"senderMail":self.letterModel.senderEmail?:@"",
+                                          @"datLeft":@([[MailCatUtil singleton]calcuateLeftDays:self.letterModel.receiveDate]),
+                                          @"receiverName":self.letterModel.receiverName
                                           };
             [AVCloud callFunctionInBackground:@"newSendMail" withParameters: parameters block:^(id object, NSError *error) {
-                        NSLog(@"result:%@",object);
+                //TODO:error handler
+                NSLog(@"send mail result:%@",object);
+                NSLog(@"send mail error:%@",error);
+                
             }];
         }
     }];

@@ -152,11 +152,28 @@ typedef enum
 
 -(void)startLoadingTableView
 {
-    AVQuery *query = [AVQuery queryWithClassName:@"LetterData"];
-    [query whereKey:@"sendToEmail" equalTo:[AVUser currentUser].email];
-    //[query whereKey:@"receiveDate" lessThanOrEqualTo:[NSDate new]];
-    [query orderByDescending:@"receiveDate"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    AVQuery *firstQuery = [AVQuery queryWithClassName:@"LetterData"];
+    [firstQuery whereKey:@"sendToEmail" equalTo:[AVUser currentUser].email];
+    
+    AVQuery* anotherQuery = [AVQuery queryWithClassName:@"LetterData"];
+    [anotherQuery whereKey:@"senderEmail" equalTo:[AVUser currentUser].email];
+    
+    //because the user probably send letter without registration
+    NSString* randomEmail = [[NSUserDefaults standardUserDefaults]objectForKey:@"randomEmail"];
+    AVQuery* batchQuery;
+    if (randomEmail) {
+        AVQuery* randomEmailQuery = [AVQuery queryWithClassName:@"LetterData"];
+       [randomEmailQuery whereKey:@"senderEmail" equalTo:randomEmail];
+        batchQuery = [AVQuery orQueryWithSubqueries:@[firstQuery,anotherQuery,randomEmailQuery]];
+    }
+    else
+    {
+        batchQuery = [AVQuery orQueryWithSubqueries:@[firstQuery,anotherQuery]];
+    }
+    
+    
+    [batchQuery orderByDescending:@"receiveDate"];
+    [batchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         self.mailDataArr = [NSArray arrayWithArray:objects];
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
@@ -184,23 +201,16 @@ typedef enum
     cell.senderMailLabel.text  =[item objectForKey:@"senderEmail"]?:@"someone";
     NSDate* avaiableDate = [item objectForKey:@"receiveDate"];
     
-    NSUInteger dayLeft = [self calcuateLeftDays:avaiableDate];
+    NSUInteger dayLeft = [[MailCatUtil singleton]calcuateLeftDays:avaiableDate];
+    
     cell.timeNeededLabel.text =[NSString stringWithFormat:@"预计需要%lu天到达",dayLeft + 1];
     NSString* fullContent = [item objectForKey:@"letterBody"];
-    NSString* clipContent = [NSString stringWithFormat:@"%@...",[fullContent substringWithRange:NSMakeRange(0, 50)]];
+    NSString* receiverName = [item objectForKey:@"receiverName"];
+    NSString* clipContent = [NSString stringWithFormat:@"%@:\n%@...",receiverName,[fullContent substringWithRange:NSMakeRange(0, fullContent.length <50?fullContent.length - 1:50)]];
     cell.clipContentLabel.text = clipContent;
     return cell;
 }
 
-- (NSUInteger)calcuateLeftDays:(NSDate*)avaiableDate
-{
-    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
-                                                        fromDate:[NSDate new]
-                                                          toDate:avaiableDate
-                                                         options:0];
-    return [components day];
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -226,6 +236,11 @@ typedef enum
 {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
 }
 /*
 #pragma mark - Navigation

@@ -53,4 +53,13 @@
     UIGraphicsEndImageContext();
     return image;
 }
+- (NSUInteger)calcuateLeftDays:(NSDate*)avaiableDate
+{
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
+                                                        fromDate:[NSDate new]
+                                                          toDate:avaiableDate
+                                                         options:0];
+    return [components day];
+}
 @end

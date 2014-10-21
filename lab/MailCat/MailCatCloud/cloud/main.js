@@ -48,7 +48,9 @@ AV.Cloud.define("newSendMail",function(request,response){
     var sendToEmail = request.params["sendToMail"];
     var rawBody = request.params["body"];
     var senderMail = request.params["senderMail"];
-    var clipBody = rawBody.substring(0,20);
+    var dayLeft = request.params["dayLeft"];
+    var receiverName = request.params["receiverName"];
+    var clipBody = rawBody.substring(0,50);
 
     var command = [
         "curl -s --user 'api:key-9febcc3d7295dc80e5591f0f6784a663'",
@@ -57,12 +59,21 @@ AV.Cloud.define("newSendMail",function(request,response){
         "-F to='" + sendToEmail + "'",
         "-F subject='你有来自MailCat的信件'",
         "-F text='" + clipBody +"'",
-        "--form-string html='<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\"> <html> <head></head> <body style=\"color:orange\">" + clipBody + "</body> </html>'"
+        "--form-string html='<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\"> <html> <head></head>",
+        '<h2>您好</h2>',
+        '<p>有人刚刚写了一封信件给你,来自',senderMail ? senderMail : "想保持神秘感的TA",'</p>',
+        "<p>&nbsp;</p>",
+        '<p><strong><span style="color: rgb(51, 51, 51); font-family: Helvetica Neue, Helvetica, Arial, Hiragino Sans GB, Microsoft Yahei, sans-serif; font-size: 16px; line-height: 22.3999996185303px;">',
+        '<p>',receiverName,"</p>",
+        clipBody,
+        '......</span></strong></p>',
+        "<p>信件已经在派送当中了，预计需要 ",dayLeft," 天</p>",
+        "<p>欢迎到 MailCat 查看TA给您写的完整的信，同时您也可以给TA回信</p>",
+        "</html>'"
     ].join(" ");
 
     console.log(command);
     execute(command,function(result){
-        console.log(result);
         response.success(result);
     });
 });
