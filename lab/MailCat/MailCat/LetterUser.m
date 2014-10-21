@@ -28,6 +28,10 @@
     AVUser * currentUser = [AVUser currentUser];
     
     NSString* pwd = [[NSUserDefaults standardUserDefaults]objectForKey:@"oops"];
+    if (!pwd) {
+        callback(NO);
+        return;
+    }
     [AVUser logInWithUsernameInBackground:currentUser.email password:pwd  block:^(AVUser *user, NSError *error) {
         if (user != nil) {
             callback([[user objectForKey:@"emailVerified"]boolValue]);

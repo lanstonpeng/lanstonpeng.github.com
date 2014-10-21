@@ -31,19 +31,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.storyBoardIdentifier = @"writingViewController";
-//    self.modalPresentationStyle = UIModalPresentationCustom;
-//    self.transitioningDelegate = self;
     self.titleField.font = [UIFont fontWithName:ChineseFont size:20];
     self.bodyTextView.font = [UIFont fontWithName:ChineseFont size:15];
+    self.bodyTextView.textAlignment = NSTextAlignmentCenter;
+    self.bodyTextView.showsVerticalScrollIndicator = NO;
     self.bodyTextView.layoutManager.delegate = self;
     self.backButton.alpha = 0;
     self.okButton.alpha = 0;
+    self.panDirection = UIRectEdgeLeft;
     isAnimationFinished = YES;
-//    UIImageView* bgView = [[UIImageView alloc]initWithFrame:self.view.bounds];
-//    bgView.image = [UIImage imageNamed:@"paisaje_azul_2880x1800"];
-//    bgView.contentMode = UIViewContentModeScaleAspectFill;
-//    bgView.alpha = 0.7;
-//    [self.view insertSubview:bgView atIndex:0];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 -  (void)textViewDidChange:(UITextView *)textView
 {
@@ -165,6 +171,33 @@
      */
 }
 
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        self.bodyTextView.textAlignment = NSTextAlignmentLeft;
+    });
+    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets;
+    if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
+        contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardSize.height), 0.0);
+    } else {
+        contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardSize.width), 0.0);
+    }
+    
+    self.bodyTextView.contentInset = contentInsets;
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    self.bodyTextView.contentInset = UIEdgeInsetsZero;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 /*
 #pragma mark - Navigation

@@ -73,6 +73,7 @@
     self.letterTextView.layoutManager.delegate = self;
     NSString* text = [NSString stringWithFormat:@"%@\n    %@",self.letterModel.receiverName,self.letterModel.letterBody];
     self.letterTextView.text = text;
+    self.panDirection = UIRectEdgeLeft;
 }
 
 - (CGFloat)layoutManager:(NSLayoutManager *)layoutManager lineSpacingAfterGlyphAtIndex:(NSUInteger)glyphIndex withProposedLineFragmentRect:(CGRect)rect

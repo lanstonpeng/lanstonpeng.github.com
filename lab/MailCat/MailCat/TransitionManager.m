@@ -7,6 +7,7 @@
 //
 
 #import "TransitionManager.h"
+#import "MailCatUtil.h"
 
 @interface TransitionManager()<UIViewControllerAnimatedTransitioning>
 
@@ -42,14 +43,17 @@
     UIViewController* fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController* toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView* containerView = [transitionContext containerView];
-    NSTimeInterval duraiton = [self transitionDuration:transitionContext];
+    NSTimeInterval duration = [self transitionDuration:transitionContext];
     
-    toViewController.view.alpha = 0;
     [containerView addSubview:toViewController.view];
     
-    [UIView animateWithDuration:duraiton delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    CGRect displayFrame = fromViewController.view.bounds;
+    CGRect hiddenFrame = CGRectOffset(displayFrame, displayFrame.size.width , 0);
+    toViewController.view.frame = hiddenFrame;
+    
+    [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         fromViewController.view.alpha = 0;
-        toViewController.view.alpha = 1;
+        toViewController.view.frame = displayFrame;
     } completion:^(BOOL finished) {
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
@@ -63,12 +67,18 @@
     UIView* containerView = [transitionContext containerView];
     NSTimeInterval duraiton = [self transitionDuration:transitionContext];
     
-    [containerView insertSubview:toViewController.view aboveSubview:fromViewController.view];
+    [containerView insertSubview:toViewController.view belowSubview:fromViewController.view];
     toViewController.view.alpha = 0;
-    [UIView animateWithDuration:duraiton delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        fromViewController.view.alpha = 0;
+    
+    CGRect displayFrame = fromViewController.view.bounds;
+    CGRect hiddenFrame = CGRectOffset(displayFrame, displayFrame.size.width , 0);
+    toViewController.view.frame = displayFrame;
+    
+    [UIView animateWithDuration:duraiton delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        fromViewController.view.frame = hiddenFrame;
         toViewController.view.alpha = 1;
     } completion:^(BOOL finished) {
+        [containerView insertSubview:toViewController.view aboveSubview:fromViewController.view];
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 }

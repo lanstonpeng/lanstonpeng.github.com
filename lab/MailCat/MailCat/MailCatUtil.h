@@ -19,4 +19,5 @@
 
 - (void)hideLodingView;
 
+- (UIImage*)renderImage:(UIView*)view ofRect:(CGRect)frame;
 @end

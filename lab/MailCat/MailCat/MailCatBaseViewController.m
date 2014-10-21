@@ -18,14 +18,18 @@
     CGFloat startPanX;
 }
 
+- (void)setPanDirection:(UIRectEdge)panDirection
+{
+    _panDirection = panDirection;
+    UIScreenEdgePanGestureRecognizer* screenEdgePan = [[UIScreenEdgePanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePanGesture:)];
+    screenEdgePan.edges = panDirection;
+    [self.view addGestureRecognizer:screenEdgePan];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.modalPresentationStyle = UIModalPresentationCustom;
     self.transitioningDelegate = self;
     //self.isByClick = YES;
-    UIScreenEdgePanGestureRecognizer* screenEdgePan = [[UIScreenEdgePanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePanGesture:)];
-    self.panDirection = UIRectEdgeLeft;
-    [self.view addGestureRecognizer:screenEdgePan];
 }
 
 - (void)handlePanGesture:(UIScreenEdgePanGestureRecognizer*)recognizer

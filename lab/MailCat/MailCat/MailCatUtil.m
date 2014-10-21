@@ -44,4 +44,13 @@
 - (void)hideLodingView{
     [self.loadingView hide:YES];
 }
+
+- (UIImage*)renderImage:(UIView*)view ofRect:(CGRect)frame
+{
+    UIGraphicsBeginImageContextWithOptions(frame.size,YES, 0);
+    [view drawViewHierarchyInRect:frame afterScreenUpdates:YES];
+    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
 @end

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "LetterModel.h"
+#import "MailCatBaseViewController.h"
 
-@interface ResultViewController : UIViewController
+@interface ResultViewController : MailCatBaseViewController
 
 @property(strong,nonatomic)LetterModel* letterModel;
 

@@ -630,14 +630,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" text="比如化妆品、快消品里的某一个品类。专注做7年以上，进而打造你自己的品牌。当然时间长短也要根据你的天赋而定，只有这样，才能打造自己的核心竞争力或者个人品牌" translatesAutoresizingMaskIntoConstraints="NO" id="1fy-mq-99t">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" text="这里是信件正文" translatesAutoresizingMaskIntoConstraints="NO" id="1fy-mq-99t">
                                 <rect key="frame" x="38" y="103" width="524" height="413"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="419" id="2jS-nC-DSq"/>
                                 </constraints>
                                 <color key="textColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="deviceRGB"/>
                                 <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert" enablesReturnKeyAutomatically="YES"/>
                                 <dataDetectorType key="dataDetectorTypes" address="YES"/>
                                 <variation key="default">
                                     <mask key="constraints">

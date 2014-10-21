@@ -44,8 +44,8 @@
     self.senderCityPickerView.tag = 100;
     self.receiverPickerView.tag = 200;
     self.storyBoardIdentifier = @"prepareViewController";
-    
     self.letterModel = [LetterModel new];
+    self.panDirection = UIRectEdgeLeft;
     
     chinaProvinceArr =  @[@"北京",@"上海",@"广州",@"深圳",@"厦门",@"天津",@"杭州",@"重庆",@"武汉",@"南京",@"苏州",@"无锡",@"成都",@"沈阳",@"长春",@"宁波",@"济南",@"福州",@"长沙",@"郑州",@"青岛",@"大连",@"西安",@"哈尔滨",@"温州"];
     
