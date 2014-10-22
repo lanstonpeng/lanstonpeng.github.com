@@ -28,4 +28,5 @@ typedef enum
 @property (strong,nonatomic)NSDate*   receiveDate;
 @property (nonatomic)LetterStatus letterStatus;
 
+- (instancetype)initWithDic:(NSDictionary*)dic;
 @end

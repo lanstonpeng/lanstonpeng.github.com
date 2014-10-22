@@ -4,7 +4,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="方正清刻本悦宋简体.ttf">
@@ -141,9 +140,9 @@
                                     <outlet property="delegate" destination="b6C-rY-WmY" id="3J6-Et-PNo"/>
                                 </connections>
                             </textField>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DvC-36-9wg">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DvC-36-9wg">
                                 <rect key="frame" x="0.0" y="55" width="600" height="545"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="545" id="egk-bJ-SV6"/>
@@ -151,7 +150,7 @@
                                     <constraint firstAttribute="height" constant="545" id="zEu-to-SfV"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseMailCell" rowHeight="100" id="5BQ-dz-0RR" customClass="MailTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="reuseMailCell" rowHeight="100" id="5BQ-dz-0RR" customClass="MailTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5BQ-dz-0RR" id="bun-eE-ytp">
@@ -200,7 +199,6 @@
                                             <outlet property="clipContentLabel" destination="z4a-33-4O4" id="JhK-Y5-Z5l"/>
                                             <outlet property="senderMailLabel" destination="hKr-3B-wVC" id="XjA-MF-QT0"/>
                                             <outlet property="timeNeededLabel" destination="JOa-Cy-0So" id="g01-2c-ph7"/>
-                                            <segue destination="i1I-OF-8xm" kind="showDetail" id="Z9S-28-tih"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -212,7 +210,8 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="pnz-tV-mQl" appends="YES" id="2m9-am-PHF"/>
+                                    <outlet property="dataSource" destination="b6C-rY-WmY" id="J2a-Cc-qWa"/>
+                                    <outlet property="delegate" destination="b6C-rY-WmY" id="nZu-gU-0Qw"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -284,11 +283,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bFN-Ww-uNi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="pnz-tV-mQl">
-                    <connections>
-                        <action selector="handleTapGesture:" destination="b6C-rY-WmY" id="HIm-CT-h7M"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-520" y="271"/>
         </scene>
@@ -304,18 +298,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder" translatesAutoresizingMaskIntoConstraints="NO" id="3X3-c2-hjj">
-                                <rect key="frame" x="30" y="425" width="540" height="175"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="175" id="AuA-df-UiX"/>
-                                    <constraint firstAttribute="width" constant="293" id="aLG-Vs-t1b"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="aLG-Vs-t1b"/>
-                                    </mask>
-                                </variation>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="74b-Qi-F7v">
                                 <rect key="frame" x="16" y="20" width="22" height="11"/>
                                 <state key="normal" image="Hamburger sort">
@@ -332,23 +314,40 @@
                                     <constraint firstAttribute="width" constant="58" id="tm5-aO-xbw"/>
                                 </constraints>
                                 <inset key="contentEdgeInsets" minX="12" minY="6" maxX="12" maxY="6"/>
-                                <state key="normal" image="inbox_red_dot">
+                                <state key="normal" image="inbox">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="b6C-rY-WmY" kind="showDetail" id="Wdw-XT-RWg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQT-cf-raq">
-                                <rect key="frame" x="230" y="120" width="141" height="48"/>
-                                <color key="backgroundColor" red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="Qs1-D5-dlA">
+                                <rect key="frame" x="214.5" y="122" width="171" height="46.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="J7R-et-us5"/>
-                                    <constraint firstAttribute="width" constant="141" id="uHv-hs-Q3s"/>
+                                    <constraint firstAttribute="width" secondItem="Qs1-D5-dlA" secondAttribute="height" multiplier="48:13" id="LQy-Y7-g8j"/>
+                                    <constraint firstAttribute="width" constant="240" id="cJV-bl-PhL"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="cJV-bl-PhL"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzc-DT-AN0">
+                                <rect key="frame" x="180" y="376.5" width="240" height="84.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="wzc-DT-AN0" secondAttribute="height" multiplier="181:64" id="3Bl-j8-QDX"/>
+                                </constraints>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQT-cf-raq">
+                                <rect key="frame" x="236" y="491" width="129" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="Uah-yb-h1t"/>
+                                    <constraint firstAttribute="width" constant="129" id="s4X-Tk-gTU"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="20"/>
                                 <state key="normal" title="准备写信">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -359,39 +358,32 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="3X3-c2-hjj" secondAttribute="centerX" id="O3l-Xn-B5l"/>
-                            <constraint firstItem="Cw7-UG-bUQ" firstAttribute="top" secondItem="3X3-c2-hjj" secondAttribute="bottom" constant="8" id="T1a-Mg-prA"/>
-                            <constraint firstItem="Cw7-UG-bUQ" firstAttribute="top" secondItem="3X3-c2-hjj" secondAttribute="bottom" id="UGh-Di-Y3s"/>
-                            <constraint firstItem="Cw7-UG-bUQ" firstAttribute="top" secondItem="3X3-c2-hjj" secondAttribute="bottom" id="YbC-jZ-Fnh"/>
+                            <constraint firstItem="wzc-DT-AN0" firstAttribute="width" secondItem="tfz-Uc-kjt" secondAttribute="height" multiplier="2:5" id="CAl-zs-DiG"/>
+                            <constraint firstItem="Cw7-UG-bUQ" firstAttribute="top" secondItem="mQT-cf-raq" secondAttribute="bottom" constant="66" id="CCv-DI-Fo1"/>
+                            <constraint firstItem="mQT-cf-raq" firstAttribute="top" secondItem="wzc-DT-AN0" secondAttribute="bottom" constant="30" id="HDT-L5-k1e"/>
+                            <constraint firstItem="mQT-cf-raq" firstAttribute="leading" secondItem="wzc-DT-AN0" secondAttribute="trailing" constant="-245" id="HFc-Bi-05a"/>
+                            <constraint firstItem="Qs1-D5-dlA" firstAttribute="top" secondItem="dvl-GA-F25" secondAttribute="bottom" constant="102" id="IXH-GY-4z0"/>
+                            <constraint firstAttribute="centerX" secondItem="wzc-DT-AN0" secondAttribute="centerX" id="aVy-gy-fVU"/>
                             <constraint firstItem="BFX-lE-zt6" firstAttribute="trailing" secondItem="tfz-Uc-kjt" secondAttribute="trailingMargin" id="bZB-6X-uw1"/>
+                            <constraint firstItem="Qs1-D5-dlA" firstAttribute="width" secondItem="tfz-Uc-kjt" secondAttribute="height" multiplier="2:7" id="hLe-iW-oyJ"/>
                             <constraint firstItem="BFX-lE-zt6" firstAttribute="top" secondItem="tfz-Uc-kjt" secondAttribute="topMargin" constant="11" id="jF1-9x-lb7"/>
-                            <constraint firstItem="3X3-c2-hjj" firstAttribute="width" secondItem="tfz-Uc-kjt" secondAttribute="width" multiplier="0.9" id="mx8-Lg-LxY"/>
-                            <constraint firstAttribute="centerX" secondItem="mQT-cf-raq" secondAttribute="centerX" id="pmD-aP-YqW"/>
-                            <constraint firstItem="Cw7-UG-bUQ" firstAttribute="top" secondItem="3X3-c2-hjj" secondAttribute="bottom" id="sVC-mb-72k"/>
-                            <constraint firstItem="mQT-cf-raq" firstAttribute="top" secondItem="dvl-GA-F25" secondAttribute="bottom" constant="100" id="vLw-bE-zhc"/>
+                            <constraint firstAttribute="centerX" secondItem="Qs1-D5-dlA" secondAttribute="centerX" id="jju-hf-U5D"/>
+                            <constraint firstItem="wzc-DT-AN0" firstAttribute="top" secondItem="tfz-Uc-kjt" secondAttribute="top" constant="333" id="m0b-qk-cFQ"/>
+                            <constraint firstAttribute="centerX" secondItem="mQT-cf-raq" secondAttribute="centerX" id="vy2-P6-guA"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="T1a-Mg-prA"/>
-                                <exclude reference="UGh-Di-Y3s"/>
-                                <exclude reference="YbC-jZ-Fnh"/>
+                                <exclude reference="m0b-qk-cFQ"/>
+                                <exclude reference="HFc-Bi-05a"/>
                             </mask>
                         </variation>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="b8e-DV-Vb7" appends="YES" id="7iw-hI-kK6"/>
-                        </connections>
                     </view>
                     <connections>
-                        <outlet property="folderImageView" destination="3X3-c2-hjj" id="bUw-0P-yav"/>
+                        <outlet property="introScrollView" destination="wzc-DT-AN0" id="M5t-Wl-IOC"/>
                         <outlet property="prepareWritingBtn" destination="mQT-cf-raq" id="K3t-xl-4aG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YKb-GP-Ls8" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="b8e-DV-Vb7">
-                    <connections>
-                        <action selector="handlePanUpGesture:" destination="J5r-Zr-DZJ" id="lcW-3m-aXx"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="298" y="-604"/>
         </scene>
@@ -825,7 +817,7 @@
         <!--Letter Status View Controller-->
         <scene sceneID="dsr-tH-XoJ">
             <objects>
-                <viewController id="UuT-Dw-qbU" customClass="LetterStatusViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="letterStautsViewController" id="UuT-Dw-qbU" customClass="LetterStatusViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Fdq-BY-h7w"/>
                         <viewControllerLayoutGuide type="bottom" id="wfm-EH-RgQ"/>
@@ -851,19 +843,19 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="投递时间" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R28-Ad-6D1">
-                                <rect key="frame" x="36" y="175" width="140" height="24"/>
+                                <rect key="frame" x="36" y="187" width="140" height="24"/>
                                 <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="22"/>
                                 <color key="textColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="信件寄送中" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymf-Ff-IkV">
-                                <rect key="frame" x="168" y="265" width="212" height="19"/>
+                                <rect key="frame" x="168" y="277" width="212" height="19"/>
                                 <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="17"/>
-                                <color key="textColor" red="0.96078431372549022" green="0.65098039215686276" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.8862745098" green="0.90588235289999997" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收信邮箱" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TqT-5T-iLO">
-                                <rect key="frame" x="36" y="98" width="112" height="24"/>
+                                <rect key="frame" x="36" y="110" width="112" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="ILy-uG-PnR"/>
                                     <constraint firstAttribute="width" constant="112" id="Yve-F8-bPM"/>
@@ -873,25 +865,25 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="信件已送达" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yi-6J-dKY">
-                                <rect key="frame" x="168" y="311" width="212" height="19"/>
+                                <rect key="frame" x="168" y="323" width="212" height="19"/>
                                 <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="17"/>
                                 <color key="textColor" red="0.88627450980392153" green="0.90588235294117647" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="信件已被阅读" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xpB-ho-2pg">
-                                <rect key="frame" x="168" y="358" width="212" height="19"/>
+                                <rect key="frame" x="168" y="370" width="212" height="19"/>
                                 <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="17"/>
                                 <color key="textColor" red="0.88627450980392153" green="0.90588235294117647" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2014-9-6" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z3r-RE-2Eu">
-                                <rect key="frame" x="168" y="180" width="212" height="19"/>
+                                <rect key="frame" x="168" y="192" width="212" height="19"/>
                                 <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="17"/>
                                 <color key="textColor" red="0.96078431369999995" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lanstonpeng@gmail.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JhO-Ik-54U">
-                                <rect key="frame" x="168" y="98" width="212" height="21"/>
+                                <rect key="frame" x="168" y="110" width="212" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="212" id="BM4-eF-nKv"/>
                                     <constraint firstAttribute="height" constant="21" id="l4K-pW-phq"/>
@@ -901,13 +893,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="状态" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wsc-zS-pTB">
-                                <rect key="frame" x="36" y="260" width="140" height="24"/>
+                                <rect key="frame" x="36" y="272" width="140" height="24"/>
                                 <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="22"/>
                                 <color key="textColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="信件状态" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSS-70-leV">
-                                <rect key="frame" x="232" y="28" width="137" height="40"/>
+                                <rect key="frame" x="232" y="40" width="137" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="3cc-cj-CUC"/>
                                     <constraint firstAttribute="width" constant="137" id="iKV-uJ-bd8"/>
@@ -924,7 +916,7 @@
                             <constraint firstItem="R28-Ad-6D1" firstAttribute="width" secondItem="TqT-5T-iLO" secondAttribute="width" constant="28" id="9xS-aT-zO9"/>
                             <constraint firstAttribute="centerX" secondItem="hSS-70-leV" secondAttribute="centerX" id="BhD-pf-cT7"/>
                             <constraint firstItem="Wsc-zS-pTB" firstAttribute="leading" secondItem="R28-Ad-6D1" secondAttribute="leading" id="CPG-SY-ErX"/>
-                            <constraint firstItem="hSS-70-leV" firstAttribute="top" secondItem="Fdq-BY-h7w" secondAttribute="bottom" constant="8" id="EKn-Gn-sJ5"/>
+                            <constraint firstItem="hSS-70-leV" firstAttribute="top" secondItem="Fdq-BY-h7w" secondAttribute="bottom" constant="20" id="EKn-Gn-sJ5"/>
                             <constraint firstItem="R28-Ad-6D1" firstAttribute="height" secondItem="TqT-5T-iLO" secondAttribute="height" id="GMU-t5-mhv"/>
                             <constraint firstItem="wfm-EH-RgQ" firstAttribute="top" secondItem="ouS-8U-7G6" secondAttribute="bottom" constant="68" id="Hqa-eb-oSR"/>
                             <constraint firstItem="JhO-Ik-54U" firstAttribute="centerY" secondItem="TqT-5T-iLO" secondAttribute="centerY" constant="-1.5" id="VLX-ai-ebA"/>
@@ -965,13 +957,10 @@
     <resources>
         <image name="Back down" width="42" height="25"/>
         <image name="Hamburger sort" width="44" height="17"/>
+        <image name="Logo" width="412" height="108"/>
         <image name="back" width="24" height="41"/>
-        <image name="folder" width="420" height="214"/>
-        <image name="inbox_red_dot" width="55" height="35"/>
+        <image name="inbox" width="33" height="25"/>
         <image name="ok" width="26" height="21"/>
         <image name="selectedBtn" width="16" height="25"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="d6D-TQ-rxa"/>
-    </inferredMetricsTieBreakers>
 </document>

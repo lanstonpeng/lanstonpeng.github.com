@@ -28,4 +28,21 @@
     }
     return copyItem;
 }
+
+- (instancetype)initWithDic:(NSDictionary*)dic
+{
+    self = [super init];
+    if (self) {
+        self.senderCity = [dic objectForKey:@"senderCity"];
+        self.sendToEmail = [dic objectForKey:@"sendToEmail"];
+        self.senderEmail = [dic objectForKey:@"senderEmail"];
+        self.receiverCity = [dic objectForKey:@"receiverCity"];
+        self.receiverName = [dic objectForKey:@"receiverName"];
+        self.letterBody = [dic objectForKey:@"letterBody"];
+        self.letterStatus = (LetterStatus)[[dic objectForKey:@"letterStatus"] integerValue];
+        self.receiveDate = [dic objectForKey:@"receiveDate"];
+        
+    }
+    return self;
+}
 @end

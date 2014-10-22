@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D18C58119F7753300D11772 /* begin.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9D18C58019F7742900D11772 /* begin.mp4 */; };
+		9D18C58319F7805300D11772 /* Remember to Write-HD.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9D18C58219F7804800D11772 /* Remember to Write-HD.mp4 */; };
+		9D18C58519F791FF00D11772 /* introductionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D18C58419F791FF00D11772 /* introductionView.xib */; };
+		9D18C58819F7924E00D11772 /* introductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D18C58719F7924E00D11772 /* introductionView.m */; };
 		9D71D4B019EF6E7B00C37B48 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D71D4AF19EF6E7B00C37B48 /* AVOSCloud.framework */; };
 		9D93F85C19E8CA1100112CFA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D93F85B19E8CA1100112CFA /* main.m */; };
 		9D93F85F19E8CA1100112CFA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D93F85E19E8CA1100112CFA /* AppDelegate.m */; };
@@ -46,6 +50,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D18C58019F7742900D11772 /* begin.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = begin.mp4; sourceTree = "<group>"; };
+		9D18C58219F7804800D11772 /* Remember to Write-HD.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Remember to Write-HD.mp4"; sourceTree = "<group>"; };
+		9D18C58419F791FF00D11772 /* introductionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = introductionView.xib; sourceTree = "<group>"; };
+		9D18C58619F7924E00D11772 /* introductionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = introductionView.h; sourceTree = "<group>"; };
+		9D18C58719F7924E00D11772 /* introductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = introductionView.m; sourceTree = "<group>"; };
 		9D71D4AF19EF6E7B00C37B48 /* AVOSCloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVOSCloud.framework; path = "../../../../Downloads/iOS/release-v2.6.5.1/AVOSCloud.framework"; sourceTree = "<group>"; };
 		9D93F85619E8CA1100112CFA /* MailCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MailCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D93F85A19E8CA1100112CFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -155,6 +164,7 @@
 				9DFD789D19EA232000B4393A /* ViewController */,
 				9D93F86319E8CA1100112CFA /* Main.storyboard */,
 				9D93F86619E8CA1100112CFA /* Images.xcassets */,
+				9D18C58419F791FF00D11772 /* introductionView.xib */,
 				9D93F86819E8CA1100112CFA /* LaunchScreen.xib */,
 				9D93F85919E8CA1100112CFA /* Supporting Files */,
 			);
@@ -164,6 +174,8 @@
 		9D93F85919E8CA1100112CFA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9D18C58219F7804800D11772 /* Remember to Write-HD.mp4 */,
+				9D18C58019F7742900D11772 /* begin.mp4 */,
 				9DFD789919EA1DF700B4393A /* 方正清刻本悦宋简体.ttf */,
 				9D93F85A19E8CA1100112CFA /* Info.plist */,
 				9D93F85B19E8CA1100112CFA /* main.m */,
@@ -193,6 +205,8 @@
 			children = (
 				9DAA25EB19F0B64A00F5DEA6 /* MailTableViewCell.h */,
 				9DAA25EC19F0B64A00F5DEA6 /* MailTableViewCell.m */,
+				9D18C58619F7924E00D11772 /* introductionView.h */,
+				9D18C58719F7924E00D11772 /* introductionView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -336,6 +350,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D18C58319F7805300D11772 /* Remember to Write-HD.mp4 in Resources */,
+				9D18C58119F7753300D11772 /* begin.mp4 in Resources */,
+				9D18C58519F791FF00D11772 /* introductionView.xib in Resources */,
 				9DFD789E19EA246000B4393A /* 方正清刻本悦宋简体.ttf in Resources */,
 				9D93F86519E8CA1100112CFA /* Main.storyboard in Resources */,
 				9D93F86A19E8CA1100112CFA /* LaunchScreen.xib in Resources */,
@@ -367,6 +384,7 @@
 				9DFD78A419EA3DFA00B4393A /* TransitionManager.m in Sources */,
 				9DFBFB9319EE3EB1004D1715 /* PrepareWritingViewController.m in Sources */,
 				9DFBFBA019EEE4CD004D1715 /* LetterUser.m in Sources */,
+				9D18C58819F7924E00D11772 /* introductionView.m in Sources */,
 				9DAA25ED19F0B64A00F5DEA6 /* MailTableViewCell.m in Sources */,
 				9DF7222519F4EB5200453F05 /* MailCatUtil.m in Sources */,
 				9DFBFB9D19EE8494004D1715 /* ResultViewController.m in Sources */,

@@ -50,6 +50,7 @@
     
 }
 - (IBAction)sendLetter:(id)sender {
+    self.letterModel.letterStatus = Pending;
     AVObject *appAVObject = [AVObject objectWithClassName:@"LetterData"];
     [appAVObject setObject:self.letterModel.senderCity forKey:@"senderCity"];
     [appAVObject setObject:self.letterModel.sendToEmail forKey:@"sendToEmail"];

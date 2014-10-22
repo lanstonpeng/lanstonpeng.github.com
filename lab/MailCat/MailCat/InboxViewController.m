@@ -11,6 +11,9 @@
 #import "MailTableViewCell.h"
 #import "LetterUser.h"
 #import "MailCatUtil.h"
+#import "LetterStatusViewController.h"
+#import "ResultViewController.h"
+#import "LetterModel.h"
 
 typedef enum
 {
@@ -36,6 +39,10 @@ typedef enum
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong,nonatomic)NSArray* mailDataArr;
+
+@property (strong,nonatomic)NSMutableArray* sendMailDataArr;
+
+@property (strong,nonatomic)NSMutableArray* receiveMailDataArr;
 
 @end
 
@@ -64,6 +71,8 @@ typedef enum
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.sendMailDataArr = [NSMutableArray new];
+    self.receiveMailDataArr = [NSMutableArray new];
     self.setMailButton.layer.cornerRadius = 3;
     self.loginButton.layer.cornerRadius = 3;
     isButtonClicked = NO;
@@ -78,9 +87,11 @@ typedef enum
         userStatus = UnRegister;
     }
 }
-- (IBAction)handleTapGesture:(id)sender {
+
+- (void)handleTapGesture:(id)sender {
     self.editing = NO;
 }
+
 - (IBAction)clikLogin:(id)sender {
     //TODO:show loading
     [AVUser logInWithUsernameInBackground:self.mailTextField.text password:self.passwordTextField.text block:^(AVUser *user, NSError *error) {
@@ -175,8 +186,17 @@ typedef enum
     [batchQuery orderByDescending:@"receiveDate"];
     [batchQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         self.mailDataArr = [NSArray arrayWithArray:objects];
-        self.tableView.dataSource = self;
-        self.tableView.delegate = self;
+        
+        [objects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSDictionary* item = (NSDictionary*)obj;
+            if ([[item objectForKey:@"sendToEmail"] isEqualToString:[AVUser currentUser].email]) {
+                [self.receiveMailDataArr addObject:item];
+            }
+            else
+            {
+                [self.sendMailDataArr addObject:item];
+            }
+        }];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
@@ -184,20 +204,41 @@ typedef enum
 }
 
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 1) {
+        return @"收到的信件";
+    }
+    return @"发送的信件";
+    
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(self.mailDataArr.count > 0)
-    {
-        return self.mailDataArr.count;
+    if (section == 1) {
+        return self.receiveMailDataArr.count;
     }
-    return 0;
+    return self.sendMailDataArr.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MailTableViewCell* cell = (MailTableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"reuseMailCell"];
-    NSDictionary* item = [self.mailDataArr objectAtIndex:indexPath.row];
+    NSDictionary* item;
+    if (indexPath.section == 1) {
+        item = [self.receiveMailDataArr objectAtIndex:indexPath.row];
+    }
+    else
+    {
+        item = [self.sendMailDataArr objectAtIndex:indexPath.row];
+    }
+    
+    
     cell.senderMailLabel.text  =[item objectForKey:@"senderEmail"]?:@"someone";
     NSDate* avaiableDate = [item objectForKey:@"receiveDate"];
     
@@ -209,6 +250,22 @@ typedef enum
     NSString* clipContent = [NSString stringWithFormat:@"%@:\n%@...",receiverName,[fullContent substringWithRange:NSMakeRange(0, fullContent.length <50?fullContent.length - 1:50)]];
     cell.clipContentLabel.text = clipContent;
     return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1) {
+        
+    }
+    //send letter
+    else
+    {
+        LetterStatusViewController* letterStatusViewController = (LetterStatusViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"letterStautsViewController"];
+        LetterModel* letterModel = [[LetterModel alloc]initWithDic:[self.sendMailDataArr objectAtIndex:indexPath.row]];
+        letterStatusViewController.letterModel = letterModel;
+        [self presentViewController:letterStatusViewController animated:YES completion:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -238,10 +295,6 @@ typedef enum
     return YES;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    
-}
 /*
 #pragma mark - Navigation
 

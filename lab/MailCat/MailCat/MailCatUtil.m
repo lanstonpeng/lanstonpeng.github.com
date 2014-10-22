@@ -60,6 +60,9 @@
                                                         fromDate:[NSDate new]
                                                           toDate:avaiableDate
                                                          options:0];
+    if ([components day] <= 0) {
+        return 0;
+    }
     return [components day];
 }
 @end

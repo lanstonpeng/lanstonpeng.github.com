@@ -7,6 +7,7 @@
 //
 
 #import "LetterStatusViewController.h"
+#import "MailCatUtil.h"
 
 @interface LetterStatusViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *emailLabel;
@@ -24,7 +25,19 @@
     [super viewDidLoad];
     self.emailLabel.text = self.letterModel.sendToEmail;
     self.doneButton.layer.cornerRadius = 3;
-    // Do any additional setup after loading the view.
+    switch (self.letterModel.letterStatus) {
+        case Pending:
+            self.sendingLabel.textColor = UIColorFromRGB(0xF5A623);
+            break;
+        case Sent:
+            self.sentLabel.textColor = UIColorFromRGB(0xF5A623);
+            break;
+        case Received:
+            self.readLabel.textColor = UIColorFromRGB(0xF5A623);
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

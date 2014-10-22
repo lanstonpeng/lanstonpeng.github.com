@@ -9,6 +9,9 @@
 #import "EntranceViewController.h"
 #import "TransitionManager.h"
 #import "WritingViewController.h"
+#import <QuartzCore/QuartzCore.h>
+#import "AVFoundation/AVFoundation.h"
+#import "introductionView.h"
 
 @interface EntranceViewController ()
 
@@ -22,6 +25,8 @@
 @property (strong,nonatomic)UIDynamicAnimator* animator;
 @property (weak, nonatomic) IBOutlet UIButton *prepareWritingBtn;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *introScrollView;
+
 @end
 
 
@@ -30,16 +35,74 @@
     //CGFloat startPanY;
     CGRect paperImageViewOriginalFrame;
 }
+
 - (IBAction)showSideMenu:(id)sender {
-    
 }
 
 - (void)initUI
 {
-    self.prepareWritingBtn.layer.cornerRadius = 3;
+    self.prepareWritingBtn.layer.cornerRadius = 4;
+    self.prepareWritingBtn.layer.borderWidth = 0.5;
+    self.prepareWritingBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    
     self.paperImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"paper"]];
     self.paperImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.view insertSubview:self.paperImageView belowSubview:self.folderImageView];
+    //[self.view insertSubview:self.paperImageView belowSubview:self.folderImageView];
+    
+    [self showVideoLayer];
+}
+
+- (void)showIntroductionView
+{
+    NSArray* arr1 = [[NSBundle mainBundle]loadNibNamed:@"introductionView" owner:nil options:nil];
+    introductionView* introView1 = (introductionView*)[arr1 firstObject];
+    introView1.titleLabel.text = @"Welcome";
+    introView1.contentLabel.text = @"I can't figure why I cannot resize a UIView in a xib in Interface Builder. ... view XIB in xcode and in the size inspector, the width and height are";
+    
+    NSArray* arr2 = [[NSBundle mainBundle]loadNibNamed:@"introductionView" owner:nil options:nil];
+    introductionView* introView2 = (introductionView*)[arr2 firstObject];
+    introView2.titleLabel.text = @"Welcome";
+    introView2.contentLabel.text = @"I can't figure why I cannot resize a UIView in a xib in Interface Builder. ... view XIB in xcode and in the size inspector, the width and height are";
+    
+    introView1.frame = CGRectMake(0, 0, self.introScrollView.frame.size.width, self.introScrollView.frame.size.height);
+    introView2.frame = CGRectOffset(introView1.frame, introView1.frame.size.width, 0);
+    
+    [self.introScrollView addSubview:introView1];
+    [self.introScrollView addSubview:introView2];
+    self.introScrollView.contentSize = CGSizeMake(introView1.frame.size.width * 2, self.introScrollView.frame.size.height) ;
+    self.introScrollView.contentMode = UIViewContentModeCenter;
+}
+
+- (void)showVideoLayer
+{
+    
+    NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"Remember to Write-HD" ofType:@"mp4"];
+    NSURL* url = [NSURL fileURLWithPath:videoPath];
+    AVPlayer *player = [AVPlayer playerWithURL:url]; //
+    player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+    player.volume = 0;
+    
+    AVPlayerLayer *layer = [AVPlayerLayer layer];
+    [layer setPlayer:player];
+    [layer setFrame:self.view.bounds];
+    [layer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerItemDidReachEnd:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:[player currentItem]];
+    
+    CALayer* shadowLayer = [CALayer layer];
+    shadowLayer.frame = self.view.bounds;
+    shadowLayer.backgroundColor = [UIColor blackColor].CGColor;
+    shadowLayer.opacity = 0.4;
+    [self.view.layer insertSublayer:layer atIndex:0];
+    [self.view.layer insertSublayer:shadowLayer above:layer];
+    [player play];
+}
+
+- (void)playerItemDidReachEnd:(NSNotification *)notification {
+    AVPlayerItem *p = [notification object];
+    [p seekToTime:kCMTimeZero];
 }
 
 - (void)viewDidLoad {
@@ -55,7 +118,10 @@
     
 }
 
-
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self showIntroductionView];
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     CGRect folderFrame = self.folderImageView.frame;
@@ -140,6 +206,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return NO;
 }
 
 /*
