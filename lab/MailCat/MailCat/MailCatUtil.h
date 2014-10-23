@@ -24,4 +24,6 @@
 - (UIImage*)renderImage:(UIView*)view ofRect:(CGRect)frame;
 
 - (NSUInteger)calcuateLeftDays:(NSDate*)avaiableDate;
+
+- (BOOL) validateEmail: (NSString *) candidate;
 @end

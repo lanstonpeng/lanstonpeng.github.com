@@ -27,6 +27,7 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *introScrollView;
 
+@property (strong,nonatomic)AVPlayer* player;
 @end
 
 
@@ -78,18 +79,18 @@
     
     NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"Remember to Write-HD" ofType:@"mp4"];
     NSURL* url = [NSURL fileURLWithPath:videoPath];
-    AVPlayer *player = [AVPlayer playerWithURL:url]; //
-    player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
-    player.volume = 0;
+    self.player = [AVPlayer playerWithURL:url]; //
+    self.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+    self.player.volume = 0;
     
     AVPlayerLayer *layer = [AVPlayerLayer layer];
-    [layer setPlayer:player];
+    [layer setPlayer:self.player];
     [layer setFrame:self.view.bounds];
     [layer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerItemDidReachEnd:)
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:[player currentItem]];
+                                               object:[self.player currentItem]];
     
     CALayer* shadowLayer = [CALayer layer];
     shadowLayer.frame = self.view.bounds;
@@ -97,7 +98,6 @@
     shadowLayer.opacity = 0.4;
     [self.view.layer insertSublayer:layer atIndex:0];
     [self.view.layer insertSublayer:shadowLayer above:layer];
-    [player play];
 }
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
@@ -115,12 +115,13 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
+    [self.player pause];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [self showIntroductionView];
+    [self.player play];
 }
 - (void)viewWillAppear:(BOOL)animated
 {
