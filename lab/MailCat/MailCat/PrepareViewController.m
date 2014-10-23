@@ -190,6 +190,7 @@
 {
     //[self updateMapView];
     currentLocation = manager.location.coordinate;
+    self.letterModel.senderCity = [NSString stringWithFormat:@"%f,%f",currentLocation.longitude,currentLocation.latitude];
 }
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
@@ -197,6 +198,7 @@
         [locationManager startUpdatingLocation];
         self.yourImageView.alpha = 0.3;
         self.yourImageView.userInteractionEnabled = NO;
+        
     }
 }
 

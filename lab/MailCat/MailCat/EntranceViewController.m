@@ -161,46 +161,6 @@
         UISnapBehavior* snapBehavior = [[UISnapBehavior alloc]initWithItem:self.paperImageView snapToPoint:point];
         [self.animator addBehavior:snapBehavior];
     }
-    
-    //CGFloat progress  =[recognizer locationInView:self.view.superview].y /self.view.superview.bounds.size.height;
-    
-    /*
-    CGFloat progress;
-    if(recognizer.state == UIGestureRecognizerStateBegan)
-    {
-        startPanY = [recognizer locationInView:self.view.superview].y;
-        CGFloat currentY = [recognizer locationInView:self.view.superview].y;
-        progress = ( currentY - startPanY ) / (self.view.superview.bounds.size.height * 0.2);
-        
-        NSLog(@"currentY: %f",currentY);
-        NSLog(@"progress: %f",progress);
-        if (progress >=  0) {
-            return;
-        }
-        
-        progress = 1.0 - MIN(1.0,MAX(0 , progress));
-        
-        WritingViewController * writingViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Writing"];
-        writingViewController.interactiveTransition = self.interactiveTransition;
-        [self presentViewController:writingViewController animated:YES completion:nil];
-    }
-    else if (recognizer.state == UIGestureRecognizerStateChanged)
-    {
-        [self.interactiveTransition updateInteractiveTransition:progress];
-        self.paperImageView.frame = CGRectOffset(self.paperImageView.frame, 0, -progress * 10);
-    }
-    else if(recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled)
-    {
-        if (progress > 0.5) {
-            [self.interactiveTransition finishInteractiveTransition];
-        }
-        else
-        {
-            [self.interactiveTransition cancelInteractiveTransition];
-        }
-        self.interactiveTransition = nil;
-    }
-    */
 
 }
 

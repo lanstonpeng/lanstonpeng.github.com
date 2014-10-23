@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="J5r-Zr-DZJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i1I-OF-8xm">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -286,7 +286,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bFN-Ww-uNi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-520" y="271"/>
+            <point key="canvasLocation" x="-538" y="323"/>
         </scene>
         <!--Entrance View Controller-->
         <scene sceneID="Yfr-hD-jre">
@@ -779,13 +779,52 @@
                                     <action selector="unwindSegue:" destination="i1I-OF-8xm" eventType="touchUpInside" id="dsF-PX-Hco"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Dear Lucy:" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5v-ag-7hu">
-                                <rect key="frame" x="55" y="64" width="491" height="408"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yn8-xT-Jrj">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZID-vC-RDG" userLabel="LetterContainer">
+                                <rect key="frame" x="38" y="-101" width="524" height="802"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Letter" translatesAutoresizingMaskIntoConstraints="NO" id="Kbf-jk-2qZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="524" height="802"/>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5v-ag-7hu">
+                                        <rect key="frame" x="43.5" y="67" width="437" height="668"/>
+                                        <mutableString key="text">Dear Lucy:青蛙设计是一家跨国设计咨询公司。帮助世界顶级的公司提升品牌价值，为其创造富有影响力的产品、服务和体验，并成功将其商业化。青蛙设计全球范围内拥有超过 600 名的设计师、策略师、研究员和技术员广泛服务于来自不同行业的客户。总部位于旧金山，并在阿姆斯特丹、奥斯汀、波士顿、米兰、慕尼黑、纽约、西雅图、新加坡和上海设有工作室。五年前带着基于社会意义与影响而生的创意设计理念，横渡太平洋登陆中国，续写其在设计界 44 年的传奇青蛙设计是一家跨国设计咨询公司。帮助世界顶级的公司提升品牌价值，为其创造富有影响力的产品、服务和体验，并成功将其商业化。青蛙设计全球范围内拥有超过 600 名的设计师、策略师、研究员和技术员广泛服务于来自不同行业的客户。总部位于旧金山，并在阿姆斯特丹、奥斯汀、波士顿、米兰、慕尼黑、纽约、西雅图、新加坡和上海设有工作室。五年前带着基于社会意义与影响而生的创意设计理念，横渡太平洋登陆中国，续写其在设计界 44 年的传奇</mutableString>
+                                        <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="f5v-ag-7hu" secondAttribute="centerY" id="19W-f1-txJ"/>
+                                    <constraint firstItem="Kbf-jk-2qZ" firstAttribute="height" secondItem="ZID-vC-RDG" secondAttribute="height" id="3VJ-HR-OG3"/>
+                                    <constraint firstItem="Kbf-jk-2qZ" firstAttribute="leading" secondItem="ZID-vC-RDG" secondAttribute="leading" id="7UE-vu-Sll"/>
+                                    <constraint firstItem="Kbf-jk-2qZ" firstAttribute="width" secondItem="ZID-vC-RDG" secondAttribute="width" id="7qJ-0k-AAZ"/>
+                                    <constraint firstItem="f5v-ag-7hu" firstAttribute="height" secondItem="Kbf-jk-2qZ" secondAttribute="height" id="7xF-Lf-awi"/>
+                                    <constraint firstAttribute="centerX" secondItem="f5v-ag-7hu" secondAttribute="centerX" id="I6X-Yf-XwP"/>
+                                    <constraint firstItem="f5v-ag-7hu" firstAttribute="width" secondItem="Kbf-jk-2qZ" secondAttribute="width" id="Qjc-CN-07M"/>
+                                    <constraint firstItem="f5v-ag-7hu" firstAttribute="width" secondItem="ZID-vC-RDG" secondAttribute="width" multiplier="1:1.2" id="Zg9-yE-vgZ"/>
+                                    <constraint firstItem="f5v-ag-7hu" firstAttribute="trailing" secondItem="ZID-vC-RDG" secondAttribute="trailing" multiplier="9:16" constant="20" symbolic="YES" id="bP0-hz-HNV"/>
+                                    <constraint firstAttribute="width" secondItem="ZID-vC-RDG" secondAttribute="height" multiplier="523:800" id="byc-wB-MSh"/>
+                                    <constraint firstItem="Kbf-jk-2qZ" firstAttribute="top" secondItem="ZID-vC-RDG" secondAttribute="top" id="ezn-gh-KEj"/>
+                                    <constraint firstItem="f5v-ag-7hu" firstAttribute="leading" secondItem="ZID-vC-RDG" secondAttribute="leading" multiplier="16:9" constant="20" symbolic="YES" id="gTb-Mg-6ah"/>
+                                    <constraint firstItem="f5v-ag-7hu" firstAttribute="height" secondItem="ZID-vC-RDG" secondAttribute="height" multiplier="1:1.2" id="uWC-N6-vQF"/>
+                                    <constraint firstItem="f5v-ag-7hu" firstAttribute="top" secondItem="ZID-vC-RDG" secondAttribute="top" constant="20" id="yDK-hx-JMj"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="7xF-Lf-awi"/>
+                                        <exclude reference="Qjc-CN-07M"/>
+                                        <exclude reference="bP0-hz-HNV"/>
+                                        <exclude reference="gTb-Mg-6ah"/>
+                                        <exclude reference="yDK-hx-JMj"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder" translatesAutoresizingMaskIntoConstraints="NO" id="uRS-TC-fdv">
+                                <rect key="frame" x="0.0" y="300" width="600" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="uRS-TC-fdv" secondAttribute="height" multiplier="2:1" id="uOb-H3-pk7"/>
+                                </constraints>
+                            </imageView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yn8-xT-Jrj">
                                 <rect key="frame" x="263" y="518" width="74" height="30"/>
                                 <color key="backgroundColor" red="0.2901960784" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -803,26 +842,45 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="ZID-vC-RDG" secondAttribute="centerX" id="1Wc-dM-G9x"/>
+                            <constraint firstAttribute="centerX" secondItem="uRS-TC-fdv" secondAttribute="centerX" id="Ckc-6L-Lfg"/>
                             <constraint firstItem="yn8-xT-Jrj" firstAttribute="centerX" secondItem="Yij-RG-NdN" secondAttribute="centerX" id="D1i-g7-ThA"/>
+                            <constraint firstAttribute="centerY" secondItem="ZID-vC-RDG" secondAttribute="centerY" id="HMI-4p-daM"/>
                             <constraint firstAttribute="centerX" secondItem="yn8-xT-Jrj" secondAttribute="centerX" id="Nfp-Vy-nWd"/>
-                            <constraint firstItem="f5v-ag-7hu" firstAttribute="top" secondItem="mon-4C-DGr" secondAttribute="bottom" constant="44" id="ZnQ-X8-uM2"/>
-                            <constraint firstItem="yn8-xT-Jrj" firstAttribute="top" secondItem="f5v-ag-7hu" secondAttribute="bottom" constant="46" id="hYW-hx-5QN"/>
-                            <constraint firstItem="f5v-ag-7hu" firstAttribute="centerX" secondItem="yn8-xT-Jrj" secondAttribute="centerX" id="lZa-tA-tay"/>
+                            <constraint firstItem="uRS-TC-fdv" firstAttribute="width" secondItem="ZID-vC-RDG" secondAttribute="width" multiplier="300:262" id="Ods-jk-EIx"/>
+                            <constraint firstAttribute="width" secondItem="uRS-TC-fdv" secondAttribute="width" id="cdW-n4-Tvo"/>
+                            <constraint firstItem="k3y-LF-whv" firstAttribute="top" secondItem="uRS-TC-fdv" secondAttribute="bottom" id="oO5-Tq-6kF"/>
                             <constraint firstItem="k3y-LF-whv" firstAttribute="top" secondItem="yn8-xT-Jrj" secondAttribute="bottom" constant="52" id="p3W-iB-ANC"/>
-                            <constraint firstItem="f5v-ag-7hu" firstAttribute="leading" secondItem="Yij-RG-NdN" secondAttribute="leadingMargin" constant="39" id="r3x-ZZ-KiH"/>
-                            <constraint firstAttribute="centerX" secondItem="f5v-ag-7hu" secondAttribute="centerX" id="r6i-kl-Yo7"/>
+                            <constraint firstAttribute="centerX" secondItem="uRS-TC-fdv" secondAttribute="centerX" id="slD-aA-guT"/>
+                            <constraint firstAttribute="centerY" secondItem="ZID-vC-RDG" secondAttribute="centerY" id="xEt-re-nMe"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="xEt-re-nMe"/>
+                                <exclude reference="Ckc-6L-Lfg"/>
+                            </mask>
+                        </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="GAE-Z4-sGh" appends="YES" id="QkA-P8-sTz"/>
+                        </connections>
                     </view>
                     <connections>
+                        <outlet property="letterContainerView" destination="ZID-vC-RDG" id="Gp3-fu-jSp"/>
                         <outlet property="letterTextView" destination="f5v-ag-7hu" id="uJS-LS-h6G"/>
                         <outlet property="sendButton" destination="yn8-xT-Jrj" id="cH6-Cy-HgJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zsR-pg-xow" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="GAE-Z4-sGh">
+                    <connections>
+                        <action selector="handlePanUpGesture:" destination="i1I-OF-8xm" id="67W-dM-gOo"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="254" y="271"/>
+            <point key="canvasLocation" x="236" y="329"/>
         </scene>
         <!--Prepare View Controller-->
         <scene sceneID="8lK-7a-D0j">
@@ -1090,15 +1148,17 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PXM-LJ-ume" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="254" y="987"/>
+            <point key="canvasLocation" x="236" y="1179"/>
         </scene>
     </scenes>
     <resources>
         <image name="Back down" width="42" height="25"/>
         <image name="Hamburger sort" width="44" height="17"/>
+        <image name="Letter" width="556" height="972"/>
         <image name="Logo" width="412" height="108"/>
         <image name="anotherTestQQ" width="67" height="84"/>
         <image name="back" width="24" height="41"/>
+        <image name="folder" width="420" height="214"/>
         <image name="inbox" width="33" height="25"/>
         <image name="ok" width="26" height="21"/>
         <image name="selectedBtn" width="16" height="25"/>

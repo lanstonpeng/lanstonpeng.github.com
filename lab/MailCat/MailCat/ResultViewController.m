@@ -18,9 +18,16 @@
 @property (weak, nonatomic) IBOutlet UITextView *letterTextView;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 
+@property (strong,nonatomic)UIAttachmentBehavior* attachmentBehavior;
+@property (strong,nonatomic)UIDynamicAnimator* animator;
+@property (weak, nonatomic) IBOutlet UIView *letterContainerView;
+
 @end
 
 @implementation ResultViewController
+{
+    CGRect paperImageViewOriginalFrame;
+}
 
 - (void)sendEmailToUser:(NSString*)sendToEmail
 {
@@ -81,8 +88,9 @@
     self.sendButton.layer.cornerRadius = 3;
     self.letterTextView.layoutManager.delegate = self;
     NSString* text = [NSString stringWithFormat:@"%@\n    %@",self.letterModel.receiverName,self.letterModel.letterBody];
-    self.letterTextView.text = text;
+    //self.letterTextView.text = text;
     self.panDirection = UIRectEdgeLeft;
+    self.animator = [[UIDynamicAnimator alloc]initWithReferenceView:self.view];
 }
 
 - (CGFloat)layoutManager:(NSLayoutManager *)layoutManager lineSpacingAfterGlyphAtIndex:(NSUInteger)glyphIndex withProposedLineFragmentRect:(CGRect)rect
@@ -90,6 +98,39 @@
     return 7;
 }
 
+- (IBAction)handlePanUpGesture:(UIPanGestureRecognizer *)recognizer {
+    
+    CGPoint paperLocation = [recognizer locationInView:self.letterContainerView];
+    CGPoint viewLocation  = [recognizer locationInView:self.view];
+    self.attachmentBehavior.anchorPoint = [recognizer locationInView:self.view];
+    
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        
+        //UIDynamic
+        [self.animator removeAllBehaviors];
+        
+        UIOffset centerOffset = UIOffsetMake(paperLocation.x - CGRectGetMidX(self.letterContainerView.bounds), paperLocation.y - CGRectGetMidY(self.letterContainerView.bounds));
+        
+        self.attachmentBehavior = [[UIAttachmentBehavior alloc]initWithItem:self.letterContainerView offsetFromCenter:centerOffset attachedToAnchor:viewLocation];
+        [self.animator addBehavior:self.attachmentBehavior];
+    }
+    else if(recognizer.state == UIGestureRecognizerStateChanged)
+    {
+        self.attachmentBehavior.anchorPoint = viewLocation;
+    }
+    else if(recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled)
+    {
+        [self.animator removeAllBehaviors];
+        CGPoint point = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(paperImageViewOriginalFrame));
+        UISnapBehavior* snapBehavior = [[UISnapBehavior alloc]initWithItem:self.letterContainerView snapToPoint:point];
+        [self.animator addBehavior:snapBehavior];
+    }
+    
+}
+- (void)viewDidLayoutSubviews
+{
+    paperImageViewOriginalFrame = self.letterContainerView.frame;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
