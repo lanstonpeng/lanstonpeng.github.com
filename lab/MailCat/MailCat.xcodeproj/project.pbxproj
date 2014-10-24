@@ -24,6 +24,8 @@
 		9D93F88619E8D60B00112CFA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F88519E8D60B00112CFA /* CoreLocation.framework */; };
 		9D93F88819E8D61600112CFA /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F88719E8D61600112CFA /* CoreTelephony.framework */; };
 		9D93F88A19E8D61E00112CFA /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D93F88919E8D61E00112CFA /* libicucore.dylib */; };
+		9DA81AD319FA186100C588DC /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA81AD219FA186100C588DC /* RegistrationViewController.m */; };
+		9DA81AD919FA2AB600C588DC /* WritingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA81AD819FA2AB600C588DC /* WritingTextView.m */; };
 		9DAA25E719EF9E6E00F5DEA6 /* LetterStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA25E619EF9E6E00F5DEA6 /* LetterStatusViewController.m */; };
 		9DAA25EA19F0B33800F5DEA6 /* InboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA25E919F0B33800F5DEA6 /* InboxViewController.m */; };
 		9DAA25ED19F0B64A00F5DEA6 /* MailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA25EC19F0B64A00F5DEA6 /* MailTableViewCell.m */; };
@@ -77,6 +79,10 @@
 		9D93F88519E8D60B00112CFA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9D93F88719E8D61600112CFA /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		9D93F88919E8D61E00112CFA /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		9DA81AD119FA186100C588DC /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationViewController.h; sourceTree = "<group>"; };
+		9DA81AD219FA186100C588DC /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
+		9DA81AD719FA2AB600C588DC /* WritingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WritingTextView.h; sourceTree = "<group>"; };
+		9DA81AD819FA2AB600C588DC /* WritingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WritingTextView.m; sourceTree = "<group>"; };
 		9DAA25E519EF9E6E00F5DEA6 /* LetterStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterStatusViewController.h; sourceTree = "<group>"; };
 		9DAA25E619EF9E6E00F5DEA6 /* LetterStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterStatusViewController.m; sourceTree = "<group>"; };
 		9DAA25E819F0B33800F5DEA6 /* InboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InboxViewController.h; sourceTree = "<group>"; };
@@ -213,6 +219,8 @@
 				9DAA25EC19F0B64A00F5DEA6 /* MailTableViewCell.m */,
 				9D18C58619F7924E00D11772 /* introductionView.h */,
 				9D18C58719F7924E00D11772 /* introductionView.m */,
+				9DA81AD719FA2AB600C588DC /* WritingTextView.h */,
+				9DA81AD819FA2AB600C588DC /* WritingTextView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -251,6 +259,8 @@
 			children = (
 				9DAA25E519EF9E6E00F5DEA6 /* LetterStatusViewController.h */,
 				9DAA25E619EF9E6E00F5DEA6 /* LetterStatusViewController.m */,
+				9DA81AD119FA186100C588DC /* RegistrationViewController.h */,
+				9DA81AD219FA186100C588DC /* RegistrationViewController.m */,
 				9DFBFB9B19EE8494004D1715 /* ResultViewController.h */,
 				9DFBFB9C19EE8494004D1715 /* ResultViewController.m */,
 				9DFD789A19EA1E3300B4393A /* WritingViewController.h */,
@@ -382,12 +392,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DFD789C19EA1E3300B4393A /* WritingViewController.m in Sources */,
+				9DA81AD919FA2AB600C588DC /* WritingTextView.m in Sources */,
 				9DFBFB9919EE6FC2004D1715 /* LetterModel.m in Sources */,
 				9DAA25E719EF9E6E00F5DEA6 /* LetterStatusViewController.m in Sources */,
 				9D93F85F19E8CA1100112CFA /* AppDelegate.m in Sources */,
 				9DFD78A119EA3BE800B4393A /* EntranceViewController.m in Sources */,
 				9DFBFBA419EEED36004D1715 /* MBProgressHUD.m in Sources */,
 				9D93F85C19E8CA1100112CFA /* main.m in Sources */,
+				9DA81AD319FA186100C588DC /* RegistrationViewController.m in Sources */,
 				9DFD78A419EA3DFA00B4393A /* TransitionManager.m in Sources */,
 				9DFBFB9319EE3EB1004D1715 /* PrepareWritingViewController.m in Sources */,
 				9DFBFBA019EEE4CD004D1715 /* LetterUser.m in Sources */,
