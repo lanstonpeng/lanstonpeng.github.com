@@ -14,4 +14,5 @@
 
 @property(strong,nonatomic)LetterModel* letterModel;
 
+@property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @end

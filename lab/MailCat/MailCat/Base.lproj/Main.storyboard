@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="i1I-OF-8xm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="J5r-Zr-DZJ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -60,7 +60,7 @@
                                     <action selector="dimissVC:" destination="b6C-rY-WmY" eventType="touchUpInside" id="j5T-Bj-pAE"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邮箱设置好了就可以接收别人的信件了" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJ9-lL-Q14">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邮箱设置好了就可以接收别人的信件了" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KJ9-lL-Q14">
                                 <rect key="frame" x="1" y="333" width="600" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="289" id="MXO-ho-cXc"/>
@@ -142,7 +142,7 @@
                                     <outlet property="delegate" destination="b6C-rY-WmY" id="3J6-Et-PNo"/>
                                 </connections>
                             </textField>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DvC-36-9wg">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DvC-36-9wg">
                                 <rect key="frame" x="0.0" y="55" width="600" height="545"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
@@ -152,7 +152,7 @@
                                     <constraint firstAttribute="height" constant="545" id="zEu-to-SfV"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="reuseMailCell" rowHeight="100" id="5BQ-dz-0RR" customClass="MailTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="reuseMailCell" rowHeight="150" id="5BQ-dz-0RR" customClass="MailTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5BQ-dz-0RR" id="bun-eE-ytp">
@@ -169,7 +169,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z4a-33-4O4" userLabel="ClipText">
-                                                    <rect key="frame" x="16" y="44" width="571" height="48"/>
+                                                    <rect key="frame" x="16" y="44" width="571" height="97.5"/>
                                                     <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="13"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -287,6 +287,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bFN-Ww-uNi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-538" y="323"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="HPF-Vz-xEp">
+            <objects>
+                <viewController id="8f6-lJ-23N" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QOr-Xc-sHp"/>
+                        <viewControllerLayoutGuide type="bottom" id="yrq-bo-dx2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="s3h-Ty-jUv">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t5F-VB-fn1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-292" y="-1378"/>
         </scene>
         <!--Entrance View Controller-->
         <scene sceneID="Yfr-hD-jre">
@@ -761,7 +779,7 @@
         <!--Result View Controller-->
         <scene sceneID="pQz-5k-Hjq">
             <objects>
-                <viewController id="i1I-OF-8xm" customClass="ResultViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="resultViewController" id="i1I-OF-8xm" customClass="ResultViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mon-4C-DGr"/>
                         <viewControllerLayoutGuide type="bottom" id="k3y-LF-whv"/>
@@ -787,7 +805,7 @@
                                     </imageView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5v-ag-7hu">
                                         <rect key="frame" x="43.5" y="67" width="437" height="668"/>
-                                        <mutableString key="text">Dear Lucy:青蛙设计是一家跨国设计咨询公司。帮助世界顶级的公司提升品牌价值，为其创造富有影响力的产品、服务和体验，并成功将其商业化。青蛙设计全球范围内拥有超过 600 名的设计师、策略师、研究员和技术员广泛服务于来自不同行业的客户。总部位于旧金山，并在阿姆斯特丹、奥斯汀、波士顿、米兰、慕尼黑、纽约、西雅图、新加坡和上海设有工作室。五年前带着基于社会意义与影响而生的创意设计理念，横渡太平洋登陆中国，续写其在设计界 44 年的传奇青蛙设计是一家跨国设计咨询公司。帮助世界顶级的公司提升品牌价值，为其创造富有影响力的产品、服务和体验，并成功将其商业化。青蛙设计全球范围内拥有超过 600 名的设计师、策略师、研究员和技术员广泛服务于来自不同行业的客户。总部位于旧金山，并在阿姆斯特丹、奥斯汀、波士顿、米兰、慕尼黑、纽约、西雅图、新加坡和上海设有工作室。五年前带着基于社会意义与影响而生的创意设计理念，横渡太平洋登陆中国，续写其在设计界 44 年的传奇</mutableString>
+                                        <string key="text">Dear Lucy:青蛙设计是一家跨国设计咨询公司。帮助世界顶级的公司提升品牌价值，为其创造富有影响力的产品、服务和体验，并成功将其商业化。青蛙设计全球范围内拥有超过 600 名的设计师、策略师、研究员和技术员广泛服务于来自不同行业的客户。总部位于旧金山，并在阿姆斯特丹、奥斯汀、波士顿、米兰、慕尼黑、纽约、西雅图、新加坡和上海设有工作室。五年前带着基于社会意义与影响而生的创意设计理念，横渡太平洋登陆中国，续写其在设计界 44 年的传奇青蛙设计是一家跨国设计咨询公司。帮助世界顶级的公司提升品牌价值，为其创造富有影响力的产品、服务和体验，并成功将其商业化。青蛙设计全球范围内拥有超过 600 名的设计师、策略师、研究员和技术员广泛服务于来自不同行业的客户。总部位于旧金山，并在阿姆斯特丹、奥斯汀、波士顿、米兰、慕尼黑、纽约、西雅图、新加坡和上海设有工作室。五年前带着基于社会意义与影响而生的创意设计理念，横渡太平洋登陆中国，续写其在设计界 44 年的传奇</string>
                                         <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -824,8 +842,8 @@
                                     <constraint firstAttribute="width" secondItem="uRS-TC-fdv" secondAttribute="height" multiplier="2:1" id="uOb-H3-pk7"/>
                                 </constraints>
                             </imageView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yn8-xT-Jrj">
-                                <rect key="frame" x="263" y="518" width="74" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yn8-xT-Jrj">
+                                <rect key="frame" x="263" y="-117" width="74" height="30"/>
                                 <color key="backgroundColor" red="0.2901960784" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="74" id="Cpw-co-PJI"/>
@@ -851,6 +869,7 @@
                             <constraint firstAttribute="centerY" secondItem="ZID-vC-RDG" secondAttribute="centerY" id="HMI-4p-daM"/>
                             <constraint firstAttribute="centerX" secondItem="yn8-xT-Jrj" secondAttribute="centerX" id="Nfp-Vy-nWd"/>
                             <constraint firstItem="uRS-TC-fdv" firstAttribute="width" secondItem="ZID-vC-RDG" secondAttribute="width" multiplier="300:262" id="Ods-jk-EIx"/>
+                            <constraint firstItem="ZID-vC-RDG" firstAttribute="top" secondItem="yn8-xT-Jrj" secondAttribute="bottom" multiplier="1:0.8" constant="8" symbolic="YES" id="az2-cD-4ny"/>
                             <constraint firstAttribute="width" secondItem="uRS-TC-fdv" secondAttribute="width" id="cdW-n4-Tvo"/>
                             <constraint firstItem="k3y-LF-whv" firstAttribute="top" secondItem="uRS-TC-fdv" secondAttribute="bottom" id="oO5-Tq-6kF"/>
                             <constraint firstItem="k3y-LF-whv" firstAttribute="top" secondItem="yn8-xT-Jrj" secondAttribute="bottom" constant="52" id="p3W-iB-ANC"/>
@@ -860,7 +879,9 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="xEt-re-nMe"/>
+                                <exclude reference="Nfp-Vy-nWd"/>
                                 <exclude reference="Ckc-6L-Lfg"/>
+                                <exclude reference="p3W-iB-ANC"/>
                             </mask>
                         </variation>
                         <connections>
@@ -901,7 +922,7 @@
                                 </connections>
                             </mapView>
                             <imageView userInteractionEnabled="NO" tag="200" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="testQQ" translatesAutoresizingMaskIntoConstraints="NO" id="RsA-Zy-uPD" userLabel="Her">
-                                <rect key="frame" x="80" y="0.0" width="63" height="72"/>
+                                <rect key="frame" x="96" y="0.0" width="63" height="72"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="RsA-Zy-uPD" secondAttribute="height" multiplier="7:8" id="9y7-cx-Nw9"/>
@@ -911,14 +932,14 @@
                                 </connections>
                             </imageView>
                             <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="anotherTestQQ" translatesAutoresizingMaskIntoConstraints="NO" id="5ZK-1i-kBA" userLabel="Me">
-                                <rect key="frame" x="24" y="0.0" width="63" height="72"/>
+                                <rect key="frame" x="40" y="0.0" width="63" height="72"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="YiT-qx-zei" appends="YES" id="j9u-vG-oeJ"/>
                                 </connections>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="name@example.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aFD-Yo-2LS">
-                                <rect key="frame" x="150" y="0.0" width="345" height="72"/>
+                                <rect key="frame" x="166" y="0.0" width="345" height="72"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="aFD-Yo-2LS" secondAttribute="height" multiplier="23:2" id="E20-VF-Gnd"/>
                                 </constraints>
@@ -933,13 +954,14 @@
                                     <outlet property="delegate" destination="s6W-s2-SQ4" id="lJC-S1-OvL"/>
                                 </connections>
                             </textField>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18C-lt-wRE">
-                                <rect key="frame" x="381" y="99" width="203" height="32"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="18C-lt-wRE">
+                                <rect key="frame" x="387" y="99" width="203" height="32"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.69000000000000006" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="18C-lt-wRE" secondAttribute="height" multiplier="203:32" id="ZBa-Qk-HrI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8tK-fG-okT">
@@ -958,6 +980,15 @@
                                     <segue destination="vXZ-lx-hvc" kind="showDetail" identifier="startWriting" id="J4m-fU-piV"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7H3-bd-IVg">
+                                <rect key="frame" x="0.0" y="21" width="46" height="30"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="unwind:" destination="s6W-s2-SQ4" eventType="touchUpInside" id="9SE-bf-cR4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -974,9 +1005,9 @@
                             <constraint firstItem="7OT-a1-1Dy" firstAttribute="top" secondItem="RsA-Zy-uPD" secondAttribute="bottom" constant="6" id="RIU-Xe-tcM"/>
                             <constraint firstItem="aFD-Yo-2LS" firstAttribute="bottom" secondItem="RsA-Zy-uPD" secondAttribute="bottom" id="VVE-ne-lAb"/>
                             <constraint firstItem="aFD-Yo-2LS" firstAttribute="width" secondItem="lZp-KL-BRC" secondAttribute="height" multiplier="23:40" id="VoV-xH-no3"/>
-                            <constraint firstItem="RsA-Zy-uPD" firstAttribute="leading" secondItem="lZp-KL-BRC" secondAttribute="leadingMargin" multiplier="5:1" id="Yhe-6I-Ckh"/>
+                            <constraint firstItem="RsA-Zy-uPD" firstAttribute="leading" secondItem="lZp-KL-BRC" secondAttribute="leadingMargin" multiplier="6:1" id="Yhe-6I-Ckh"/>
                             <constraint firstItem="5ZK-1i-kBA" firstAttribute="height" secondItem="RsA-Zy-uPD" secondAttribute="height" id="ZUO-k2-k2j"/>
-                            <constraint firstItem="18C-lt-wRE" firstAttribute="leading" secondItem="7OT-a1-1Dy" secondAttribute="trailing" constant="-219" id="ZsG-JE-V7U"/>
+                            <constraint firstItem="18C-lt-wRE" firstAttribute="trailing" secondItem="7OT-a1-1Dy" secondAttribute="trailing" constant="-10" id="ZsG-JE-V7U"/>
                             <constraint firstItem="5ZK-1i-kBA" firstAttribute="width" secondItem="RsA-Zy-uPD" secondAttribute="width" id="Zuv-r3-zhf"/>
                             <constraint firstItem="7OT-a1-1Dy" firstAttribute="height" secondItem="lZp-KL-BRC" secondAttribute="height" id="ahM-e3-haR"/>
                             <constraint firstItem="7OT-a1-1Dy" firstAttribute="top" secondItem="18C-lt-wRE" secondAttribute="bottom" constant="-53" id="j4v-Nk-FcE"/>

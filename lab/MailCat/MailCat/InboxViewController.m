@@ -118,7 +118,7 @@ typedef enum
 //        default:
 //            break;
 //    }
-        if (![self validateEmail:self.mailTextField.text]) {
+        if (![[MailCatUtil singleton] validateEmail:self.mailTextField.text]) {
             self.descriptionLabel.text = @"请输入正确的邮件";
         }
         else if(self.passwordTextField.text.length < 1)
@@ -256,7 +256,13 @@ typedef enum
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
-        
+        //read letter
+        ResultViewController* resultViewController = (ResultViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"resultViewController"];
+        LetterModel* letterModel = [[LetterModel alloc]initWithDic:[self.receiveMailDataArr objectAtIndex:indexPath.row]];
+        resultViewController.letterModel = letterModel;
+        [self presentViewController:resultViewController animated:YES completion:^{
+            resultViewController.sendButton.hidden = YES;
+        }];
     }
     //send letter
     else
@@ -268,17 +274,16 @@ typedef enum
     }
 }
 
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (BOOL) validateEmail: (NSString *) candidate {
-    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    
-    return [emailTest evaluateWithObject:candidate];
-}
 
 - (IBAction)dimissVC:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];

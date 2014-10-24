@@ -35,11 +35,30 @@
     });
 }
 
+- (void)displayToastMsg:(NSString*)msg inView:(UIView*)referenceView afterDelay:(NSTimeInterval)delay
+{
+    MBProgressHUD* toastMsg = [MBProgressHUD showHUDAddedTo:referenceView animated:YES];
+    toastMsg.mode = MBProgressHUDModeText;
+    toastMsg.labelText = msg;
+    [toastMsg hide:YES afterDelay:delay];
+}
+
+- (void)displayToastMsg:(NSString*)msg inView:(UIView*)referenceView afterDelay:(NSTimeInterval)delay withCallback:(void (^)())callback
+{
+    MBProgressHUD* toastMsg = [MBProgressHUD showHUDAddedTo:referenceView animated:YES];
+    toastMsg.mode = MBProgressHUDModeText;
+    toastMsg.labelText = msg;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [toastMsg hide:YES];
+        callback();
+    });
+}
+
 
 - (void)showLoadingView:(UIView*)referenceView
 {
     self.loadingView = [MBProgressHUD showHUDAddedTo:referenceView  animated:YES];
-    self.loadingView.mode = MBProgressHUDModeDeterminate;
+    self.loadingView.mode = MBProgressHUDModeIndeterminate;
 }
 
 - (void)hideLodingView{

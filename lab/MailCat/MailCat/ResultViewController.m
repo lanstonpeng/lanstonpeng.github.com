@@ -16,7 +16,6 @@
 
 @interface ResultViewController ()<NSLayoutManagerDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *letterTextView;
-@property (weak, nonatomic) IBOutlet UIButton *sendButton;
 
 @property (strong,nonatomic)UIAttachmentBehavior* attachmentBehavior;
 @property (strong,nonatomic)UIDynamicAnimator* animator;
@@ -86,9 +85,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.sendButton.layer.cornerRadius = 3;
+    self.storyBoardIdentifier = @"resultViewController";
     self.letterTextView.layoutManager.delegate = self;
     NSString* text = [NSString stringWithFormat:@"%@\n    %@",self.letterModel.receiverName,self.letterModel.letterBody];
-    //self.letterTextView.text = text;
+    self.letterTextView.text = text;
     self.panDirection = UIRectEdgeLeft;
     self.animator = [[UIDynamicAnimator alloc]initWithReferenceView:self.view];
 }

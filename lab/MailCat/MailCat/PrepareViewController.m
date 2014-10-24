@@ -71,10 +71,11 @@
                     CLLocationCoordinate2D location = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
                     NSLog(@"Location found from Map: %f %f",location.latitude,location.longitude);
                     [self dropAnnotation:location];
-                    currentImageView.alpha = 0.2;
+                    currentImageView.alpha = 0.3;
                     currentImageView.userInteractionEnabled = NO;
                     
-                    if(self.friendImageView.alpha + self.yourImageView.alpha == 0.4)
+                    NSLog(@"%f",self.friendImageView.alpha + self.yourImageView.alpha);
+                    if(self.friendImageView.alpha + self.yourImageView.alpha < 0.7)
                     {
                         [self getRouteLayer:currentLocation toLocation:location];
                     }
@@ -109,12 +110,12 @@
 }
 - (IBAction)handelPan:(UIPanGestureRecognizer *)recognizer {
     if (recognizer.view.tag == 100) {
-        currentImageName = @"anotherTestQQ";
+        currentImageName = yourImageName;
         [self hanelPanWithImageView:self.yourImageView withRecognizer:recognizer];
     }
     else
     {
-        currentImageName = @"testQQ";
+        currentImageName = friendImageName;
         [self hanelPanWithImageView:self.friendImageView withRecognizer:recognizer];
     }
 }
@@ -124,6 +125,7 @@
     [super viewDidLayoutSubviews];
     friImageViewOriginalFrame = self.friendImageView.frame;
     yourImageViewOriginalFrame = self.yourImageView.frame;
+    
 }
 
 
@@ -135,6 +137,12 @@
     canStartPan = YES;
     self.beginWriteButton.layer.cornerRadius = 3;
     
+//    CALayer* deliveryLabelBackgroundLayer = [CALayer layer];
+//    deliveryLabelBackgroundLayer.bounds = self.deliveryLabel.bounds;
+//    deliveryLabelBackgroundLayer.backgroundColor = [UIColor blackColor].CGColor;
+//    [self.deliveryLabel.layer insertSublayer:deliveryLabelBackgroundLayer atIndex:0];
+    self.deliveryLabel.layer.cornerRadius = 3;
+    
     [locationManager requestAlwaysAuthorization];
     
     self.mapView.showsUserLocation = YES;
@@ -142,7 +150,7 @@
     [self showUserLocation];
     self.friendImageView.userInteractionEnabled = YES;
     self.yourImageView.userInteractionEnabled = YES;
-    currentImageName = @"anotherTestQQ";
+    currentImageName = yourImageName;
     
     self.letterModel = [LetterModel new];
     if ([AVUser currentUser]) {
@@ -172,8 +180,8 @@
         [locationManager requestWhenInUseAuthorization];
     } else {
         [locationManager startUpdatingLocation];
+        [[MailCatUtil singleton]showLoadingView:self.view];
     }
-    [self updateMapView];
 }
 
 - (void)updateMapView
@@ -189,8 +197,6 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     //[self updateMapView];
-    currentLocation = manager.location.coordinate;
-    self.letterModel.senderCity = [NSString stringWithFormat:@"%f,%f",currentLocation.longitude,currentLocation.latitude];
 }
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
@@ -231,7 +237,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 {
     if (newState == MKAnnotationViewDragStateEnding || newState == MKAnnotationViewDragStateCanceling) {
         [annotationView setDragState:MKAnnotationViewDragStateNone animated:YES];
-        NSLog(@"%f",((MKPointAnnotation*)annotationView.annotation).coordinate.latitude);
+        NSLog(@"MKAnnotation %f",((MKPointAnnotation*)annotationView.annotation).coordinate.latitude);
         [self getRouteLayer:currentLocation toLocation:((MKPointAnnotation*)annotationView.annotation).coordinate];
     }
 }
@@ -260,21 +266,27 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     
     [direction calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
         
-        __block double totalTime = 0;
-        
-        NSArray *arrRoutes = [response routes];
-        [arrRoutes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            
-            MKRoute *rout = obj;
-            totalTime += rout.expectedTravelTime;
-            
-            routeLine = [rout polyline];
-            [self.mapView addOverlay:routeLine];
-        }];
-        //NSLog(@"expectedTime:%f",totalTime / 86400);
-        NSLog(@"expectedTime:%f",totalTime / 43200);
-        double dayNeeded = ceil(totalTime / 43200);
-        self.deliveryLabel.text = [NSString stringWithFormat:@"信件大概 %f天后 送达",dayNeeded];
+        int dayNeeded;
+        if (error) {
+            dayNeeded = arc4random() % 3;
+        }
+        else
+        {
+            __block double totalTime = 0;
+            NSArray *arrRoutes = [response routes];
+            [arrRoutes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                
+                MKRoute *rout = obj;
+                totalTime += rout.expectedTravelTime;
+                
+                routeLine = [rout polyline];
+                [self.mapView addOverlay:routeLine];
+            }];
+            //NSLog(@"expectedTime:%f",totalTime / 86400);
+            //NSLog(@"expectedTime:%f",totalTime / 43200);
+            dayNeeded = (int)ceil(totalTime / 43200);
+        }
+        self.deliveryLabel.text = [NSString stringWithFormat:@"信件大概 %d天后 送达",dayNeeded];
         self.deliveryLabel.hidden = NO;
         self.letterModel.receiveDate = [[NSDate alloc]initWithTimeInterval:86400 * dayNeeded sinceDate:[NSDate new]];
     }];
@@ -289,6 +301,13 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         return aView;
     }
     return nil;
+}
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    currentLocation = userLocation.coordinate;
+    self.letterModel.senderCity = [NSString stringWithFormat:@"%f,%f",currentLocation.longitude,currentLocation.latitude];
+    [[MailCatUtil singleton]hideLodingView];
 }
 
 #pragma mark --
@@ -313,6 +332,9 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 {
     WritingViewController* writingVC = (WritingViewController*)segue.destinationViewController;
     writingVC.letterModel = self.letterModel;
+}
+- (IBAction)unwind:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -28,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *introScrollView;
 
 @property (strong,nonatomic)AVPlayer* player;
+
+@property (strong,nonatomic)AVPlayerLayer *playerLayer;
 @end
 
 
@@ -49,8 +51,6 @@
     self.paperImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"paper"]];
     self.paperImageView.contentMode = UIViewContentModeScaleAspectFill;
     //[self.view insertSubview:self.paperImageView belowSubview:self.folderImageView];
-    
-    [self showVideoLayer];
 }
 
 - (void)showIntroductionView
@@ -74,6 +74,8 @@
     self.introScrollView.contentMode = UIViewContentModeCenter;
 }
 
+#pragma mark --
+#pragma mark add video layer
 - (void)showVideoLayer
 {
     
@@ -83,10 +85,10 @@
     self.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
     self.player.volume = 0;
     
-    AVPlayerLayer *layer = [AVPlayerLayer layer];
-    [layer setPlayer:self.player];
-    [layer setFrame:self.view.bounds];
-    [layer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+    _playerLayer = [AVPlayerLayer layer];
+    [_playerLayer setPlayer:self.player];
+    [_playerLayer setFrame:self.view.bounds];
+    [_playerLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerItemDidReachEnd:)
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
@@ -96,14 +98,22 @@
     shadowLayer.frame = self.view.bounds;
     shadowLayer.backgroundColor = [UIColor blackColor].CGColor;
     shadowLayer.opacity = 0.4;
-    [self.view.layer insertSublayer:layer atIndex:0];
-    [self.view.layer insertSublayer:shadowLayer above:layer];
+    [self.view.layer insertSublayer:_playerLayer atIndex:0];
+    [self.view.layer insertSublayer:shadowLayer above:_playerLayer];
 }
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
     AVPlayerItem *p = [notification object];
     [p seekToTime:kCMTimeZero];
 }
+
+- (void)cleanVideoLayer
+{
+    [self.player pause];
+    [self.playerLayer removeFromSuperlayer];
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -115,7 +125,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [self.player pause];
+    [self cleanVideoLayer];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -132,6 +142,7 @@
                                              screenBounds.size.width * 0.8,
                                              screenBounds.size.height * 0.2);
     _paperImageView.frame = paperImageViewOriginalFrame;
+    [self showVideoLayer];
 }
 
 - (IBAction)handlePanUpGesture:(UIPanGestureRecognizer *)recognizer {

@@ -16,6 +16,8 @@
 + (instancetype)singleton;
 
 - (void)displayToastMsg:(NSString*)msg inView:(UIView*)referenceView;
+- (void)displayToastMsg:(NSString*)msg inView:(UIView*)referenceView afterDelay:(NSTimeInterval)delay;
+- (void)displayToastMsg:(NSString*)msg inView:(UIView*)referenceView afterDelay:(NSTimeInterval)delay withCallback:(void (^)())callback;
 
 - (void)showLoadingView:(UIView*)referenceView;
 
