@@ -8,6 +8,22 @@
 
 #import "MailCatBaseViewController.h"
 
+typedef enum
+{
+    UnRegister = 1,
+    UnVerified
+}UserStatus;
+
+@protocol RegistrationViewControllerDelegate <NSObject>
+
+- (void)RegistrationViewControllerDidLogIn;
+
+@end
+
 @interface RegistrationViewController : MailCatBaseViewController
+
+@property (nonatomic)UserStatus userStatus;
+
+@property (weak,nonatomic)id<RegistrationViewControllerDelegate> delegate;
 
 @end

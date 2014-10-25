@@ -12,17 +12,15 @@
 #import <QuartzCore/QuartzCore.h>
 #import "AVFoundation/AVFoundation.h"
 #import "introductionView.h"
+#import <AVOSCloud/AVOSCloud.h>
+#import "LetterUser.h"
+#import "MailCatUtil.h"
+#import "LetterInBoxViewController.h"
+#import "RegistrationViewController.h"
 
-@interface EntranceViewController ()
+@interface EntranceViewController ()<RegistrationViewControllerDelegate>
 
 
-@property (strong, nonatomic) UIImageView *paperImageView;
-
-@property (weak, nonatomic) IBOutlet UIImageView *folderImageView;
-
-@property (strong,nonatomic)UIAttachmentBehavior* attachmentBehavior;
-
-@property (strong,nonatomic)UIDynamicAnimator* animator;
 @property (weak, nonatomic) IBOutlet UIButton *prepareWritingBtn;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *introScrollView;
@@ -34,10 +32,6 @@
 
 
 @implementation EntranceViewController
-{
-    //CGFloat startPanY;
-    CGRect paperImageViewOriginalFrame;
-}
 
 - (IBAction)showSideMenu:(id)sender {
 }
@@ -48,9 +42,6 @@
     self.prepareWritingBtn.layer.borderWidth = 0.5;
     self.prepareWritingBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     
-    self.paperImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"paper"]];
-    self.paperImageView.contentMode = UIViewContentModeScaleAspectFill;
-    //[self.view insertSubview:self.paperImageView belowSubview:self.folderImageView];
 }
 
 - (void)showIntroductionView
@@ -120,7 +111,6 @@
     self.storyBoardIdentifier = @"entranceViewController";
     
     [self initUI];
-    self.animator = [[UIDynamicAnimator alloc]initWithReferenceView:self.view];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -135,45 +125,23 @@
 }
 - (void)viewWillAppear:(BOOL)animated
 {
-    CGRect folderFrame = self.folderImageView.frame;
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
-    paperImageViewOriginalFrame = CGRectMake(screenBounds.size.width * 0.1,
-                                             folderFrame.origin.y - screenBounds.size.height * 0.01,
-                                             screenBounds.size.width * 0.8,
-                                             screenBounds.size.height * 0.2);
-    _paperImageView.frame = paperImageViewOriginalFrame;
     [self showVideoLayer];
 }
 
-- (IBAction)handlePanUpGesture:(UIPanGestureRecognizer *)recognizer {
-    
-    CGPoint paperLocation = [recognizer locationInView:self.paperImageView];
-    CGPoint viewLocation  = [recognizer locationInView:self.view];
-    self.attachmentBehavior.anchorPoint = [recognizer locationInView:self.view];
-    
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        
-        //UIDynamic
-        [self.animator removeAllBehaviors];
-       
-        UIOffset centerOffset = UIOffsetMake(paperLocation.x - CGRectGetMidX(self.paperImageView.bounds), paperLocation.y - CGRectGetMidY(self.paperImageView.bounds));
-        
-        self.attachmentBehavior = [[UIAttachmentBehavior alloc]initWithItem:self.paperImageView offsetFromCenter:centerOffset attachedToAnchor:viewLocation];
-        [self.animator addBehavior:self.attachmentBehavior];
+- (IBAction)clickInboxButton:(id)sender {
+    AVUser * currentUser = [AVUser currentUser];
+    if (currentUser) {
+        [self checkEmailVerified];
     }
-    else if(recognizer.state == UIGestureRecognizerStateChanged)
+    else
     {
-        self.attachmentBehavior.anchorPoint = viewLocation;
+        //present registration view controller with unregisted flag
+        RegistrationViewController* registionViewController = (RegistrationViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"registrationViewController"];
+        registionViewController.userStatus = UnRegister;
+        [self presentViewController:registionViewController animated:YES completion:nil];
     }
-    else if(recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled)
-    {
-        [self.animator removeAllBehaviors];
-        CGPoint point = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(paperImageViewOriginalFrame));
-        UISnapBehavior* snapBehavior = [[UISnapBehavior alloc]initWithItem:self.paperImageView snapToPoint:point];
-        [self.animator addBehavior:snapBehavior];
-    }
-
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -185,14 +153,38 @@
     return NO;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)checkEmailVerified
+{
+    [[MailCatUtil singleton]showLoadingView:self.view];
+    [LetterUser checkUserVerfied:^(BOOL isVerified) {
+        dispatch_async(dispatch_get_main_queue(),^{
+            [[MailCatUtil singleton]hideLodingView];
+            if (isVerified) {
+                //present inbox viewcontroller
+                [self presentLetterInboxVC];
+            }
+            else
+            {
+                //present registration view controller with unverified flag
+                //present inbox viewcontroller
+                RegistrationViewController* registionViewController = (RegistrationViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"registrationViewController"];
+                registionViewController.delegate = self;
+                registionViewController.userStatus = UnVerified;
+                [self presentViewController:registionViewController animated:YES completion:nil];
+            }
+        });
+    }];
 }
-*/
+
+- (void)RegistrationViewControllerDidLogIn
+{
+    [self presentLetterInboxVC];
+}
+
+- (void)presentLetterInboxVC
+{
+    LetterInBoxViewController* letterInboxViewController = (LetterInBoxViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"letterInboxViewController"];
+    [self presentViewController:letterInboxViewController animated:YES completion:nil];
+}
 
 @end

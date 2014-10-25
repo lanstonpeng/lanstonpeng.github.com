@@ -16,13 +16,18 @@
 
 
 #define friendImageName @"testQQ"
+#define friendImageNameShadow @"testQQ_shadow"
+
 #define yourImageName   @"anotherTestQQ"
+#define yourImageNameShadow   @"anotherTestQQ_shadow"
 
 @interface PrepareViewController ()<CLLocationManagerDelegate,MKMapViewDelegate,UITextFieldDelegate>
 {
     CLLocationManager *locationManager;
     CLLocationCoordinate2D currentLocation;
+    CLLocationCoordinate2D destinationLocation;
 }
+@property (weak, nonatomic) IBOutlet UITextField *emaiTextField;
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIImageView *friendImageView;
@@ -45,6 +50,26 @@
     NSString* currentImageName;
 }
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    //validate form
+    if (![[MailCatUtil singleton]validateEmail: self.emaiTextField.text]) {
+        [[MailCatUtil singleton]shakeView:self.emaiTextField];
+        [[MailCatUtil singleton]displayToastMsg:@"请填写收信人的邮箱" inView:self.view afterDelay:1.5];
+        return NO;
+    }
+    if (self.yourImageView.alpha > 0.5) {
+        [[MailCatUtil singleton]shakeView:self.yourImageView];
+        [[MailCatUtil singleton]displayToastMsg:@"请确认你的寄信位置" inView:self.view afterDelay:1.5];
+        return NO;
+    }
+    if (self.friendImageView.alpha > 0.5) {
+        [[MailCatUtil singleton]shakeView:self.friendImageView];
+        [[MailCatUtil singleton]displayToastMsg:@"请确认收信人的位置" inView:self.view afterDelay:1.5];
+        return NO;
+    }
+    return YES;
+}
 - (IBAction)clickBeginWriteButton:(UIButton *)sender {
     
 }
@@ -58,10 +83,17 @@
         switch (recognizer.state) {
             case UIGestureRecognizerStateBegan:
                 initPoint = [recognizer locationInView:currentImageView];
+                if (currentImageView.tag == 1000) {
+                    currentImageView.image = [UIImage imageNamed:yourImageNameShadow];
+                }
+                else
+                {
+                    currentImageView.image = [UIImage imageNamed:friendImageNameShadow];
+                }
                 break;
             case UIGestureRecognizerStateChanged:
                 changedPoint = [recognizer locationInView:currentImageView];
-                self.friendImageView.frame = CGRectOffset(currentImageView.frame,changedPoint.x - initPoint.x ,changedPoint.y - initPoint.y );
+                currentImageView.frame = CGRectOffset(currentImageView.frame,changedPoint.x - initPoint.x ,changedPoint.y - initPoint.y );
                 break;
             case UIGestureRecognizerStateEnded:
             case UIGestureRecognizerStateCancelled:
@@ -74,29 +106,35 @@
                     currentImageView.alpha = 0.3;
                     currentImageView.userInteractionEnabled = NO;
                     
-                    NSLog(@"%f",self.friendImageView.alpha + self.yourImageView.alpha);
-                    if(self.friendImageView.alpha + self.yourImageView.alpha < 0.7)
-                    {
-                        [self getRouteLayer:currentLocation toLocation:location];
-                    }
                     
-                    if (currentImageView.tag == 100) {
+                    if (currentImageView.tag == 1000) {
                         self.letterModel.senderCity = [NSString stringWithFormat:@"%f,%f",location.longitude,location.latitude];
+                        currentLocation = CLLocationCoordinate2DMake(location.latitude, location.longitude);
+                        currentImageName = yourImageNameShadow;
                     }
                     else
                     {
                         self.letterModel.receiverCity = [NSString stringWithFormat:@"%f,%f",location.longitude,location.latitude];
+                        destinationLocation = CLLocationCoordinate2DMake(location.latitude, location.longitude);
+                        currentImageName = friendImageNameShadow;
+                    }
+                    
+                    if([self isTwoPeplePlaceInMap])
+                    {
+                        [self getRouteLayer:currentLocation toLocation:destinationLocation];
                     }
                 }
                 else
                 {
                     [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:4 initialSpringVelocity:5 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                        if (currentImageView.tag == 100) {
+                        if (currentImageView.tag == 1000) {
                             currentImageView.frame = yourImageViewOriginalFrame;
+                            currentImageView.image = [UIImage imageNamed:yourImageName];
                         }
                         else
                         {
                             currentImageView.frame = friImageViewOriginalFrame;
+                            currentImageView.image = [UIImage imageNamed:friendImageName];
                         }
                     } completion:^(BOOL finished) {
                     }];
@@ -109,15 +147,12 @@
 
 }
 - (IBAction)handelPan:(UIPanGestureRecognizer *)recognizer {
-    if (recognizer.view.tag == 100) {
-        currentImageName = yourImageName;
-        [self hanelPanWithImageView:self.yourImageView withRecognizer:recognizer];
-    }
-    else
-    {
-        currentImageName = friendImageName;
-        [self hanelPanWithImageView:self.friendImageView withRecognizer:recognizer];
-    }
+    currentImageName = yourImageName;
+    [self hanelPanWithImageView:self.yourImageView withRecognizer:recognizer];
+}
+- (IBAction)handlePanFriendImage:(UIPanGestureRecognizer*)recognizer {
+    currentImageName = friendImageName;
+    [self hanelPanWithImageView:self.friendImageView withRecognizer:recognizer];
 }
 
 - (void)viewDidLayoutSubviews
@@ -135,14 +170,8 @@
     locationManager = [[CLLocationManager alloc]init];
     locationManager.delegate = self;
     canStartPan = YES;
-    self.beginWriteButton.layer.cornerRadius = 3;
     
-//    CALayer* deliveryLabelBackgroundLayer = [CALayer layer];
-//    deliveryLabelBackgroundLayer.bounds = self.deliveryLabel.bounds;
-//    deliveryLabelBackgroundLayer.backgroundColor = [UIColor blackColor].CGColor;
-//    [self.deliveryLabel.layer insertSublayer:deliveryLabelBackgroundLayer atIndex:0];
     self.deliveryLabel.layer.cornerRadius = 3;
-    
     [locationManager requestAlwaysAuthorization];
     
     self.mapView.showsUserLocation = YES;
@@ -211,6 +240,10 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"locationManager error %@",error);
+    [[MailCatUtil singleton]hideLodingView];
+    [[MailCatUtil singleton]displayToastMsg:@"定位失败,请手动选择你的位置" inView:self.view];
+    self.yourImageView.alpha = 1;
+    self.yourImageView.userInteractionEnabled = YES;
 }
 
 - (void)dropAnnotation:(CLLocationCoordinate2D)location
@@ -235,10 +268,18 @@
 didChangeDragState:(MKAnnotationViewDragState)newState
    fromOldState:(MKAnnotationViewDragState)oldState
 {
+    if (newState == MKAnnotationViewDragStateStarting) {
+        [UIView animateWithDuration:0.1 animations:^{
+            [annotationView setFrame:CGRectOffset(annotationView.frame, 0, -5)];
+        } completion:^(BOOL finished) {
+        }];
+    }
     if (newState == MKAnnotationViewDragStateEnding || newState == MKAnnotationViewDragStateCanceling) {
         [annotationView setDragState:MKAnnotationViewDragStateNone animated:YES];
         NSLog(@"MKAnnotation %f",((MKPointAnnotation*)annotationView.annotation).coordinate.latitude);
-        [self getRouteLayer:currentLocation toLocation:((MKPointAnnotation*)annotationView.annotation).coordinate];
+        if ([self isTwoPeplePlaceInMap]) {
+            [self getRouteLayer:currentLocation toLocation:((MKPointAnnotation*)annotationView.annotation).coordinate];
+        }
     }
 }
 
@@ -268,6 +309,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         
         int dayNeeded;
         if (error) {
+            NSLog(@"get route error:%@",error);
             dayNeeded = arc4random() % 3;
         }
         else
@@ -287,8 +329,13 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             dayNeeded = (int)ceil(totalTime / 43200);
         }
         self.deliveryLabel.text = [NSString stringWithFormat:@"信件大概 %d天后 送达",dayNeeded];
-        self.deliveryLabel.hidden = NO;
+        if (self.deliveryLabel.alpha < 0.1) {
+            [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                self.deliveryLabel.alpha = 1;
+            } completion:nil];
+        }
         self.letterModel.receiveDate = [[NSDate alloc]initWithTimeInterval:86400 * dayNeeded sinceDate:[NSDate new]];
+        self.letterModel.sendDate = [NSDate new];
     }];
 }
 
@@ -317,12 +364,10 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     [textField resignFirstResponder];
     if (![[MailCatUtil singleton] validateEmail:textField.text] ) {
         [[MailCatUtil singleton]displayToastMsg:@"请输入正确的邮件地址" inView:self.view];
-        self.beginWriteButton.hidden = YES;
     }
     else
     {
         self.letterModel.sendToEmail = textField.text;
-        self.beginWriteButton.hidden = NO;
     }
     return YES;
 }
@@ -335,6 +380,11 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 }
 - (IBAction)unwind:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (BOOL)isTwoPeplePlaceInMap
+{
+    return self.friendImageView.alpha + self.yourImageView.alpha < 0.7;
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "MailCatUtil.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface MailCatUtil()
 
@@ -81,7 +82,7 @@
                                                           toDate:avaiableDate
                                                          options:0];
     if ([components day] <= 0) {
-        return 0;
+        return 1;
     }
     return [components day];
 }
@@ -89,7 +90,20 @@
 - (BOOL) validateEmail: (NSString *) candidate {
     NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    
     return [emailTest evaluateWithObject:candidate];
 }
+
+- (void)shakeView:(UIView*)refView
+{
+    CABasicAnimation *shake = [CABasicAnimation animationWithKeyPath:@"position"];
+    [shake setDuration:0.1];
+    [shake setRepeatCount:2];
+    [shake setAutoreverses:YES];
+    [shake setFromValue:[NSValue valueWithCGPoint:
+                         CGPointMake(refView.center.x - 5,refView.center.y)]];
+    [shake setToValue:[NSValue valueWithCGPoint:
+                       CGPointMake(refView.center.x + 5, refView.center.y)]];
+    [refView.layer addAnimation:shake forKey:@"position"];
+}
+
 @end

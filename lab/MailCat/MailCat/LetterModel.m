@@ -25,6 +25,7 @@
         copyItem.letterBody = self.letterBody;
         copyItem.letterStatus = self.letterStatus;
         copyItem.receiveDate = self.receiveDate;
+        copyItem.sendDate = self.sendDate;
     }
     return copyItem;
 }
@@ -41,6 +42,7 @@
         self.letterBody = [dic objectForKey:@"letterBody"];
         self.letterStatus = (LetterStatus)[[dic objectForKey:@"letterStatus"] integerValue];
         self.receiveDate = [dic objectForKey:@"receiveDate"];
+        self.sendDate= [dic objectForKey:@"sendDate"];
         
     }
     return self;

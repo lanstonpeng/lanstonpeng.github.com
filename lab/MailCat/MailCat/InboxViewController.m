@@ -82,7 +82,6 @@ typedef enum
     }
     else
     {
-        //TODO:need to login or sign up
         self.setMailButton.enabled = YES;
         userStatus = UnRegister;
     }
@@ -109,15 +108,6 @@ typedef enum
 
 //sign up user
 - (IBAction)clickMailButton:(id)sender {
-//    switch (userStatus) {
-//        case UnRegister:
-//            if (![self validateEmail:self.mailTextField.text]) {
-//                self.descriptionLabel.text = @"请输入正确的邮件";
-//            }
-//            break;
-//        default:
-//            break;
-//    }
         if (![[MailCatUtil singleton] validateEmail:self.mailTextField.text]) {
             self.descriptionLabel.text = @"请输入正确的邮件";
         }

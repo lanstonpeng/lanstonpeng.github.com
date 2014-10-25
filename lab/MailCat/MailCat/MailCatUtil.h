@@ -28,4 +28,6 @@
 - (NSUInteger)calcuateLeftDays:(NSDate*)avaiableDate;
 
 - (BOOL) validateEmail: (NSString *) candidate;
+
+- (void)shakeView:(UIView*)refView;
 @end

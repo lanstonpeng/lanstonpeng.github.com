@@ -47,7 +47,9 @@
             [AVCloud callFunctionInBackground:@"newSendMail" withParameters: parameters block:^(id object, NSError *error) {
                 //TODO:error handler
                 NSLog(@"send mail result:%@",object);
-                NSLog(@"send mail error:%@",error);
+                if (error) {
+                    NSLog(@"send mail error:%@",error);
+                }
                 
             }];
         }
