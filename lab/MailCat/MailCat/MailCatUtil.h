@@ -30,4 +30,7 @@
 - (BOOL) validateEmail: (NSString *) candidate;
 
 - (void)shakeView:(UIView*)refView;
+
+- (NSString*)getDateString:(NSDate*)date;
+
 @end

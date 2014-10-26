@@ -2,6 +2,8 @@ require("cloud/app.js");
 
 var mg = require('mailgun');
 var exec = require('child_process').exec
+var Mustache = require("mustache");
+var fs = require("fs");
 
 AV.Cloud.define("sendmail",function(request,response){
     var MailComposer = require("mailcomposer").MailComposer,
@@ -72,9 +74,56 @@ AV.Cloud.define("newSendMail",function(request,response){
         "</html>'"
     ].join(" ");
 
-    console.log(command);
+    //console.log(command);
+    /*
     execute(command,function(result){
         response.success(result);
+    });
+    */
+        var m = new mg.Mailgun("key-9febcc3d7295dc80e5591f0f6784a663");
+        m.sendRaw('mailcat@vtmer.com',
+            [sendToEmail],
+            output,
+            function(err) {
+                console.log(arguments);
+                //err && console.log(err)
+            });
+});
+
+AV.Cloud.define("sendPreviewMail",function(request,response){
+    var sendToEmail = request.params["sendToMail"];
+    var rawBody = request.params["body"];
+    var senderMail = request.params["senderMail"];
+    var dayLeft = request.params["dayLeft"];
+    var receiverName = request.params["receiverName"];
+    var clipBody = "  " +  rawBody.substring(0,50);
+
+    var templatePath = __dirname + "/views/template.html";
+
+    fs.readFile(templatePath,'utf8',function(err,data){
+        var json = {
+            "sendToEmail": sendToEmail,
+            "dayLeft":dayLeft,
+            "senderEmail":senderMail ? senderMail : "想保持神秘感的TA",
+            "clipBody":clipBody,
+            "receiverName":sendToEmail.split("@")[0]
+        };
+        var output = Mustache.render(data, json);
+
+
+        var command = [
+            "curl -s --user 'api:key-9febcc3d7295dc80e5591f0f6784a663'",
+            "https://api.mailgun.net/v2/sandbox07642907a9c24ad988d7ee436bb30a9b.mailgun.org/messages",
+            "-F from='MailCat <postman@mailcat.me>'",
+            "-F to='" + sendToEmail + "'",
+            "-F subject='来自MailCat的信件'",
+            "-F text='" + clipBody +"'",
+            "--form-string html='" + output +"'"
+        ].join(" ");
+        console.log(command);
+        execute(command,function(result){
+            response.success(result);
+        });
     });
 });
 

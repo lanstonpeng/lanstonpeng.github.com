@@ -106,4 +106,11 @@
     [refView.layer addAnimation:shake forKey:@"position"];
 }
 
+- (NSString*)getDateString:(NSDate*)date
+{
+    NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
+    formatter.dateFormat = @"YYYY-MM-DD";
+    return [formatter stringFromDate:[[NSDate alloc]init] ];
+}
+
 @end

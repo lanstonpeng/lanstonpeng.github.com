@@ -24,6 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.emailLabel.text = self.letterModel.sendToEmail;
+    
+    self.sendTimeLabel.text = [[MailCatUtil singleton]getDateString:self.letterModel.sendDate];
+    
     self.doneButton.layer.cornerRadius = 3;
     switch (self.letterModel.letterStatus) {
         case Pending:

@@ -41,10 +41,10 @@
                                           @"sendToMail":sendToEmail,
                                           @"body":self.letterModel.letterBody,
                                           @"senderMail":self.letterModel.senderEmail?:@"",
-                                          @"datLeft":@([[MailCatUtil singleton]calcuateLeftDays:self.letterModel.receiveDate]),
+                                          @"dayLeft":@([[MailCatUtil singleton]calcuateLeftDays:self.letterModel.receiveDate]),
                                           @"receiverName":self.letterModel.receiverName
                                           };
-            [AVCloud callFunctionInBackground:@"newSendMail" withParameters: parameters block:^(id object, NSError *error) {
+            [AVCloud callFunctionInBackground:@"sendPreviewMail" withParameters: parameters block:^(id object, NSError *error) {
                 //TODO:error handler
                 NSLog(@"send mail result:%@",object);
                 if (error) {
@@ -67,6 +67,7 @@
     [appAVObject setObject:self.letterModel.receiverName forKey:@"receiverName"];
     [appAVObject setObject:self.letterModel.letterBody forKey:@"letterBody"];
     [appAVObject setObject:self.letterModel.receiveDate forKey:@"receiveDate"];
+    [appAVObject setObject:self.letterModel.sendDate forKey:@"sendDate"];
     [appAVObject setObject:@(self.letterModel.letterStatus) forKey:@"letterStatus"];
     
     MBProgressHUD* toastMsg = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -81,6 +82,7 @@
 {
     LetterStatusViewController* statusVC = (LetterStatusViewController*)segue.destinationViewController;
     //memory leak if you dont copy one
+    self.letterModel.letterStatus = Pending;
     statusVC.letterModel = [self.letterModel copy];
 }
 

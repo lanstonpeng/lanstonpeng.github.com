@@ -17,6 +17,7 @@
 #import "MailCatUtil.h"
 #import "LetterInBoxViewController.h"
 #import "RegistrationViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface EntranceViewController ()<RegistrationViewControllerDelegate>
 
@@ -32,7 +33,9 @@
 
 
 @implementation EntranceViewController
-
+{
+    CALayer* shadowLayer;
+}
 - (IBAction)showSideMenu:(id)sender {
 }
 
@@ -70,9 +73,11 @@
 - (void)showVideoLayer
 {
     
-    NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"Remember to Write-HD" ofType:@"mp4"];
+    //NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"Remember to Write-HD" ofType:@"mp4"];
+    NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"begin" ofType:@"mp4"];
     NSURL* url = [NSURL fileURLWithPath:videoPath];
-    self.player = [AVPlayer playerWithURL:url]; //
+    NSLog(@"%@",url);
+    self.player = [AVPlayer playerWithURL:url];
     self.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
     self.player.volume = 0;
     
@@ -85,10 +90,13 @@
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
                                                object:[self.player currentItem]];
     
-    CALayer* shadowLayer = [CALayer layer];
+    [self.player addObserver:self forKeyPath:@"status" options:0 context:nil];
+    
+    shadowLayer = [CALayer layer];
     shadowLayer.frame = self.view.bounds;
     shadowLayer.backgroundColor = [UIColor blackColor].CGColor;
-    shadowLayer.opacity = 0.4;
+    shadowLayer.opacity = 1;
+    
     [self.view.layer insertSublayer:_playerLayer atIndex:0];
     [self.view.layer insertSublayer:shadowLayer above:_playerLayer];
 }
@@ -97,6 +105,24 @@
     AVPlayerItem *p = [notification object];
     [p seekToTime:kCMTimeZero];
 }
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                        change:(NSDictionary *)change context:(void *)context {
+    if (object == self.player && [keyPath isEqualToString:@"status"]) {
+        if (self.player.status == AVPlayerStatusReadyToPlay) {
+            NSLog(@"Ready to Player");
+            CABasicAnimation* playerLayerAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+            playerLayerAnimation.fromValue = @1;
+            playerLayerAnimation.toValue = @0.4;
+            playerLayerAnimation.duration = 3;
+            playerLayerAnimation.fillMode = kCAFillModeForwards;
+            playerLayerAnimation.removedOnCompletion = NO;
+            [shadowLayer addAnimation:playerLayerAnimation forKey:@"playerReadyAnimation"];
+        } else if (self.player.status == AVPlayerStatusFailed) {
+        }
+    }
+}
+
 
 - (void)cleanVideoLayer
 {
@@ -109,7 +135,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.storyBoardIdentifier = @"entranceViewController";
-    
     [self initUI];
 }
 
@@ -121,6 +146,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [self showIntroductionView];
+    [self.player seekToTime:CMTimeMake(25, 1)];
     [self.player play];
 }
 - (void)viewWillAppear:(BOOL)animated
@@ -144,6 +170,7 @@
 
 
 - (void)didReceiveMemoryWarning {
+    NSLog(@"memory");
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
