@@ -19,10 +19,11 @@
 #import "RegistrationViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface EntranceViewController ()<RegistrationViewControllerDelegate>
+@interface EntranceViewController ()<RegistrationViewControllerDelegate,UIScrollViewDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UIButton *prepareWritingBtn;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *introScrollView;
 
@@ -51,13 +52,21 @@
 {
     NSArray* arr1 = [[NSBundle mainBundle]loadNibNamed:@"introductionView" owner:nil options:nil];
     introductionView* introView1 = (introductionView*)[arr1 firstObject];
-    introView1.titleLabel.text = @"Welcome";
-    introView1.contentLabel.text = @"I can't figure why I cannot resize a UIView in a xib in Interface Builder. ... view XIB in xcode and in the size inspector, the width and height are";
+    introView1.titleLabel.text = @"安静";
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:@"在纷繁的网络世界中追寻一份安静,重新拾起书信时代的纯粹"];
+    NSMutableParagraphStyle *paragrahStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragrahStyle setLineSpacing:7];
+    paragrahStyle.alignment = NSTextAlignmentCenter;
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragrahStyle range:NSMakeRange(0, [introView1.contentLabel.text length])];
+    
+    introView1.contentLabel.attributedText = attributedString ;
     
     NSArray* arr2 = [[NSBundle mainBundle]loadNibNamed:@"introductionView" owner:nil options:nil];
     introductionView* introView2 = (introductionView*)[arr2 firstObject];
-    introView2.titleLabel.text = @"Welcome";
-    introView2.contentLabel.text = @"I can't figure why I cannot resize a UIView in a xib in Interface Builder. ... view XIB in xcode and in the size inspector, the width and height are";
+    introView2.titleLabel.text = @"耐心";
+    NSMutableAttributedString *attributedString2 = [[NSMutableAttributedString alloc]initWithString:@"信件的送递需要一定的时间,需要屏幕前的你耐心等待对方的回信"];
+    [attributedString2 addAttribute:NSParagraphStyleAttributeName value:paragrahStyle range:NSMakeRange(0, [introView2.contentLabel.text length])];
+    introView2.contentLabel.attributedText = attributedString2;
     
     introView1.frame = CGRectMake(0, 0, self.introScrollView.frame.size.width, self.introScrollView.frame.size.height);
     introView2.frame = CGRectOffset(introView1.frame, introView1.frame.size.width, 0);
@@ -127,7 +136,7 @@
 - (void)cleanVideoLayer
 {
     [self.player pause];
-    [self.playerLayer removeFromSuperlayer];
+    //[self.playerLayer removeFromSuperlayer];
 }
 
 
@@ -136,6 +145,7 @@
     [super viewDidLoad];
     self.storyBoardIdentifier = @"entranceViewController";
     [self initUI];
+    [self showVideoLayer];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -146,12 +156,11 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [self showIntroductionView];
-    [self.player seekToTime:CMTimeMake(25, 1)];
+    //[self.player seekToTime:CMTimeMake(25, 1)];
     [self.player play];
 }
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self showVideoLayer];
 }
 
 - (IBAction)clickInboxButton:(id)sender {
@@ -212,6 +221,13 @@
 {
     LetterInBoxViewController* letterInboxViewController = (LetterInBoxViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"letterInboxViewController"];
     [self presentViewController:letterInboxViewController animated:YES completion:nil];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat pageWidth = self.introScrollView.frame.size.width; // you need to have a **iVar** with getter for scrollView
+    float fractionalPage = self.introScrollView.contentOffset.x / pageWidth;
+    NSInteger page = lround(fractionalPage);
+    self.pageControl.currentPage = page; // you need to have a **iVar** with getter for pageControl
 }
 
 @end

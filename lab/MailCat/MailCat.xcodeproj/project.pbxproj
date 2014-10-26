@@ -11,6 +11,7 @@
 		9D18C58819F7924E00D11772 /* introductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D18C58719F7924E00D11772 /* introductionView.m */; };
 		9D18C59619F89F7E00D11772 /* PrepareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D18C59519F89F7E00D11772 /* PrepareViewController.m */; };
 		9D18C59819F8A02900D11772 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D18C59719F8A02900D11772 /* MapKit.framework */; };
+		9D37B89B19FC959400FCECA3 /* MarginLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D37B89A19FC959400FCECA3 /* MarginLabel.m */; };
 		9D71D4B019EF6E7B00C37B48 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D71D4AF19EF6E7B00C37B48 /* AVOSCloud.framework */; };
 		9D93F85C19E8CA1100112CFA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D93F85B19E8CA1100112CFA /* main.m */; };
 		9D93F85F19E8CA1100112CFA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D93F85E19E8CA1100112CFA /* AppDelegate.m */; };
@@ -60,6 +61,8 @@
 		9D18C59419F89F7E00D11772 /* PrepareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrepareViewController.h; sourceTree = "<group>"; };
 		9D18C59519F89F7E00D11772 /* PrepareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrepareViewController.m; sourceTree = "<group>"; };
 		9D18C59719F8A02900D11772 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9D37B89919FC959400FCECA3 /* MarginLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarginLabel.h; sourceTree = "<group>"; };
+		9D37B89A19FC959400FCECA3 /* MarginLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarginLabel.m; sourceTree = "<group>"; };
 		9D71D4AF19EF6E7B00C37B48 /* AVOSCloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVOSCloud.framework; path = "../../../../Downloads/iOS/release-v2.6.5.1/AVOSCloud.framework"; sourceTree = "<group>"; };
 		9D93F85619E8CA1100112CFA /* MailCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MailCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D93F85A19E8CA1100112CFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -214,6 +217,8 @@
 		9DAA25EE19F0B64D00F5DEA6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9D37B89919FC959400FCECA3 /* MarginLabel.h */,
+				9D37B89A19FC959400FCECA3 /* MarginLabel.m */,
 				9DAA25EB19F0B64A00F5DEA6 /* MailTableViewCell.h */,
 				9DAA25EC19F0B64A00F5DEA6 /* MailTableViewCell.m */,
 				9D18C58619F7924E00D11772 /* introductionView.h */,
@@ -389,6 +394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DFD789C19EA1E3300B4393A /* WritingViewController.m in Sources */,
+				9D37B89B19FC959400FCECA3 /* MarginLabel.m in Sources */,
 				9DA81AD919FA2AB600C588DC /* WritingTextView.m in Sources */,
 				9DFBFB9919EE6FC2004D1715 /* LetterModel.m in Sources */,
 				9DAA25E719EF9E6E00F5DEA6 /* LetterStatusViewController.m in Sources */,

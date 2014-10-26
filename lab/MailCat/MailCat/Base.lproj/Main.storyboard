@@ -312,11 +312,14 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzc-DT-AN0">
-                                <rect key="frame" x="180" y="360" width="240" height="85"/>
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzc-DT-AN0">
+                                <rect key="frame" x="0.0" y="271" width="600" height="150"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="wzc-DT-AN0" secondAttribute="height" multiplier="181:64" id="3Bl-j8-QDX"/>
+                                    <constraint firstAttribute="width" secondItem="wzc-DT-AN0" secondAttribute="height" multiplier="4:1" id="2Ns-Z4-tUh"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="J5r-Zr-DZJ" id="Ssx-s1-Qpe"/>
+                                </connections>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQT-cf-raq">
                                 <rect key="frame" x="236" y="491" width="129" height="43"/>
@@ -333,24 +336,29 @@
                                     <segue destination="s6W-s2-SQ4" kind="showDetail" identifier="prepareWriting" id="ucW-o7-IXe"/>
                                 </connections>
                             </button>
+                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="6wA-RJ-fwF">
+                                <rect key="frame" x="289" y="427" width="23" height="37"/>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="BFX-lE-zt6" firstAttribute="top" secondItem="dvl-GA-F25" secondAttribute="bottom" id="3c6-h3-bt3"/>
-                            <constraint firstItem="wzc-DT-AN0" firstAttribute="width" secondItem="tfz-Uc-kjt" secondAttribute="height" multiplier="2:5" id="CAl-zs-DiG"/>
+                            <constraint firstAttribute="centerX" secondItem="6wA-RJ-fwF" secondAttribute="centerX" id="8ow-2t-CB5"/>
                             <constraint firstItem="Cw7-UG-bUQ" firstAttribute="top" secondItem="mQT-cf-raq" secondAttribute="bottom" constant="66" id="CCv-DI-Fo1"/>
-                            <constraint firstItem="Cw7-UG-bUQ" firstAttribute="bottom" secondItem="wzc-DT-AN0" secondAttribute="bottom" multiplier="1.35:1" id="Eag-9a-xNw"/>
                             <constraint firstAttribute="width" secondItem="BFX-lE-zt6" secondAttribute="height" multiplier="75:4" id="Gah-6c-byY"/>
                             <constraint firstItem="mQT-cf-raq" firstAttribute="leading" secondItem="wzc-DT-AN0" secondAttribute="trailing" constant="-245" id="HFc-Bi-05a"/>
                             <constraint firstItem="Qs1-D5-dlA" firstAttribute="top" secondItem="dvl-GA-F25" secondAttribute="bottom" constant="102" id="IXH-GY-4z0"/>
-                            <constraint firstAttribute="centerX" secondItem="wzc-DT-AN0" secondAttribute="centerX" id="aVy-gy-fVU"/>
+                            <constraint firstAttribute="centerX" secondItem="wzc-DT-AN0" secondAttribute="centerX" id="IfE-Dy-t9L"/>
                             <constraint firstAttribute="width" secondItem="BFX-lE-zt6" secondAttribute="height" multiplier="75:4" id="e2S-Ub-Dsk"/>
                             <constraint firstItem="Qs1-D5-dlA" firstAttribute="width" secondItem="tfz-Uc-kjt" secondAttribute="height" multiplier="2:7" id="hLe-iW-oyJ"/>
                             <constraint firstAttribute="centerX" secondItem="Qs1-D5-dlA" secondAttribute="centerX" id="jju-hf-U5D"/>
                             <constraint firstItem="wzc-DT-AN0" firstAttribute="top" secondItem="tfz-Uc-kjt" secondAttribute="top" constant="333" id="m0b-qk-cFQ"/>
                             <constraint firstItem="BFX-lE-zt6" firstAttribute="trailing" secondItem="tfz-Uc-kjt" secondAttribute="trailingMargin" id="not-O3-0Af"/>
+                            <constraint firstItem="wzc-DT-AN0" firstAttribute="width" secondItem="tfz-Uc-kjt" secondAttribute="width" id="rFW-Kn-S9h"/>
+                            <constraint firstItem="mQT-cf-raq" firstAttribute="top" secondItem="wzc-DT-AN0" secondAttribute="bottom" constant="70" id="ui2-Gp-6Px"/>
                             <constraint firstAttribute="centerX" secondItem="mQT-cf-raq" secondAttribute="centerX" id="vy2-P6-guA"/>
+                            <constraint firstItem="6wA-RJ-fwF" firstAttribute="top" secondItem="wzc-DT-AN0" secondAttribute="bottom" constant="6" id="zbX-Eh-g7D"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -363,6 +371,7 @@
                     </view>
                     <connections>
                         <outlet property="introScrollView" destination="wzc-DT-AN0" id="M5t-Wl-IOC"/>
+                        <outlet property="pageControl" destination="6wA-RJ-fwF" id="jRE-jf-mKn"/>
                         <outlet property="prepareWritingBtn" destination="mQT-cf-raq" id="K3t-xl-4aG"/>
                     </connections>
                 </viewController>
