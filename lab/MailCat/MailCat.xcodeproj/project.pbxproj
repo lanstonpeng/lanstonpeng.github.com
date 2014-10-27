@@ -30,7 +30,7 @@
 		9DA89DAE19FA648C00BA94ED /* LetterInBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA89DAD19FA648C00BA94ED /* LetterInBoxViewController.m */; };
 		9DAA25E719EF9E6E00F5DEA6 /* LetterStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA25E619EF9E6E00F5DEA6 /* LetterStatusViewController.m */; };
 		9DAA25ED19F0B64A00F5DEA6 /* MailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DAA25EC19F0B64A00F5DEA6 /* MailTableViewCell.m */; };
-		9DC80B0019FBF8C60067DC01 /* begin.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9D18C58019F7742900D11772 /* begin.mp4 */; };
+		9DC80B0019FBF8C60067DC01 /* cut1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9D18C58019F7742900D11772 /* cut1.mp4 */; };
 		9DF7222519F4EB5200453F05 /* MailCatUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF7222419F4EB5200453F05 /* MailCatUtil.m */; };
 		9DF7223419F51CA700453F05 /* MailCatBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF7223319F51CA700453F05 /* MailCatBaseViewController.m */; };
 		9DFBFB9919EE6FC2004D1715 /* LetterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DFBFB9819EE6FC2004D1715 /* LetterModel.m */; };
@@ -54,7 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9D18C58019F7742900D11772 /* begin.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = begin.mp4; sourceTree = "<group>"; };
+		9D18C58019F7742900D11772 /* cut1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cut1.mp4; sourceTree = "<group>"; };
 		9D18C58419F791FF00D11772 /* introductionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = introductionView.xib; sourceTree = "<group>"; };
 		9D18C58619F7924E00D11772 /* introductionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = introductionView.h; sourceTree = "<group>"; };
 		9D18C58719F7924E00D11772 /* introductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = introductionView.m; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				9D37B8A719FDECCB00FCECA3 /* cut2.mp4 */,
-				9D18C58019F7742900D11772 /* begin.mp4 */,
+				9D18C58019F7742900D11772 /* cut1.mp4 */,
 				9DFD789919EA1DF700B4393A /* 方正清刻本悦宋简体.ttf */,
 				9D93F85A19E8CA1100112CFA /* Info.plist */,
 				9D93F85B19E8CA1100112CFA /* main.m */,
@@ -371,7 +371,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DC80B0019FBF8C60067DC01 /* begin.mp4 in Resources */,
+				9DC80B0019FBF8C60067DC01 /* cut1.mp4 in Resources */,
 				9D18C58519F791FF00D11772 /* introductionView.xib in Resources */,
 				9DFD789E19EA246000B4393A /* 方正清刻本悦宋简体.ttf in Resources */,
 				9D93F86519E8CA1100112CFA /* Main.storyboard in Resources */,

@@ -576,16 +576,28 @@
                                     <segue destination="UuT-Dw-qbU" kind="show" identifier="LetterResult" id="T1G-ZE-jaw"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Mp8-5e-s0c">
+                                <rect key="frame" x="430" y="540" width="150" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="VbX-rY-hdG"/>
+                                    <constraint firstAttribute="height" constant="50" id="hcC-fa-LhQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="ZID-vC-RDG" secondAttribute="centerX" id="1Wc-dM-G9x"/>
+                            <constraint firstItem="Mp8-5e-s0c" firstAttribute="bottom" secondItem="uRS-TC-fdv" secondAttribute="bottom" constant="-10" id="2tt-wP-NiJ"/>
                             <constraint firstAttribute="centerX" secondItem="uRS-TC-fdv" secondAttribute="centerX" id="Ckc-6L-Lfg"/>
                             <constraint firstItem="yn8-xT-Jrj" firstAttribute="centerX" secondItem="Yij-RG-NdN" secondAttribute="centerX" id="D1i-g7-ThA"/>
                             <constraint firstAttribute="centerY" secondItem="ZID-vC-RDG" secondAttribute="centerY" id="HMI-4p-daM"/>
                             <constraint firstAttribute="centerX" secondItem="yn8-xT-Jrj" secondAttribute="centerX" id="Nfp-Vy-nWd"/>
                             <constraint firstItem="uRS-TC-fdv" firstAttribute="width" secondItem="ZID-vC-RDG" secondAttribute="width" multiplier="300:262" id="Ods-jk-EIx"/>
+                            <constraint firstItem="Mp8-5e-s0c" firstAttribute="trailing" secondItem="uRS-TC-fdv" secondAttribute="trailing" constant="-20" id="UWV-CL-pyb"/>
                             <constraint firstItem="ZID-vC-RDG" firstAttribute="top" secondItem="yn8-xT-Jrj" secondAttribute="bottom" multiplier="1:0.8" constant="8" symbolic="YES" id="az2-cD-4ny"/>
                             <constraint firstAttribute="width" secondItem="uRS-TC-fdv" secondAttribute="width" id="cdW-n4-Tvo"/>
                             <constraint firstItem="k3y-LF-whv" firstAttribute="top" secondItem="uRS-TC-fdv" secondAttribute="bottom" id="oO5-Tq-6kF"/>
@@ -606,6 +618,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="emailLabel" destination="Mp8-5e-s0c" id="K3H-On-QfI"/>
                         <outlet property="letterContainerView" destination="ZID-vC-RDG" id="Gp3-fu-jSp"/>
                         <outlet property="letterTextView" destination="f5v-ag-7hu" id="uJS-LS-h6G"/>
                         <outlet property="sendButton" destination="yn8-xT-Jrj" id="cH6-Cy-HgJ"/>

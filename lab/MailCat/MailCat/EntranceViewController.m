@@ -83,7 +83,8 @@
 {
     
     //NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"Remember to Write-HD" ofType:@"mp4"];
-    NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"begin" ofType:@"mp4"];
+    NSString* videoName = [NSString stringWithFormat:@"cut%d",(int)arc4random()%2 + 1];
+    NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"cut1" ofType:@"mp4"];
     NSURL* url = [NSURL fileURLWithPath:videoPath];
     NSLog(@"%@",url);
     self.player = [AVPlayer playerWithURL:url];

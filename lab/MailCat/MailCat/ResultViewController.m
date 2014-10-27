@@ -20,6 +20,7 @@
 @property (strong,nonatomic)UIAttachmentBehavior* attachmentBehavior;
 @property (strong,nonatomic)UIDynamicAnimator* animator;
 @property (weak, nonatomic) IBOutlet UIView *letterContainerView;
+@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
 
 @end
 
@@ -93,6 +94,7 @@
     self.letterTextView.layoutManager.delegate = self;
     NSString* text = [NSString stringWithFormat:@"%@\n    %@",self.letterModel.receiverName,self.letterModel.letterBody];
     self.letterTextView.text = text;
+    self.emailLabel.text = self.letterModel.sendToEmail;
     self.panDirection = UIRectEdgeLeft;
     self.animator = [[UIDynamicAnimator alloc]initWithReferenceView:self.view];
 }
