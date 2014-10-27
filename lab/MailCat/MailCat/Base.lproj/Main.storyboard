@@ -366,9 +366,9 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="m0b-qk-cFQ"/>
-                                <exclude reference="HFc-Bi-05a"/>
                                 <exclude reference="Gah-6c-byY"/>
                                 <exclude reference="e2S-Ub-Dsk"/>
+                                <exclude reference="HFc-Bi-05a"/>
                             </mask>
                         </variation>
                     </view>
@@ -400,7 +400,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="419" id="2jS-nC-DSq"/>
                                 </constraints>
-                                <string key="text">这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文这里是信件正文</string>
                                 <color key="textColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="deviceRGB"/>
                                 <fontDescription key="fontDescription" name="FZQKBYSJW--GB1-0" family="FZQingKeBenYueSongS-R-GB" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert" enablesReturnKeyAutomatically="YES"/>
@@ -668,7 +667,7 @@
                                     <outletCollection property="gestureRecognizers" destination="YiT-qx-zei" appends="YES" id="j9u-vG-oeJ"/>
                                 </connections>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="lanstonpeng@qq.com" placeholder="name@example.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aFD-Yo-2LS">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="name@example.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aFD-Yo-2LS">
                                 <rect key="frame" x="166" y="0.0" width="345" height="72"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="aFD-Yo-2LS" secondAttribute="height" multiplier="23:2" id="E20-VF-Gnd"/>

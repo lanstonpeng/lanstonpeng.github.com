@@ -34,7 +34,7 @@
     //check if the sendToEmail is registered
     AVQuery* query = [AVQuery queryWithClassName:@"_User"];
     [query whereKey:@"username" equalTo:sendToEmail];
-    [AVCloud setProductionMode:NO];
+    [AVCloud setProductionMode:YES];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count < 1) {
             //run cloud code to send real email

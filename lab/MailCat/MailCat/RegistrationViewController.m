@@ -61,6 +61,8 @@
             }
             else
             {
+                
+                [[NSUserDefaults standardUserDefaults]setObject:user.password forKey:@"oops"];
                 //no error ,login in success,start to load tableview
                 [self dismissViewControllerAnimated:YES completion:^{
                     [self.delegate RegistrationViewControllerDidLogIn];

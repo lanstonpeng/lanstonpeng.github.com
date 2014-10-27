@@ -14,7 +14,8 @@ typedef enum
     Draft = 1,
     Pending,
     Sent,
-    Received
+    Received,
+    HasRead
 }LetterStatus;
 
 @interface LetterModel : NSObject

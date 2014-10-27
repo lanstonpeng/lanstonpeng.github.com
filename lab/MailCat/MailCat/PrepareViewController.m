@@ -395,7 +395,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     WritingViewController* writingVC = (WritingViewController*)segue.destinationViewController;
-    self.letterModel.sendToEmail = @"lanstonpeng@qq.com";
+    //self.letterModel.sendToEmail = @"lanstonpeng@qq.com";
     writingVC.letterModel = self.letterModel;
 }
 - (IBAction)unwind:(id)sender {

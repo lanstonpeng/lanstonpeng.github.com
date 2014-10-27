@@ -47,7 +47,7 @@
     
     [containerView addSubview:toViewController.view];
     
-    CGRect displayFrame = fromViewController.view.bounds;
+    CGRect displayFrame = fromViewController.view.frame;
     CGRect hiddenFrame = CGRectOffset(displayFrame, displayFrame.size.width , 0);
     toViewController.view.frame = hiddenFrame;
     
@@ -70,7 +70,7 @@
     [containerView insertSubview:toViewController.view belowSubview:fromViewController.view];
     toViewController.view.alpha = 0;
     
-    CGRect displayFrame = fromViewController.view.bounds;
+    CGRect displayFrame = fromViewController.view.frame;
     CGRect hiddenFrame = CGRectOffset(displayFrame, displayFrame.size.width , 0);
     toViewController.view.frame = displayFrame;
     

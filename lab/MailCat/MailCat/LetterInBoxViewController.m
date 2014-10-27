@@ -192,14 +192,32 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
-        //read letter if the letter is arrived
-        ResultViewController* resultViewController = (ResultViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"resultViewController"];
         LetterModel* letterModel = [[LetterModel alloc]initWithDic:[self.receiveMailDataArr objectAtIndex:indexPath.row]];
-        resultViewController.letterModel = letterModel;
-        [self presentViewController:resultViewController animated:YES completion:^{
-            //TODO:User Experience
-            resultViewController.sendButton.hidden = YES;
-        }];
+        
+        //read letter if the letter is arrived
+        if([[NSDate new] compare:letterModel.receiveDate] != NSOrderedAscending)
+        {
+            ResultViewController* resultViewController = (ResultViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"resultViewController"];
+            resultViewController.letterModel = letterModel;
+            [self presentViewController:resultViewController animated:YES completion:^{
+                //TODO:User Experience
+                resultViewController.sendButton.hidden = YES;
+                //update letter status
+                AVObject* item = (AVObject*)[self.receiveMailDataArr objectAtIndex:indexPath.row];
+                [item setObject:@(HasRead) forKey:@"letterStatus"];
+                [item saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (error) {
+                        NSLog(@"update letter error: %@",error);
+                    }
+                }];
+                
+            }];
+        }
+        else
+        {
+            [[MailCatUtil singleton]displayToastMsg:@"信件还需要一点时间才能送达,请耐心等待" inView:self.view afterDelay:1.5];
+            
+        }
     }
     //send letter which can't be viewd
     else
