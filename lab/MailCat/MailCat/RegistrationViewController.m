@@ -11,7 +11,7 @@
 #import "LetterUser.h"
 #import <AVOSCloud/AVOSCloud.h>
 
-@interface RegistrationViewController ()
+@interface RegistrationViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *pwdTextField;
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;
@@ -116,6 +116,12 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

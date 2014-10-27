@@ -98,7 +98,7 @@ AV.Cloud.define("sendPreviewMail",function(request,response){
     var receiverName = request.params["receiverName"];
     var clipBody = "  " +  rawBody.substring(0,50);
 
-    var templatePath = __dirname + "/views/template.html";
+    var templatePath ="cloud/views/template.html";
 
     fs.readFile(templatePath,'utf8',function(err,data){
         var json = {
@@ -120,7 +120,6 @@ AV.Cloud.define("sendPreviewMail",function(request,response){
             "-F text='" + clipBody +"'",
             "--form-string html='" + output +"'"
         ].join(" ");
-        console.log(command);
         execute(command,function(result){
             response.success(result);
         });

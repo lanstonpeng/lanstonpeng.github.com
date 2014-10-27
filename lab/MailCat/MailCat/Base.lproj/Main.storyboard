@@ -32,10 +32,9 @@
         <scene sceneID="vz1-nL-gXp">
             <objects>
                 <tableViewController storyboardIdentifier="letterInboxViewController" id="H8m-d5-HzN" customClass="LetterInBoxViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" sectionHeaderHeight="22" sectionFooterHeight="22" id="MLm-Bo-vvW">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="120" sectionHeaderHeight="22" sectionFooterHeight="22" id="MLm-Bo-vvW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="reuseMailCell" rowHeight="150" id="5BQ-dz-0RR" customClass="MailTableViewCell">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -82,6 +81,11 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="clipContentLabel" destination="z4a-33-4O4" id="JhK-Y5-Z5l"/>
                                     <outlet property="senderMailLabel" destination="hKr-3B-wVC" id="XjA-MF-QT0"/>
@@ -107,13 +111,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vzk-55-cHk">
-                                <rect key="frame" x="532" y="20" width="52" height="31"/>
-                                <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="14"/>
-                                <state key="normal" image="Back down">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邮箱设置好了就可以接收别人的信件了" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="d02-JR-Swn">
                                 <rect key="frame" x="0.0" y="450" width="600" height="36"/>
                                 <constraints>
@@ -150,6 +147,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Thin" family="Apple SD Gothic Neo" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8f6-lJ-23N" id="PSz-pU-shm"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RCu-MG-5eb" userLabel="passTextFile">
                                 <rect key="frame" x="0.0" y="224" width="600" height="47"/>
@@ -163,6 +163,9 @@
                                         <exclude reference="uT9-ev-gwF"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <outlet property="delegate" destination="8f6-lJ-23N" id="BMa-J8-vP5"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="270-jr-5eC" userLabel="登陆">
                                 <rect key="frame" x="310" y="314.5" width="80" height="44"/>
@@ -182,7 +185,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLC-x5-DcH">
                                 <rect key="frame" x="16" y="28" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Back">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -313,7 +316,7 @@
                                 </variation>
                             </imageView>
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzc-DT-AN0">
-                                <rect key="frame" x="0.0" y="271" width="600" height="150"/>
+                                <rect key="frame" x="0.0" y="297" width="600" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="wzc-DT-AN0" secondAttribute="height" multiplier="4:1" id="2Ns-Z4-tUh"/>
                                 </constraints>
@@ -322,7 +325,7 @@
                                 </connections>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQT-cf-raq">
-                                <rect key="frame" x="236" y="491" width="129" height="43"/>
+                                <rect key="frame" x="236" y="517" width="129" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="Uah-yb-h1t"/>
                                     <constraint firstAttribute="width" constant="129" id="s4X-Tk-gTU"/>
@@ -337,7 +340,7 @@
                                 </connections>
                             </button>
                             <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="6wA-RJ-fwF">
-                                <rect key="frame" x="289" y="427" width="23" height="37"/>
+                                <rect key="frame" x="289" y="447" width="23" height="37"/>
                             </pageControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -345,7 +348,7 @@
                         <constraints>
                             <constraint firstItem="BFX-lE-zt6" firstAttribute="top" secondItem="dvl-GA-F25" secondAttribute="bottom" id="3c6-h3-bt3"/>
                             <constraint firstAttribute="centerX" secondItem="6wA-RJ-fwF" secondAttribute="centerX" id="8ow-2t-CB5"/>
-                            <constraint firstItem="Cw7-UG-bUQ" firstAttribute="top" secondItem="mQT-cf-raq" secondAttribute="bottom" constant="66" id="CCv-DI-Fo1"/>
+                            <constraint firstItem="Cw7-UG-bUQ" firstAttribute="top" secondItem="mQT-cf-raq" secondAttribute="bottom" constant="40" id="CCv-DI-Fo1"/>
                             <constraint firstAttribute="width" secondItem="BFX-lE-zt6" secondAttribute="height" multiplier="75:4" id="Gah-6c-byY"/>
                             <constraint firstItem="mQT-cf-raq" firstAttribute="leading" secondItem="wzc-DT-AN0" secondAttribute="trailing" constant="-245" id="HFc-Bi-05a"/>
                             <constraint firstItem="Qs1-D5-dlA" firstAttribute="top" secondItem="dvl-GA-F25" secondAttribute="bottom" constant="102" id="IXH-GY-4z0"/>
@@ -358,7 +361,7 @@
                             <constraint firstItem="wzc-DT-AN0" firstAttribute="width" secondItem="tfz-Uc-kjt" secondAttribute="width" id="rFW-Kn-S9h"/>
                             <constraint firstItem="mQT-cf-raq" firstAttribute="top" secondItem="wzc-DT-AN0" secondAttribute="bottom" constant="70" id="ui2-Gp-6Px"/>
                             <constraint firstAttribute="centerX" secondItem="mQT-cf-raq" secondAttribute="centerX" id="vy2-P6-guA"/>
-                            <constraint firstItem="6wA-RJ-fwF" firstAttribute="top" secondItem="wzc-DT-AN0" secondAttribute="bottom" constant="6" id="zbX-Eh-g7D"/>
+                            <constraint firstItem="6wA-RJ-fwF" firstAttribute="top" secondItem="wzc-DT-AN0" secondAttribute="bottom" id="zbX-Eh-g7D"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -652,7 +655,7 @@
                                     <outletCollection property="gestureRecognizers" destination="YiT-qx-zei" appends="YES" id="j9u-vG-oeJ"/>
                                 </connections>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="name@example.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aFD-Yo-2LS">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="lanstonpeng@qq.com" placeholder="name@example.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aFD-Yo-2LS">
                                 <rect key="frame" x="166" y="0.0" width="345" height="72"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="aFD-Yo-2LS" secondAttribute="height" multiplier="23:2" id="E20-VF-Gnd"/>
@@ -668,8 +671,8 @@
                                     <outlet property="delegate" destination="s6W-s2-SQ4" id="lJC-S1-OvL"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="18C-lt-wRE">
-                                <rect key="frame" x="397" y="88" width="203" height="32"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="18C-lt-wRE">
+                                <rect key="frame" x="402" y="88" width="203" height="32"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.69000000000000006" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="18C-lt-wRE" secondAttribute="height" multiplier="203:32" id="ZBa-Qk-HrI"/>
@@ -732,7 +735,7 @@
                             <constraint firstItem="aFD-Yo-2LS" firstAttribute="width" secondItem="lZp-KL-BRC" secondAttribute="height" multiplier="23:40" id="VoV-xH-no3"/>
                             <constraint firstItem="RsA-Zy-uPD" firstAttribute="leading" secondItem="lZp-KL-BRC" secondAttribute="leadingMargin" multiplier="6:1" id="Yhe-6I-Ckh"/>
                             <constraint firstItem="5ZK-1i-kBA" firstAttribute="height" secondItem="RsA-Zy-uPD" secondAttribute="height" id="ZUO-k2-k2j"/>
-                            <constraint firstItem="18C-lt-wRE" firstAttribute="trailing" secondItem="7OT-a1-1Dy" secondAttribute="trailing" id="ZsG-JE-V7U"/>
+                            <constraint firstItem="18C-lt-wRE" firstAttribute="trailing" secondItem="7OT-a1-1Dy" secondAttribute="trailing" constant="5" id="ZsG-JE-V7U"/>
                             <constraint firstItem="5ZK-1i-kBA" firstAttribute="width" secondItem="RsA-Zy-uPD" secondAttribute="width" id="Zuv-r3-zhf"/>
                             <constraint firstItem="7OT-a1-1Dy" firstAttribute="height" secondItem="lZp-KL-BRC" secondAttribute="height" id="ahM-e3-haR"/>
                             <constraint firstItem="7OT-a1-1Dy" firstAttribute="top" secondItem="18C-lt-wRE" secondAttribute="top" constant="-10" id="j4v-Nk-FcE"/>
@@ -914,7 +917,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Back down" width="42" height="25"/>
         <image name="Hamburger sort" width="44" height="17"/>
         <image name="Letter" width="556" height="972"/>
         <image name="Logo" width="412" height="108"/>

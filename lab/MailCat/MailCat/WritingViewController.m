@@ -38,6 +38,7 @@
     self.titleField.placeholder = @"称谓:";
     self.titleField.font = [UIFont fontWithName:ChineseFont size:20];
     self.titleField.delegate = self;
+    self.titleField.text = @"sucker";
     
     self.bodyTextView.font = [UIFont fontWithName:ChineseFont size:15];
     //self.bodyTextView.textAlignment = NSTextAlignmentCenter;

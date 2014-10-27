@@ -68,6 +68,10 @@
         [[MailCatUtil singleton]displayToastMsg:@"请确认收信人的位置" inView:self.view afterDelay:1.5];
         return NO;
     }
+    if (self.deliveryLabel.alpha  < 0.9) {
+        [[MailCatUtil singleton]displayToastMsg:@"正在计算信件送递时间,请稍等片刻" inView:self.view afterDelay:1.5];
+        return NO;
+    }
     return YES;
 }
 - (IBAction)clickBeginWriteButton:(UIButton *)sender {
@@ -250,7 +254,6 @@
 {
     MKPointAnnotation* annotation = [[MKPointAnnotation alloc]init];
     annotation.coordinate = location;
-    //annotation.title = @"sucker";
     [self.mapView addAnnotation:annotation];
     [self.mapView selectAnnotation:annotation animated:YES];
 }
@@ -259,6 +262,13 @@
 {
     MKAnnotationView* annotationView = [[MKAnnotationView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
     annotationView.image = [UIImage imageNamed:currentImageName];
+    if ([currentImageName isEqualToString:yourImageName] || [currentImageName isEqualToString:yourImageNameShadow]) {
+        annotationView.tag = 1000;
+    }
+    else
+    {
+        annotationView.tag = 2000;
+    }
     annotationView.draggable = YES;
     return annotationView;
 }
@@ -269,16 +279,25 @@ didChangeDragState:(MKAnnotationViewDragState)newState
    fromOldState:(MKAnnotationViewDragState)oldState
 {
     if (newState == MKAnnotationViewDragStateStarting) {
+        NSLog(@"drag starting");
         [UIView animateWithDuration:0.1 animations:^{
             [annotationView setFrame:CGRectOffset(annotationView.frame, 0, -5)];
         } completion:^(BOOL finished) {
         }];
     }
     if (newState == MKAnnotationViewDragStateEnding || newState == MKAnnotationViewDragStateCanceling) {
+        NSLog(@"drag ending");
         [annotationView setDragState:MKAnnotationViewDragStateNone animated:YES];
-        NSLog(@"MKAnnotation %f",((MKPointAnnotation*)annotationView.annotation).coordinate.latitude);
+        NSLog(@"MKAnnotation with tag: %lu , %f ",annotationView.tag,((MKPointAnnotation*)annotationView.annotation).coordinate.latitude);
+        if (annotationView.tag == 1000) {
+            currentLocation = ((MKPointAnnotation*)annotationView.annotation).coordinate;
+        }
+        else if (annotationView.tag == 2000)
+        {
+            destinationLocation = ((MKPointAnnotation*)annotationView.annotation).coordinate;
+        }
         if ([self isTwoPeplePlaceInMap]) {
-            [self getRouteLayer:currentLocation toLocation:((MKPointAnnotation*)annotationView.annotation).coordinate];
+            [self getRouteLayer:currentLocation toLocation:destinationLocation];
         }
     }
 }
@@ -376,6 +395,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     WritingViewController* writingVC = (WritingViewController*)segue.destinationViewController;
+    self.letterModel.sendToEmail = @"lanstonpeng@qq.com";
     writingVC.letterModel = self.letterModel;
 }
 - (IBAction)unwind:(id)sender {

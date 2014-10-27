@@ -31,7 +31,14 @@
 
 - (void)initReleaseView
 {
-    _testLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, -50, 50, 50)];
+    
+//    UIImage *_maskingImage = [UIImage imageNamed:@"arrowBack"];
+//    CALayer *_maskingLayer = [CALayer layer];
+//    _maskingLayer.frame = theView.bounds;
+//    [_maskingLayer setContents:(id)[_maskingImage CGImage]];
+//    [theView.layer setMask:_maskingLayer];
+    
+    _testLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, -50, 0, 10)];
     _testLabel.backgroundColor = [UIColor orangeColor];
     [self.view addSubview:_testLabel];
 }
@@ -44,6 +51,16 @@
     self.receiveMailDataArr = [NSMutableArray new];
     [[MailCatUtil singleton]showLoadingView:self.view];
     [self startLoadingTableView];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.view.backgroundColor = [UIColor whiteColor];
+    //self.tableView.backgroundColor = [UIColor whiteColor];
+    //self.view.backgroundColor = [UIColor colorWithRed:155/255.0 green:155/255.0 blue:155/255.0 alpha:0.4];
+    self.tableView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:235/255.0 alpha:1];
+    //self.view.backgroundColor = [UIColor grayColor];
 }
 
 -(void)startLoadingTableView
@@ -208,7 +225,9 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    _testLabel.text = [NSString stringWithFormat:@"%d",(int)-scrollView.contentOffset.y];
+    //_testLabel.text = [NSString stringWithFormat:@"%d",(int)-scrollView.contentOffset.y];
+    
+    _testLabel.frame = CGRectMake(0, -50, (int)-scrollView.contentOffset.y * (self.view.bounds.size.width / 100) , 10);
 }
 
 - (void)didReceiveMemoryWarning {

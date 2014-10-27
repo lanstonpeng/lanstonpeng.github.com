@@ -12,6 +12,7 @@
 		9D18C59619F89F7E00D11772 /* PrepareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D18C59519F89F7E00D11772 /* PrepareViewController.m */; };
 		9D18C59819F8A02900D11772 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D18C59719F8A02900D11772 /* MapKit.framework */; };
 		9D37B89B19FC959400FCECA3 /* MarginLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D37B89A19FC959400FCECA3 /* MarginLabel.m */; };
+		9D37B8A819FDECCB00FCECA3 /* cut2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9D37B8A719FDECCB00FCECA3 /* cut2.mp4 */; };
 		9D71D4B019EF6E7B00C37B48 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D71D4AF19EF6E7B00C37B48 /* AVOSCloud.framework */; };
 		9D93F85C19E8CA1100112CFA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D93F85B19E8CA1100112CFA /* main.m */; };
 		9D93F85F19E8CA1100112CFA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D93F85E19E8CA1100112CFA /* AppDelegate.m */; };
@@ -54,7 +55,6 @@
 
 /* Begin PBXFileReference section */
 		9D18C58019F7742900D11772 /* begin.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = begin.mp4; sourceTree = "<group>"; };
-		9D18C58219F7804800D11772 /* Remember to Write-HD.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Remember to Write-HD.mp4"; sourceTree = "<group>"; };
 		9D18C58419F791FF00D11772 /* introductionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = introductionView.xib; sourceTree = "<group>"; };
 		9D18C58619F7924E00D11772 /* introductionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = introductionView.h; sourceTree = "<group>"; };
 		9D18C58719F7924E00D11772 /* introductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = introductionView.m; sourceTree = "<group>"; };
@@ -63,6 +63,7 @@
 		9D18C59719F8A02900D11772 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9D37B89919FC959400FCECA3 /* MarginLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarginLabel.h; sourceTree = "<group>"; };
 		9D37B89A19FC959400FCECA3 /* MarginLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarginLabel.m; sourceTree = "<group>"; };
+		9D37B8A719FDECCB00FCECA3 /* cut2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = cut2.mp4; path = ../../../../cut2.mp4; sourceTree = "<group>"; };
 		9D71D4AF19EF6E7B00C37B48 /* AVOSCloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVOSCloud.framework; path = "../../../../Downloads/iOS/release-v2.6.5.1/AVOSCloud.framework"; sourceTree = "<group>"; };
 		9D93F85619E8CA1100112CFA /* MailCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MailCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D93F85A19E8CA1100112CFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -188,7 +189,7 @@
 		9D93F85919E8CA1100112CFA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9D18C58219F7804800D11772 /* Remember to Write-HD.mp4 */,
+				9D37B8A719FDECCB00FCECA3 /* cut2.mp4 */,
 				9D18C58019F7742900D11772 /* begin.mp4 */,
 				9DFD789919EA1DF700B4393A /* 方正清刻本悦宋简体.ttf */,
 				9D93F85A19E8CA1100112CFA /* Info.plist */,
@@ -376,6 +377,7 @@
 				9D93F86519E8CA1100112CFA /* Main.storyboard in Resources */,
 				9D93F86A19E8CA1100112CFA /* LaunchScreen.xib in Resources */,
 				9D93F86719E8CA1100112CFA /* Images.xcassets in Resources */,
+				9D37B8A819FDECCB00FCECA3 /* cut2.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
