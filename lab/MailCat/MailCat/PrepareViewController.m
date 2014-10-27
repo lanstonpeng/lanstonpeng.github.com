@@ -60,12 +60,12 @@
     }
     if (self.yourImageView.alpha > 0.5) {
         [[MailCatUtil singleton]shakeView:self.yourImageView];
-        [[MailCatUtil singleton]displayToastMsg:@"请确认你的寄信位置" inView:self.view afterDelay:1.5];
+        [[MailCatUtil singleton]displayToastMsg:@"请拖动头像确认你的寄信位置" inView:self.view afterDelay:1.5];
         return NO;
     }
     if (self.friendImageView.alpha > 0.5) {
         [[MailCatUtil singleton]shakeView:self.friendImageView];
-        [[MailCatUtil singleton]displayToastMsg:@"请确认收信人的位置" inView:self.view afterDelay:1.5];
+        [[MailCatUtil singleton]displayToastMsg:@"请拖动头像确认收信人的位置" inView:self.view afterDelay:1.5];
         return NO;
     }
     if (self.deliveryLabel.alpha  < 0.9) {
@@ -157,6 +157,17 @@
 - (IBAction)handlePanFriendImage:(UIPanGestureRecognizer*)recognizer {
     currentImageName = friendImageName;
     [self hanelPanWithImageView:self.friendImageView withRecognizer:recognizer];
+}
+- (IBAction)tapFriendImageView:(UITapGestureRecognizer*)recognizer {
+    [UIView animateWithDuration:0.1 animations:^{
+        [_friendImageView setFrame:CGRectOffset(_friendImageView.frame, 0, -5)];
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.1 animations:^{
+            [_friendImageView setFrame:CGRectOffset(_friendImageView.frame, 0, 5)];
+        } completion:^(BOOL finished) {
+            
+        }];
+    }];
 }
 
 - (void)viewDidLayoutSubviews

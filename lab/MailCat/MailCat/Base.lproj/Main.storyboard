@@ -658,6 +658,7 @@
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="iLQ-Wp-Z0A" appends="YES" id="02C-Hk-X1g"/>
+                                    <outletCollection property="gestureRecognizers" destination="yLi-pY-JDo" appends="YES" id="VDb-n5-WHq"/>
                                 </connections>
                             </imageView>
                             <imageView userInteractionEnabled="NO" tag="1000" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="anotherTestQQ" translatesAutoresizingMaskIntoConstraints="NO" id="5ZK-1i-kBA" userLabel="Me">
@@ -785,6 +786,11 @@
                         <action selector="handlePanFriendImage:" destination="s6W-s2-SQ4" id="SFy-MW-Uxo"/>
                     </connections>
                 </panGestureRecognizer>
+                <tapGestureRecognizer id="yLi-pY-JDo">
+                    <connections>
+                        <action selector="tapFriendImageView:" destination="s6W-s2-SQ4" id="iQw-iQ-ewh"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1029" y="-604"/>
         </scene>

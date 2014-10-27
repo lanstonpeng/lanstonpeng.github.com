@@ -18,6 +18,7 @@
 #import "LetterInBoxViewController.h"
 #import "RegistrationViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "Reachability.h"
 
 @interface EntranceViewController ()<RegistrationViewControllerDelegate,UIScrollViewDelegate>
 
@@ -36,6 +37,7 @@
 @implementation EntranceViewController
 {
     CALayer* shadowLayer;
+    BOOL isConnected;
 }
 - (IBAction)showSideMenu:(id)sender {
 }
@@ -83,7 +85,7 @@
 {
     
     //NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"Remember to Write-HD" ofType:@"mp4"];
-    NSString* videoName = [NSString stringWithFormat:@"cut%d",(int)arc4random()%2 + 1];
+    //NSString* videoName = [NSString stringWithFormat:@"cut%d",(int)arc4random()%2 + 1];
     NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"cut1" ofType:@"mp4"];
     NSURL* url = [NSURL fileURLWithPath:videoPath];
     NSLog(@"%@",url);
@@ -140,15 +142,43 @@
     //[self.playerLayer removeFromSuperlayer];
 }
 
+- (void)checkNetworkStatus
+{
+    Reachability* reach = [Reachability reachabilityWithHostname:@"www.baidu.com"];
+    reach.reachableBlock = ^(Reachability*reach)
+    {
+        isConnected = YES;
+    };
+    
+    reach.unreachableBlock = ^(Reachability*reach)
+    {
+        isConnected = NO;
+    };
+    [reach startNotifier];
+}
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    isConnected = NO;
+    [self checkNetworkStatus];
     self.storyBoardIdentifier = @"entranceViewController";
     [self initUI];
     [self showVideoLayer];
 }
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if(isConnected){
+        return YES;
+    }
+    else
+    {
+        [[MailCatUtil singleton]displayToastMsg:@"网络尚未连接" inView:self.view afterDelay:1.3];
+        return NO;
+    }
+}
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     [self cleanVideoLayer];
@@ -171,10 +201,16 @@
     }
     else
     {
-        //present registration view controller with unregisted flag
-        RegistrationViewController* registionViewController = (RegistrationViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"registrationViewController"];
-        registionViewController.userStatus = UnRegister;
-        [self presentViewController:registionViewController animated:YES completion:nil];
+        if (isConnected) {
+            //present registration view controller with unregisted flag
+            RegistrationViewController* registionViewController = (RegistrationViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"registrationViewController"];
+            registionViewController.userStatus = UnRegister;
+            [self presentViewController:registionViewController animated:YES completion:nil];
+        }
+        else
+        {
+            [[MailCatUtil singleton]displayToastMsg:@"网络尚未连接" inView:self.view afterDelay:1.3];
+        }
     }
 }
 
@@ -204,10 +240,16 @@
             {
                 //present registration view controller with unverified flag
                 //present inbox viewcontroller
-                RegistrationViewController* registionViewController = (RegistrationViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"registrationViewController"];
-                registionViewController.delegate = self;
-                registionViewController.userStatus = UnVerified;
-                [self presentViewController:registionViewController animated:YES completion:nil];
+                if (isConnected) {
+                    RegistrationViewController* registionViewController = (RegistrationViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"registrationViewController"];
+                    registionViewController.delegate = self;
+                    registionViewController.userStatus = UnVerified;
+                    [self presentViewController:registionViewController animated:YES completion:nil];
+                }
+                else
+                {
+                    [[MailCatUtil singleton]displayToastMsg:@"网络尚未连接" inView:self.view afterDelay:1.3];
+                }
             }
         });
     }];
@@ -220,8 +262,14 @@
 
 - (void)presentLetterInboxVC
 {
-    LetterInBoxViewController* letterInboxViewController = (LetterInBoxViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"letterInboxViewController"];
-    [self presentViewController:letterInboxViewController animated:YES completion:nil];
+    if (isConnected) {
+        LetterInBoxViewController* letterInboxViewController = (LetterInBoxViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"letterInboxViewController"];
+        [self presentViewController:letterInboxViewController animated:YES completion:nil];
+    }
+    else
+    {
+        [[MailCatUtil singleton]displayToastMsg:@"网络尚未连接" inView:self.view afterDelay:1.3];
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -230,5 +278,7 @@
     NSInteger page = lround(fractionalPage);
     self.pageControl.currentPage = page; // you need to have a **iVar** with getter for pageControl
 }
+
+
 
 @end

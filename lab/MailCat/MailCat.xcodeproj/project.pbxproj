@@ -13,6 +13,7 @@
 		9D18C59819F8A02900D11772 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D18C59719F8A02900D11772 /* MapKit.framework */; };
 		9D37B89B19FC959400FCECA3 /* MarginLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D37B89A19FC959400FCECA3 /* MarginLabel.m */; };
 		9D37B8A819FDECCB00FCECA3 /* cut2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9D37B8A719FDECCB00FCECA3 /* cut2.mp4 */; };
+		9D4C09CC19FE69C700E8DC4D /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D4C09CB19FE69C700E8DC4D /* Reachability.m */; };
 		9D71D4B019EF6E7B00C37B48 /* AVOSCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D71D4AF19EF6E7B00C37B48 /* AVOSCloud.framework */; };
 		9D93F85C19E8CA1100112CFA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D93F85B19E8CA1100112CFA /* main.m */; };
 		9D93F85F19E8CA1100112CFA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D93F85E19E8CA1100112CFA /* AppDelegate.m */; };
@@ -64,6 +65,8 @@
 		9D37B89919FC959400FCECA3 /* MarginLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarginLabel.h; sourceTree = "<group>"; };
 		9D37B89A19FC959400FCECA3 /* MarginLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarginLabel.m; sourceTree = "<group>"; };
 		9D37B8A719FDECCB00FCECA3 /* cut2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = cut2.mp4; path = ../../../../cut2.mp4; sourceTree = "<group>"; };
+		9D4C09CA19FE69C700E8DC4D /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		9D4C09CB19FE69C700E8DC4D /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		9D71D4AF19EF6E7B00C37B48 /* AVOSCloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVOSCloud.framework; path = "../../../../Downloads/iOS/release-v2.6.5.1/AVOSCloud.framework"; sourceTree = "<group>"; };
 		9D93F85619E8CA1100112CFA /* MailCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MailCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D93F85A19E8CA1100112CFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -253,6 +256,8 @@
 		9DFBFBA519EEED3D004D1715 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				9D4C09CA19FE69C700E8DC4D /* Reachability.h */,
+				9D4C09CB19FE69C700E8DC4D /* Reachability.m */,
 				9DFBFBA219EEED36004D1715 /* MBProgressHUD.h */,
 				9DFBFBA319EEED36004D1715 /* MBProgressHUD.m */,
 			);
@@ -410,6 +415,7 @@
 				9DFD78A419EA3DFA00B4393A /* TransitionManager.m in Sources */,
 				9DFBFBA019EEE4CD004D1715 /* LetterUser.m in Sources */,
 				9D18C58819F7924E00D11772 /* introductionView.m in Sources */,
+				9D4C09CC19FE69C700E8DC4D /* Reachability.m in Sources */,
 				9DAA25ED19F0B64A00F5DEA6 /* MailTableViewCell.m in Sources */,
 				9DF7222519F4EB5200453F05 /* MailCatUtil.m in Sources */,
 				9DFBFB9D19EE8494004D1715 /* ResultViewController.m in Sources */,

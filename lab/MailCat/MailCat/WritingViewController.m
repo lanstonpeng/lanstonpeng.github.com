@@ -34,7 +34,7 @@
     [super viewDidLoad];
     self.storyBoardIdentifier = @"writingViewController";
     
-    self.titleField = [[UITextField alloc]initWithFrame:CGRectMake(15, 50, 80, 40)];
+    self.titleField = [[UITextField alloc]initWithFrame:CGRectMake(15, 50, 120, 40)];
     self.titleField.placeholder = @"称谓:";
     self.titleField.font = [UIFont fontWithName:ChineseFont size:20];
     self.titleField.delegate = self;
