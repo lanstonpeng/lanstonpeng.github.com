@@ -17,7 +17,7 @@
 
 @interface LetterInBoxViewController ()<UITableViewDataSource,UITableViewDelegate>
 
-@property(strong,nonatomic)UILabel* testLabel;
+@property(strong,nonatomic)UILabel* progressLabel;
 
 @property (strong,nonatomic)NSArray* mailDataArr;
 
@@ -31,16 +31,9 @@
 
 - (void)initReleaseView
 {
-    
-//    UIImage *_maskingImage = [UIImage imageNamed:@"arrowBack"];
-//    CALayer *_maskingLayer = [CALayer layer];
-//    _maskingLayer.frame = theView.bounds;
-//    [_maskingLayer setContents:(id)[_maskingImage CGImage]];
-//    [theView.layer setMask:_maskingLayer];
-    
-    _testLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, -50, 0, 10)];
-    _testLabel.backgroundColor = [UIColor orangeColor];
-    [self.view addSubview:_testLabel];
+    _progressLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, 2)];
+    _progressLabel.backgroundColor = UIColorFromRGB(0x19A9E7);
+    [self.view addSubview:_progressLabel];
 }
 
 - (void)viewDidLoad {
@@ -57,10 +50,7 @@
 {
     [super viewDidAppear:animated];
     self.view.backgroundColor = [UIColor whiteColor];
-    //self.tableView.backgroundColor = [UIColor whiteColor];
-    //self.view.backgroundColor = [UIColor colorWithRed:155/255.0 green:155/255.0 blue:155/255.0 alpha:0.4];
     self.tableView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:235/255.0 alpha:1];
-    //self.view.backgroundColor = [UIColor grayColor];
 }
 
 -(void)startLoadingTableView
@@ -118,9 +108,18 @@
 //    return @"发送的信件";
 //    
 //}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 15;
+}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width/2, 30)];
+    UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 15)];
+    //label.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+    label.font = [UIFont systemFontOfSize:15];
+    //label.textColor = [UIColor whiteColor];
+    label.textAlignment = NSTextAlignmentCenter;
     if (section == 1) {
         if (self.receiveMailDataArr.count > 0) {
             label.text = @"收到的信件";
@@ -251,7 +250,7 @@
 {
     //_testLabel.text = [NSString stringWithFormat:@"%d",(int)-scrollView.contentOffset.y];
     
-    _testLabel.frame = CGRectMake(0, -50, (int)-scrollView.contentOffset.y * (self.view.bounds.size.width / 100) , 10);
+    _progressLabel.frame = CGRectMake(0, 0, (int)-scrollView.contentOffset.y * (self.view.bounds.size.width / 100) ,_progressLabel.frame.size.height);
 }
 
 - (void)didReceiveMemoryWarning {
