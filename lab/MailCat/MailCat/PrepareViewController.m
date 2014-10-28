@@ -271,6 +271,8 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
+    NSLog(@"%f",annotation.coordinate.latitude);
+    
     MKAnnotationView* annotationView = [[MKAnnotationView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
     annotationView.image = [UIImage imageNamed:currentImageName];
     if ([currentImageName isEqualToString:yourImageName] || [currentImageName isEqualToString:yourImageNameShadow]) {
@@ -337,14 +339,14 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     
     [direction calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
         
-        int dayNeeded;
+        int hourNeeded;
+        __block double totalTime = 0;
         if (error) {
             NSLog(@"get route error:%@",error);
-            dayNeeded = arc4random() % 3;
+            hourNeeded = arc4random() % 24 + 5;
         }
         else
         {
-            __block double totalTime = 0;
             NSArray *arrRoutes = [response routes];
             [arrRoutes enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 
@@ -356,15 +358,17 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             }];
             //NSLog(@"expectedTime:%f",totalTime / 86400);
             //NSLog(@"expectedTime:%f",totalTime / 43200);
-            dayNeeded = (int)ceil(totalTime / 43200);
+            hourNeeded = (int)ceil(totalTime / 1440);
         }
-        self.deliveryLabel.text = [NSString stringWithFormat:@"信件大概 %d天后 送达",dayNeeded];
+        //self.deliveryLabel.text = [NSString stringWithFormat:@"信件大概 %d天后 送达",dayNeeded];
+        self.deliveryLabel.text = [NSString stringWithFormat:@"信件大概 %d小时后 送达",hourNeeded];
         if (self.deliveryLabel.alpha < 0.1) {
             [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 self.deliveryLabel.alpha = 1;
             } completion:nil];
         }
-        self.letterModel.receiveDate = [[NSDate alloc]initWithTimeInterval:86400 * dayNeeded sinceDate:[NSDate new]];
+        //self.letterModel.receiveDate = [[NSDate alloc]initWithTimeInterval:totalTime sinceDate:[NSDate new]];
+        self.letterModel.receiveDate = [[NSDate alloc]initWithTimeIntervalSinceNow:totalTime];
         self.letterModel.sendDate = [NSDate new];
     }];
 }

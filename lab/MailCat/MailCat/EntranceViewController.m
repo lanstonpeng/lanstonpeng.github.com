@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *introScrollView;
+@property (weak, nonatomic) IBOutlet UIButton *inboxButton;
 
 @property (strong,nonatomic)AVPlayer* player;
 
@@ -42,12 +43,27 @@
 - (IBAction)showSideMenu:(id)sender {
 }
 
+- (void)showInboxICON
+{
+    AVUser* currentUser = [AVUser currentUser];
+    if(currentUser){
+        AVQuery* query = [AVQuery queryWithClassName:@"_User"];
+        [query whereKey:@"username" equalTo:currentUser.email];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (objects.count > 0) {
+                AVUser* user = (AVUser*)[objects firstObject];
+                if ([[user objectForKey:@"hasNewMail"] boolValue]) {
+                    [self.inboxButton setImage:[UIImage imageNamed:@"gotMail"] forState:UIControlStateNormal];
+                }
+            }
+        }];
+    }
+}
 - (void)initUI
 {
     self.prepareWritingBtn.layer.cornerRadius = 4;
     self.prepareWritingBtn.layer.borderWidth = 0.5;
     self.prepareWritingBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-    
 }
 
 - (void)showIntroductionView
@@ -88,7 +104,6 @@
     //NSString* videoName = [NSString stringWithFormat:@"cut%d",(int)arc4random()%2 + 1];
     NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"cut1" ofType:@"mp4"];
     NSURL* url = [NSURL fileURLWithPath:videoPath];
-    NSLog(@"%@",url);
     self.player = [AVPlayer playerWithURL:url];
     self.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
     self.player.volume = 0;
@@ -192,6 +207,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self showInboxICON];
 }
 
 - (IBAction)clickInboxButton:(id)sender {
@@ -221,10 +237,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (BOOL)prefersStatusBarHidden
-{
-    return NO;
-}
+//- (BOOL)prefersStatusBarHidden
+//{
+//    return NO;
+//}
 
 - (void)checkEmailVerified
 {

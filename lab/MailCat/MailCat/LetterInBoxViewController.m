@@ -179,8 +179,14 @@
     }
     
     NSDate* avaiableDate = [item objectForKey:@"receiveDate"];
-    NSUInteger dayLeft = [[MailCatUtil singleton]calcuateLeftDays:avaiableDate];
-    cell.timeNeededLabel.text =[NSString stringWithFormat:@"预计需要%lu天到达",dayLeft + 1];
+    NSUInteger hourLeft = [[MailCatUtil singleton]calcuateLeftDays:avaiableDate];
+    if (hourLeft == 0) {
+        cell.timeNeededLabel.text = @"信件已送达";
+    }
+    else
+    {
+        cell.timeNeededLabel.text =[NSString stringWithFormat:@"预计需要 %lu小时 到达",hourLeft];
+    }
     NSString* fullContent = [item objectForKey:@"letterBody"];
     NSString* receiverName = [item objectForKey:@"receiverName"];
     NSString* clipContent = [NSString stringWithFormat:@"%@:\n%@...",receiverName,[fullContent substringWithRange:NSMakeRange(0, fullContent.length <50?fullContent.length - 1:50)]];

@@ -99,15 +99,15 @@ AV.Cloud.define("sendPreviewMail",function(request,response){
     var receiverName = request.params["receiverName"];
     var clipBody = "  " +  rawBody.substring(0,50);
 
-    var templatePath ="views/template.html";
+    var templatePath = __dirname + "/views/template.html";
 
     Req.get("http://mailcat.avosapps.com/template.html",function(err,res,data){
         var json = {
             "sendToEmail": sendToEmail,
             "dayLeft":dayLeft,
-            "senderEmail":senderMail ? senderMail : "想保持神秘感的TA",
+            "senderEmail":senderMail ? senderEmail.split("@")[0] : "某只猫",
             "clipBody":clipBody,
-            "receiverName":sendToEmail.split("@")[0]
+            "receiverName":receiverName
         };
         var output = Mustache.render(data, json);
 
@@ -135,6 +135,60 @@ AV.Cloud.define("hello", function(request, response) {
     Req.get("http://mailcat.avosapps.com/template.html",function(err,res,body){
         response.success(body);
     });
+});
+
+
+
+//Hook
+AV.Cloud.afterSave("LetterData",function(request){
+    var query = new AV.Query("_User");
+    var sendToEmail = request.object.get("sendToEmail");
+    query.equalTo("email", sendToEmail);
+    query.first({
+        success:function(object){
+            object.set("hasNewMail",true);
+            object.save();
+        },
+        error:function(obj){
+            console.log("update user data error");
+        }
+    })
+});
+
+AV.Cloud.afterUpdate("LetterData",function(request){
+    var sendToEmail = request.object.get("sendToEmail");
+    var queryLetter = new AV.Query("LetterData");
+    queryLetter.equalTo("sendToEmail",sendToEmail);
+    queryLetter.find({
+        success:function(results){
+            var needToChangeNewMailFlag = false;
+            for(var i = 0,len = results.length;i<len;i++)
+            {
+                var item = results[i];
+                var letterStatus = item.get("letterStatus");
+                if(letterStatus != 5){
+                    needToChangeNewMailFlag = true;
+                    break;
+                }
+            }
+            var queryUser = new AV.Query("_User");
+            queryUser.equalTo("email", sendToEmail);
+            queryUser.first({
+                success:function(object){
+                    object.set("hasNewMail",needToChangeNewMailFlag);
+                    object.save();
+                },
+                error:function(obj){
+                    console.log("update user data error after updating");
+                }
+            })
+        },
+        error:function(){
+            console.log("update failded");
+        }
+    });
+
+
 });
 
 AV.Cloud.define("averageStars", function(request, response) {

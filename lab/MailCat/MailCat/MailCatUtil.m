@@ -77,14 +77,14 @@
 - (NSUInteger)calcuateLeftDays:(NSDate*)avaiableDate
 {
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
+    NSDateComponents *components = [gregorianCalendar components:NSHourCalendarUnit
                                                         fromDate:[NSDate new]
                                                           toDate:avaiableDate
                                                          options:0];
-    if ([components day] <= 0) {
-        return 1;
+    if ([components hour] <= 0) {
+        return 0;
     }
-    return [components day];
+    return [components hour];
 }
 
 - (BOOL) validateEmail: (NSString *) candidate {
