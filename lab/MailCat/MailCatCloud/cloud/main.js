@@ -95,40 +95,41 @@ AV.Cloud.define("sendPreviewMail",function(request,response){
     var sendToEmail = request.params["sendToMail"];
     var rawBody = request.params["body"];
     var senderMail = request.params["senderMail"];
-    var dayLeft = request.params["dayLeft"];
+    var hourLeft = request.params["hourLeft"];
     var receiverName = request.params["receiverName"];
     var clipBody = "  " +  rawBody.substring(0,50);
 
     var templatePath = __dirname + "/views/template.html";
 
-    Req.get("http://mailcat.avosapps.com/template.html",function(err,res,data){
+    //Req.get("http://mailcat.avosapps.com/template.html",function(err,res,data){
+    //});
+
+    fs.readFile(templatePath,'utf8',function(err,data){
+        console.log(data);
         var json = {
             "sendToEmail": sendToEmail,
-            "dayLeft":dayLeft,
-            "senderEmail":senderMail ? senderEmail.split("@")[0] : "某只猫",
+            "hourLeft":hourLeft,
+            "senderEmail":senderMail ? senderMail.split("@")[0] : "某只猫",
             "clipBody":clipBody,
             "receiverName":receiverName
         };
+
         var output = Mustache.render(data, json);
 
         var command = [
             "curl -s --user 'api:key-9febcc3d7295dc80e5591f0f6784a663'",
-            "https://api.mailgun.net/v2/sandbox07642907a9c24ad988d7ee436bb30a9b.mailgun.org/messages",
+            "https://api.mailgun.net/v2/mailcat.me/messages",
             "-F from='MailCat <postman@mailcat.me>'",
             "-F to='" + sendToEmail + "'",
             "-F subject='来自MailCat的信件'",
             "-F text='" + clipBody +"'",
             "--form-string html='" + output +"'"
         ].join(" ");
+
         execute(command,function(result){
             response.success(result);
         });
     });
-
-    /*
-    fs.readFile(templatePath,'utf8',function(err,data){
-    });
-    */
 });
 
 AV.Cloud.define("hello", function(request, response) {

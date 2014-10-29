@@ -42,7 +42,8 @@
                                           @"sendToMail":sendToEmail,
                                           @"body":self.letterModel.letterBody,
                                           @"senderMail":self.letterModel.senderEmail?:@"",
-                                          @"dayLeft":@([[MailCatUtil singleton]calcuateLeftDays:self.letterModel.receiveDate]),
+                                          //@"dayLeft":@([[MailCatUtil singleton]calcuateLeftDays:self.letterModel.receiveDate]),
+                                          @"hourLeft":@([[MailCatUtil singleton]calcuateLeftDays:self.letterModel.receiveDate]),
                                           @"receiverName":self.letterModel.receiverName
                                           };
             [AVCloud callFunctionInBackground:@"sendPreviewMail" withParameters: parameters block:^(id object, NSError *error) {

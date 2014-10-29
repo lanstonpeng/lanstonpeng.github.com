@@ -77,12 +77,16 @@
 - (NSUInteger)calcuateLeftDays:(NSDate*)avaiableDate
 {
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *components = [gregorianCalendar components:NSHourCalendarUnit
+    NSDateComponents *components = [gregorianCalendar components:NSHourCalendarUnit | NSMinuteCalendarUnit 
                                                         fromDate:[NSDate new]
                                                           toDate:avaiableDate
                                                          options:0];
-    if ([components hour] <= 0) {
+    if ([components hour] <= 0 && [components minute]<=0) {
         return 0;
+    }
+    else if([components minute] >= 0 && [components hour] <= 0)
+    {
+        return 1;
     }
     return [components hour];
 }
@@ -109,7 +113,7 @@
 - (NSString*)getDateString:(NSDate*)date
 {
     NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
-    formatter.dateFormat = @"YYYY-MM-DD";
+    formatter.dateFormat = @"YYYY-MM-dd";
     return [formatter stringFromDate:[[NSDate alloc]init] ];
 }
 

@@ -11,17 +11,17 @@
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>C3C42C8A9A691B28A70D8DEA0F6004B611FA02E7</key>
-		<string>ssh://github.com/lanstonpeng/lanstonpeng.github.com.git</string>
+		<string>github.com:lanstonpeng/lanstonpeng.github.com.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>lab/Poem/Poem.xcodeproj/project.xcworkspace</string>
+	<string>lab/Poem/Poem.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>C3C42C8A9A691B28A70D8DEA0F6004B611FA02E7</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/lanstonpeng/lanstonpeng.github.com.git</string>
+	<string>github.com:lanstonpeng/lanstonpeng.github.com.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>

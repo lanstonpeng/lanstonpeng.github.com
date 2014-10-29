@@ -38,7 +38,6 @@
     self.titleField.placeholder = @"称谓:";
     self.titleField.font = [UIFont fontWithName:ChineseFont size:20];
     self.titleField.delegate = self;
-    //self.titleField.text = @"sucker";
     
     self.bodyTextView.font = [UIFont fontWithName:ChineseFont size:15];
     //self.bodyTextView.textAlignment = NSTextAlignmentCenter;
@@ -123,8 +122,7 @@
         [[MailCatUtil singleton]displayToastMsg:@"漏了称呼了呀" inView:self.view];
         return NO;
     }
-    //TODO:change this word count number
-    if (self.bodyTextView.text.length < 14) {
+    if (self.bodyTextView.text.length < 140) {
         NSString* msg = [NSString stringWithFormat:@"字数太少了,至少还要%d个字",MAX(0,140 - (int)self.bodyTextView.text.length)];
         [[MailCatUtil singleton]displayToastMsg:msg inView:self.view afterDelay:1.5];
         return NO;
