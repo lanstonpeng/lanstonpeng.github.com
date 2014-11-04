@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D14BF571A0335680011B61A /* UIViewController+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D14BF561A0335680011B61A /* UIViewController+Swizzling.m */; };
 		9DF46B731A00C78F00E7040F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF46B721A00C78F00E7040F /* main.m */; };
 		9DF46B761A00C78F00E7040F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF46B751A00C78F00E7040F /* AppDelegate.m */; };
 		9DF46B791A00C78F00E7040F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF46B781A00C78F00E7040F /* ViewController.m */; };
@@ -27,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D14BF551A0335680011B61A /* UIViewController+Swizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Swizzling.h"; sourceTree = "<group>"; };
+		9D14BF561A0335680011B61A /* UIViewController+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Swizzling.m"; sourceTree = "<group>"; };
 		9DF46B6D1A00C78F00E7040F /* IBtester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IBtester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DF46B711A00C78F00E7040F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DF46B721A00C78F00E7040F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -87,6 +90,8 @@
 				9DF46B781A00C78F00E7040F /* ViewController.m */,
 				9DF46B7A1A00C78F00E7040F /* Main.storyboard */,
 				9DF46B7D1A00C78F00E7040F /* Images.xcassets */,
+				9D14BF551A0335680011B61A /* UIViewController+Swizzling.h */,
+				9D14BF561A0335680011B61A /* UIViewController+Swizzling.m */,
 				9DF46B7F1A00C78F00E7040F /* LaunchScreen.xib */,
 				9DF46B701A00C78F00E7040F /* Supporting Files */,
 			);
@@ -219,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D14BF571A0335680011B61A /* UIViewController+Swizzling.m in Sources */,
 				9DF46B791A00C78F00E7040F /* ViewController.m in Sources */,
 				9DF46B761A00C78F00E7040F /* AppDelegate.m in Sources */,
 				9DF46B731A00C78F00E7040F /* main.m in Sources */,
@@ -412,6 +418,7 @@
 				9DF46B921A00C78F00E7040F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9DF46B931A00C78F00E7040F /* Build configuration list for PBXNativeTarget "IBtesterTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +427,7 @@
 				9DF46B951A00C78F00E7040F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -24,7 +24,7 @@ class DataManipulator: NSObject {
         
         if !fileManager.fileExistsAtPath(recordDocumentPath)
         {
-            fileManager.copyItemAtPath(recordBundlePath, toPath: recordDocumentPath, error: nil)
+            fileManager.copyItemAtPath(recordBundlePath!, toPath: recordDocumentPath, error: nil)
         }
         else
         {
@@ -82,7 +82,7 @@ class DataManipulator: NSObject {
             //add today item
             var allRecordDic = NSMutableDictionary(contentsOfFile:recordPath)
             let todayDic = NSMutableDictionary()
-            allRecordDic.setObject(todayDic, forKey: DataManipulator.getTodayStringID())
+            //allRecordDic.setObject(todayDic, forKey: DataManipulator.getTodayStringID())
             //add a new record
             addOneRecord(cell, todayDic)
         }
@@ -101,7 +101,7 @@ class DataManipulator: NSObject {
         
         let todayString = DataManipulator.getTodayStringID()
         
-        if allRecord.objectForKey(todayString)
+        if (allRecord.objectForKey(todayString) != nil)
         {
             return allRecord.objectForKey(todayString) as? NSMutableDictionary
         }

@@ -18,7 +18,7 @@ class TransitionManager:NSObject, UIViewControllerAnimatedTransitioning {
         super.init()
     }
    
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning!)
+    func animateTransition(transitionContext: UIViewControllerContextTransitioning)
     {
         if isPresent
         {
@@ -36,10 +36,10 @@ class TransitionManager:NSObject, UIViewControllerAnimatedTransitioning {
             println(view.tag)
         }
     }
-    func animationForDismissTransition(transitionContext:UIViewControllerContextTransitioning!)
+    func animationForDismissTransition(transitionContext:UIViewControllerContextTransitioning)
     {
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
-        let toViewContrller = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as UIViewController!
+        let toViewContrller = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as UIViewController!
         let containerView  = transitionContext.containerView()
         let duration  =  self.transitionDuration(transitionContext)
         
@@ -61,10 +61,10 @@ class TransitionManager:NSObject, UIViewControllerAnimatedTransitioning {
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
             })
     }
-    func animationForPresentTransition(transitionContext:UIViewControllerContextTransitioning!)
+    func animationForPresentTransition(transitionContext:UIViewControllerContextTransitioning)
     {
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
-        let toViewContrller = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as UIViewController!
+        let toViewContrller = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as UIViewController!
         let containerView  = transitionContext.containerView()
         
         let duration  =  self.transitionDuration(transitionContext)
@@ -88,8 +88,9 @@ class TransitionManager:NSObject, UIViewControllerAnimatedTransitioning {
         
     }
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning!) -> NSTimeInterval
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval
     {
         return 0.5;
     }
+    
 }

@@ -202,7 +202,7 @@
     }
     else
     {
-        NSString* randomEmail = [NSString stringWithFormat:@"cat_%ld@mailcat.com",arc4random()% 10000000000];
+        NSString* randomEmail = [NSString stringWithFormat:@"cat_%lld@mailcat.com",arc4random()% 10000000000];
         self.letterModel.senderEmail = randomEmail;
         [[NSUserDefaults standardUserDefaults]setObject:randomEmail forKey:@"randomEmail"];
     }
@@ -301,7 +301,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     if (newState == MKAnnotationViewDragStateEnding || newState == MKAnnotationViewDragStateCanceling) {
         NSLog(@"drag ending");
         [annotationView setDragState:MKAnnotationViewDragStateNone animated:YES];
-        NSLog(@"MKAnnotation with tag: %lu , %f ",annotationView.tag,((MKPointAnnotation*)annotationView.annotation).coordinate.latitude);
+        NSLog(@"MKAnnotation with tag: %lu , %f ",(long)annotationView.tag,((MKPointAnnotation*)annotationView.annotation).coordinate.latitude);
         if (annotationView.tag == 1000) {
             currentLocation = ((MKPointAnnotation*)annotationView.annotation).coordinate;
         }

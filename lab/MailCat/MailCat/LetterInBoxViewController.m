@@ -184,7 +184,7 @@
     }
     else
     {
-        cell.timeNeededLabel.text =[NSString stringWithFormat:@"预计需要 %lu小时 到达",hourLeft];
+        cell.timeNeededLabel.text =[NSString stringWithFormat:@"预计需要 %lu小时 到达",(unsigned long)hourLeft];
     }
     NSString* fullContent = [item objectForKey:@"letterBody"];
     NSString* receiverName = [item objectForKey:@"receiverName"];
