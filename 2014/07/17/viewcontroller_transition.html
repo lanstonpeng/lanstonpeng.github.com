@@ -57,7 +57,7 @@
 
 
 
-<div class="highlight"><pre><code class="ruby"><span class="lineno"> 1</span> <span class="o">[</span><span class="nb">self</span> <span class="ss">addChildViewController</span><span class="p">:</span><span class="n">enqueViewController</span><span class="o">]</span><span class="p">;</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="lineno"> 1</span> <span class="o">[</span><span class="nb">self</span> <span class="ss">addChildViewController</span><span class="p">:</span><span class="n">enqueViewController</span><span class="o">]</span><span class="p">;</span>
 <span class="lineno"> 2</span> <span class="o">[</span><span class="nb">self</span><span class="o">.</span><span class="n">view</span> <span class="ss">addSubview</span><span class="p">:</span><span class="n">enqueViewController</span><span class="o">.</span><span class="n">view</span><span class="o">]</span><span class="p">;</span>
 <span class="lineno"> 3</span> 
 <span class="lineno"> 4</span> <span class="no">CGRect</span> <span class="n">offSetRect</span><span class="o">=</span><span class="no">CGRectOffset</span><span class="p">(</span><span class="n">newFrame</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="o">-</span><span class="n">inputViewHeight</span><span class="p">);</span>
@@ -71,8 +71,7 @@
 <span class="lineno">12</span>     <span class="o">[</span><span class="n">_currentViewController</span> <span class="n">removeFromParentViewController</span><span class="o">]</span><span class="p">;</span>
 <span class="lineno">13</span>     <span class="n">_currentViewController</span> <span class="o">=</span> <span class="n">enqueViewController</span><span class="p">;</span>
 <span class="lineno">14</span>     <span class="o">[</span><span class="n">enqueViewController</span> <span class="ss">didMoveToParentViewController</span><span class="p">:</span><span class="nb">self</span><span class="o">]</span><span class="p">;</span>
-<span class="lineno">15</span> <span class="p">}</span><span class="o">]</span><span class="p">;</span>
-</code></pre></div>
+<span class="lineno">15</span> <span class="p">}</span><span class="o">]</span><span class="p">;</span></code></pre></div>
 
 
 
@@ -123,7 +122,7 @@
 
 
 
-<div class="highlight"><pre><code class="ruby"><span class="lineno"> 1</span> <span class="n">func</span> <span class="n">animateTransition</span><span class="p">(</span><span class="ss">transitionContext</span><span class="p">:</span> <span class="no">UIViewControllerContextTransitioning</span><span class="o">!</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="lineno"> 1</span> <span class="n">func</span> <span class="n">animateTransition</span><span class="p">(</span><span class="ss">transitionContext</span><span class="p">:</span> <span class="no">UIViewControllerContextTransitioning</span><span class="o">!</span><span class="p">)</span>
 <span class="lineno"> 2</span> <span class="p">{</span>
 <span class="lineno"> 3</span>     <span class="k">if</span> <span class="n">isPresent</span>
 <span class="lineno"> 4</span>     <span class="p">{</span>
@@ -133,13 +132,12 @@
 <span class="lineno"> 8</span>     <span class="p">{</span>
 <span class="lineno"> 9</span>         <span class="nb">self</span><span class="o">.</span><span class="n">animationForDismissTransition</span><span class="p">(</span><span class="n">transitionContext</span><span class="p">)</span>
 <span class="lineno">10</span>     <span class="p">}</span>
-<span class="lineno">11</span> <span class="p">}</span> 
-</code></pre></div>
+<span class="lineno">11</span> <span class="p">}</span></code></pre></div>
 
 
 
 
-<div class="highlight"><pre><code class="ruby"><span class="lineno"> 1</span> <span class="n">func</span> <span class="n">animationForDismissTransition</span><span class="p">(</span><span class="ss">transitionContext</span><span class="p">:</span><span class="no">UIViewControllerContextTransitioning</span><span class="o">!</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="lineno"> 1</span> <span class="n">func</span> <span class="n">animationForDismissTransition</span><span class="p">(</span><span class="ss">transitionContext</span><span class="p">:</span><span class="no">UIViewControllerContextTransitioning</span><span class="o">!</span><span class="p">)</span>
 <span class="lineno"> 2</span> <span class="p">{</span>
 <span class="lineno"> 3</span>  <span class="sr">//</span><span class="n">get</span> <span class="n">everything</span> <span class="n">prepared</span>
 <span class="lineno"> 4</span>     <span class="n">let</span> <span class="n">fromViewController</span> <span class="o">=</span> <span class="n">transitionContext</span><span class="o">.</span><span class="n">viewControllerForKey</span><span class="p">(</span><span class="no">UITransitionContextFromViewControllerKey</span><span class="p">)</span>
@@ -167,8 +165,7 @@
 <span class="lineno">26</span>             <span class="sr">//</span><span class="n">remember</span> <span class="n">to</span> <span class="n">add</span> <span class="n">this</span> <span class="n">snippet</span>
 <span class="lineno">27</span>             <span class="n">transitionContext</span><span class="o">.</span><span class="n">completeTransition</span><span class="p">(</span><span class="o">!</span><span class="n">transitionContext</span><span class="o">.</span><span class="n">transitionWasCancelled</span><span class="p">())</span>
 <span class="lineno">28</span>         <span class="p">})</span>
-<span class="lineno">29</span> <span class="p">}</span>
-</code></pre></div>
+<span class="lineno">29</span> <span class="p">}</span></code></pre></div>
 
 
 
@@ -210,9 +207,8 @@
 
 
 
-<div class="highlight"><pre><code class="ruby"><span class="lineno">1</span> <span class="n">let</span> <span class="n">edgeSwipeGestureRight</span> <span class="o">=</span> <span class="no">UIScreenEdgePanGestureRecognizer</span><span class="p">(</span><span class="ss">target</span><span class="p">:</span> <span class="nb">self</span><span class="p">,</span>  <span class="ss">action</span><span class="p">:</span> <span class="s2">&quot;handleTransitionRight:&quot;</span><span class="p">)</span>
-<span class="lineno">2</span> <span class="n">edgeSwipeGestureRight</span><span class="o">.</span><span class="n">edges</span> <span class="o">=</span> <span class="o">.</span><span class="n">Right</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="lineno">1</span> <span class="n">let</span> <span class="n">edgeSwipeGestureRight</span> <span class="o">=</span> <span class="no">UIScreenEdgePanGestureRecognizer</span><span class="p">(</span><span class="ss">target</span><span class="p">:</span> <span class="nb">self</span><span class="p">,</span>  <span class="ss">action</span><span class="p">:</span> <span class="s2">&quot;handleTransitionRight:&quot;</span><span class="p">)</span>
+<span class="lineno">2</span> <span class="n">edgeSwipeGestureRight</span><span class="o">.</span><span class="n">edges</span> <span class="o">=</span> <span class="o">.</span><span class="n">Right</span></code></pre></div>
 
 
 
@@ -227,9 +223,8 @@
 
 
 
-<div class="highlight"><pre><code class="ruby"><span class="n">var</span> <span class="ss">progress</span><span class="p">:</span><span class="no">CGFloat</span>  <span class="o">=</span> <span class="n">recognizer</span><span class="o">.</span><span class="n">locationInView</span><span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">superview</span><span class="p">)</span><span class="o">.</span><span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">superview</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">progress</span> <span class="o">=</span> <span class="mi">1</span><span class="o">.</span><span class="mi">0</span> <span class="o">-</span> <span class="n">min</span><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">progress</span><span class="p">))</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">var</span> <span class="ss">progress</span><span class="p">:</span><span class="no">CGFloat</span>  <span class="o">=</span> <span class="n">recognizer</span><span class="o">.</span><span class="n">locationInView</span><span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">superview</span><span class="p">)</span><span class="o">.</span><span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">superview</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">progress</span> <span class="o">=</span> <span class="mi">1</span><span class="o">.</span><span class="mi">0</span> <span class="o">-</span> <span class="n">min</span><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">progress</span><span class="p">))</span></code></pre></div>
 
 
 
@@ -240,14 +235,13 @@
 
 
 
-<div class="highlight"><pre><code class="ruby"><span class="lineno">1</span> <span class="k">if</span> <span class="n">recognizer</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="o">.</span><span class="n">Began</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="lineno">1</span> <span class="k">if</span> <span class="n">recognizer</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="o">.</span><span class="n">Began</span>
 <span class="lineno">2</span> <span class="p">{</span>
 <span class="lineno">3</span>     <span class="nb">self</span><span class="o">.</span><span class="n">interactSlideTransition</span> <span class="o">=</span> <span class="no">UIPercentDrivenInteractiveTransition</span><span class="p">()</span>
 <span class="lineno">4</span>     <span class="n">let</span> <span class="n">toVC</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">storyboard</span><span class="o">.</span><span class="n">instantiateViewControllerWithIdentifier</span><span class="p">(</span><span class="s2">&quot;PaperViewController&quot;</span><span class="p">)</span> <span class="n">as</span> <span class="no">PaperViewController</span>
 <span class="lineno">5</span>     <span class="n">toVC</span><span class="o">.</span><span class="n">interactSlideTransition</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">interactSlideTransition</span> <span class="sr">//</span><span class="n">be</span> <span class="n">careful</span>
 <span class="lineno">6</span>     <span class="nb">self</span><span class="o">.</span><span class="n">presentViewController</span><span class="p">(</span><span class="n">toVC</span><span class="p">,</span>  <span class="ss">animated</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>  <span class="ss">completion</span><span class="p">:</span> <span class="kp">nil</span><span class="p">)</span>
-<span class="lineno">7</span> <span class="p">}</span>
-</code></pre></div>
+<span class="lineno">7</span> <span class="p">}</span></code></pre></div>
 
 
 
@@ -341,11 +335,10 @@
 
 
 
-<div class="highlight"><pre><code class="ruby"><span class="lineno">1</span> <span class="n">let</span> <span class="n">transitionCoordinator</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">presentingViewController</span><span class="o">.</span><span class="n">transitionCoordinator</span><span class="p">()</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="lineno">1</span> <span class="n">let</span> <span class="n">transitionCoordinator</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">presentingViewController</span><span class="o">.</span><span class="n">transitionCoordinator</span><span class="p">()</span>
 <span class="lineno">2</span>     <span class="n">transitionCoordinator</span><span class="o">.</span><span class="n">animateAlongsideTransition</span><span class="p">({(</span><span class="ss">context</span><span class="p">:</span> <span class="no">UIViewControllerTransitionCoordinatorContext</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">Void</span> <span class="k">in</span>
 <span class="lineno">3</span>         <span class="nb">self</span><span class="o">.</span><span class="n">chromeView</span><span class="o">.</span><span class="n">alpha</span>  <span class="o">=</span> <span class="mi">0</span><span class="o">.</span><span class="mi">6</span>
-<span class="lineno">4</span> <span class="p">},</span>  <span class="ss">completion</span><span class="p">:</span><span class="kp">nil</span><span class="p">)</span>
-</code></pre></div>
+<span class="lineno">4</span> <span class="p">},</span>  <span class="ss">completion</span><span class="p">:</span><span class="kp">nil</span><span class="p">)</span></code></pre></div>
 
 
 
