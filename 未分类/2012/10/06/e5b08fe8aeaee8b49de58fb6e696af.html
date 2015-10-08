@@ -25,13 +25,7 @@
 最近发现了一个比较经典的问题,<a href="http://en.wikipedia.org/wiki/Monty_Hall_Problem">Monty Hall problem</a>
 一个颇为有趣的问题，一开始真的被愚弄了一番</p>
 
-
-
-
 <p>文章先以这个例子展开，之后回到单词订正器的设计思想</p>
-
-
-
 
 <p>我们知道，Bayes的简单形式是这样的
 P(A|B) = P(B|A)P(A) / P(B)
@@ -44,49 +38,26 @@ P(A|B) = P(A) * ( P(B|A) / P(B) )
 简单来说，就是新出现的事件B，对于事件A的影响程度，但需要在事件A,B相关联的情况下
 如果B于A是相互独立事件，那么P(B|A) = P(B), 所以P(A|B) = P(A),事件B的出现没有贡献任何有价值的内容</p>
 
-
-
-
 <p><strong>Monty Hall problem</strong></p>
-
-
-
 
 <p>P( C | H , S)
 C = i ，代表车子在Door i
 H = j , 代表Hall打开的是 Door j
 S = k, 代表的是用户选择的Door k</p>
 
-
-
-
 <p>P( C = i | H = j ,S = k ) = P( C = i | S = k ) * [ P( H = j | C = i , S = k ) / P( H = j, S = k ) ]
 其中，j &lt;> k &lt;> i</p>
 
-
-
-
 <p>其中，old plausibility 即 P( C = i | S = k ) 都是一样的，不管用户怎么选择，Car在哪扇门后概率都是1/3
 于是，将两种情况进行相比，得：</p>
-
-
-
 
 <p>P( H = j | C = i , S = k )        1
 --------------------------- = ------
 P( H = j | C = k , S = k )      1/2</p>
 
-
-
-
 <p>可见，倘若选择switch，那么拿到车子的概率足足多了1倍！</p>
 
-
-
-
 <!-- more -->
-
-
 
 
 <p><strong>关于这个<a href="https://github.com/lanstonpeng/BabyWordCorrector">一个简易的单词订正器</a></strong>
@@ -101,9 +72,6 @@ P( H = j | C = k , S = k )      1/2</p>
 P(c) : 输入一个单词是正确的概率
 P(w): 输入一个单词是错误的概率</p>
 
-
-
-
 <p>我们所要求的就是max P( c | w ),在输入一个错误单词的情况下，挑选一个拥有最大概率的正确单词
 很好，让我们继续分析下去
 看回上面的小例子：
@@ -117,27 +85,15 @@ P( the | thy )
 = P( the ^ thy ) / P( thy ) {看似没什么帮助，继续分析下去}
 = P (thy | the ) P (the) / P(thy) { 看似有用多了}</p>
 
-
-
-
 <p>P ( the ) 是可计算的( 一篇足够长的现代通俗文章有n个单词，那么P(the) 在计算机的帮助下可以很容易计算出来 )
 P ( thy | the ) 也是可以很方便计算的，从the出发，列举有可能出现的错误单词，如thy,they ,them ...... （当然，这样会有取舍，错误的“距离”，如上面3个单词，距离是1，2，2），同样，得到的错误单词可以继续用同样的方法计算P(thy)....</p>
 
-
-
-
 <p>仔细想想，上述公式可以化解为</p>
-
-
-
 
 <p>P( c | w ) =    P( w | c ) * P( c )  /  P( w )
 写到这里，其实这个单词订正器已经算是完成了，精髓便在于将该合并的 P (c | w ) 进行变化
 之后便是细节，性能处理的问题了，
 如 ,若P(they | thy) == P(the | thy),该如何取舍（这里采用"距离"小的）</p>
-
-
-
 
 <p>以上的两个问题都是通过贝叶斯来解决的
 <strong>本质上采用了基于统计学的方法，贝叶斯通过新进相关事件不断修正模型准确度</strong>
@@ -145,15 +101,11 @@ P ( thy | the ) 也是可以很方便计算的，从the出发，列举有可能�
 如google著名的page ranking
 又如一些垃圾邮件，垃圾微博的过滤，分词等等</p>
 
-
-
-
 <p>ref:
 http://en.wikipedia.org/wiki/Bayes'_theorem
 http://norvig.com/spell-correct.html
 http://blog.moertel.com/articles/2011/01/01/the-bayesian-meets-monty-hall
 http://oscarbonilla.com/2009/05/the-monty-hall-problem/</p>
-
 
 </div>
 

@@ -24,9 +24,6 @@
 <p>在感冒与发烧的交加中，level13足够坑爹的说
 我承认我的洞察能力有所提升了，但是依旧是被坑了，本关给出一个文件，然后你以2进制打开它。</p>
 
-
-
-
 <pre><code>for in in range(5):
   each=source[i::5]  #看图得出
   open("pic_1"+str(i),"w" ).write(each)
@@ -43,173 +40,77 @@
 &lt;span style="font-family: Georgia, 'Times New Roman', 'Bitstream Charter', Times, serif; line-height: 19px;"&gt;类似这样，关键代码就出来了&lt;/span&gt;
 </code></pre>
 
-
-
-
 <p>这样就是将那一堆的二进制代码进行分割，然后重组，最后形成几张独立的图片，然后从图片中读出答案：disproportional</p>
-
-
-
 
 <p><a href="http://files.blogcn.com/wp05/M00/00/8E/wKgKDE3Y-XYAAAAAAAb2XSfn2Wg203.png"><img src="http://files.blogcn.com/wp06/M00/00/CE/wKgKDE3Y-XgAAAAAAAEkSQp10R8235.png" alt="" /></a></p>
 
-
-
-
 <p>思考：</p>
-
-
-
 
 <p>我在想，为什么linux能识别到我们具体的文件类型呢？（并非简单的 . , d, c ,b 等）</p>
 
-
-
-
 <p>经过gzlug上的几位大神的帮助，原来是这样的</p>
 
-
-
-
 <p>首先，我们可以通过file来识别文件的类型</p>
-
-
-
 
 <pre><code>&gt;&gt;file p_2,jpg
 p_2,jpg: PNG image, 400 x 300, 8-bit/color RGB, non-interlaced
 </code></pre>
 
-
-
-
 <p>这里可以看到文件的类型
 再进一步
 通过查看</p>
 
-
-
-
 <h3><strong>/usr/share/mime</strong></h3>
-
-
-
 
 <p>里面的规范文件
 可以发现其实里面都定义了所有文件类型
 譬如我们最熟悉的文本文件
 打开 text/plain.xml,可以看到下面的东西：</p>
 
-
-
-
 <p>&lt;?xml version="1.0" encoding="utf-8"?></p>
 
-
-
-
 <p><mime-type xmlns="http://www.freedesktop.org/standards/shared-mime-info" type="text/plain"></p>
-
-
-
 
 <!--Created automatically by update-mime-database. DO NOT EDIT!-->
 
 
-
-
 <p><comment>plain text document</comment></p>
-
-
-
 
 <p><comment xml:lang="ara">مستند نصي مجرد</comment></p>
 
-
-
-
 <p>.......................</p>
-
-
-
 
 <p><comment xml:lang="zh_CN">纯文本文档</comment></p>
 
-
-
-
 <p><comment xml:lang="zh_TW">普通文本檔</comment></p>
-
-
-
 
 <p><glob pattern="*.txt"/></p>
 
-
-
-
 <p><glob pattern="*.asc"/></p>
-
-
-
 
 <p><glob pattern="*,v"/></p>
 
-
-
-
 <p><glob pattern="*.doc"/></p>
-
-
-
 
 <p></mime-type></p>
 
-
-
-
 <p>继续我们的讨论，那么对于不同的软件（程序）可以打开不同的文件的规范就定义在</p>
-
-
-
 
 <h3>/usr/share/applications</h3>
 
-
-
-
 <p>里面的那些desktop文件</p>
-
-
-
 
 <p>当我们打开gedit.desktop可以发现这么一行</p>
 
-
-
-
 <p>MimeType=text/plain</p>
-
-
-
 
 <p>相信做过web开发对这个MimeType的不会陌生吧，即使不知道这个名字，对</p>
 
-
-
-
 <p>诸如text/plain这些还是熟悉的吧</p>
-
-
-
 
 <p>最后附上这个规范的doc:<a href="http://standards.freedesktop.org/shared-mime-info-spec/shared-mime-info-spec-latest.html">http://standards.freedesktop.org/shared-mime-info-spec/shared-mime-info-spec-latest.html</a></p>
 
-
-
-
 <p>(BTW:其实在那些xml文件里面也有)</p>
-
 
 </div>
 

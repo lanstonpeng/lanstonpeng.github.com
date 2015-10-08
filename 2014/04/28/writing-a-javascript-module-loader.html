@@ -24,44 +24,20 @@
 <p>尽管javascript将来会支持模块加载 <a href="http://wiki.ecmascript.org/doku.php?%20id=harmony:modules_examples">e.g</a><br/>
 但是know how it works不会更加有趣么?</p>
 
-
-
-
 <p>我们先以<a href="http://requirejs.org/">require.js</a>为开篇，一步步实现一个简易的模块加载的功能</p>
 
-
-
-
 <h3>存着问题</h3>
-
-
-
 
 <p>当我们开发较为复杂的web application的时候，为了提高可维护性，其中一个策略就是将功能划分成几个模块，将各个模块组合起来，形成一个完整的系统<br/>
 一般来说，如果我们没有作特别的处理，其中一种情况，我们会看到许多script标签堆积起来</p>
 
-
-
-
 <h3>解决问题</h3>
-
-
-
 
 <p>如同许多语言中的import/include功能一般，我们在javascript也简单实现一下</p>
 
-
-
-
 <h5>在javascript的世界中存着什么问题</h5>
 
-
-
-
 <p>我们可以先按照理想情况写下咱们需要的接口</p>
-
-
-
 
 <pre>
 var Util = Loader.import("Util");
@@ -69,28 +45,14 @@ console.log(Util);
 </pre>
 
 
-
-
 <p>我们的其中一个重点就是实现<strong>Loader.import</strong>方法</p>
 
-
-
-
 <h3>问题1:模块加载</h3>
-
-
-
 
 <p>是否能动态同步加载Util模块呢?<br/>
 即在加载Util完成之前，<code>console.log</code>是不会运行</p>
 
-
-
-
 <p>答案是否定的，我们可以回顾一番javascript加载脚本的方式</p>
-
-
-
 
 <ul>
 <li>创建script标签</li>
@@ -99,20 +61,12 @@ console.log(Util);
 </ul>
 
 
-
-
 <p>上述几种方式都无法做到同步的方式，
 那么，展开思路，
 若我们坚持使用这样同步写法
 我们可以寻找一种方式，在运行<code>Loader.import('Util')</code>的时候，实际上Util模块已经加载完毕，我们不过是通过模块名字引用该模块，这个模块加载过程运行整个程序前已经完成</p>
 
-
-
-
 <p>若我们需要动态加载模块，所有分析加载都在运行时,其中可以做到的形式或许会长成这么一个样子</p>
-
-
-
 
 <pre>
     Loader.import("Util",function(Util){
@@ -121,13 +75,8 @@ console.log(Util);
 </pre>
 
 
-
-
 <p>上面的写法是否与requireJS有点类似呢?
 为了更好的理解其工作原理，我们可以先从实现一个简单的异步加载器开始</p>
-
-
-
 
 <pre>
 var Loader = (function(window){
@@ -151,12 +100,7 @@ var Loader = (function(window){
 </pre>
 
 
-
-
 <p>假设我们要运行</p>
-
-
-
 
 <pre>
  Loader.import("a",function(a){
@@ -165,12 +109,7 @@ var Loader = (function(window){
 </pre>
 
 
-
-
 <p>那么我们就定义一个叫<code>a</code>的模块吧,或许是长这个样子的</p>
-
-
-
 
 <pre>
 var a = {
@@ -181,18 +120,10 @@ var a = {
 </pre>
 
 
-
-
 <p>如果就这么运行，会crash，因为在callback中，我们没有在<code>callback.call(this)</code>中指定a这个对象，那么在<code>a.js</code>里面会调用<code>undefined.say</code>当然就会出错了</p>
-
-
-
 
 <p>ok,那么问题就可以这么描述
 如何在<code>script.onload</code>里面的 <em>callback</em> 带上 <strong>a</strong> 这个对象呢</p>
-
-
-
 
 <pre>
 script.onload = function(){
@@ -201,12 +132,7 @@ script.onload = function(){
 </pre>
 
 
-
-
 <p>既然要拿到<em>a</em>这个对象，那么，我们就不能直接像上面在全局定义对象 <strong>a</strong> , 至少需要通过某种方式返回给某个对象，以供后面使用，所以，我们可以按照这个思路看看,按照大家稍微熟悉的语法</p>
-
-
-
 
 <pre>
 Loader.define(function(){
@@ -221,13 +147,8 @@ Loader.define(function(){
 </pre>
 
 
-
-
 <p>现在问题就是如何将<code>Loader.define</code>里面这个函数运行以得到<em>a</em>这个对象<br/>
 那么，让我们先简单定义一下<strong>define</strong>这个函数吧，现在其主要功能就是保存这个包着的function,为了后面更好的阅读与理解，我先把整个模块的框架给出</p>
-
-
-
 
 <pre>
 var Loader = (function(window){
@@ -284,12 +205,7 @@ var Loader = (function(window){
 </pre>
 
 
-
-
 <p>顺道给出main.js文件的内容</p>
-
-
-
 
 <pre>
 //main.js
@@ -300,23 +216,12 @@ Loader.define(function(){
 </pre>
 
 
-
-
 <p>可以看到，现在单独加载<em>main.js</em>会在出现正确结果,我们定义的 <strong>define</strong> 函数大致上就是保存了加载模块的信息，加载模块，并且能在模块运行的时候动态获取这些信息(通过<code>loadedModuelDic</code>),这部分的内容也是后续部分的基础</p>
-
-
-
 
 <h3>问题2: 模块依赖</h3>
 
-
-
-
 <p>那么，接下来我们就讨论一下<strong>模块依赖</strong>问题
 我们先假设有如下代码,为了更好的说明，举出一些比较常见的场景</p>
-
-
-
 
 <pre>
 //main.js
@@ -359,46 +264,26 @@ Loader.define(function(){
 </pre>
 
 
-
-
 <p>可以看到<br/>
 <strong>main.js</strong>依赖 <strong>c</strong> , <strong>a</strong> 模块<br/>
 <strong>a</strong> 依赖 <strong>c</strong> <strong>b</strong> 模块<br/>
 <strong>b</strong> 没有依赖<br/>
 <strong>c</strong> 没有依赖</p>
 
-
-
-
 <p><img src="http://lanstonpeng.github.io/assets/Slice%201.png" alt="pic" /></p>
-
-
-
 
 <p>如果以一棵树来表示依赖关系，出于叶子节点的部分就是那些没有依赖其它模块的模块<br/>
 我们在加载一个模块的时候</p>
-
-
-
 
 <pre><code>1.检测输入其是否有依赖的**未加载**模块，若存着，则跳到1，否则到2
 
 2.运行模块构造函数(也就是*define*里面写的*function*)
 </code></pre>
 
-
-
-
 <p>其实，这个是DFS(depth first search)的过程，过程其实不难理解<br/>
 好的，我们在上面代码的基础上加入新的功能来解决模块依赖的问题吧</p>
 
-
-
-
 <p>首先在<em>define</em>部分，我们加入依赖相关的处理</p>
-
-
-
 
 <pre>
 function define(deps,factory){
@@ -415,12 +300,7 @@ function define(deps,factory){
 </pre>
 
 
-
-
 <p>接下来，在<em>onLoadHandler</em>部分,为了防止模块重复加载(正如上面看到的<strong>b</strong>  <strong>c</strong> 模块)，我们用<em>loadedModuleDic</em>保持已经加载的模块的信息</p>
-
-
-
 
 <pre>
     function importModule(moduleName,callback){
@@ -439,12 +319,7 @@ function define(deps,factory){
 </pre>
 
 
-
-
 <p>接下来的部分也是本篇的关键所在，在加载一个模块的时候分析其依赖关系</p>
-
-
-
 
 <pre>
     function onLoadHandler(moduleName,callback){
@@ -477,15 +352,10 @@ function define(deps,factory){
 </pre>
 
 
-
-
 <p>好的，让我们暂停一下分析，在一个模块加载运行完成之前(即script.onload前)，我们记录了该模块的信息(由currentLoadedNode保存)，如模块名称(moduleName)
 然后，在<strong>script.onload</strong>的时候，我们调用了<code>onLoadHandler</code>,动态分析当前模块的依赖情况，若依赖的模块没有加载，则递归调用<code>importModule</code>
 注意这里的构建的 <strong>cb</strong> ,其运行时机是放到加载依赖模块i(dependence[i])的回调里面<br/>
 好的，让我们再来看看<code>considerRun</code>的功能</p>
-
-
-
 
 <pre>
     function considerRun(currentModuleName,parentNode){
@@ -515,13 +385,8 @@ function define(deps,factory){
 </pre>
 
 
-
-
 <p>ok,接下来就剩余最后的<code>considerDependence</code>的了，因为我们保存了不少变量来减少理解压力，所以
 considerDependence会显得比较简单</p>
-
-
-
 
 <pre>
     function considerDependence(node){
@@ -536,24 +401,15 @@ considerDependence会显得比较简单</p>
 </pre>
 
 
-
-
 <p>至此，所有函数都已介绍完毕</p>
-
-
-
 
 <p>我们回过头来看，
 其实我刻意回避了一个比较重要但隐藏的问题:
 <strong>如何在一个模块运行的时候得知其自身的名字</strong></p>
 
-
-
-
 <p>此外，还要问问自己当下我们开发的系统是否需要如此灵活般的加载方式?
 最终产生的realese文件会因为系统的特性，如是否需要高首屏响应，流量限制等原因来具体选择具体方式
 模块管理除了增加系统的可维护性，在release代码的时候也是得有讲究，具体内容也不在本篇的讨论范围</p>
-
 
 </div>
 

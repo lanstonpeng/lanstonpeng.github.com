@@ -23,16 +23,10 @@
 <div class="post">
 <p>Recently,I decided to redesign PangTingMe--a project I was started while I first learned javascript,I was first inspired by a post from HN,the guy wake up 5 am to start his personal project.So,I try it on my own!</p>
 
-
-
-
 <p><a href="http://files.blogcn.com/wp01/M00/04/F2/wKgKC08_wGkAAAAAAAGYTRF1Wnw835.png"><img src="http://files.blogcn.com/wp06/M00/05/9F/wKgKDE8_wGoAAAAAAACZ1DcHKrs293.png" alt="" /></a>check it out from github
 <a href="http://lanstonpeng.github.com/Reindeer/"><strong>Reindeer</strong></a>
 <a href="http://lanstonpeng.github.com/Reindeer/"></a>and check for the static demo :
 <a href="http://pangting.me"><strong>PangTing.me</strong></a></p>
-
-
-
 
 <p>_ A small tech summary of building the prototype of  PangTingMe:_
 About the server side:
@@ -42,22 +36,13 @@ About the client side:
 This is where heavy works happen,I make myself a small MVC front-end architeture
 The whole logic can be divided to 4 main object</p>
 
-
-
-
 <pre><code>--DataContorller
 --UI
 --Functionality
 --pangting
 </code></pre>
 
-
-
-
 <p>I defined some basic URL router in Funtionality<!-- more --></p>
-
-
-
 
 <pre><code>du.config={
     router:{
@@ -77,13 +62,7 @@ The whole logic can be divided to 4 main object</p>
     },
 </code></pre>
 
-
-
-
 <p>and as you can expected,the DataController is the Controller in MVC pattern,It only provide the UI(View) the data,nothing else it'll care</p>
-
-
-
 
 <pre><code>DataContorller.CourseController
 Object
@@ -97,14 +76,8 @@ Object
   updateProgress: function (data,callback){
 </code></pre>
 
-
-
-
 <p>Of course,the UI is the View,I bind data and the component event in it ,and the pangting object is something like the main function
 Additional Tech/Tools Used:</p>
-
-
-
 
 <pre><code>--Templating by Mustache
 --BootStrap
@@ -112,9 +85,6 @@ Additional Tech/Tools Used:</p>
 --Heavily on HTML5
 --QUnit
 </code></pre>
-
-
-
 
 <p>Like the author ,I also chose AgileZen for quick and small project management
 <a href="http://files.blogcn.com/wp04/M00/03/E7/wKgKDE8_no4AAAAAAAOK1xVwgwU648.png"><img src="http://files.blogcn.com/wp06/M00/05/9F/wKgKDE8_no8AAAAAAADQ43r-gu8311.png" alt="" /></a>
@@ -131,13 +101,7 @@ Tools I thank for:
 --Douban.fm
 --Node</p>
 
-
-
-
 <p>TO-DO:</p>
-
-
-
 
 <pre><code>--finished some details of the prototype
 --improve the UX
@@ -146,7 +110,6 @@ Tools I thank for:
 --refactor a bit of the architeture
 ......
 </code></pre>
-
 
 </div>
 

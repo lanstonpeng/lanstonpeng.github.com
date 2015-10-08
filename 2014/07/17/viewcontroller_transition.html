@@ -23,39 +23,18 @@
 <div class="post">
 <p>有时候, 页面关系简单的时候, 我会更加喜欢用<strong>一个</strong>ViewController来控制整个App, 各个页面都只是各个不同的View进行堆积和切换, 各种View直接的切换动画也相对容易发挥想象力</p>
 
-
-
-
 <p>但是页面关系、需要处理的事件一旦复杂的时候, 就需要用用多个ViewController来划分逻辑界限, 分开处理, 那么页面之间的切换就没有那么舒畅了, 所以, 有必要总结一下iOS中几种常见的ViewController切换方式</p>
 
-
-
-
 <h3>Aricle OverView</h3>
-
-
-
 
 <p>1.了解iOS中几种ViewControllers的切换方式(是什么, 怎么样)<br/>
 2.为什么是这么设计</p>
 
-
-
-
 <hr />
-
-
-
 
 <h3>Container ViewController Based</h3>
 
-
-
-
 <p>在iOS7以前, 可以使用 ViewController Container这种方式来进行VC管理, 下面以一个简单的代码来快速带过( Demo中并无此例子 ):</p>
-
-
-
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="lineno"> 1</span> <span class="o">[</span><span class="nb">self</span> <span class="ss">addChildViewController</span><span class="p">:</span><span class="n">enqueViewController</span><span class="o">]</span><span class="p">;</span>
 <span class="lineno"> 2</span> <span class="o">[</span><span class="nb">self</span><span class="o">.</span><span class="n">view</span> <span class="ss">addSubview</span><span class="p">:</span><span class="n">enqueViewController</span><span class="o">.</span><span class="n">view</span><span class="o">]</span><span class="p">;</span>
@@ -74,40 +53,20 @@
 <span class="lineno">15</span> <span class="p">}</span><span class="o">]</span><span class="p">;</span></code></pre></div>
 
 
-
-
 <p>当然, 亦可使用<strong>transitionFromViewController:fromVC...</strong>来做响应的动画转化,
 上面只是为了更好的演示整个过程</p>
 
-
-
-
 <hr />
 
-
-
-
 <h3>UIViewControllerTransitioningDelegate 与 UIViewControllerContextTransitioning</h3>
-
-
-
 
 <p>iOS7中引入了VC的自定义转场动画, 这是两个重要的delegate, 这样使用delegate的方式给予开发者很大的自由度,
 转场动画与实际的VC具体业务可以最大程度的分离, 并且实现的转场动画可以完全复用到别的地方( 如在示例代码中几个Demo使用的同样的转场处理逻辑类<strong>TransitionManager</strong>, 但是在iOS8中新增的<strong>UIPresentationController</strong>有稍许区别, 下面会提及到 )</p>
 
-
-
-
 <p>先让我们来完成一个简单的Demo, 因为网上存在较多的点击式切换的案例, 所以这里就省略了点击的案例, 使用交互式的转场, <strong>Present</strong>和<strong>Dismiss</strong>都使用<strong>UIPercentDrivenInteractiveTransition</strong>, 效果如下
 <img src="http://lanstonpeng.github.io/assets/custom_transition_demo.gif" alt="Demo" /></p>
 
-
-
-
 <h5>1.Conform to<strong>UIViewControllerAnimatedTransitioning</strong>protocal</h5>
-
-
-
 
 <ul>
 <li>animateTransition</li>
@@ -115,12 +74,7 @@
 </ul>
 
 
-
-
 <p>关于<em>animateTransition</em>, 举个例子:</p>
-
-
-
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="lineno"> 1</span> <span class="n">func</span> <span class="n">animateTransition</span><span class="p">(</span><span class="ss">transitionContext</span><span class="p">:</span> <span class="no">UIViewControllerContextTransitioning</span><span class="o">!</span><span class="p">)</span>
 <span class="lineno"> 2</span> <span class="p">{</span>
@@ -168,23 +122,12 @@
 <span class="lineno">29</span> <span class="p">}</span></code></pre></div>
 
 
-
-
 <p>这个类主要负责<strong>如何</strong>处理转场动画的,  Demo中处理动画的逻辑做得较简单, 但这里存在巨大的想象力<br/>
 这里一个较为重要的概念是<strong>containerView</strong>, 正如名字所表示的那样, 大家不妨把它看成是一个Apple自己封装好的<em>Container ViewController Based</em>的View, 负责在转场中控制切入切出的逻辑, 所以, 这里需要我们手动把二者<strong>正确的</strong>(主要是注意层级关系)插入至<strong>containerView</strong></p>
 
-
-
-
 <h5>2.Conform to <strong>UIViewControllerTransitioningDelegate</strong> Protocal</h5>
 
-
-
-
 <p>这部分比较简单, 都是按照接口的意思返回相应的处理这块逻辑的实例</p>
-
-
-
 
 <ul>
 <li>animationControllerForPresentedController...</li>
@@ -194,46 +137,25 @@
 </ul>
 
 
-
-
 <h5>3.处理交互</h5>
-
-
-
 
 <p>Demo里面直接使用<strong>UIPercentDrivenInteractiveTransition</strong>, 实际过程中可以根据自己需要扩展<br/>
 新建一个ScreenEdgepan手势</p>
-
-
-
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="lineno">1</span> <span class="n">let</span> <span class="n">edgeSwipeGestureRight</span> <span class="o">=</span> <span class="no">UIScreenEdgePanGestureRecognizer</span><span class="p">(</span><span class="ss">target</span><span class="p">:</span> <span class="nb">self</span><span class="p">,</span>  <span class="ss">action</span><span class="p">:</span> <span class="s2">&quot;handleTransitionRight:&quot;</span><span class="p">)</span>
 <span class="lineno">2</span> <span class="n">edgeSwipeGestureRight</span><span class="o">.</span><span class="n">edges</span> <span class="o">=</span> <span class="o">.</span><span class="n">Right</span></code></pre></div>
 
 
-
-
 <p>处理Pan方面可以分为两部分:</p>
 
-
-
-
 <p>1.定义交互过程动作完成程度, 这里定义为手指横向滑动整块屏幕为一个完整运动轨迹</p>
-
-
-
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">var</span> <span class="ss">progress</span><span class="p">:</span><span class="no">CGFloat</span>  <span class="o">=</span> <span class="n">recognizer</span><span class="o">.</span><span class="n">locationInView</span><span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">superview</span><span class="p">)</span><span class="o">.</span><span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">superview</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">progress</span> <span class="o">=</span> <span class="mi">1</span><span class="o">.</span><span class="mi">0</span> <span class="o">-</span> <span class="n">min</span><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="n">progress</span><span class="p">))</span></code></pre></div>
 
 
-
-
 <p>2.初始化转向的<strong>ViewController</strong>
 这里有一点需要注意, 注意分清<strong>UIPercentDrivenInteractiveTransition</strong>从属的关系, 因为在<em>Present</em>和<em>Dimiss</em>过程中都是使用同一个<strong>UIPercentDrivenInteractiveTransition</strong>, 稍微不注意的话会直接进入非交互式的转场</p>
-
-
-
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="lineno">1</span> <span class="k">if</span> <span class="n">recognizer</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="o">.</span><span class="n">Began</span>
 <span class="lineno">2</span> <span class="p">{</span>
@@ -244,66 +166,31 @@
 <span class="lineno">7</span> <span class="p">}</span></code></pre></div>
 
 
-
-
 <p>好了, 这个Demo的主要部分就已经完成了, 下面让我们继续看看别的方式</p>
 
-
-
-
 <hr />
-
-
-
 
 <h3>Navigation Based</h3>
 
-
-
-
 <p>如果 ViewControllers 是通过 NavigationController 进行切换管理, 主要涉及到<strong>UINavigationControllerDelegate</strong>这个协议</p>
-
-
-
 
 <p>要加工的部分也仅仅是多了一点点, 但本质上也是告诉系统什么时候返回<strong>UIViewControllerTransitioningDelegate</strong>, 大家可以参考Demo1的代码来</p>
 
-
-
-
 <p><img src="http://lanstonpeng.github.io/assets/navigationtransition.gif" alt="navigationtransition" /></p>
-
-
-
 
 <hr />
 
-
-
-
 <h3>Presentation ViewController</h3>
-
-
-
 
 <p>在iOS8中引入了新的<strong>UIPresentationController</strong>对<em>ViewController</em>的切换增加更多内容, 其为增加更多的可能
 但是在处理<strong>UIViewControllerTransitioningDelegate</strong>协议的时候会稍有不同( 这个行为让我颇为疑惑 )
 让我们先看看最终效果</p>
 
-
-
-
 <p><img src="http://lanstonpeng.github.io/assets/presentationController.gif" alt="presentationGif" />
 <img src="http://lanstonpeng.github.io/assets/presentingView.png" alt="presenting" />
 <img src="http://lanstonpeng.github.io/assets/presentedView.png" alt="presented" /></p>
 
-
-
-
 <p>先解释几个概念:</p>
-
-
-
 
 <ul>
 <li>ChromeView ( 图中遮盖灰色的View, 主要可以用来覆盖切入切出VC的view之间的空隙, 进行额外的动画 )</li>
@@ -312,28 +199,14 @@
 </ul>
 
 
-
-
 <p>这个我现在也不知道是bug还是feature(囧)<br/>
 在遵循<strong>UIViewControllerAnimatedTransitioning</strong>的实例中, 在<strong>containerView</strong>(遗忘的同学可以回头看看)中添加的view实际会与iOS7中转场有所区别</p>
 
-
-
-
 <p>之前的<strong>containerView</strong>是处理<em>切入( FromViewController )</em>和<em>切出( ToViewController )</em>各自的View的层级与插入关系, 上面的示例代码也有提及到</p>
-
-
-
 
 <p>而在<strong>Presentaion ViewControoler</strong>的例子中, 我们需要处理<em>chromeView(在<strong>UIPresentationController</strong>中)</em>和<em>ToViewController.view(在<strong>UIViewControllerAnimatedTransitioning</strong>)</em>, 具体的代码分散在两个文件, 大家可以直接看Demo2里面的示例</p>
 
-
-
-
 <p>值得留意的还有一个叫做<strong>transitionCoordinator</strong>, 主要用来与动画进行同步运动的, 下面的snippet是让<strong>chromeView</strong>与转场动画进行同步, 让<strong>chromeView</strong>的alpha随转场动画一起变动</p>
-
-
-
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="lineno">1</span> <span class="n">let</span> <span class="n">transitionCoordinator</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">presentingViewController</span><span class="o">.</span><span class="n">transitionCoordinator</span><span class="p">()</span>
 <span class="lineno">2</span>     <span class="n">transitionCoordinator</span><span class="o">.</span><span class="n">animateAlongsideTransition</span><span class="p">({(</span><span class="ss">context</span><span class="p">:</span> <span class="no">UIViewControllerTransitionCoordinatorContext</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">Void</span> <span class="k">in</span>
@@ -341,45 +214,23 @@
 <span class="lineno">4</span> <span class="p">},</span>  <span class="ss">completion</span><span class="p">:</span><span class="kp">nil</span><span class="p">)</span></code></pre></div>
 
 
-
-
 <p>这里我们也可以看到这个解耦的设计, 我们不需要在具体的转场动画中添加响应的同步动画逻辑, 而是通过一个叫<strong>transitionCoordinator</strong>的桥接器来完成, 不过这是iOS7中接口了</p>
-
-
-
 
 <hr />
 
-
-
-
 <h3>为什么是这样设计</h3>
 
-
-
-
 <p>这部分在开篇的时候也已经提及到, 大家可以从案例里面体验一下, 几个Demo用的是同一个处理动画转场的逻辑, 甚至在iOS8中的<strong>UIPresentationController</strong>也适用, 非常灵活, 也与VC各自的逻辑解耦</p>
-
-
-
 
 <p>示例代码在<a href="https://github.com/lanstonpeng/CustomTransition">这里</a><br/>
 里面包含几个Demo, 想看效果的可以快速拖动StoryBoard的入口箭头</p>
 
-
-
-
 <h4>Refs</h4>
-
-
-
 
 <ul>
 <li><a href="http://www.teehanlax.com/blog/custom-uiviewcontroller-transitions/">Custom UIViewController Transitions</a></li>
 <li><a href="http://dativestudios.com/blog/2013/09/29/interactive-transitions/">iOS7 interactive transitions</a></li>
 </ul>
-
-
 
 
 </div>

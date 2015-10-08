@@ -23,28 +23,18 @@
 <div class="post">
 <p>我们知道现在支持得比较好的客户端存储方案是localStorage,但是这里存在的问题是</p>
 
-
-
-
 <p>对于类似Array,Object 这类型的数据，因为localStorage只会将其作为字符串处理，所以当我们设置
 <code>
 localStorage.setItem(1,["kenfly","defims","lanston"])
 localStorage.getItem(1)[0]=="k"</code></p>
 
-
-
-
 <p><code>localStorage.setItem(2,{name:"gfw"})
 localStorage.getItem(2)=="[object Object]"
 </code></p>
 
-
-
-
 <p>所以为了适应这类型的数据，就采用JSON的序列化(JSON.serialize)和反序列化(JSON.deserialize)
 于是就写了一个十分简单的脚本
 <a href="http://github.com/lanstonpeng/crossStorage">github地址</a></p>
-
 
 </div>
 

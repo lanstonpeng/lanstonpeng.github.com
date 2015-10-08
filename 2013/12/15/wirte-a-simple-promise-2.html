@@ -24,16 +24,11 @@
 <p>We've known a bit about  why we need Promise and start to build our own version of <em>Promise</em><br/>
 Let's continue,first we get the following work</p>
 
-
-
-
 <pre>
 <code data-language="javascript">
     guruPromise.when_done_call_this(playPokemon).when_done_call_this(playPokemon);
 </code>
 </pre>
-
-
 
 
 <p>This is so called <em>chainable</em>
@@ -42,23 +37,11 @@ we've seen this pattern so much in JQuery
 maybe we can get a little bit hints from how JQuery does<br/>
 the <code>$</code> method, <code>hide</code>,<code>show</code> and others that can make chainable are simply just return <code>this</code> at the end of the function</p>
 
-
-
-
 <p>So, we may divert such methodology into Guru</p>
-
-
-
 
 <p><em>Every time after Guru's storing what he has to do in his memory,he       just returns the a promise,so that he has the same ability to fulfill     another promise</em></p>
 
-
-
-
 <p>So,let's add a few lines of code</p>
-
-
-
 
 <pre>
 <code  data-language="javascript">
@@ -96,15 +79,10 @@ the <code>$</code> method, <code>hide</code>,<code>show</code> and others that c
 </pre>
 
 
-
-
 <p>We create another Guru inside the <strong>when_done_call_this</strong> function and return another promise after putting the <strong>things_need_to_do</strong> into the original Guru's memory<br/>
 but Tony actually play Pokemon once, what's going wrong?<br/>
 as we can see, while the <code>cleanDesk</code>'s done , the Guru will tell us by calling <code>fulfill</code>,ok,
 Since the first <code>playPokemon</code> didn't tell the second <code>playPokemon</code> that he's already done, the second one doesn't know that he should be called or not, So, follow this hints,we can alter a bit</p>
-
-
-
 
 <pre>
 <code  data-language="javascript">
@@ -144,23 +122,15 @@ Since the first <code>playPokemon</code> didn't tell the second <code>playPokemo
 </pre>
 
 
-
-
 <p>We update a bit of <em>playPokemon</em> , we accept a <em>Guru</em> parameter so that we can get the Guru know that Tony has already played Pokemon<br/>
 And it works<br/>
 wait,are there any new problems here?<br/>
 Yes,there's a problem,as <code>playPokemon</code> is not an async function,it won't generate any timer,remember the mission of <em>Promise</em> written above,we don't have to insert extra codes in these plain function,if so ,we have to update all the plain functions!</p>
 
-
-
-
 <p>The next big step is finding a way to pack those inside the <code>guruGenerator</code><br/>
 Since we can fill <code>when_done_call_this</code> with plain or async function wrapped by promise ,we have to distinguish them by a simple <code>isPromise</code><br/>
 if <code>things_need_to_do</code> is  a <em>Promise</em>, we fill the memory with <code>anotherGuru.fulfill</code> to the other Guru,So that while the current <code>things_need_to_do</code> is done , the other Guru will carry out what's inside his memory;
 if <code>things_need_to_do</code> is  a  plain function, we just execute it</p>
-
-
-
 
 <pre>
 <code  data-language="javascript">
@@ -208,22 +178,14 @@ if <code>things_need_to_do</code> is  a  plain function, we just execute it</p>
 </pre>
 
 
-
-
 <p>And the last thing is that (what?I'm enough about that)<br/>
 As we can see that we change the position of <code>cleanDesk</code> and <code>washDish</code> ,and Tony's ending not playing Pokemon<br/>
 Why?<br/>
 Since <code>cleanDesk</code> takes around 1000ms and <code>washDish</code> takes around 1500ms, while <code>washDish</code>'s finished, the <code>cleanDesk</code>
 has already execute what's inside his memory</p>
 
-
-
-
 <p>The last step is to fix this problem<br/>
 because while the Guru promise to do a thing that is already done , it's not necessary to waste the memory of Guru(he's so old,don't blame the Guru),he can just immediately do what he was told to do ,without putting anything into the memory So,let's write down the final version of it,we just add a <em>isDone</em> which indicate that if the comming <em>things_need_to_do</em> is already done or not</p>
-
-
-
 
 <pre>
 <code  data-language="javascript">
@@ -269,27 +231,16 @@ function guruGenerator(){
 </pre>
 
 
-
-
 <h4>Things to be covered</h4>
-
-
-
 
 <ul>
 <li>No Error Handle Functionality</li>
 </ul>
 
 
-
-
 <h4>See Also</h4>
 
-
-
-
 <p><a href="http://callbackhell.com/">callbackhell</a></p>
-
 
 </div>
 

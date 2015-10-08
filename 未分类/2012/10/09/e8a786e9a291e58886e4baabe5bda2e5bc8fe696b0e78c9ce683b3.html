@@ -29,21 +29,12 @@
 如youku也有类似的url：
 "youkuUrl_Prefix?<strong>firsttime</strong>=31"</p>
 
-
-
-
 <p>这种方式简单方便，能满足足够多的用户
 但是，在我看来，如果能精确到一段视频，我们知道，加载视频的时候一般都是一段一段地进行加载，如果有那么一种方式，能让用户自由获取视频的任何部分,
 我所希望的操作流程是这样的：
 用户在看一个视频，他想分享接下来的片段了，点start,继续看视频，然后点end，这样一段视频就已经在客户端“生成”了这段视频了</p>
 
-
-
-
 <p><strong>关键字:</strong>canvas,video,base64,binary</p>
-
-
-
 
 <p>整体思路很简单，用一个隐藏的canvas获取video的数据，转化成相应的base64编码的数据，再经过decode出原始数据,即binary data(我们知道，base64比原始数据多出33%的数据量，具体看文章最后的ref),
 这样,数据传说方面就少传送33%了，
@@ -53,12 +44,8 @@
 <strong>软肋：</strong>显然，没有声音，流畅度欠缺
 具体的代码可以看我的<a href="https://github.com/lanstonpeng/SharingVideoHypothesis">github</a></p>
 
-
-
-
 <p>ref:
 <a href="http://www.ruanyifeng.com/blog/2008/06/base64.html">base64笔记</a></p>
-
 
 </div>
 

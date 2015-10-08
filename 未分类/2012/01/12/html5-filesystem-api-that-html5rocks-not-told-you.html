@@ -23,29 +23,14 @@
 <div class="post">
 <p>很久之前在HTML5Rocks里面看到的一个Terminal Demo ，当时有点震惊，不是因为其它的，是因为感觉到其实自己也是可以实现的，不像<a href="http://bellard.org/jslinux/">Javascript PC Emulator</a>那样，强大到无奈的地步,具体的实现可以看看他的<a href="http://bellard.org/jslinux/tech.html">Technical Notes</a>,因为期末要做操作系统的课程设计，所以我在<a href="http://www.html5rocks.com/en/tutorials/file/filesystem/terminal.html">HTML5 Terminal</a>的基础上作了一些基础性的修改以及命令的增加。</p>
 
-
-
-
 <p>Ok,Let's be back.</p>
-
-
-
 
 <p>I think you guys who're interested in <a href="http://dev.w3.org/2009/dap/file-system/pub/FileSystem/">HTML5 File API</a>should have read <a href="http://www.html5rocks.com/en/tutorials/file/filesystem/">this</a> in <a href="http://www.html5rocks.com">html5 rocks</a>,I've done so,but when you dive into it,you probably found it can't meet your aims.</p>
 
-
-
-
 <p><strong>How to update my file not just appending data ?</strong></p>
-
-
-
 
 <p>We can use  <a href="http://www.w3.org/TR/file-writer-api/#widl-FileWriter-truncate">truncate</a> ,this spec is to change your file's length,that means when you want to update file ,you "cut" the content of your file to length 0 or some other length you want and write your new content,here's my code snippet of implementing the
 <em>echo newcontent > myfile </em>:</p>
-
-
-
 
 <pre><code>cwd_.getFile(cwd_.fullPath+fileName,{create:false},function(fileEntry){
         fileEntry.createWriter(function(fileWriter){
@@ -61,16 +46,10 @@
 },errorHandler_);
 </code></pre>
 
-
-
-
 <!-- more -->
 
 
-
-
 <p>we can see that it's quite simple here,note that we should set fileWriter.onwriteend to null or we may trigger it recursively since we write something into a file in the writeend event</p>
-
 
 </div>
 

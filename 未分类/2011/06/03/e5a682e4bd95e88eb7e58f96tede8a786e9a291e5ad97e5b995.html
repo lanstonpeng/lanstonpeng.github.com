@@ -24,13 +24,7 @@
 <p>官网提供视频下载但不给字幕，搜索了一下有些软件可以用，也有一个<a href="http://tedtalksubtitledownload.appspot.com">GAE上面的网站</a>帮我们干， 但是伟大的GFW......
 于是就自己捣鼓起来了：</p>
 
-
-
-
 <p>分析了ted上面的页面信息，发现有这么一段代码：</p>
-
-
-
 
 <p><code>function getTranscript(language) {
 var transcriptCallback = {success: onGetTranscriptSuccess, failure: onGetTranscriptFailure, scope: this};
@@ -38,90 +32,46 @@ var req = YAHOO.util.Connect.asyncRequest('GET', YAHOO.Tools.printf('/talks/subt
 showLoadAnimation();
 }</code></p>
 
-
-
-
 <p>这个是字幕的json数据包，去<a href="http://zh.wikipedia.org/wiki/%E5%AD%97%E5%B9%95%E6%A0%BC%E5%BC%8F#SRT.E6.A0.BC.E5.BC.8F">wiki</a>了一下srt格式的字幕规范，譬如在srt有这样的一段</p>
-
-
-
 
 <p>194
 00:08:33,330 --> 00:08:36,330
 我们需要它向我们介绍新想法、</p>
 
-
-
-
 <p>194代表是第几个字幕，
 8分33.330到8分36.330出现这句话</p>
 
-
-
-
 <p>整个流程的思路不难</p>
-
-
-
 
 <!-- more -->
 
 
-
-
 <p><strong>1。html --> 2。json --> 3。sct</strong></p>
-
-
-
 
 <p>其中，在获取json地址的时候要获取到这个talk的id与language
 现给出1，2步骤的代码
 <code>
 import urllib2,StringIO,json,re</code></p>
 
-
-
-
 <p><code>def getHtml(url):
 html=urllib2.urlopen(url).read()
 return html</code></p>
 
-
-
-
 <p><code>def jsonToDict(text):
 return json.load(StringIO.StringIO(text))</code></p>
-
-
-
 
 <p>`def getTalkId(html):
 m=re.search('(?&lt;=var talkID = )\w+',html)
 talkid=m.group(0)
 return talkid</p>
 
-
-
-
 <h1>Maybe Most of us think these languages are recognizable</h1>
-
-
-
 
 <h1>chi_hans         Chinese (Simplified)</h1>
 
-
-
-
 <h1>chi_hant         Chinese (Traditional)</h1>
 
-
-
-
 <h1>eng              English</h1>
-
-
-
 
 <p>def getJson(talkid,lanType):
 template="http://www.ted.com/talks/subtitles/id/{0}/lang/{1}/format/text"
@@ -129,25 +79,13 @@ jsonUrl=template.format(talkid,lanType)
 text=urllib2.urlopen(jsonUrl).read()
 return jsonToDict(text)</p>
 
-
-
-
 <p>`
 代码不多且简单</p>
 
-
-
-
 <p>对于json到srt格式的转化可以观察到：</p>
-
-
-
 
 <p>在json一个小段落中有
 {"content":"Actually, I think it'll eventually","startTime":4000,"duration":2000,"startOfParagraph":false}</p>
-
-
-
 
 <p>需要做的只是一个映射而已，思路大概是这样：
 <code>
@@ -165,20 +103,13 @@ print hour+m+":"+s+","+ms
 print arr[i]["content"]
 print "\n"</code></p>
 
-
-
-
 <p>`def getTheTime(time):
 minute=int((int(time / 1000) % 3600) / 60 )
 second = int(time/ 1000) -minute * 60;
 msecond = time - (minute * 60 + second) * 1000;
 return minute,second,msecond</p>
 
-
-
-
 <p>`</p>
-
 
 </div>
 
