@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from localhost:2368/e5b08fe8aeaejavascript-timer/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 03:17:02 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>小议javascript timer</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="小议javascript timer">
+    <meta name="twitter:description" content="">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="小议javascript timer">
+    <meta property="og:description" content="">
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <link href="../assets/images/favicon.png" rel="shortcut icon" type="image/png">
+    <link href="../apple-touch-icon-precomposed.png/index.html" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/vno86b5.css?v=8e02a3de55" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/tomorrow86b5.css?v=8e02a3de55">
+    
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="Lanston Peng's ideas" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="小议javascript timer" />
+    <meta property="og:description" content="最近遇到一些关于javascript动画中的小问题，就是设定每帧的时间间隔，于是就稍稍作了一下小总结 有几种方式去实现： * 简单的setInterval* 页面逻辑不复杂的时候works well,但是注意到，抛开时间误差这个话题，单单的setInterval 会引起掉帧(Frame), 原理这里不详说,可在下面的Reference中看看资料，理解js事件的执行方式很是重要 简单来说就是setInterval一下子在UI thread 中注册多个triggers，但是你不能确定其是否会被触发到,因为有可能被其他逻辑所覆盖，刚才说到逻辑不复杂也正是这个原因 Reference:  How JavaScript Timers Work 《javascript 高级编程(2nd)》中关于Timer的这章 一个解决方案： setTimeout in setTimeout &amp;lt;span style=&quot;font-size: medium;&quot;&amp;gt;..." />
+    <meta property="og:url" content="index.html" />
+    <meta property="article:published_time" content="2011-11-16T06:28:11.000Z" />
+    <meta property="article:modified_time" content="2011-11-16T06:28:11.000Z" />
+    <meta property="article:tag" content="未分类" />
+    <meta property="article:tag" content="javascript" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="小议javascript timer" />
+    <meta name="twitter:description" content="最近遇到一些关于javascript动画中的小问题，就是设定每帧的时间间隔，于是就稍稍作了一下小总结 有几种方式去实现： * 简单的setInterval* 页面逻辑不复杂的时候works well,但是注意到，抛开时间误差这个话题，单单的setInterval 会引起掉帧(Frame), 原理这里不详说,可在下面的Reference中看看资料，理解js事件的执行方式很是重要 简单来说就是setInterval一下子在UI thread 中注册多个triggers，但是你不能确定其是否会被触发到,因为有可能被其他逻辑所覆盖，刚才说到逻辑不复杂也正是这个原因 Reference:  How JavaScript Timers Work 《javascript 高级编程(2nd)》中关于Timer的这章 一个解决方案： setTimeout in setTimeout &amp;lt;span style=&quot;font-size: medium;&quot;&amp;gt;..." />
+    <meta name="twitter:url" content="index.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Lanston Peng's ideas",
+    "author": {
+        "@type": "Person",
+        "name": "lanstonpeng",
+        "url": "http://localhost:2368/author/lanstonpeng",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "小议javascript timer",
+    "url": "http://localhost:2368/e5b08fe8aeaejavascript-timer/",
+    "datePublished": "2011-11-16T06:28:11.000Z",
+    "dateModified": "2011-11-16T06:28:11.000Z",
+    "keywords": "未分类, javascript",
+    "description": "最近遇到一些关于javascript动画中的小问题，就是设定每帧的时间间隔，于是就稍稍作了一下小总结 有几种方式去实现： * 简单的setInterval* 页面逻辑不复杂的时候works well,但是注意到，抛开时间误差这个话题，单单的setInterval 会引起掉帧(Frame), 原理这里不详说,可在下面的Reference中看看资料，理解js事件的执行方式很是重要 简单来说就是setInterval一下子在UI thread 中注册多个triggers，但是你不能确定其是否会被触发到,因为有可能被其他逻辑所覆盖，刚才说到逻辑不复杂也正是这个原因 Reference:  How JavaScript Timers Work 《javascript 高级编程(2nd)》中关于Timer的这章 一个解决方案： setTimeout in setTimeout &amp;lt;span style=&quot;font-size: medium;&quot;&amp;gt;..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="Lanston Peng&#x27;s ideas" href="../rss/index.html" />
+
+</head>
+<body class="post-template tag-wei-fen-lei tag-javascript no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url(../content/images/2015/12/John-William-Waterhouse-Hylas-and-the-Nymphs.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <h1 class="panel-cover__title panel-title"><a href="../index.html" title="前往 Lanston Peng&#x27;s ideas 的主页">Lanston Peng&#x27;s ideas</a></h1>
+        <span class="panel-cover__subtitle panel-subtitle"></span>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">能不断品尝那无限的美好作品
+做一个有趣,简单且随和的人</p>
+        <!--
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        -->
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="../index.html#blog" title="访问博客" class="blog-button">博客</a></li>
+              <li class="navigation__item"><a href="http://douban.com/people/lanstonpeng" target="_blank" title="我的豆瓣">豆瓣</a></li>
+              <!--
+              <li class="navigation__item"><a href="" title="了解更多关于我">关于</a></li>
+              -->
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+
+  <!-- 豆瓣 
+  <li class="navigation__item">
+    <a href="http://www.douban.com/people/lanstonpeng/" title="诚实的奸商" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">豆瓣</span>
+    </a>
+  </li>
+  -->
+
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/lanstonpeng" title="Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/lanstonpeng" title="@lanstonpeng" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="../rss/index.html" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:lanstonpeng@gmail.com" title="邮件联系我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+  </ul>
+</nav>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-purple"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            
+
+  <article class="post-container post-container--single">
+
+    <header class="post-header">
+      <div class="post-meta">
+        <time datetime="16 Nov 2011" class="post-meta__date date">16 Nov 2011</time> &#8226; <span class="post-meta__tags tags">于 <a href="../tag/wei-fen-lei/index.html">未分类</a>, <a href="../tag/javascript/index.html">javascript</a></span>
+        <!--<span class="post-meta__author author"><img src="" alt="profile image for lanstonpeng" class="avatar post-meta__avatar" /> by lanstonpeng</span>-->
+      </div>
+      <h1 class="post-title">小议javascript timer</h1>
+    </header>
+
+    <section class="post tag-wei-fen-lei tag-javascript">
+      <p>最近遇到一些关于javascript动画中的小问题，就是设定每帧的时间间隔，于是就稍稍作了一下小总结
+有几种方式去实现：
+<em>* 简单的setInterval</em>*</p>
+
+<p>页面逻辑不复杂的时候works well,但是注意到，抛开时间误差这个话题，单单的setInterval 会引起掉帧(Frame),</p>
+
+<p>原理这里不详说,可在下面的Reference中看看资料，理解js事件的执行方式很是重要</p>
+
+<p>简单来说就是setInterval一下子在UI thread 中注册多个triggers，但是你不能确定其是否会被触发到,因为有可能被其他逻辑所覆盖，刚才说到逻辑不复杂也正是这个原因</p>
+
+<p><em>Reference:</em> <br />
+<a href="http://ejohn.org/blog/how-javascript-timers-work/">How JavaScript Timers Work</a>
+《javascript 高级编程(2nd)》中关于Timer的这章</p>
+
+<p>一个解决方案：</p>
+
+<p><strong>setTimeout in setTimeout</strong></p>
+
+<pre><code>&lt;span style="font-size: medium;"&gt;setTimeout(()-&gt;
+  curWidth=parseInt(ele2.style.width)
+  ele2.style.width=++curWidth + "px"
+  setTimeout(arguments.callee,10) if curWidth&lt;500
+,10)&lt;/span&gt;
+</code></pre>
+
+<p>这种方法可以有效避免掉帧（除非有按键精灵,理论上可行），因为其在一次repaint之后才决定下一次的repaint在哪里</p>
+
+<p>The Problem is:<!-- more --></p>
+
+<p>为了保持帧数<strong>相对</strong>恰当(其实setTimeout in setTimeout已经做得很不错的了)
+此外，也有类似下面的解决方案，即在每次seTimeout中计算时间间隔，达到需要的时候就执行callback，这个需要的时候指的是
+与期望的时间间隔相近
+<em>* Count the timestamp in each setTimeout</em>*</p>
+
+<pre><code>                       &lt;span style="font-size: medium;"&gt;
+var start=+new Date(),
+frame=-1,
+p=document.querySelector("#process4"),
+timer=setInterval(change,10)
+function change(){
+    var diff=+new Date()-start,
+    f=Math.floor(diff/20)
+    if(f&gt;frame){
+       ++frame //不跳过失去的帧
+       //frame=f //跳过失去的帧
+       animate()
+    }
+}&lt;/span&gt;
+</code></pre>
+
+<p>关于上面这个函数 if 判断里面的东西可能有些卡壳，其实，你稍稍console一些变量，看一遍就知道怎么回事了</p>
+
+<p>关于时间间隔，我们无法得知两次repaint的时候的时间间隔，depends on different Browsers
+即很有可能在不同的Browsers中有着不同的动画速度，你根本不知道究竟用什么时间间隔好，导致你可能尽可能减少timestamp</p>
+
+<p>那么，有没有更为高效优雅的方案呢？嗯，有的</p>
+
+<p><strong>webkitRequestAnimationFrame|| mozRequestAnimationFrame</strong></p>
+
+<pre><code>&lt;span style="font-size: medium;"&gt;raf = window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame
+ele=document.querySelector("#process")
+
+change=(timestamp) -&gt;
+ curWidth=parseInt(ele.style.width)
+ ele.style.width=++curWidth + "px"
+ raf(change) if curWidth &lt;500
+
+raf(change)&lt;/span&gt;
+</code></pre>
+
+<p>大可抛开上面的代码,先看看其中的webkitRequestAnimationFrame</p>
+
+<p>简单来说就这样：</p>
+
+<p><em>requests that the browser schedule a repaint of the window for the next animation frame</em></p>
+
+<p>其高人之处在于其智能性
+在执行动画的时候，它会根据你当前浏览器的工作量来动态改变时间间隔，意味着什么，即你不用担心怎么去schedule你的timestamp了</p>
+
+<p>Refernece:</p>
+
+<p><a href="http://hacks.mozilla.org/2010/08/more-efficient-javascript-animations-with-mozrequestanimationframe/">MDN:more-efficient-javascript-animations-with-mozrequestanimationframe</a>
+<a href="http://stackoverflow.com/questions/196027/is-there-a-more-accurate-way-to-create-a-javascript-timer-than-settimeout">Stackoverflow</a></p>
+    </section>
+
+  </article>
+
+  <section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+      
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+            <footer class="footer">
+    <span class="footer__copyright">&copy; 2015  All rights reserved.</span>
+    <span class="footer__copyright"><a href="https://github.com/onevcat/vno">Vno</a> theme by <a href="http://im.onevcat.com/">@onevcat</a></span>
+</footer>        </div>
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45773367-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <!-- Compatibility for Ghost 0.7.0: http://dev.ghost.org/no-more-jquery/ -->
+    <script type="text/javascript">  
+      if (typeof jQuery == 'undefined') {
+        document.write('<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></'+'script>');
+      }
+    </script>
+    
+    <script type="text/javascript" src="../assets/js/main86b5.js?v=8e02a3de55"></script>
+
+    <script type="text/javascript" src="../assets/js/highlight.pack86b5.js?v=8e02a3de55"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+<!-- Mirrored from localhost:2368/e5b08fe8aeaejavascript-timer/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 03:17:02 GMT -->
+</html>

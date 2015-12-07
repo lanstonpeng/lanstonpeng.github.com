@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from localhost:2368/e4b880e4b8aae889afe5a5bde79a84e7b3bbe7bb9fe5ba94e8afa5e68ba5e69c89e4b880e4b8aae8aebee8aea1e889afe5a5bde79a84e69eb6e69e84/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 03:47:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>一个良好的系统应该拥有一个设计良好的架构</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="一个良好的系统应该拥有一个设计良好的架构">
+    <meta name="twitter:description" content="">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="一个良好的系统应该拥有一个设计良好的架构">
+    <meta property="og:description" content="">
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <link href="../assets/images/favicon.png" rel="shortcut icon" type="image/png">
+    <link href="../apple-touch-icon-precomposed.png/index.html" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/vno86b5.css?v=8e02a3de55" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/tomorrow86b5.css?v=8e02a3de55">
+    
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="Lanston Peng's ideas" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="一个良好的系统应该拥有一个设计良好的架构" />
+    <meta property="og:description" content="一个良好的系统应该拥有一个设计良好的架构，这样对以后的维护以及扩展带来极大的便利。 最近在了解一些有关设计原则的东西，而何为一个良好的设计，就我所学到的而言，我认为，在充分考虑该软件的将来，即在考虑软件的扩展性的问题上有一定的思考，又要在降低开发成本的问题上作出权衡，过度设计必然导致开发成本的上升，而未来是不可预知的，这只能视情况而定。 经典的原则经历过时间的考验，开发上必可作为指导，还是一个问题，盲目地套用是在做无用功，而真正的灵活运行还需在不断的实践中进行不断的思考。 下面是有关个人对一些原则的理解及看法 开放闭合原则: 当我们对一个软件进行修改的时候，不应该对已有的功能模块进行修改，这里是对于普通情况，并且默认软件在该模块上设计是相对合理的，而是通过增加类的方式，扩展这种修改，而我们应该如何做到这种效果呢？我认为，模块功能应该依赖于抽象，公共接口不变，这里的接口不仅仅局限在interface上，举个自己乱写的例子： 假设我们登录FaceBook时要进行验证，可以通过Authentication1进行登录，该登录是基于密码什么的， public class Authentication1:ISubject { FaceBook fb=..." />
+    <meta property="og:url" content="index.html" />
+    <meta property="article:published_time" content="2010-12-16T08:04:25.000Z" />
+    <meta property="article:modified_time" content="2010-12-16T08:04:25.000Z" />
+    <meta property="article:tag" content="idea" />
+    <meta property="article:tag" content=".net" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="一个良好的系统应该拥有一个设计良好的架构" />
+    <meta name="twitter:description" content="一个良好的系统应该拥有一个设计良好的架构，这样对以后的维护以及扩展带来极大的便利。 最近在了解一些有关设计原则的东西，而何为一个良好的设计，就我所学到的而言，我认为，在充分考虑该软件的将来，即在考虑软件的扩展性的问题上有一定的思考，又要在降低开发成本的问题上作出权衡，过度设计必然导致开发成本的上升，而未来是不可预知的，这只能视情况而定。 经典的原则经历过时间的考验，开发上必可作为指导，还是一个问题，盲目地套用是在做无用功，而真正的灵活运行还需在不断的实践中进行不断的思考。 下面是有关个人对一些原则的理解及看法 开放闭合原则: 当我们对一个软件进行修改的时候，不应该对已有的功能模块进行修改，这里是对于普通情况，并且默认软件在该模块上设计是相对合理的，而是通过增加类的方式，扩展这种修改，而我们应该如何做到这种效果呢？我认为，模块功能应该依赖于抽象，公共接口不变，这里的接口不仅仅局限在interface上，举个自己乱写的例子： 假设我们登录FaceBook时要进行验证，可以通过Authentication1进行登录，该登录是基于密码什么的， public class Authentication1:ISubject { FaceBook fb=..." />
+    <meta name="twitter:url" content="index.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Lanston Peng's ideas",
+    "author": {
+        "@type": "Person",
+        "name": "lanstonpeng",
+        "url": "http://localhost:2368/author/lanstonpeng",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "一个良好的系统应该拥有一个设计良好的架构",
+    "url": "http://localhost:2368/e4b880e4b8aae889afe5a5bde79a84e7b3bbe7bb9fe5ba94e8afa5e68ba5e69c89e4b880e4b8aae8aebee8aea1e889afe5a5bde79a84e69eb6e69e84/",
+    "datePublished": "2010-12-16T08:04:25.000Z",
+    "dateModified": "2010-12-16T08:04:25.000Z",
+    "keywords": "idea, .net",
+    "description": "一个良好的系统应该拥有一个设计良好的架构，这样对以后的维护以及扩展带来极大的便利。 最近在了解一些有关设计原则的东西，而何为一个良好的设计，就我所学到的而言，我认为，在充分考虑该软件的将来，即在考虑软件的扩展性的问题上有一定的思考，又要在降低开发成本的问题上作出权衡，过度设计必然导致开发成本的上升，而未来是不可预知的，这只能视情况而定。 经典的原则经历过时间的考验，开发上必可作为指导，还是一个问题，盲目地套用是在做无用功，而真正的灵活运行还需在不断的实践中进行不断的思考。 下面是有关个人对一些原则的理解及看法 开放闭合原则: 当我们对一个软件进行修改的时候，不应该对已有的功能模块进行修改，这里是对于普通情况，并且默认软件在该模块上设计是相对合理的，而是通过增加类的方式，扩展这种修改，而我们应该如何做到这种效果呢？我认为，模块功能应该依赖于抽象，公共接口不变，这里的接口不仅仅局限在interface上，举个自己乱写的例子： 假设我们登录FaceBook时要进行验证，可以通过Authentication1进行登录，该登录是基于密码什么的， public class Authentication1:ISubject { FaceBook fb=..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="Lanston Peng&#x27;s ideas" href="../rss/index.html" />
+
+</head>
+<body class="post-template tag-idea tag-net no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url(../content/images/2015/12/John-William-Waterhouse-Hylas-and-the-Nymphs.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <h1 class="panel-cover__title panel-title"><a href="../index.html" title="前往 Lanston Peng&#x27;s ideas 的主页">Lanston Peng&#x27;s ideas</a></h1>
+        <span class="panel-cover__subtitle panel-subtitle"></span>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">能不断品尝那无限的美好作品
+做一个有趣,简单且随和的人</p>
+        <!--
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        -->
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="../index.html#blog" title="访问博客" class="blog-button">博客</a></li>
+              <li class="navigation__item"><a href="http://douban.com/people/lanstonpeng" target="_blank" title="我的豆瓣">豆瓣</a></li>
+              <!--
+              <li class="navigation__item"><a href="" title="了解更多关于我">关于</a></li>
+              -->
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+
+  <!-- 豆瓣 
+  <li class="navigation__item">
+    <a href="http://www.douban.com/people/lanstonpeng/" title="诚实的奸商" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">豆瓣</span>
+    </a>
+  </li>
+  -->
+
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/lanstonpeng" title="Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/lanstonpeng" title="@lanstonpeng" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="../rss/index.html" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:lanstonpeng@gmail.com" title="邮件联系我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+  </ul>
+</nav>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-purple"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            
+
+  <article class="post-container post-container--single">
+
+    <header class="post-header">
+      <div class="post-meta">
+        <time datetime="16 Dec 2010" class="post-meta__date date">16 Dec 2010</time> &#8226; <span class="post-meta__tags tags">于 <a href="../tag/idea/index.html">idea</a>, <a href="../tag/net/index.html">.net</a></span>
+        <!--<span class="post-meta__author author"><img src="" alt="profile image for lanstonpeng" class="avatar post-meta__avatar" /> by lanstonpeng</span>-->
+      </div>
+      <h1 class="post-title">一个良好的系统应该拥有一个设计良好的架构</h1>
+    </header>
+
+    <section class="post tag-idea tag-net">
+      <p><a href="http://lantonspeng.blog.cd/files/2010/12/无标题221.png"></a></p>
+
+<p><a href="http://lantonspeng.blog.cd/files/2010/12/无标题221.png"> </a></p>
+
+<p>一个良好的系统应该拥有一个设计良好的架构，这样对以后的维护以及扩展带来极大的便利。</p>
+
+<p>最近在了解一些有关设计原则的东西，而何为一个良好的设计，就我所学到的而言，我认为，在充分考虑该软件的将来，即在考虑软件的扩展性的问题上有一定的思考，又要在降低开发成本的问题上作出权衡，过度设计必然导致开发成本的上升，而未来是不可预知的，这只能视情况而定。</p>
+
+<p>经典的原则经历过时间的考验，开发上必可作为指导，还是一个问题，盲目地套用是在做无用功，而真正的灵活运行还需在不断的实践中进行不断的思考。</p>
+
+<!-- more -->
+
+<p>下面是有关个人对一些原则的理解及看法</p>
+
+<p>开放闭合原则:</p>
+
+<p><img src="http://lantonspeng.blog.cd/files/2010/12/无标题221.png-1024x570.png" alt="" /></p>
+
+<p>当我们对一个软件进行修改的时候，不应该对已有的功能模块进行修改，这里是对于普通情况，并且默认软件在该模块上设计是相对合理的，而是通过增加类的方式，扩展这种修改，而我们应该如何做到这种效果呢？我认为，模块功能应该依赖于抽象，公共接口不变，这里的接口不仅仅局限在interface上，举个自己乱写的例子：</p>
+
+<p>假设我们登录FaceBook时要进行验证，可以通过Authentication1进行登录，该登录是基于密码什么的，</p>
+
+<p>public class Authentication1:ISubject</p>
+
+<p>{</p>
+
+<p>FaceBook fb=null;</p>
+
+<p>string pwd = "somecode";</p>
+
+<p>public Authentication1(string pwd)</p>
+
+<p>{</p>
+
+<p>if (this.pwd <mark> pwd)</p>
+
+<p>fb = new FaceBook();</p>
+
+<p>}</p>
+
+<p>public void ResponseMessage()</p>
+
+<p>{</p>
+
+<p>if (fb </mark> null)</p>
+
+<p>{//dosomething</p>
+
+<p>fb.Response();</p>
+
+<p>}</p>
+
+<p>else</p>
+
+<p>{         //dosomeotherthing</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>这里只是演示，没什么具体设计可以的说的，</p>
+
+<p>FaceBook是一个私有类，只有经过验证才能进行登录，</p>
+
+<p>如果按照我们“传统的”登录方式，我们new一个Authentication1，然后进行相关操作，如果出现第二种登录方式，譬如指纹( ——|||  )，最差的一种方式是在Authentication1类中加个switch什么的，另外可以新建一个类，为Authentication2，具体方法有相应的算法什么的，这里不列出。然后我们在Client那里，有人可能会new一个Authentication2，然后进行相应的操作，</p>
+
+<p>Authentication1 au1 = new Authentication1("zxv");</p>
+
+<p>au1.ResponseMessage();</p>
+
+<p>Authentication2 au2 = new Authentication2();</p>
+
+<p>au2.ResponseMessage();</p>
+
+<p>这样虽然我们的模块职责分配得比较单一，但是我们将工作交给客户端了，用户需要根据不同的验证方式进行登录，而且以后修改会比较繁琐，</p>
+
+<p>一种方式是通过接口，这里我们实现ISubject接口，</p>
+
+<p>ISubject isb = new Authentication1("pwd");</p>
+
+<p>isb.ResponseMessage();</p>
+
+<p>isb = new Authentication2();</p>
+
+<p>isb.ResponseMessage();</p>
+
+<p>当然这里的客户端也可以封装在类似一个工厂里面里面，根据不同的对象返回不同的实例，这样才更加体现用处。</p>
+
+<p>我一开始对这种方式感觉作用不大，不就一个接口引用什么的，后来经过一定的思考，感觉作用还是挺大的：</p>
+
+<p>首先，它定义了一组规范，每个实现必须遵循，这样，系统能做到比较规范，并且在以后的移植中带来很多便利，譬如我只改逻辑层，表现层完全不需要修改（当然，这要靠具体的实现），其次，接口是抽象的，假设我们的依赖于具体的实现，譬如像我们上面那样new不同的实例，这里很难看出，假设这里的验证方式有很多种呢，每一种要对应于一个类，这样，客户端方面要做的东西就很多了，他们根据自己需要验证的方式去实例化不同的类进行操作，这样显然不行。</p>
+
+<p>于是，我们这里引入工厂，用户只是想怎样登录即可，不需要知道具体实现（这里说得可能比较模糊，打个比方，譬如我们在银行排队办理业务，我们需要知道我们要干什么，如存钱，贷款什么的，然后我们得自己走到相应的窗口，存钱窗口，贷款窗口什么的，但是，这里用户只需要告诉服务人员，我要存钱，服务人员就带你去存钱，你并不知道怎么走去，你只需告诉即可......）</p>
+
+<p>占位的代码……(视觉污染……)</p>
+
+<p>public class Factory</p>
+
+<p>{   public string name;</p>
+
+<p>public static ISubject  CreateObj(string n)</p>
+
+<p>{        switch (n)</p>
+
+<p>{            case "asdf": return new Authentication1("zxv");</p>
+
+<p>//.....</p>
+
+<p>}        return null;</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>于是，在client这边有：</p>
+
+<p>ISubject myobj = Factory.CreateObj("call");</p>
+
+<p>myobj = Factory.CreateObj("callanother");</p>
+
+<p>这样，我们就将新建这样一个职责封装到一个类中，以后能很方便修改，而客户端仅仅需要少少的修改</p>
+
+<p>其实，这里不仅仅是一个原则的体现，原则之间相互融合才能达到更高的层面，迫于时间有限……</p>
+    </section>
+
+  </article>
+
+  <section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+      
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+            <footer class="footer">
+    <span class="footer__copyright">&copy; 2015  All rights reserved.</span>
+    <span class="footer__copyright"><a href="https://github.com/onevcat/vno">Vno</a> theme by <a href="http://im.onevcat.com/">@onevcat</a></span>
+</footer>        </div>
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45773367-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <!-- Compatibility for Ghost 0.7.0: http://dev.ghost.org/no-more-jquery/ -->
+    <script type="text/javascript">  
+      if (typeof jQuery == 'undefined') {
+        document.write('<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></'+'script>');
+      }
+    </script>
+    
+    <script type="text/javascript" src="../assets/js/main86b5.js?v=8e02a3de55"></script>
+
+    <script type="text/javascript" src="../assets/js/highlight.pack86b5.js?v=8e02a3de55"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+<!-- Mirrored from localhost:2368/e4b880e4b8aae889afe5a5bde79a84e7b3bbe7bb9fe5ba94e8afa5e68ba5e69c89e4b880e4b8aae8aebee8aea1e889afe5a5bde79a84e69eb6e69e84/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 03:47:51 GMT -->
+</html>

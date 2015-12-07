@@ -1,0 +1,1884 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[Lanston Peng's ideas]]></title><description><![CDATA[能不断品尝那无限的美好作品
+做一个有趣,简单且随和的人]]></description><link>http://localhost:2368/</link><generator>Ghost 0.7</generator><lastBuildDate>Sun, 06 Dec 2015 02:35:07 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[如何在 iOS 中实现一个弹性球]]></title><description><![CDATA[<p><img src="http://localhost:2368/content/images/2015/12/bounce_ball-1.jpg" alt="image"></p>
+
+<p>最近一个Pet Project中想要实现一个弹性球的效果,类似足球少年中在球碰撞过程中发生形变,在这个教程的最后，你可以实现一个简单的<code>弹性球</code>
+<img src="http://localhost:2368/content/images/2015/12/BounceBallDemo.gif" alt="image"></p>
+
+<p>如果把这个球抽象成一个<strong>View</strong>,那么首先想到的时候这个<strong>View</strong>需要一个物理系统的支持,纵观iOS系统，提供物理支持的框架大致上有 <code>SpriteKit</code> , <code>UIDynamic</code>, <code>第三方Lib(如Box2D)</code></p>
+
+<p>我想到的方式是通过某种形式把这个形变的圆画出来，然后用一套物理系统操作画圆的轨迹 </p>
+
+<p>基本上，我把问题分成两大块</p>
+
+<ul>
+<li>作图</li>
+<li>嵌入物理系统</li>
+</ul>
+
+<h2 id="">作图</h2>
+
+<p>因为平时作图的时候自己时长需要用到钢笔工具，本质上就是在操作一个多阶贝塞尔曲线，而细心的同学会发现在作图工具中有这么一个东西
+<img src="http://localhost:2368/content/images/2015/12/QQ20151205-0-2x.png" alt="image">
+既然Sketch中可以用贝塞尔曲线作出一个光滑的圆，那么这个用这种方式作图肯定是可以的，如果对贝塞尔曲线不是非常了解的同学，可以看看文末的两篇链接</p>
+
+<p>我们把问题最小化，先把四分之一圆画出来，后续用同样的方式进行迁移即可把整个圆画出
+好了，回到我们的思路当中，根据Sketch作图给的提示，这个路径需要两个<strong>control point</strong>s来作画，映射到iOS的实现是这个函数</p>
+
+<pre><code>- (void)addCurveToPoint:(CGPoint)endPoint
+          controlPoint1:(CGPoint)controlPoint1</code></pre>]]></description><link>http://localhost:2368/ios_bounce_ball/</link><guid isPermaLink="false">e0fbccbf-21c2-494e-9ebd-b3445013cfc2</guid><dc:creator><![CDATA[lanstonpeng]]></dc:creator><pubDate>Sat, 05 Dec 2015 13:35:33 GMT</pubDate><content:encoded><![CDATA[<p><img src="http://localhost:2368/content/images/2015/12/bounce_ball-1.jpg" alt="image"></p>
+
+<p>最近一个Pet Project中想要实现一个弹性球的效果,类似足球少年中在球碰撞过程中发生形变,在这个教程的最后，你可以实现一个简单的<code>弹性球</code>
+<img src="http://localhost:2368/content/images/2015/12/BounceBallDemo.gif" alt="image"></p>
+
+<p>如果把这个球抽象成一个<strong>View</strong>,那么首先想到的时候这个<strong>View</strong>需要一个物理系统的支持,纵观iOS系统，提供物理支持的框架大致上有 <code>SpriteKit</code> , <code>UIDynamic</code>, <code>第三方Lib(如Box2D)</code></p>
+
+<p>我想到的方式是通过某种形式把这个形变的圆画出来，然后用一套物理系统操作画圆的轨迹 </p>
+
+<p>基本上，我把问题分成两大块</p>
+
+<ul>
+<li>作图</li>
+<li>嵌入物理系统</li>
+</ul>
+
+<h2 id="">作图</h2>
+
+<p>因为平时作图的时候自己时长需要用到钢笔工具，本质上就是在操作一个多阶贝塞尔曲线，而细心的同学会发现在作图工具中有这么一个东西
+<img src="http://localhost:2368/content/images/2015/12/QQ20151205-0-2x.png" alt="image">
+既然Sketch中可以用贝塞尔曲线作出一个光滑的圆，那么这个用这种方式作图肯定是可以的，如果对贝塞尔曲线不是非常了解的同学，可以看看文末的两篇链接</p>
+
+<p>我们把问题最小化，先把四分之一圆画出来，后续用同样的方式进行迁移即可把整个圆画出
+好了，回到我们的思路当中，根据Sketch作图给的提示，这个路径需要两个<strong>control point</strong>s来作画，映射到iOS的实现是这个函数</p>
+
+<pre><code>- (void)addCurveToPoint:(CGPoint)endPoint
+          controlPoint1:(CGPoint)controlPoint1
+          controlPoint2:(CGPoint)controlPoint2
+</code></pre>
+
+<p>那么问题来了，
+究竟如何确定下面的A,B两点呢
+<img src="http://localhost:2368/content/images/2015/12/QQ20151205-1-2x.png" alt="image">
+说实话，其实一开始我也不知道怎么弄，但是我猜想这是一个线性比例关系，就是我只要知道半径为1的圆的A点在那里，那么所有的A点都是可以计算的</p>
+
+<p>所以，我按照Sketch的单位，计算了一番
+<img src="http://localhost:2368/content/images/2015/12/QQ20151205-2-2x.png" alt="image">
+如上图所示，定点坐标是 <code>(100,0)</code> ,A点坐标是 <code>(155.23,0)</code> ,那么我们很容易就猜想半径比例系数是 <code>1.5523</code> ,尝试放大缩小这个圆，也能得出同样的系数，且慢，我们不能满足于这个结果，我们要需要<strong>证明</strong>一下!</p>
+
+<p>本质上我们需要求得c的大小(<code>P1</code>和<code>P3</code>的对称性决定其值一致)
+<img src="http://localhost:2368/content/images/2015/12/QQ20151205-5-2x.png" alt="image"></p>
+
+<p>搜索一下 <a href="https://zh.wikipedia.org/wiki/%E8%B2%9D%E8%8C%B2%E6%9B%B2%E7%B7%9A">3次贝塞尔曲线</a>的方程</p>
+
+<pre><code>B(t) = (1-t)^3*P_0 +  
+       3*(1-t)^2*t*P_1 + 
+       3*(1-t)*t^2*P_2 + 
+       t^3*P_3, t in [0,1]
+</code></pre>
+
+<p>以及圆的方程</p>
+
+<pre><code>x = r * cos(a)  
+y = r * sin(a)
+</code></pre>
+
+<p><strong>t</strong> 是这条曲线上上任意一点，
+我们可以根据圆的方程(上上所示)知道 <code>(sqrt(0.5),sqrt(0.5))</code>是其中一个点，那么，根据我们图中给出的点可以得出关于x轴坐标的解:</p>
+
+<pre><code>sqrt(0.5) = 0.5^3 * 0  + 3 * 0.5^2 * 0.5 * c + 3 * 0.5 * 0.5^2 * 1 + 0.5^3 * 1
+
+sqrt(0.5) = 4 / 8 + 3c / 8
+
+c =  4 * (sqrt(2) - 1) / 3  
+</code></pre>
+
+<p>好了，按一下计算器，可以得到这个常量<strong>约为</strong> <code>0.552284749831</code>，跟Sketch里面猜想很接近:-)</p>
+
+<h2 id="">物理系统</h2>
+
+<p>So far so good, 我们根据这个特性，现在能画出正个圆了， <br>
+接下来就是模拟球被<code>挤压</code>,<code>拉伸</code>等自然状态了，我在这个项目中选择了<strong>UIDynamic</strong>这个引擎,下面是实现的理论模型，其实就是用5个隐藏的<code>dynamic item</code>来构成弹性球的<code>"骨架"</code>,然后用几条弹簧将他们连接起来，然后根据我们第一步的方式，把几个顶点的<code>dynamic item</code>的动态坐标事实连接起来就ok了
+<img src="http://localhost:2368/content/images/2015/12/QQ20151205-6-2x.png" alt="image">
+实现出来在模拟器里面会是这样的
+<img src="http://localhost:2368/content/images/2015/12/68889528-0587-45E2-93C3-D988EE2542B6.png" alt="image">
+具体会使用 <code>CADisplayLink</code> 来保证刷新频率</p>
+
+<p>整体流程大致上是这样的</p>
+
+<pre><code>- (void)startShow
+{
+    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(renderShape)];
+
+    [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+
+}
+
+- (void)renderShape
+{
+    [self setNeedsDisplay];
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    CGContextRef aRef = UIGraphicsGetCurrentContext();
+    CGContextClearRect(aRef, self.bounds);
+
+    //set color code
+    [self calculatePoints];//动态计算几个control points
+
+
+    UIBezierPath* bezier = [self getCalculateBorderPath]; //根据control point画出相应路径
+
+    [bezier stroke];
+    [bezier closePath];
+}
+</code></pre>
+
+<p>但是，实际操作过程中会遇到不少问题
+如动态坐标计算，就是如何把几个<code>control point</code>s实际坐标计算出来，我是根据中间的<code>dynamic item</code>和4个顶点的斜率来得出垂直斜率，再根据第一步计算的比例分别得出距离4个顶点的距离，得出坐标，特别需要注意的是垂直的特殊情况,这里我也有一个地方没有处理好，我特意在gif图里面显示出来了</p>
+
+<p>另外一个可以提升的点是碰撞边界，<del>具体我没有实现</del>(其实是实现失败了) 
+利用iOS9的新特性，重写</p>
+
+<pre><code>-  (UIBezierPath *)collisionBoundingPath
+-  (UIDynamicItemCollisionBoundsType) collisionBoundsType
+</code></pre>
+
+<p>另外，感兴趣的同学也可以用 <code>SKSpriteNode</code> 来实现弹性球的载体，其实有蛮多效果本质都是结合 <code>CADisplayLink</code> 和<code>UIBezierPath</code>来实现了，深入了解二者和<strong>CoreAnimation</strong>的Layer对实现一个动效很有帮助，当然，还有很多别的方式，多多思考原理，然后在具体平台中寻找方案</p>
+
+<p>最后，附上代码的 <a href="https://www.dropbox.com/sh/2ql0oy1bv7ej3ry/AAA00_OUfzarnBeJSofoaaFaa?dl=0">dropbox地址</a>，谢谢各位</p>
+
+<h6 id="">关于贝塞尔曲线知识的相关链接:</h6>
+
+<ul>
+<li><a href="http://www.html-js.com/article/1628">贝塞尔曲线扫盲</a></li>
+<li><a href="http://pomax.github.io/bezierinfo/">A Primer on Bézier Curves</a></li>
+</ul>]]></content:encoded></item><item><title><![CDATA[Surface Pro 3 简评]]></title><description><![CDATA[<h3 id="prosandcons">Pros and Cons:</h3>
+
+<ul>
+<li><p>手写功能较市面上同类产品(这里定位为平板产品及其周边触笔设备)好，但是敏捷度仍待提升(当然，终极目标当属与纸质书写一般)，尤其是写字力量仍然无法与正常纸质书写一般，仍需稍微加强用力(但是触笔会有强弱的区分,能书写粗细有别的字体)，但是总体来说没有让自己失望(基本上70%我就是冲着OneNote这个killer app来的)</p></li>
+<li><p>平板专供软件较少，普遍质量较低(以致我首页基本都是网页的收藏)</p></li>
+<li><p>效率方面，我比较喜欢开切分屏幕，如一屏开MOOC课程，另外一边开着OneNote做笔记，有空的时候随时拿出来任何设备sync一下笔记</p></li>
+<li><p>屏幕方面，在传统的桌面下的很多第三方软件的渲染质量较差，原生软件能跟上，所以我只能用自带的IE来看文字了</p></li>
+<li><p>硬件重量可以接受，机身的外壳是塑料，缝合质量过关,接口相对丰富</p></li>
+<li><p>风扇的影响一般，除了用自带的视频播放器在看WWDC的视频的时候，安装软件的时候都有较大响声的转动，发热相对较大,其它一切皆属于不错的状态</p></li>
+</ul>
+
+<h3 id="">总结</h3>
+
+<ul>
+<li><p>我对surface pro 3的定位是一台 <strong>看文字信息 ( post, feed, twitter, douban 等 ) 阅读</strong> 与</p></li></ul>]]></description><link>http://localhost:2368/surface_pro_3/</link><guid isPermaLink="false">af8f621c-5f75-4f12-84e5-e956d9706892</guid><dc:creator><![CDATA[lanstonpeng]]></dc:creator><pubDate>Fri, 18 Jul 2014 23:38:49 GMT</pubDate><content:encoded><![CDATA[<h3 id="prosandcons">Pros and Cons:</h3>
+
+<ul>
+<li><p>手写功能较市面上同类产品(这里定位为平板产品及其周边触笔设备)好，但是敏捷度仍待提升(当然，终极目标当属与纸质书写一般)，尤其是写字力量仍然无法与正常纸质书写一般，仍需稍微加强用力(但是触笔会有强弱的区分,能书写粗细有别的字体)，但是总体来说没有让自己失望(基本上70%我就是冲着OneNote这个killer app来的)</p></li>
+<li><p>平板专供软件较少，普遍质量较低(以致我首页基本都是网页的收藏)</p></li>
+<li><p>效率方面，我比较喜欢开切分屏幕，如一屏开MOOC课程，另外一边开着OneNote做笔记，有空的时候随时拿出来任何设备sync一下笔记</p></li>
+<li><p>屏幕方面，在传统的桌面下的很多第三方软件的渲染质量较差，原生软件能跟上，所以我只能用自带的IE来看文字了</p></li>
+<li><p>硬件重量可以接受，机身的外壳是塑料，缝合质量过关,接口相对丰富</p></li>
+<li><p>风扇的影响一般，除了用自带的视频播放器在看WWDC的视频的时候，安装软件的时候都有较大响声的转动，发热相对较大,其它一切皆属于不错的状态</p></li>
+</ul>
+
+<h3 id="">总结</h3>
+
+<ul>
+<li><p>我对surface pro 3的定位是一台 <strong>看文字信息 ( post, feed, twitter, douban 等 ) 阅读</strong> 与 <strong>记笔记</strong>的设备,另外,因为自己身边没有windows的设备,这也是补充自己一台windows系列的产品  </p></li>
+<li><p>用户体验较差,当然,我用手指操作windows传统桌面体验当然不行了,主要是surface首次开机各种繁琐的设置与iPad形成强烈对比,另外各种平板专属的操作体验仍然不够人性化(如程序的关闭的自动化)</p></li>
+</ul>
+
+<h3 id="">版本</h3>
+
+<ul>
+<li>128G i5 美版  </li>
+</ul>
+
+<h3 id="">试用时长</h3>
+
+<ul>
+<li>~2 weeks</li>
+</ul>]]></content:encoded></item><item><title><![CDATA[iOS7 到 iOS8 的ViewController Transition]]></title><description><![CDATA[<p>有时候, 页面关系简单的时候, 我会更加喜欢用<strong>一个</strong>ViewController来控制整个App, 各个页面都只是各个不同的View进行堆积和切换, 各种View直接的切换动画也相对容易发挥想象力</p>
+
+<p>但是页面关系、需要处理的事件一旦复杂的时候, 就需要用用多个ViewController来划分逻辑界限, 分开处理, 那么页面之间的切换就没有那么舒畅了, 所以, 有必要总结一下iOS中几种常见的ViewController切换方式</p>
+
+<h3 id="aricleoverview">Aricle OverView</h3>
+
+<p>1.了解iOS中几种ViewControllers的切换方式(是什么, 怎么样) <br>
+2.为什么是这么设计</p>
+
+<hr>
+
+<h3 id="containerviewcontrollerbased">Container ViewController Based</h3>
+
+<p>在iOS7以前, 可以使用 ViewController Container这种方式来进行VC管理, 下面以一个简单的代码来快速带过( Demo中并无此例子 ):</p>
+
+<pre><code>[self addChildViewController:enqueViewController];
+[self.view addSubview:enqueViewController.view];
+
+CGRect offSetRect = CGRectOffset(newFrame,  0,  -inputViewHeight);  
+CGRect otherOffsetRect = CGRectOffset(self.currentViewController.</code></pre>]]></description><link>http://localhost:2368/viewcontroller_transition/</link><guid isPermaLink="false">d1cb179f-0cb5-4fdf-a574-5a280e28627e</guid><dc:creator><![CDATA[lanstonpeng]]></dc:creator><pubDate>Wed, 16 Jul 2014 23:38:49 GMT</pubDate><content:encoded><![CDATA[<p>有时候, 页面关系简单的时候, 我会更加喜欢用<strong>一个</strong>ViewController来控制整个App, 各个页面都只是各个不同的View进行堆积和切换, 各种View直接的切换动画也相对容易发挥想象力</p>
+
+<p>但是页面关系、需要处理的事件一旦复杂的时候, 就需要用用多个ViewController来划分逻辑界限, 分开处理, 那么页面之间的切换就没有那么舒畅了, 所以, 有必要总结一下iOS中几种常见的ViewController切换方式</p>
+
+<h3 id="aricleoverview">Aricle OverView</h3>
+
+<p>1.了解iOS中几种ViewControllers的切换方式(是什么, 怎么样) <br>
+2.为什么是这么设计</p>
+
+<hr>
+
+<h3 id="containerviewcontrollerbased">Container ViewController Based</h3>
+
+<p>在iOS7以前, 可以使用 ViewController Container这种方式来进行VC管理, 下面以一个简单的代码来快速带过( Demo中并无此例子 ):</p>
+
+<pre><code>[self addChildViewController:enqueViewController];
+[self.view addSubview:enqueViewController.view];
+
+CGRect offSetRect = CGRectOffset(newFrame,  0,  -inputViewHeight);  
+CGRect otherOffsetRect = CGRectOffset(self.currentViewController.view.frame,  
+0,  -inputViewHeight);
+
+[UIView animateWithDuration:0.6 delay:0 options:UIViewAnimationOptionCurveEaseIn 
+animations:^{  
+    enqueViewController.view.frame = offSetRect;
+    _currentViewController.view.frame = otherOffsetRect;
+} completion:^(BOOL finished) {
+    [_currentViewController.view removeFromSuperview];
+    [_currentViewController removeFromParentViewController];
+    _currentViewController = enqueViewController;
+    [enqueViewController didMoveToParentViewController:self];
+}];
+</code></pre>
+
+<p>当然, 亦可使用<strong>transitionFromViewController:fromVC...</strong>来做响应的动画转化, 
+上面只是为了更好的演示整个过程</p>
+
+<hr>
+
+<h3 id="uiviewcontrollertransitioningdelegateuiviewcontrollercontexttransitioning">UIViewControllerTransitioningDelegate 与 UIViewControllerContextTransitioning</h3>
+
+<p>iOS7中引入了VC的自定义转场动画, 这是两个重要的delegate, 这样使用delegate的方式给予开发者很大的自由度, <br>
+转场动画与实际的VC具体业务可以最大程度的分离, 并且实现的转场动画可以完全复用到别的地方( 如在示例代码中几个Demo使用的同样的转场处理逻辑类<strong>TransitionManager</strong>, 但是在iOS8中新增的<strong>UIPresentationController</strong>有稍许区别, 下面会提及到 )</p>
+
+<p>先让我们来完成一个简单的Demo, 因为网上存在较多的点击式切换的案例, 所以这里就省略了点击的案例, 使用交互式的转场, <strong>Present</strong>和<strong>Dismiss</strong>都使用<strong>UIPercentDrivenInteractiveTransition</strong>, 效果如下
+<img src="http://lanstonpeng.github.io/assets/custom_transition_demo.gif" alt="Demo"></p>
+
+<h5 id="1conformtouiviewcontrolleranimatedtransitioningprotocal">1.Conform to<strong>UIViewControllerAnimatedTransitioning</strong>protocal</h5>
+
+<ul>
+<li>animateTransition</li>
+<li>transitionDuration     </li>
+</ul>
+
+<p>关于<em>animateTransition</em>, 举个例子:</p>
+
+<pre><code>func animateTransition(transitionContext: UIViewControllerContextTransitioning!)  
+{
+    if isPresent
+    {
+        self.animationForPresentTransition(transitionContext)
+    }
+    else
+    {
+        self.animationForDismissTransition(transitionContext)
+    }
+}    
+</code></pre>
+
+<pre><code>func animationForDismissTransition(transitionContext:UIViewControllerContextTransitioning!)  
+{
+    //get everything prepared
+    let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+    let toViewContrller = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
+    let containerView  = transitionContext.containerView()
+    let duration  =  self.transitionDuration(transitionContext)
+
+
+
+    let screenBounds = UIScreen.mainScreen().bounds
+    let finalFrame = transitionContext.finalFrameForViewController(toViewContrller)
+
+    //setting toViewContrller.view.frame, we hide it at the beginning
+    toViewContrller.view.frame =  CGRectOffset(finalFrame, -screenBounds.size.width, 0)
+
+    //insert toViewContrller.view to containerView in proper hierarchy
+    containerView.insertSubview(toViewContrller.view,  aboveSubview: fromViewController.view)
+
+    UIView.animateWithDuration(duration,  delay: 0.0,  options: UIViewAnimationOptions.CurveEaseIn,  animations: {()-&gt;Void in
+
+        toViewContrller.view.frame = finalFrame
+        fromViewController.view.frame =  CGRectOffset(fromViewController.view.frame,  160,  0);
+
+        },  completion: {(completed:Bool) -&gt; Void in
+            //remember to add this snippet
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+        })
+}
+</code></pre>
+
+<p>这个类主要负责<strong>如何</strong>处理转场动画的,  Demo中处理动画的逻辑做得较简单, 但这里存在巨大的想象力 <br>
+这里一个较为重要的概念是<strong>containerView</strong>, 正如名字所表示的那样, 大家不妨把它看成是一个Apple自己封装好的<em>Container ViewController Based</em>的View, 负责在转场中控制切入切出的逻辑, 所以, 这里需要我们手动把二者<strong>正确的</strong>(主要是注意层级关系)插入至<strong>containerView</strong></p>
+
+<h5 id="2conformtouiviewcontrollertransitioningdelegateprotocal">2.Conform to <strong>UIViewControllerTransitioningDelegate</strong> Protocal</h5>
+
+<p>这部分比较简单, 都是按照接口的意思返回相应的处理这块逻辑的实例</p>
+
+<ul>
+<li>animationControllerForPresentedController...</li>
+<li>animationControllerForDismissedController...</li>
+<li>interactionControllerForPresentation...</li>
+<li>interactionControllerForDismissal...</li>
+</ul>
+
+<h5 id="3">3.处理交互</h5>
+
+<p>Demo里面直接使用<strong>UIPercentDrivenInteractiveTransition</strong>, 实际过程中可以根据自己需要扩展 <br>
+新建一个ScreenEdgepan手势</p>
+
+<pre><code>let edgeSwipeGestureRight = UIScreenEdgePanGestureRecognizer(target: self,  action: "handleTransitionRight:")  
+edgeSwipeGestureRight.edges = .Right  
+</code></pre>
+
+<p>处理Pan方面可以分为两部分:  </p>
+
+<p>1.定义交互过程动作完成程度, 这里定义为手指横向滑动整块屏幕为一个完整运动轨迹  </p>
+
+<pre><code>var progress:CGFloat  = recognizer.locationInView(self.view.superview).x / (self.view.superview.bounds.size.width * 1.0)  
+progress = 1.0 - min(1.0, max(0.0, progress))  
+</code></pre>
+
+<p>2.初始化转向的<strong>ViewController</strong> <br>
+这里有一点需要注意, 注意分清<strong>UIPercentDrivenInteractiveTransition</strong>从属的关系, 因为在<em>Present</em>和<em>Dimiss</em>过程中都是使用同一个<strong>UIPercentDrivenInteractiveTransition</strong>, 稍微不注意的话会直接进入非交互式的转场</p>
+
+<pre><code>if recognizer.state == .Began  
+{
+    self.interactSlideTransition = UIPercentDrivenInteractiveTransition()
+    let toVC = self.storyboard.instantiateViewControllerWithIdentifier("PaperViewController") as PaperViewController
+    toVC.interactSlideTransition = self.interactSlideTransition //be careful
+    self.presentViewController(toVC,  animated: true,  completion: nil)
+}
+</code></pre>
+
+<p>好了, 这个Demo的主要部分就已经完成了, 下面让我们继续看看别的方式</p>
+
+<hr>
+
+<h3 id="navigationbased">Navigation Based</h3>
+
+<p>如果 ViewControllers 是通过 NavigationController 进行切换管理, 主要涉及到<strong>UINavigationControllerDelegate</strong>这个协议 </p>
+
+<p>要加工的部分也仅仅是多了一点点, 但本质上也是告诉系统什么时候返回<strong>UIViewControllerTransitioningDelegate</strong>, 大家可以参考Demo1的代码来  </p>
+
+<p><img src="http://lanstonpeng.github.io/assets/navigationtransition.gif" alt="navigationtransition"></p>
+
+<hr>
+
+<h3 id="presentationviewcontroller">Presentation ViewController</h3>
+
+<p>在iOS8中引入了新的<strong>UIPresentationController</strong>对<em>ViewController</em>的切换增加更多内容, 其为增加更多的可能
+但是在处理<strong>UIViewControllerTransitioningDelegate</strong>协议的时候会稍有不同( 这个行为让我颇为疑惑 )
+让我们先看看最终效果  </p>
+
+<p><img src="http://lanstonpeng.github.io/assets/presentationController.gif" alt="presentationGif">
+<img src="http://lanstonpeng.github.io/assets/presentingView.png" alt="presenting">
+<img src="http://lanstonpeng.github.io/assets/presentedView.png" alt="presented" title="">  </p>
+
+<p>先解释几个概念:</p>
+
+<ul>
+<li>ChromeView ( 图中遮盖灰色的View, 主要可以用来覆盖切入切出VC的view之间的空隙, 进行额外的动画 )</li>
+<li>Presenting View( 切出的View, 即带有Present的那个胖子:) )</li>
+<li>Presented View ( 蓝色的带有Back的View )</li>
+</ul>
+
+<p>这个我现在也不知道是bug还是feature(囧) <br>
+在遵循<strong>UIViewControllerAnimatedTransitioning</strong>的实例中, 在<strong>containerView</strong>(遗忘的同学可以回头看看)中添加的view实际会与iOS7中转场有所区别  </p>
+
+<p>之前的<strong>containerView</strong>是处理<em>切入( FromViewController )</em>和<em>切出( ToViewController )</em>各自的View的层级与插入关系, 上面的示例代码也有提及到  </p>
+
+<p>而在<strong>Presentaion ViewControoler</strong>的例子中, 我们需要处理<em>chromeView(在<strong>UIPresentationController</strong>中)</em>和<em>ToViewController.view(在<strong>UIViewControllerAnimatedTransitioning</strong>)</em>, 具体的代码分散在两个文件, 大家可以直接看Demo2里面的示例  </p>
+
+<p>值得留意的还有一个叫做<strong>transitionCoordinator</strong>, 主要用来与动画进行同步运动的, 下面的snippet是让<strong>chromeView</strong>与转场动画进行同步, 让<strong>chromeView</strong>的alpha随转场动画一起变动</p>
+
+<pre><code>let transitionCoordinator = self.presentingViewController.transitionCoordinator()  
+    transitionCoordinator.animateAlongsideTransition({(context: UIViewControllerTransitionCoordinatorContext!) -&gt; Void in
+        self.chromeView.alpha  = 0.6
+},  completion:nil)
+</code></pre>
+
+<p>这里我们也可以看到这个解耦的设计, 我们不需要在具体的转场动画中添加响应的同步动画逻辑, 而是通过一个叫<strong>transitionCoordinator</strong>的桥接器来完成, 不过这是iOS7中接口了</p>
+
+<hr>
+
+<h3 id="">为什么是这样设计</h3>
+
+<p>这部分在开篇的时候也已经提及到, 大家可以从案例里面体验一下, 几个Demo用的是同一个处理动画转场的逻辑, 甚至在iOS8中的<strong>UIPresentationController</strong>也适用, 非常灵活, 也与VC各自的逻辑解耦</p>
+
+<p>示例代码在<a href="https://github.com/lanstonpeng/CustomTransition">这里</a> <br>
+里面包含几个Demo, 想看效果的可以快速拖动StoryBoard的入口箭头</p>
+
+<h4 id="refs">Refs</h4>
+
+<ul>
+<li><a href="http://www.teehanlax.com/blog/custom-uiviewcontroller-transitions/">Custom UIViewController Transitions</a></li>
+<li><a href="http://dativestudios.com/blog/2013/09/29/interactive-transitions/">iOS7 interactive transitions</a></li>
+</ul>]]></content:encoded></item><item><title><![CDATA[Writing a Javascript Module Loader]]></title><description><![CDATA[<p>尽管javascript将来会支持模块加载 <a href="http://wiki.ecmascript.org/doku.php? id=harmony:modules_examples">e.g</a> <br>
+但是know how it works不会更加有趣么?</p>
+
+<p>我们先以<a href="http://requirejs.org/">require.js</a>为开篇，一步步实现一个简易的模块加载的功能</p>
+
+<h3 id="">存着问题</h3>
+
+<p>当我们开发较为复杂的web application的时候，为了提高可维护性，其中一个策略就是将功能划分成几个模块，将各个模块组合起来，形成一个完整的系统 <br>
+一般来说，如果我们没有作特别的处理，其中一种情况，我们会看到许多script标签堆积起来</p>
+
+<h3 id="">解决问题</h3>
+
+<p>如同许多语言中的import/include功能一般，我们在javascript也简单实现一下</p>
+
+<h5 id="javascript">在javascript的世界中存着什么问题</h5>
+
+<p>我们可以先按照理想情况写下咱们需要的接口</p>
+
+<pre>
+var Util = Loader.import("Util");
+console.log(Util);
+</pre>
+
+<p>我们的其中一个重点就是实现<strong>Loader.import</strong>方法</p>
+
+<h3 id="1">问题1:模块加载</h3>
+
+<p>是否能动态同步加载Util模块呢? <br>
+即在加载Util完成之前，<code>console.log</code>是不会运行</p>
+
+<p>答案是否定的，我们可以回顾一番javascript加载脚本的方式</p>]]></description><link>http://localhost:2368/writing-a-javascript-module-loader/</link><guid isPermaLink="false">c545b3d3-50a3-4619-ab23-fd72c3f808c4</guid><dc:creator><![CDATA[lanstonpeng]]></dc:creator><pubDate>Sun, 27 Apr 2014 23:38:50 GMT</pubDate><content:encoded><![CDATA[<p>尽管javascript将来会支持模块加载 <a href="http://wiki.ecmascript.org/doku.php? id=harmony:modules_examples">e.g</a> <br>
+但是know how it works不会更加有趣么?</p>
+
+<p>我们先以<a href="http://requirejs.org/">require.js</a>为开篇，一步步实现一个简易的模块加载的功能</p>
+
+<h3 id="">存着问题</h3>
+
+<p>当我们开发较为复杂的web application的时候，为了提高可维护性，其中一个策略就是将功能划分成几个模块，将各个模块组合起来，形成一个完整的系统 <br>
+一般来说，如果我们没有作特别的处理，其中一种情况，我们会看到许多script标签堆积起来</p>
+
+<h3 id="">解决问题</h3>
+
+<p>如同许多语言中的import/include功能一般，我们在javascript也简单实现一下</p>
+
+<h5 id="javascript">在javascript的世界中存着什么问题</h5>
+
+<p>我们可以先按照理想情况写下咱们需要的接口</p>
+
+<pre>
+var Util = Loader.import("Util");
+console.log(Util);
+</pre>
+
+<p>我们的其中一个重点就是实现<strong>Loader.import</strong>方法</p>
+
+<h3 id="1">问题1:模块加载</h3>
+
+<p>是否能动态同步加载Util模块呢? <br>
+即在加载Util完成之前，<code>console.log</code>是不会运行</p>
+
+<p>答案是否定的，我们可以回顾一番javascript加载脚本的方式</p>
+
+<ul>
+<li>创建script标签</li>
+<li>通过ajax请求代码字符串，动态解析字符串</li>
+<li>WebWorker( 本质上也是一种异步加载方式<a href="http://www.html5rocks.com/en/tutorials/workers/basics/#toc-enviornment">e.g</a> )</li>
+</ul>
+
+<p>上述几种方式都无法做到同步的方式，
+那么，展开思路，
+若我们坚持使用这样同步写法
+我们可以寻找一种方式，在运行<code>Loader.import('Util')</code>的时候，实际上Util模块已经加载完毕，我们不过是通过模块名字引用该模块，这个模块加载过程运行整个程序前已经完成  </p>
+
+<p>若我们需要动态加载模块，所有分析加载都在运行时,其中可以做到的形式或许会长成这么一个样子 </p>
+
+<pre>
+    Loader.import("Util",function(Util){
+        console.log(Util);
+    });
+</pre>
+
+<p>上面的写法是否与requireJS有点类似呢? 
+为了更好的理解其工作原理，我们可以先从实现一个简单的异步加载器开始 </p>
+
+<pre>
+var Loader = (function(window){
+    var document = window.document;
+    var config = {
+        modulePath:"./"
+    };
+
+    function importModule(moduleName,callback){
+        var script = document.createElement("script");
+        script.src = config.modulePath + moduleName + ".js";
+        document.body.appendChild(script);
+        script.onload = function(){
+            callback && callback.call(this);
+        }
+    }
+    return {
+        import:importModule
+    }
+})(window);
+</pre>
+
+<p>假设我们要运行</p>
+
+<pre>
+ Loader.import("a",function(a){
+          a.say("oh yeah");
+  });
+</pre>
+
+<p>那么我们就定义一个叫<code>a</code>的模块吧,或许是长这个样子的</p>
+
+<pre>
+var a = {
+    say:function(msg){
+        console.log("a is saying: " + msg);
+    }
+};
+</pre>
+
+<p>如果就这么运行，会crash，因为在callback中，我们没有在<code>callback.call(this)</code>中指定a这个对象，那么在<code>a.js</code>里面会调用<code>undefined.say</code>当然就会出错了 </p>
+
+<p>ok,那么问题就可以这么描述 <br>
+如何在<code>script.onload</code>里面的 <em>callback</em> 带上 <strong>a</strong> 这个对象呢</p>
+
+<pre>
+script.onload = function(){
+    callback && callback.call(this,getModule('a'));
+}
+</pre>
+
+<p>既然要拿到<em>a</em>这个对象，那么，我们就不能直接像上面在全局定义对象 <strong>a</strong> , 至少需要通过某种方式返回给某个对象，以供后面使用，所以，我们可以按照这个思路看看,按照大家稍微熟悉的语法</p>
+
+<pre>
+Loader.define(function(){
+    var a = {
+        say:function(msg){
+            console.log("a is saying: " + msg);
+        }
+    };
+    return a;
+});
+//a.js
+</pre>
+
+<p>现在问题就是如何将<code>Loader.define</code>里面这个函数运行以得到<em>a</em>这个对象 <br>
+那么，让我们先简单定义一下<strong>define</strong>这个函数吧，现在其主要功能就是保存这个包着的function,为了后面更好的阅读与理解，我先把整个模块的框架给出</p>
+
+<pre>
+var Loader = (function(window){
+    var document = window.document;
+    var config = {
+        modulePath:"./"
+    };
+    var callbackArr = [];
+    var currentLoadedNode,
+        loadedModuleDic = {};
+
+    //节点具体保存的信息
+    var Node = function(options){
+        this.moduleName = options.moduleName; //模块名称
+        this.factory = options.factory; //构建模块的函数
+        this.callback = options.callback;
+        this.returnValue = options.returnValue;//模块返回对象
+    }
+
+    function onLoadHandler(moduleName){
+        currentLoadedNode.moduleName = moduleName;
+        loadedModuelDic[moduleName] = currentLoadeNode;
+        var cb = function(moduleName){
+                //运行模块构建函数
+            currentLoadedNode.returnValue = currentLoadedNode.factory.apply(window,[]);
+        }
+        cb.call(window,moduleName);
+    }
+    function importModule(moduleName,callback){
+        //通过加入script标签来加载js文件
+        var script = document.createElement("script");
+        script.src = config.modulePath + moduleName + ".js";
+
+        document.body.appendChild(script);
+        script.addEventListener("load",function(){
+                //在运行完js后运行回调onLoadHandler
+            onLoadHandler(moduleName);
+        });
+    }
+    function define(factory){
+        currentLoadedNode = new Node({
+            factory:factory
+        });
+    }
+
+     //加载main.js
+    var main = document.querySelector("script[data-main]");
+    importModule(main.getAttribute("data-main"),function(){});
+
+    return {
+        define:define
+    }
+})(window);
+</pre>
+
+<p>顺道给出main.js文件的内容</p>
+
+<pre>
+//main.js
+Loader.define(function(){
+    console.log("hi,I'm main");
+})
+
+</pre>
+
+<p>可以看到，现在单独加载<em>main.js</em>会在出现正确结果,我们定义的 <strong>define</strong> 函数大致上就是保存了加载模块的信息，加载模块，并且能在模块运行的时候动态获取这些信息(通过<code>loadedModuelDic</code>),这部分的内容也是后续部分的基础  </p>
+
+<h3 id="2">问题2: 模块依赖</h3>
+
+<p>那么，接下来我们就讨论一下<strong>模块依赖</strong>问题
+我们先假设有如下代码,为了更好的说明，举出一些比较常见的场景</p>
+
+<pre>
+//main.js
+Loader.define(['c','a'],function(c,a){
+    a.say("hulala");
+    c.say("youku");
+})
+
+//a.js
+Loader.define(['c','b'],function(c,b){
+    var a = {
+        say:function(msg){
+            console.log("a is saying: " + msg);
+            b.say(msg);
+            c.say(msg);
+        }
+    };
+    return a;
+});
+
+//b.js
+Loader.define(function(){
+    var b = {
+        say:function(msg){
+            console.log( "b is saying: " + msg );
+        }
+    };
+    return b;
+});
+
+//c.js
+Loader.define(function(){
+    var c = {
+        say:function(msg){
+            console.log("c is saying: "+msg);
+        }
+    };
+    return c;
+});
+</pre>
+
+<p>可以看到 <br>
+<strong>main.js</strong>依赖 <strong>c</strong> , <strong>a</strong> 模块 <br>
+<strong>a</strong> 依赖 <strong>c</strong> <strong>b</strong> 模块 <br>
+<strong>b</strong> 没有依赖 <br>
+<strong>c</strong> 没有依赖  </p>
+
+<p><img src="http://lanstonpeng.github.io/assets/Slice%201.png" alt="pic"></p>
+
+<p>如果以一棵树来表示依赖关系，出于叶子节点的部分就是那些没有依赖其它模块的模块 <br>
+我们在加载一个模块的时候 </p>
+
+<pre><code>1.检测输入其是否有依赖的**未加载**模块，若存着，则跳到1，否则到2
+
+2.运行模块构造函数(也就是*define*里面写的*function*)
+</code></pre>
+
+<p>其实，这个是DFS(depth first search)的过程，过程其实不难理解 <br>
+好的，我们在上面代码的基础上加入新的功能来解决模块依赖的问题吧  </p>
+
+<p>首先在<em>define</em>部分，我们加入依赖相关的处理</p>
+
+<pre>
+function define(deps,factory){
+        if(arguments.length == 1){
+            factory = deps;
+            deps = []
+        }
+        currentLoadedNode = new Node({
+            deps:deps,
+            factory:factory,
+            count:deps.length
+        });
+    }
+</pre>
+
+<p>接下来，在<em>onLoadHandler</em>部分,为了防止模块重复加载(正如上面看到的<strong>b</strong>  <strong>c</strong> 模块)，我们用<em>loadedModuleDic</em>保持已经加载的模块的信息</p>
+
+<pre>
+    function importModule(moduleName,callback){
+        var script = document.createElement("script");
+        script.src = config.modulePath + moduleName + ".js";
+
+        if(loadedModuleDic[moduleName]){
+            console.log("load",moduleName,"from cached" );
+            onLoadHandler(moduleName,callback)
+        }
+        document.body.appendChild(script);
+        script.addEventListener("load",function(){
+            onLoadHandler(moduleName,callback);
+        });
+    }
+</pre>
+
+<p>接下来的部分也是本篇的关键所在，在加载一个模块的时候分析其依赖关系</p>
+
+<pre>
+    function onLoadHandler(moduleName,callback){
+        console.log(moduleName ," loaded");
+        currentLoadedNode.moduleName = moduleName;
+        loadedModuleDic[moduleName] = currentLoadedNode;
+
+         //模块中的deps属性记录的是模块的依赖关系
+        var dependence = currentLoadedNode.deps;
+
+        for(var i = 0 ,len = dependence.length; i < len;i++)
+           {
+            //检测模块是否已经加载
+            if(!loadedModuleDic[dependence[i]]){
+                var cb = (function(currentLoadedNode){
+                    return function(moduleName){
+                         //评估当前模块是否可以运行
+                        considerRun(moduleName,currentLoadedNode);
+                    }
+                })(currentLoadedNode); //注意这里的闭包，保存了在当前调用栈(层)的模块的信息
+                //递归调用加载模块
+                importModule(dependence[i],cb);
+            }
+        }
+        //记录这个模块完成构建后需要调用的函数
+        currentLoadedNode.callback = callback;
+        //检测当前节点的依赖模块是否加载完毕，若加载完毕，则运行其模块构建函数
+        considerDependence(currentLoadedNode);
+    }
+</pre>
+
+<p>好的，让我们暂停一下分析，在一个模块加载运行完成之前(即script.onload前)，我们记录了该模块的信息(由currentLoadedNode保存)，如模块名称(moduleName) 
+然后，在<strong>script.onload</strong>的时候，我们调用了<code>onLoadHandler</code>,动态分析当前模块的依赖情况，若依赖的模块没有加载，则递归调用<code>importModule</code>
+注意这里的构建的 <strong>cb</strong> ,其运行时机是放到加载依赖模块i(dependence[i])的回调里面 <br>
+好的，让我们再来看看<code>considerRun</code>的功能</p>
+
+<pre>
+    function considerRun(currentModuleName,parentNode){
+         //获取当前模块名称的对应的下标
+        var idx = parentNode.deps.indexOf(currentModuleName);
+        //loadedDeps记录依赖返回的对象，作为最终define('c',function(c){ })中构建函数中需要的对象
+        parentNode.loadedDeps[idx] = loadedModuleDic[currentModuleName].returnValue;
+        //一个记录当前依赖模块加载情况的字典
+        parentNode.loadedDepsDic[currentModuleName] = 1;
+        //未加载依赖模块数目
+        parentNode.count--;
+        //
+        checkDependence(parentNode);
+        considerDependence(parentNode);
+    }
+
+    //检测当前节点的依赖情况，更新节点保存信息
+    function checkDependence(node){
+        var deps = node.deps;
+        for(var i = 0 ,len = node.deps.length; i < len;i++){
+           if(loadedModuleDic[deps[i]] && !node.loadedDepsDic[deps[i]]){
+                node.loadedDeps[i] = loadedModuleDic[deps[i]].returnValue;
+                node.count--;
+           }
+        }
+    }
+</pre>
+
+<p>ok,接下来就剩余最后的<code>considerDependence</code>的了，因为我们保存了不少变量来减少理解压力，所以 <br>
+considerDependence会显得比较简单</p>
+
+<pre>
+    function considerDependence(node){
+        if(!node.count){//如果模块剩余的依赖模块数目为0，则代表可以运行该模块的构建函数
+            console.log(node.moduleName,"'s factory is running");
+            //运行该模块的构建函数，并且存入returnValue中以供上层模块的依赖检测以及其构建函数的调用
+            node.returnValue = node.factory.apply(window,node.loadedDeps);
+            //调用当前模块的回调函数，还记得我们上面的那个**cb**么，这里就是开始检测上层模块(即依赖当前这个node的模块)的依赖关系及相关调用
+            node.callback && node.callback.call(window,node.moduleName);
+        }
+    }
+</pre>
+
+<p>至此，所有函数都已介绍完毕</p>
+
+<p>我们回过头来看，
+其实我刻意回避了一个比较重要但隐藏的问题: 
+<strong>如何在一个模块运行的时候得知其自身的名字</strong></p>
+
+<p>此外，还要问问自己当下我们开发的系统是否需要如此灵活般的加载方式?
+最终产生的realese文件会因为系统的特性，如是否需要高首屏响应，流量限制等原因来具体选择具体方式
+模块管理除了增加系统的可维护性，在release代码的时候也是得有讲究，具体内容也不在本篇的讨论范围</p>]]></content:encoded></item><item><title><![CDATA[Understanding Bounds and Frame by implementing a simple ScrollView]]></title><description><![CDATA[<p>As we use UIView so commonly in our application,I've been confused about the concept of the <code>bounds</code> property <br>
+the docs descript it as</p>
+
+<blockquote>
+  <p>The bounds rectangle, which describes the view’s location and size in its own coordinate system.On the screen, the bounds rectangle represents the same visible</p></blockquote>]]></description><link>http://localhost:2368/implement-a-simple-scrollview/</link><guid isPermaLink="false">b8e38305-5006-4681-8517-3fc9dd5ef7dd</guid><dc:creator><![CDATA[lanstonpeng]]></dc:creator><pubDate>Sat, 26 Apr 2014 23:38:49 GMT</pubDate><content:encoded><![CDATA[<p>As we use UIView so commonly in our application,I've been confused about the concept of the <code>bounds</code> property <br>
+the docs descript it as</p>
+
+<blockquote>
+  <p>The bounds rectangle, which describes the view’s location and size in its own coordinate system.On the screen, the bounds rectangle represents the same visible portion of the view as its frame rectangle. By default, the origin of the bounds rectangle is set to (0, 0) but you can change this value to display different portions of the view</p>
+  
+  <p>The default bounds origin is (0,0) and the size is the same as the frame rectangle’s size.</p>
+</blockquote>
+
+<p>And let's look at the <code>frame</code> property  </p>
+
+<blockquote>
+  <p>The frame rectangle, which describes the view’s location and size in its superview’s coordinate system</p>
+</blockquote>
+
+<p>The term <strong>own coordinate system</strong> really makes me felling uncomfortable at the first time <br>
+Another problem confuses me is that <strong>Why existing bounds and frame,wouldn't it be simple if there's only one(say that there's just <code>frame</code> ,no <code>bounds</code>)</strong></p>
+
+<p>So,if you have the same question spinning around in your head ,let's try implementing a simple <strong>UIScrollView</strong> for better understanding of <code>bounds</code> and <code>frame</code> <br>
+And our lovely scroll view will be look like this..(How simple is that) <br>
+<img src="http://lanstonpeng.github.io/assets/LScroll.gif" alt="youku" title=""> </p>
+
+<p><code>LScrollView</code> is just a simple <code>UIView</code></p>
+
+<pre>
+@interface LScrollView : UIView
+@end
+...
+
+LScrollView* lScrollView = [[LScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 300)];
+lScrollView.backgroundColor = [UIColor orangeColor];
+
+</pre>
+
+<p>And we may have to do something in the <code>touchesMoved</code> event,assuming that the only concept is <code>frame</code> ,no <code>bounds</code> <br>
+everytime we pan the <code>LScrollView</code> we may have to change every subviews' frames  </p>
+
+<pre>
+    NSArray* subviews = [self subviews];
+    UITouch* touch = [touches anyObject];
+    //get the current touch point
+    CGPoint pt = [touch locationInView:self];
+    //get the last touch point
+    _lastPoint = [touch previousLocationInView:self];
+    _delta = pt.x - _lastPoint.x;
+    for(UIView* view in subviews)
+    {
+        [view setFrame:CGRectMake(view.frame.origin.x + _delta, view.frame.origin.y, view.frame.size.width, view.frame.size.height)];
+    }
+</pre>
+
+<p>Everything looks fine no matter "how many" subviews we have in our <code>LScrollView</code></p>
+
+<p>We iterate every subview and alter the frame's origin,there's a performance issue here, <br>
+Ok,Let's leave this and see how <strong>bounds</strong> works <br>
+by defining <em>own coordinate system</em> means how subviews' coordinate system bases on <br>
+for example: <br>
+the <strong>bounds.origin</strong> of super view is <code>{0,0}</code> <br>
+the <strong>frame.origin</strong> of child view is <code>{10,10}</code>  </p>
+
+<pre>
+bounds.origin                               
+{0,0}                                       
+  +----------------------------------------+
+  |                                        |
+  |                                        |
+  |      frame.origin                      |
+  |      +-------------------------+       |
+  |      |{10,10}                  |       |
+  |      |                         |       |
+  |      |                         |       |
+  |      |                         |       |
+  |      |                         |       |
+  |      +-------------------------+       |
+  |                                        |
+  |                                        |
+  +----------------------------------------+
+</pre>
+
+<p>the <strong>final position</strong> of the child view is <code>{10,10}</code> <br>
+result from <br>
+<code>{child.frame.origin.x - super.bounds.origin.x,child.frame.origin.y - super.bounds.origin.y }</code>  </p>
+
+<p>if the <strong>bounds.origin</strong> of the super view is <code>{-10,-10}</code>  </p>
+
+<pre>
+bounds.origin                               
+{-10,-10}                                   
+  +--+-------------------------------------+
+  |                                        |
+  |                                        |
+  |      frame.origin                      |
+  |      +-------------------------+       |
+  |      |{10,10}                  |       |
+  |      |                         |       |
+  |      |                         |       |
+  |      |                         |       |
+  |      |                         |       |
+  |      +-------------------------+       |
+  |                                        |
+  |                                        |
+  +----------------------------------------+
+</pre>
+
+<p>the <strong>final position</strong> of the child view is <code>{20,20}</code> <br>
+result from <br>
+<code>{child.frame.origin.x - super.bounds.origin.x,child.frame.origin.y - super.bounds.origin.y }</code> <br>
+So,we use the concept of <em>bounds</em> to reimplement our scrollView again  </p>
+
+<pre>
+    UITouch* touch = [touches anyObject];
+    CGPoint pt = [touch locationInView:self];
+    _offsetPoint = self.bounds.origin;
+    _lastPoint = [touch previousLocationInView:self];
+    if( pt.x - _lastPoint.x == 0){
+        return;
+    }
+    //paning right
+    if(pt.x - _lastPoint.x >0 ){
+        _isRight = YES;
+        _delta = pt.x - _lastPoint.x;
+        _offsetPoint.x -= _delta;
+    }
+    //paning left
+    else{
+        _delta = _lastPoint.x - pt.x ;
+        _offsetPoint.x += _delta;
+    }
+    [self setBounds:CGRectMake(_offsetPoint.x,0, self.frame.size.width, self.frame.size.height)];
+</pre>
+
+<p>which runs faster and more reliable <br>
+And it leaves me another question,<em>How Apple implement the scrollView</em>,since after changing the bounds ,the subviews somehow should alter their position,but the detail is behine the scene</p>
+
+<p>Ref : <br>
+<a href="http://www.objc.io/issue-3/scroll-view.html">Understanding Scroll Views</a> <br>
+<a href="http://stackoverflow.com/questions/1210047/cocoa-whats-the-difference-between-the-frame-and-the-bounds">Cocoa: What's the Difference between the frame and the bounds?</a></p>]]></content:encoded></item><item><title><![CDATA[BigPipe in Hybrid App]]></title><description><![CDATA[<p>或许很多人已经听过Facebook的运用其“BigPipe”技术来加速其页面加载速度，其核心思想是将页面分成若干个组件(pagelet)，准备好一个后立即推到client而不是等待所有内容准备完毕后再一起push，说白了就是server一段段地返回html到broswer进行渲染</p>
+
+<h4 id="">背景</h4>
+
+<p>最近作了一个调研，打算利用这种思想，为某地图APP提速
+该App是一个Hybrid的产品，在显示商家信息以及某些迭代速度，需求易变性较高的部分都采用WebView的形式减低成本与提高产品响应速度 </p>
+
+<p>而现在的问题是在展示这些信息当中，大部分是采用 拉取线上json，本地模板绑定的方式进行，而json部分的数据是一次全量拉取，而实际上非首屏数据的拉取时间可以被优化</p>
+
+<h4 id="">一个问题</h4>
+
+<p>因为该App利用Native的优势，将所有的html，css，javascript都内置于App当中，打开WebView读取本地html文件(如index.html),每次请求json数据，再在本地进行模板绑定，咋一看貌似无法运用“传统”的bigpipe方案，因为返回的只有数据，而非最终的html</p>
+
+<h4 id="">一个方案</h4>
+
+<p>既然是数据是一次返回，能否将bigpipe的思想进行迁移，发一个请求，返回多段json，及时进行模板绑定与渲染，<strong>说白了就是将数据下载的时间与模板绑定、渲染时间进行并行</strong>
+<img src="http://localhost:2368/assets/bigpipe1.jpeg" alt="image"></p>
+
+<p>那么如何做到，我画了一张图
+<img src="http://localhost:2368/assets/bigpipe2.jpeg" alt="image">
+插入一个iframe，由iframe拉取数据,再与本地文件进行通信，这里存着的跨域问题使用postMessage解决，幸运的是，</p>]]></description><link>http://localhost:2368/bigpipe_in_hybrid_app/</link><guid isPermaLink="false">0495ebe6-258d-47d3-bc08-49ff3b709134</guid><dc:creator><![CDATA[lanstonpeng]]></dc:creator><pubDate>Thu, 30 Jan 2014 23:38:49 GMT</pubDate><content:encoded><![CDATA[<p>或许很多人已经听过Facebook的运用其“BigPipe”技术来加速其页面加载速度，其核心思想是将页面分成若干个组件(pagelet)，准备好一个后立即推到client而不是等待所有内容准备完毕后再一起push，说白了就是server一段段地返回html到broswer进行渲染</p>
+
+<h4 id="">背景</h4>
+
+<p>最近作了一个调研，打算利用这种思想，为某地图APP提速
+该App是一个Hybrid的产品，在显示商家信息以及某些迭代速度，需求易变性较高的部分都采用WebView的形式减低成本与提高产品响应速度 </p>
+
+<p>而现在的问题是在展示这些信息当中，大部分是采用 拉取线上json，本地模板绑定的方式进行，而json部分的数据是一次全量拉取，而实际上非首屏数据的拉取时间可以被优化</p>
+
+<h4 id="">一个问题</h4>
+
+<p>因为该App利用Native的优势，将所有的html，css，javascript都内置于App当中，打开WebView读取本地html文件(如index.html),每次请求json数据，再在本地进行模板绑定，咋一看貌似无法运用“传统”的bigpipe方案，因为返回的只有数据，而非最终的html</p>
+
+<h4 id="">一个方案</h4>
+
+<p>既然是数据是一次返回，能否将bigpipe的思想进行迁移，发一个请求，返回多段json，及时进行模板绑定与渲染，<strong>说白了就是将数据下载的时间与模板绑定、渲染时间进行并行</strong>
+<img src="http://localhost:2368/assets/bigpipe1.jpeg" alt="image"></p>
+
+<p>那么如何做到，我画了一张图
+<img src="http://localhost:2368/assets/bigpipe2.jpeg" alt="image">
+插入一个iframe，由iframe拉取数据,再与本地文件进行通信，这里存着的跨域问题使用postMessage解决，幸运的是，该接口在移动平台上的支持<a href="http://caniuse.com/#feat=x-doc-messaging">比较全面</a> 
+Server部分采用Node写了一些代码，关键是多次write一些设计好的stream</p>
+
+<pre><code>    //prepare something
+    _data1 = split(data,"header");
+    _data2 = split(data,"body");
+    response.write(SOME_BAISC_HTML);
+    response.write("&lt;script&gt;Pipe.sendMessage(" + JSON.stringify(_data1) + ")&lt;/script&gt;");
+    response.write("&lt;script&gt;Pipe.sendMessage(" + JSON.stringify(_data2) + ")&lt;/script&gt;");
+    response.end("&lt;body&gt;&lt;/html&gt;");
+</code></pre>
+
+<p>Client部分的iframe在<em>message</em>事件中接收数据，通过<em>postMessage</em>回传数据到index.html，完成该数据的绑定与渲染</p>
+
+<pre><code>    window.addEventListener("message",function(e){
+        Pipe.sendMessageToParent(e.data);
+    });
+</code></pre>
+
+<h4 id="conclusion">Conclusion</h4>
+
+<ul>
+<li>成本过大，server部分需要进行数据切分，切割类似各个pagelet</li>
+<li>一次请求，多个模板数据,减少不必要的请求,失败成本大</li>
+<li>一次请求，多个模板数据,减少不必要的请求,减少发起请求时间</li>
+</ul>]]></content:encoded></item><item><title><![CDATA[中央美术展厅中的两件作品]]></title><description><![CDATA[<p>这次展览主要是几位在高考恢复后的第一批美术精英的作品，现大都50+,60+岁数这个样子
+一组作品旁边也带有他们各自的调侃，我想他们看到必定能让他们感觉回到那学生时代</p>
+
+<p>说实在，自己对平面作品实在是提不起很大的兴趣，但其中的两件作品让我有了
+<em>*Aha Moment *</em></p>
+
+<p><img src="http://localhost:2368/assets/20140105212429386.JPG" alt="image"></p>
+
+<hr>
+
+<p><img src="http://localhost:2368/assets/20140105212429330.JPG" alt="image">
+立体画的组成，将多个局部分别画在不同的玻璃幕上，最后再组合再一起，
+玻璃的通透性一下子令整副作品鲜活起来,但只有从正负两面大约30度这个范围能有
+较好的效果，无需刻意的加上光影而产生的立体感</p>
+
+<hr>
+
+<p><img src="http://localhost:2368/assets/20140105212429401.JPG" alt="image">
+画的内容其实我不感兴趣，标题也那些裸女画作一般，看过就忘了，主要是这副画是与镶嵌着她的玻璃幕是一体的，那些
+黑色的色块与线条实际上是画在玻璃上(可以看到他们在画面上留下的影子)，走动到不同位置观察，画作自然也就不
+一样了,此处细节让我尤为喜欢</p>]]></description><link>http://localhost:2368/art-museum/</link><guid isPermaLink="false">a6284f0f-f044-46f5-9e5d-6afa7152b98c</guid><dc:creator><![CDATA[lanstonpeng]]></dc:creator><pubDate>Fri, 03 Jan 2014 23:38:49 GMT</pubDate><content:encoded><![CDATA[<p>这次展览主要是几位在高考恢复后的第一批美术精英的作品，现大都50+,60+岁数这个样子
+一组作品旁边也带有他们各自的调侃，我想他们看到必定能让他们感觉回到那学生时代</p>
+
+<p>说实在，自己对平面作品实在是提不起很大的兴趣，但其中的两件作品让我有了
+<em>*Aha Moment *</em></p>
+
+<p><img src="http://localhost:2368/assets/20140105212429386.JPG" alt="image"></p>
+
+<hr>
+
+<p><img src="http://localhost:2368/assets/20140105212429330.JPG" alt="image">
+立体画的组成，将多个局部分别画在不同的玻璃幕上，最后再组合再一起，
+玻璃的通透性一下子令整副作品鲜活起来,但只有从正负两面大约30度这个范围能有
+较好的效果，无需刻意的加上光影而产生的立体感</p>
+
+<hr>
+
+<p><img src="http://localhost:2368/assets/20140105212429401.JPG" alt="image">
+画的内容其实我不感兴趣，标题也那些裸女画作一般，看过就忘了，主要是这副画是与镶嵌着她的玻璃幕是一体的，那些
+黑色的色块与线条实际上是画在玻璃上(可以看到他们在画面上留下的影子)，走动到不同位置观察，画作自然也就不
+一样了,此处细节让我尤为喜欢</p>]]></content:encoded></item><item><title><![CDATA[Write A Simple Promise in 100 Lines Part2]]></title><description><![CDATA[<p>We've known a bit about  why we need Promise and start to build our own version of <em>Promise</em> <br>
+Let's continue,first we get the following work  </p>
+
+<pre>
+<code data-language="javascript">
+    guruPromise.when_done_call_this(playPokemon).when_done_call_this(playPokemon);
+</code>
+</pre>
+
+<p>This is so called <em>chainable</em> <br>
+we've seen this pattern so much in JQuery</p>]]></description><link>http://localhost:2368/wirte-a-simple-promise-2/</link><guid isPermaLink="false">5b484649-dde7-483b-b592-a60cc86469e5</guid><dc:creator><![CDATA[lanstonpeng]]></dc:creator><pubDate>Sat, 14 Dec 2013 23:38:49 GMT</pubDate><content:encoded><![CDATA[<p>We've known a bit about  why we need Promise and start to build our own version of <em>Promise</em> <br>
+Let's continue,first we get the following work  </p>
+
+<pre>
+<code data-language="javascript">
+    guruPromise.when_done_call_this(playPokemon).when_done_call_this(playPokemon);
+</code>
+</pre>
+
+<p>This is so called <em>chainable</em> <br>
+we've seen this pattern so much in JQuery <br>
+<code>$(ele).hide().show()</code> <br>
+maybe we can get a little bit hints from how JQuery does <br>
+the <code>$</code> method, <code>hide</code>,<code>show</code> and others that can make chainable are simply just return <code>this</code> at the end of the function</p>
+
+<p>So, we may divert such methodology into Guru  </p>
+
+<p><em>Every time after Guru's storing what he has to do in his memory,he       just returns the a promise,so that he has the same ability to fulfill     another promise</em>  </p>
+
+<p>So,let's add a few lines of code  </p>
+
+<pre>
+<code data-language="javascript">
+    function cleanDesk(){
+        var guru = guruGenerator();
+        setTimeout(function(){
+            guru.fulfill("Tony's finishing cleaning the nifty desk");
+        },1000);
+        return guru.promise;
+    }
+    function guruGenerator(){
+        var memory = [];
+        var promise = {
+            when_done_call_this:function( things_need_to_do ){
+                var anotherGuru = new guruGenerator();//we generate a new Guru here so that we can return a promise     
+                memory.push(things_need_to_do);
+                return anotherGuru.promise;
+            }
+        };
+        return {
+            fulfill:function(val){
+                memory.forEach(function(thing,idx){
+                    thing.call(null,val);
+                });
+            },
+            promise:promise
+        }
+    }
+    //let poor Tony play Pokemon twice~
+    cleanDesk().when_done_call_this(playPokemon).when_done_call_this(playPokemon);
+    //print one "Go,Pikachu" after ~1000ms
+    //cleanDesk().when_done_call_this(washDish()).when_donw_call_this(playPokemon);
+    //didn't work yet
+</code>
+</pre>
+
+<p>We create another Guru inside the <strong>when<em>done</em>call<em>this</em></strong> function and return another promise after putting the <strong>thingsneed<em>to</em>do</strong> into the original Guru's memory <br>
+but Tony actually play Pokemon once, what's going wrong? <br>
+as we can see, while the <code>cleanDesk</code>'s done , the Guru will tell us by calling <code>fulfill</code>,ok, <br>
+Since the first <code>playPokemon</code> didn't tell the second <code>playPokemon</code> that he's already done, the second one doesn't know that he should be called or not, So, follow this hints,we can alter a bit  </p>
+
+<pre>
+<code data-language="javascript">
+    function playPokemon(guru){
+        console.log("Go,Pikachu");
+        guru.fulfill();
+    }
+
+    function guruGenerator(){
+        var memory = [];
+        var promise = {
+            when_done_call_this:function( things_need_to_do ){
+                var anotherGuru = new guruGenerator();
+                var callback = function(){
+                    things_need_to_do(anotherGuru);
+                }
+                memory.push(callback);
+                return anotherGuru.promise;
+            }
+        };
+        return {
+            fulfill:function(val){
+                memory.forEach(function(thing,idx){
+                    thing.call(null,val);
+                });
+            },
+            promise:promise
+        }
+    }
+    cleanDesk().when_done_call_this(playPokemon).when_done_call_this(playPokemon);
+    //after ~1000ms print:
+    //Go,Pikachu 
+    //Go,Pikachu
+    //cleanDesk().when_done_call_this(washDish()).when_donw_call_this(playPokemon);
+    //didn't work yet,we make it possible in the next step
+</code>
+</pre>
+
+<p>We update a bit of <em>playPokemon</em> , we accept a <em>Guru</em> parameter so that we can get the Guru know that Tony has already played Pokemon <br>
+And it works <br>
+wait,are there any new problems here? <br>
+Yes,there's a problem,as <code>playPokemon</code> is not an async function,it won't generate any timer,remember the mission of <em>Promise</em> written above,we don't have to insert extra codes in these plain function,if so ,we have to update all the plain functions! </p>
+
+<p>The next big step is finding a way to pack those inside the <code>guruGenerator</code> <br>
+Since we can fill <code>when_done_call_this</code> with plain or async function wrapped by promise ,we have to distinguish them by a simple <code>isPromise</code> <br>
+if <code>things_need_to_do</code> is  a <em>Promise</em>, we fill the memory with <code>anotherGuru.fulfill</code> to the other Guru,So that while the current <code>things_need_to_do</code> is done , the other Guru will carry out what's inside his memory; <br>
+if <code>things_need_to_do</code> is  a  plain function, we just execute it  </p>
+
+<pre>
+<code data-language="javascript">
+    function isPromise(func){
+        return func.when_done_call_this; // we simplify things here
+    }
+    function guruGenerator(){
+        var memory = [];
+        var promise = {
+            when_done_call_this:function( things_need_to_do ){
+                var anotherGuru = new guruGenerator();  
+
+                var callback = function(){
+                    if( isPromise( things_need_to_do) ){
+                        things_need_to_do.when_done_call_this(
+                            function(){
+                               anotherGuru.fulfill(); 
+                            }
+                        );
+                    }
+                    else{
+                        things_need_to_do();
+                        anotherGuru.fulfill();
+                    }
+                }
+                memory.push(callback);
+                return anotherGuru.promise;
+            }
+        };
+        return {
+            fulfill:function(val){
+                memory.forEach(function(thing,idx){
+                    thing.call(null,val);
+                });
+            },
+            promise:promise
+        }
+    }
+    //cleanDesk().when_done_call_this(washDish()).when_done_call_this(playPokemon);
+    //cleanDesk done --> washDish done --> Go,Pikachu
+
+    //washDish().when_done_call_this(cleanDesk()).when_done_call_this(playPokemon);
+    //cleanDesk done --> washDish done 
+</code>
+</pre>
+
+<p>And the last thing is that (what?I'm enough about that) <br>
+As we can see that we change the position of <code>cleanDesk</code> and <code>washDish</code> ,and Tony's ending not playing Pokemon <br>
+Why? <br>
+Since <code>cleanDesk</code> takes around 1000ms and <code>washDish</code> takes around 1500ms, while <code>washDish</code>'s finished, the <code>cleanDesk</code> <br>
+has already execute what's inside his memory  </p>
+
+<p>The last step is to fix this problem <br>
+because while the Guru promise to do a thing that is already done , it's not necessary to waste the memory of Guru(he's so old,don't blame the Guru),he can just immediately do what he was told to do ,without putting anything into the memory So,let's write down the final version of it,we just add a <em>isDone</em> which indicate that if the comming <em>things_need_to_do</em> is already done or not  </p>
+
+<pre>
+<code data-language="javascript">
+function guruGenerator(){
+        var memory = [],
+            isDone = false;
+        var promise = {
+            when_done_call_this:function( things_need_to_do ){
+                var anotherGuru = new guruGenerator();  
+
+                var callback = function(){
+                    if( isPromise( things_need_to_do) ){
+                        things_need_to_do.when_done_call_this(
+                            function(){
+                               anotherGuru.fulfil(); 
+                            }
+                        );
+                    }
+                    else{
+                        things_need_to_do();
+                        anotherGuru.fulfil();
+                    }
+                }
+                if(!isDone){
+                    memory.push(callback);
+                }
+                else{
+                    callback();
+                }
+                return anotherGuru.promise;
+            }
+        };
+        return {
+            fulfil:function(val){
+                memory.forEach(function(thing,idx){
+                    thing.call(null,val);
+                });
+            },
+            promise:promise
+        }
+    }
+</code>
+</pre>
+
+<h4 id="thingstobecovered">Things to be covered</h4>
+
+<ul>
+<li>No Error Handle Functionality</li>
+</ul>
+
+<h4 id="seealso">See Also</h4>
+
+<p><a href="http://callbackhell.com/">callbackhell</a></p>]]></content:encoded></item><item><title><![CDATA[Write A Simple Promise in 100 Lines Part1]]></title><description><![CDATA[<h4 id="theproblemswemayencounter">The Problems We May Encounter</h4>
+
+<ul>
+<li>Manage asynchronize tasks
+<ul><li>invoke a callback while a few independent asynchronize function finish  </li>
+<li>deep async call</li></ul></li>
+</ul>
+
+<h4 id="westartfromastory">We start from a story</h4>
+
+<p>Tony, a boy who loves playing Pokemon,is only allowed to play after cleaning the desk and washing all the dishes  </p>
+
+<pre><code data-language="javascript">
+    function washDish(cb)</code></pre>]]></description><link>http://localhost:2368/write-a-simple-promise-1/</link><guid isPermaLink="false">de593d6b-e024-4392-9252-0946af121f31</guid><dc:creator><![CDATA[lanstonpeng]]></dc:creator><pubDate>Fri, 13 Dec 2013 23:38:49 GMT</pubDate><content:encoded><![CDATA[<h4 id="theproblemswemayencounter">The Problems We May Encounter</h4>
+
+<ul>
+<li>Manage asynchronize tasks
+<ul><li>invoke a callback while a few independent asynchronize function finish  </li>
+<li>deep async call</li></ul></li>
+</ul>
+
+<h4 id="westartfromastory">We start from a story</h4>
+
+<p>Tony, a boy who loves playing Pokemon,is only allowed to play after cleaning the desk and washing all the dishes  </p>
+
+<pre><code data-language="javascript">
+    function washDish(cb){
+        setTimeout(cb,1000); //oh boy,how fast Tony wash
+    }
+    function cleanDesk(cb){
+        setTimeout(cb,2000);
+    }
+    function playPokemon(){
+        console.log("Go,Pikachu");
+    }
+
+</code>
+</pre>
+
+<p>We may generate some codes as following  </p>
+
+<pre>
+<code data-language="javascript">
+    cleanDesk(function(){
+        washDish(function(){
+            playPokemon();
+        });
+    });
+
+</code>
+</pre>
+
+<p>that's ok, and imagine we can write something like this  </p>
+
+<pre>
+<code data-language="javascript">
+    when_all_done(cleanDesk,washDish).call_this(playPokemon);
+
+</code>
+</pre> 
+
+<p>It's not a big deal,why we have to write something like that <br>
+before giving the answer,let's see in what circumstance can we not use   </p>
+
+<h4 id="ifwecansolvethefollowinglistwedonthavetodealwiththisproblem">if we can solve the following list,we don't have to deal with this problem</h4>
+
+<ul>
+<li>manually handle the callback pyramid well   </li>
+<li>get others to get intuitive understanding of your code</li>
+</ul>
+
+<p>You bet,if the code base doesn't scale much and we're clear and smart enough( yeah,we're smart ),we can simply ignore the first piece,But the second point is not so easy to handle,we don't know who will read our code(even we think that the code we wrote is beautiful ) and whether they'll be understood</p>
+
+<h4 id="whatthissimplearticlemightofferyou">What this simple article might offer you</h4>
+
+<ul>
+<li>Give you an intuitive and step by step way of the implementation of Promise in javascript</li>
+</ul>
+
+<h4 id="inanutshellpromiseisanabstractpatternhelpspeopletowritereadableasynccodeandmanagethem"><em>In a nutshell,  Promise is an abstract pattern helps people to write readable async code and manage them</em></h4>
+
+<hr>
+
+<h4 id="letthejourneybegin">Let the journey begin</h4>
+
+<p>There're plenty of implementations and I choose an intuitive one to cope with  </p>
+
+<p>Say that there's a mystery guy called <em>Guru</em> who promise us that he'll do whatever we want after Tony's finishing something(still remember Tony?)  </p>
+
+<p>If Tony can return this <strong>promise</strong> from Guru,and while the thing Tony has to to is fulfilled ,the <em>Guru</em> will notify us and carry out what's inside that <strong>promise</strong>(how nice Guru) ,feel free to do something else <br>
+,let's alter the code a bit</p>
+
+<pre>
+<code data-language="javascript">
+    function cleanDesk(cb){
+        var guru = guruGenerator();
+        setTimeout(cb,1000);
+        return guru.promise;
+    }
+
+</code>
+</pre>
+
+<p>Since we the Guru has to know that Tony's finsihing cleaning desk ,and the moment he knows ,he'll let us know,So we may add a little bit code like this  </p>
+
+<pre>
+<code data-language="javascript">
+    function cleanDesk(){
+        var guru = guruGenerator();
+        setTimeout(function(){
+            guru.fulfill("Tony's finishing cleaning the nifty desk");
+        },1000);
+        return guru.promise;
+    }
+
+</code>
+</pre>
+
+<p>Notice that the parameter <code>cb</code> in cleanDesk is gone,since we'll assign it in another way <br>
+As we hold the delicate <em>promise</em> from the Guru, we can put things we want <em>Guru</em> to fullfill after the particular thing is done by calling  <code>when_done_call_this</code> <br>
+So, we may write something like:  </p>
+
+<pre>
+<code data-language="javascript">
+    var guruPromise = cleanDesk();//return the promise from Guru
+    guruPromise.when_done_call_this(washDish);
+
+</code>
+</pre>
+
+<p>what we've done is flattening the callback hell a little bit  </p>
+
+<h4 id="howcanweachievethat">How can we achieve that?</h4>
+
+<p>the skeleton looks like this  </p>
+
+<pre>
+<code data-language="javascript">
+function guruGenerator(){
+    var promise = {
+        when_done_call_this:function(){}
+    };
+    return {
+        fulfill:function(){},
+        promise:promise
+    }
+}
+
+</code>
+</pre>
+
+<p>Since we can tell whatever we want after the specified thing is done(e.g <code>washDish</code>) <br>
+like <code>guruPromise.when_done_call_this(washDish)</code> <br>
+The Guru has to memory the things(like the <code>washDish</code> here) he has to deal with after the specified thing is done,So , we can add an array inside the Guru's body  </p>
+
+<pre>
+<code data-language="javascript">
+function guruGenerator(){
+    var memory = [];
+    var promise = {
+        when_done_call_this:function( things_need_to_do ){
+            memory.push(things_need_to_do);
+        }
+    };
+    ...
+}
+
+</code>
+</pre>
+
+<p>And while the guru fulfill that <code>promise</code>,he just fetch the "todo list" from his memory and execute  </p>
+
+<pre>
+<code data-language="javascript">
+    function guruGenerator(){
+        var memory = [];
+        var promise = {
+            when_done_call_this:function( things_need_to_do ){
+                memory.push(things_need_to_do);
+            }
+        };
+        return {
+            fulfil:function(val){
+                memory.forEach(function(thing,idx){
+                    thing.call(null,val);
+                });
+            },
+            promise:promise
+        }
+    }
+
+</code>
+</pre>
+
+<p>Now,we can make the following code work  </p>
+
+<pre>
+<code data-language="javascript">
+    guruPromise.when_done_call_this(playPokemon);
+    //print "Go,Pikachu" after ~1000ms
+
+</code>
+</pre>
+
+<p>The next part ,we'll make the following snippet possible:  </p>
+
+<pre>
+<code data-language="javascript">
+guruPromise.when_done_call_this(playPokemon).when_done_call_this(playPokemon);
+
+</code>
+</pre>]]></content:encoded></item><item><title><![CDATA[风雅颂展之小感]]></title><description><![CDATA[<p>上一季错过了3年展了，年时有空便去了一趟，
+相对来说，个人不太喜欢平面的作品，
+可能是急功近利的心态，无法比平常更加平静地思考作者的思维，
+细想每次去广美馆便是带着两个心态，一个是寄望能看到不一样的思维，二是希望走出来的时候能稍稍平静那段时间的浮躁，窃喜第一个目的每次都能在一定程度上得逞而第二个目每次都显得有些讽刺。
+说回本展，挑3个作品记录一下，</p>
+
+<p>一个关于雕塑的作品，其介绍中说我们通常观察一个雕塑作品之时，从观察视觉角度看，便是可从其周围观欣赏这个雕塑，而这个作品很出奇地限制了人们的观察角度，仅让观众从一个小门中观看(图中看到的实是一面镜子)，顺着作者的思路，因其作品是由大量人性小雕塑组成，每个小人高度不一，形态各异，两只巨大的眼睛都是朝着观众这边眺望，而周边的灯光看起来也像是为了站在让这个方向的众人有着最佳欣赏角度而努力着。
+旁边介绍作品的video我没有继续看下去了，作者究竟为何设计？或许可以简单的认为其仅仅让大家看到最美的一面，如果可以的话，我便是希望作者是想让每个人看到都会有疑问而不仅仅是心中的某种一闪而过的暗涌。或许从另外一个角度看，倘若事物的生产者限制他人在某个范围内感知这个事物的时候，究竟会出现什么样的效果呢？</p>
+
+<!-- more -->
+
+<p>另外一个便是单看是一张张非常平淡无奇的类似渣手机随手拍摄的高楼夜景相片，但是组合起来，尤其是在每张背后添上一盏白灯，众多图片近乎无缝的叠加，每栋楼发光的地方显得愈加光亮，站在前面一看便是一阵暗涌，大量无奇平凡的东西通过某种方式叠加成一种神奇的东西的手法并不新鲜，暗涌点我便觉得是不仅仅是简单粗暴的叠加，而是将每个平凡点的亮点最大限度的突显后在叠加，让人看得有点心动。</p>
+
+<p>最后一个或许是很多作品都有，或许不是作者之意，或许是别的非作画主要因素，但是我便是很喜欢，一张平面的作品通常会置于一些画框当中，而我看到的一张便是将自身所要表达的内容延伸到其所能覆盖的所有地方，倘若是作者的原意，</p>]]></description><link>http://localhost:2368/e9a38ee99b85e9a282e5b195e4b98be5b08fe6849f/</link><guid isPermaLink="false">b55044e7-5b32-41c1-9a04-2cf7d2b99211</guid><category><![CDATA[design]]></category><category><![CDATA[life experience]]></category><category><![CDATA[未分类]]></category><dc:creator><![CDATA[lanstonpeng]]></dc:creator><pubDate>Wed, 13 Feb 2013 12:28:07 GMT</pubDate><content:encoded><![CDATA[<p>上一季错过了3年展了，年时有空便去了一趟，
+相对来说，个人不太喜欢平面的作品，
+可能是急功近利的心态，无法比平常更加平静地思考作者的思维，
+细想每次去广美馆便是带着两个心态，一个是寄望能看到不一样的思维，二是希望走出来的时候能稍稍平静那段时间的浮躁，窃喜第一个目的每次都能在一定程度上得逞而第二个目每次都显得有些讽刺。
+说回本展，挑3个作品记录一下，</p>
+
+<p>一个关于雕塑的作品，其介绍中说我们通常观察一个雕塑作品之时，从观察视觉角度看，便是可从其周围观欣赏这个雕塑，而这个作品很出奇地限制了人们的观察角度，仅让观众从一个小门中观看(图中看到的实是一面镜子)，顺着作者的思路，因其作品是由大量人性小雕塑组成，每个小人高度不一，形态各异，两只巨大的眼睛都是朝着观众这边眺望，而周边的灯光看起来也像是为了站在让这个方向的众人有着最佳欣赏角度而努力着。
+旁边介绍作品的video我没有继续看下去了，作者究竟为何设计？或许可以简单的认为其仅仅让大家看到最美的一面，如果可以的话，我便是希望作者是想让每个人看到都会有疑问而不仅仅是心中的某种一闪而过的暗涌。或许从另外一个角度看，倘若事物的生产者限制他人在某个范围内感知这个事物的时候，究竟会出现什么样的效果呢？</p>
+
+<!-- more -->
+
+<p>另外一个便是单看是一张张非常平淡无奇的类似渣手机随手拍摄的高楼夜景相片，但是组合起来，尤其是在每张背后添上一盏白灯，众多图片近乎无缝的叠加，每栋楼发光的地方显得愈加光亮，站在前面一看便是一阵暗涌，大量无奇平凡的东西通过某种方式叠加成一种神奇的东西的手法并不新鲜，暗涌点我便觉得是不仅仅是简单粗暴的叠加，而是将每个平凡点的亮点最大限度的突显后在叠加，让人看得有点心动。</p>
+
+<p>最后一个或许是很多作品都有，或许不是作者之意，或许是别的非作画主要因素，但是我便是很喜欢，一张平面的作品通常会置于一些画框当中，而我看到的一张便是将自身所要表达的内容延伸到其所能覆盖的所有地方，倘若是作者的原意，此等细节会让我非常非常的钦佩，即便我觉得略看这幅画其制作过程不过是一个在画布中点处放置一坨泥浆和一支火柴炮而已。</p>
+
+<p><img src="http://cdn.dropmark.com/32736/8a6161d8c2d8b8db81a89da4a9ae13bda0e6f120/IMG_20000103_145555.jpg" alt=""></p>]]></content:encoded></item><item><title><![CDATA[我与显微镜还有一些想法]]></title><description><![CDATA[<p><img src="http://cdn.dropmark.com/32736/352714e1547b2c4b49964fb7b3d28aa9bc518c26/Screen%20Shot%202013-04-27%20at%203.26.52%20PM.png" alt="">
+妈妈一度以为我找伴去了，问我实习的钱怎么这么快败光了
+事实上，一副乐高的NXT系列"玩具"跟一个1200x的渣显微镜便是元凶。</p>
+
+<p>说回显微镜，小时候一直就想拥有一台，因为<strong>好奇</strong>嘛，但是各种诱因导致始终没有搞到一台，
+中学上生物课的时候观察叶绿素，很记得当时很是震惊(seriously)，一串串的绿色的珠子似的，后来老师说我观察错了...
+还有的洋葱切片,嗯，跟我想象的不差多远，
+后来觉得不爽，所有切片都是老师给我们准备的，于是我们几个男生就将能观察的东西都放到玻片上面的，如耳屎，自己的死皮，毛发，实验室外那个死水潭里面的水...结果虽然有少许惊艳，但后来回想起来，不过是走马观花罢了，眼前一亮后貌似也就没有<strong>更多的升华</strong>了
+这也是我想重新拿回显微镜的一个原因</p>
+
+<!-- more -->
+
+<p>但是当我在宿舍摆弄新显微镜的时候，我想，我大概不会再像当年那个中学生那样，
+”肆无忌惮“的探索着未知的东西了吧，我应该是会更加细致认真，深入内部的，外加少许全面地对待一些事物了吧，我从细致地了解了列文胡克这个人到显微镜的架构设计，到一些细胞的深入一点的知识，最终甚至还在知乎上问了有关的“哲学”问题，我始终不知道自己这样的转变是不是好的，说白了可能“好听点”</p>]]></description><link>http://localhost:2368/e68891e4b88ee698bee5beaee9959ce8bf98e69c89e4b880e4ba9be683b3e6b395/</link><guid isPermaLink="false">d7c46207-47b0-4bff-a8ac-599ed87fdef5</guid><category><![CDATA[未分类]]></category><category><![CDATA[understanding of life]]></category><dc:creator><![CDATA[lanstonpeng]]></dc:creator><pubDate>Thu, 31 Jan 2013 08:39:46 GMT</pubDate><content:encoded><![CDATA[<p><img src="http://cdn.dropmark.com/32736/352714e1547b2c4b49964fb7b3d28aa9bc518c26/Screen%20Shot%202013-04-27%20at%203.26.52%20PM.png" alt="">
+妈妈一度以为我找伴去了，问我实习的钱怎么这么快败光了
+事实上，一副乐高的NXT系列"玩具"跟一个1200x的渣显微镜便是元凶。</p>
+
+<p>说回显微镜，小时候一直就想拥有一台，因为<strong>好奇</strong>嘛，但是各种诱因导致始终没有搞到一台，
+中学上生物课的时候观察叶绿素，很记得当时很是震惊(seriously)，一串串的绿色的珠子似的，后来老师说我观察错了...
+还有的洋葱切片,嗯，跟我想象的不差多远，
+后来觉得不爽，所有切片都是老师给我们准备的，于是我们几个男生就将能观察的东西都放到玻片上面的，如耳屎，自己的死皮，毛发，实验室外那个死水潭里面的水...结果虽然有少许惊艳，但后来回想起来，不过是走马观花罢了，眼前一亮后貌似也就没有<strong>更多的升华</strong>了
+这也是我想重新拿回显微镜的一个原因</p>
+
+<!-- more -->
+
+<p>但是当我在宿舍摆弄新显微镜的时候，我想，我大概不会再像当年那个中学生那样，
+”肆无忌惮“的探索着未知的东西了吧，我应该是会更加细致认真，深入内部的，外加少许全面地对待一些事物了吧，我从细致地了解了列文胡克这个人到显微镜的架构设计，到一些细胞的深入一点的知识，最终甚至还在知乎上问了有关的“哲学”问题，我始终不知道自己这样的转变是不是好的，说白了可能“好听点”便有着一种原理/相关知识强迫症，或者不知道是否是一种强烈的占有欲的体现</p>
+
+<p>后来，当我摘起一片生长在宿舍墙角的草叶，细致地洗净并做了其切片，蘸上试液，盖上玻片，轻轻的放在物镜台上，当我不断在微调物镜的时候，我惊奇的发现自己一如当初那个中学生，兴奋且开心的旋转着目镜，期待着视网膜上有什么新的东西，看到不一样的东西，噢，对啊，我终究是喜欢这样东西啊，为什么反而会被自己如此多的顾虑绊住了呢，即便我曾一度以为所谓的外因如社会的压力等等诸如此类，不过最终还是自己的内心的问题罢了，其余的或许仅仅不过是一导火线罢了</p>]]></content:encoded></item><item><title><![CDATA[视频分享形式新猜想]]></title><description><![CDATA[<p><img src="http://i.minus.com/inaR2ZgtDejDK.png" alt="">
+现在，就我所了解的视频分享形式一般都是一个短链接,如：<a href="http://t.cn/a3rKQN">http://t.cn/a3rKQN</a>
+但是，我所需要的是一种更加精确的分享，即某(几)个片段等，那么，能瞬间想到的大概长这么一个样子</p>
+
+<p>"t.cn/a3rKQN<strong>#1:01_3:34"</strong></p>
+
+<p>实际上，先存的视频网站也有这样的功能，
+如youku也有类似的url：</p>
+
+<p>"youkuUrl_Prefix?<strong>firsttime</strong>=31"</p>
+
+<p>这种方式简单方便，能满足足够多的用户
+但是，在我看来，如果能精确到一段视频，我们知道，加载视频的时候一般都是一段一段地进行加载，如果有那么一种方式，能让用户自由获取视频的任何部分,
+我所希望的操作流程是这样的：
+用户在看一个视频，他想分享接下来的片段了，点start,继续看视频，然后点end，这样一段视频就已经在客户端“生成”了这段视频了</p>
+
+<p><strong>关键字:</strong>canvas,video,base64,</p>]]></description><link>http://localhost:2368/e8a786e9a291e58886e4baabe5bda2e5bc8fe696b0e78c9ce683b3/</link><guid isPermaLink="false">bfd7b42f-166c-4a16-ba2e-071843070f12</guid><category><![CDATA[未分类]]></category><category><![CDATA[idea]]></category><category><![CDATA[javascript]]></category><dc:creator><![CDATA[lanstonpeng]]></dc:creator><pubDate>Tue, 09 Oct 2012 07:48:59 GMT</pubDate><content:encoded><![CDATA[<p><img src="http://i.minus.com/inaR2ZgtDejDK.png" alt="">
+现在，就我所了解的视频分享形式一般都是一个短链接,如：<a href="http://t.cn/a3rKQN">http://t.cn/a3rKQN</a>
+但是，我所需要的是一种更加精确的分享，即某(几)个片段等，那么，能瞬间想到的大概长这么一个样子</p>
+
+<p>"t.cn/a3rKQN<strong>#1:01_3:34"</strong></p>
+
+<p>实际上，先存的视频网站也有这样的功能，
+如youku也有类似的url：</p>
+
+<p>"youkuUrl_Prefix?<strong>firsttime</strong>=31"</p>
+
+<p>这种方式简单方便，能满足足够多的用户
+但是，在我看来，如果能精确到一段视频，我们知道，加载视频的时候一般都是一段一段地进行加载，如果有那么一种方式，能让用户自由获取视频的任何部分,
+我所希望的操作流程是这样的：
+用户在看一个视频，他想分享接下来的片段了，点start,继续看视频，然后点end，这样一段视频就已经在客户端“生成”了这段视频了</p>
+
+<p><strong>关键字:</strong>canvas,video,base64,binary</p>
+
+<p>整体思路很简单，用一个隐藏的canvas获取video的数据，转化成相应的base64编码的数据，再经过decode出原始数据,即binary data(我们知道，base64比原始数据多出33%的数据量，具体看文章最后的ref),
+这样,数据传输方面就少传送33%了，
+但是decode与encode的工作量是巨大的，对于没有类似原生的atob,以及btoa方法的browser来说更加是如此</p>
+
+<p>可以看到Utils模块里面有相关的base64 decode 与 encode的方法)<!-- more -->
+<strong>应用场景：</strong>我觉得可以做一些短小精悍的分享,有一点好处是录制的视频的帧数可控，又在一定程度上减少了网络负担(当然，得在视频流畅度允许的情况下)
+<strong>软肋：</strong>显然，没有声音，流畅度欠缺</p>
+
+<p>具体的代码可以看我的<a href="https://github.com/lanstonpeng/SharingVideoHypothesis">github</a></p>
+
+<p>ref: <br>
+<a href="http://www.ruanyifeng.com/blog/2008/06/base64.html">base64笔记</a></p>]]></content:encoded></item><item><title><![CDATA[小议贝叶斯]]></title><description><![CDATA[<p>前段时间写<a href="https://github.com/lanstonpeng/BabyWordCorrector">一个简易的单词订正器</a>，一直想找个机会记录一下关于贝叶斯这个强大美妙的东西，但是苦于没有找到一个比较满意的切入点
+最近发现了一个比较经典的问题,<a href="http://en.wikipedia.org/wiki/Monty_Hall_Problem">Monty Hall problem</a>
+一个颇为有趣的问题，一开始真的被愚弄了一番</p>
+
+<p>文章先以这个例子展开，之后回到单词订正器的设计思想</p>
+
+<p>我们知道，Bayes的简单形式是这样的
+P(A|B) = P(B|A)P(A) / P(B) <br>
+让我们作出那么一点点的小变动
+P(A|B) = P(A) * ( P(B|A) / P(B) ) <br>
+只是将P(A)单独放置出来，我认为这便是Bayes的magic了
+上述式子讲述的是这样一个推倒：
+<strong>=> (new plausibility) = (old plausibility) × (evidence adjustment)</strong>
+其中，对于上述式子， P(B|</p>]]></description><link>http://localhost:2368/e5b08fe8aeaee8b49de58fb6e696af/</link><guid isPermaLink="false">da936843-024b-4b85-b937-b611b1e04455</guid><category><![CDATA[未分类]]></category><category><![CDATA[mathematics]]></category><dc:creator><![CDATA[lanstonpeng]]></dc:creator><pubDate>Sat, 06 Oct 2012 11:24:33 GMT</pubDate><content:encoded><![CDATA[<p>前段时间写<a href="https://github.com/lanstonpeng/BabyWordCorrector">一个简易的单词订正器</a>，一直想找个机会记录一下关于贝叶斯这个强大美妙的东西，但是苦于没有找到一个比较满意的切入点
+最近发现了一个比较经典的问题,<a href="http://en.wikipedia.org/wiki/Monty_Hall_Problem">Monty Hall problem</a>
+一个颇为有趣的问题，一开始真的被愚弄了一番</p>
+
+<p>文章先以这个例子展开，之后回到单词订正器的设计思想</p>
+
+<p>我们知道，Bayes的简单形式是这样的
+P(A|B) = P(B|A)P(A) / P(B) <br>
+让我们作出那么一点点的小变动
+P(A|B) = P(A) * ( P(B|A) / P(B) ) <br>
+只是将P(A)单独放置出来，我认为这便是Bayes的magic了
+上述式子讲述的是这样一个推倒：
+<strong>=> (new plausibility) = (old plausibility) × (evidence adjustment)</strong>
+其中，对于上述式子， P(B|A) / P(B) 便是 evidence adjustment了
+简单来说，就是新出现的事件B，对于事件A的影响程度，但需要在事件A,B相关联的情况下
+如果B于A是相互独立事件，那么P(B|A) = P(B), 所以P(A|B) = P(A),事件B的出现没有贡献任何有价值的内容</p>
+
+<p><strong>Monty Hall problem</strong></p>
+
+<p>P( C | H , S) <br>
+C = i ，代表车子在Door i <br>
+H = j , 代表Hall打开的是 Door j <br>
+S = k, 代表的是用户选择的Door k</p>
+
+<p>P( C = i | H = j ,S = k ) = P( C = i | S = k ) * [ P( H = j | C = i , S = k ) / P( H = j, S = k ) ] <br>
+其中，j &lt;> k &lt;> i</p>
+
+<p>其中，old plausibility 即 P( C = i | S = k ) 都是一样的，不管用户怎么选择，Car在哪扇门后概率都是1/3
+于是，将两种情况进行相比，得：</p>
+
+<p>P( H = j | C = i , S = k )        1 <br>
+--------------------------- = ------
+P( H = j | C = k , S = k )      1/2</p>
+
+<p>可见，倘若选择switch，那么拿到车子的概率足足多了1倍！</p>
+
+<!-- more -->
+
+<p><strong>关于这个<a href="https://github.com/lanstonpeng/BabyWordCorrector">一个简易的单词订正器</a></strong>
+花那么一点点时间想想，
+倘若用户输入 thy 这几个字母，你是一台计算机，你会返回什么单词呢？
+1.直接返回 thy <br>
+2.返回 the <br>
+3.返回 they <br>
+......
+不可否认，thy是一个合法的单词，但是基于你的经验，倘若你是用户，真正想输入thy的概率会有多大？
+现在假设
+P(c) : 输入一个单词是正确的概率 <br>
+P(w): 输入一个单词是错误的概率</p>
+
+<p>我们所要求的就是max P( c | w ),在输入一个错误单词的情况下，挑选一个拥有最大概率的正确单词
+很好，让我们继续分析下去
+看回上面的小例子：
+用户输入thy,
+我们要计算的就是诸如
+P( the | thy ) , P( they | thy ) , P( thy | thy ) 等等 <br>
+要计算这些概率，我们需要什么？
+一个错误转化为正确单词的表，那么怎么获取如 P( the | thy )的值呢？
+按照条件概率分解一下，
+P( the | thy ) <br>
+= P( the ^ thy ) / P( thy ) {看似没什么帮助，继续分析下去}
+= P (thy | the ) P (the) / P(thy) { 看似有用多了}</p>
+
+<p>P ( the ) 是可计算的( 一篇足够长的现代通俗文章有n个单词，那么P(the) 在计算机的帮助下可以很容易计算出来 ) <br>
+P ( thy | the ) 也是可以很方便计算的，从the出发，列举有可能出现的错误单词，如thy,they ,them ...... （当然，这样会有取舍，错误的“距离”，如上面3个单词，距离是1，2，2），同样，得到的错误单词可以继续用同样的方法计算P(thy)....</p>
+
+<p>仔细想想，上述公式可以化解为</p>
+
+<p>P( c | w ) =    P( w | c ) * P( c )  /  P( w ) <br>
+写到这里，其实这个单词订正器已经算是完成了，精髓便在于将该合并的 P (c | w ) 进行变化
+之后便是细节，性能处理的问题了，
+如 ,若P(they | thy) == P(the | thy),该如何取舍（这里采用"距离"小的）</p>
+
+<p>以上的两个问题都是通过贝叶斯来解决的
+<strong>本质上采用了基于统计学的方法，贝叶斯通过新进相关事件不断修正模型准确度</strong>
+其应用非常广泛
+如google著名的page ranking
+又如一些垃圾邮件，垃圾微博的过滤，分词等等</p>
+
+<p>ref: <br>
+<a href="http://en.wikipedia.org/wiki/Bayes'_theorem">http://en.wikipedia.org/wiki/Bayes'_theorem</a> <br>
+<a href="http://norvig.com/spell-correct.html">http://norvig.com/spell-correct.html</a> <br>
+<a href="http://blog.moertel.com/articles/2011/01/01/the-bayesian-meets-monty-hall">http://blog.moertel.com/articles/2011/01/01/the-bayesian-meets-monty-hall</a> <br>
+<a href="http://oscarbonilla.com/2009/05/the-monty-hall-problem/">http://oscarbonilla.com/2009/05/the-monty-hall-problem/</a></p>]]></content:encoded></item><item><title><![CDATA[我想要有这么一个农场]]></title><description><![CDATA[<p>我是一个稍稍反社交的人，我总是喜欢线上的东西能与线下的东西是一个整体</p>
+
+<p><strong>我想要有这么这个基于农场的社交网络：</strong>
+农场是在现实世界里面的，占地不用大，也不一定是正式的地方，只要能种到东西的一个小小的合法地方即可，
+譬如可以在我家天台用小砖头围起的一片3平方米的种花的地方，其它地方租金也不会十分贵，在乎于管理
+每个注册用户可以拥有自己的一片小地，小到可以只种一颗菜，这样，每个"小菜地"便是对应个用户ID，
+我想若读到这里，有同样爱好的同学必定能想到很多有趣的东西了</p>
+
+<p><strong>那么关于养成呢？</strong>
+-用户可以自行到现实农场呵护自己的小菜小瓜
+-农产品有它的成长值，对应用户有他的勋章等等
+-在这篇农场的用户通过在线的网络进行交流，譬如帮他人浇水，施肥，收成时分享果实等
+-我需要有一个机器人或者设备，他能完成简单的农务活动，如浇水，最重要的是，他能通过远程被控制，让用户控制机器人呵护自己的农作物以及了解自己的农作物等
+-......</p>
+
+<p>网站的设计现在没有雏形，但是实时性，与现实高交互性是我首要考虑
+现实的农场一开始也不会超过3平方米（或者仅仅是我宿舍的一个桶的面积）
+机器人的设计我大概有个想法，一个红外探头的可扫描二维码的机器附带诸如摄像头等设备，二维码对应用户ID，农场地上有一条路线供机器人寻路，简单的农务机械操作若简单设计的话也并非一件难事</p>
+
+<p><img src="http://i.minus.com/i3wiyV0xUoUYn.png" alt=""></p>]]></description><link>http://localhost:2368/e68891e683b3e8a681e69c89e8bf99e4b988e4b880e4b8aae5869ce59cba/</link><guid isPermaLink="false">bbc92dd7-e524-4a2d-b963-b9fdb10bea7e</guid><category><![CDATA[未分类]]></category><category><![CDATA[idea]]></category><dc:creator><![CDATA[lanstonpeng]]></dc:creator><pubDate>Mon, 10 Sep 2012 02:12:51 GMT</pubDate><content:encoded><![CDATA[<p>我是一个稍稍反社交的人，我总是喜欢线上的东西能与线下的东西是一个整体</p>
+
+<p><strong>我想要有这么这个基于农场的社交网络：</strong>
+农场是在现实世界里面的，占地不用大，也不一定是正式的地方，只要能种到东西的一个小小的合法地方即可，
+譬如可以在我家天台用小砖头围起的一片3平方米的种花的地方，其它地方租金也不会十分贵，在乎于管理
+每个注册用户可以拥有自己的一片小地，小到可以只种一颗菜，这样，每个"小菜地"便是对应个用户ID，
+我想若读到这里，有同样爱好的同学必定能想到很多有趣的东西了</p>
+
+<p><strong>那么关于养成呢？</strong>
+-用户可以自行到现实农场呵护自己的小菜小瓜
+-农产品有它的成长值，对应用户有他的勋章等等
+-在这篇农场的用户通过在线的网络进行交流，譬如帮他人浇水，施肥，收成时分享果实等
+-我需要有一个机器人或者设备，他能完成简单的农务活动，如浇水，最重要的是，他能通过远程被控制，让用户控制机器人呵护自己的农作物以及了解自己的农作物等
+-......</p>
+
+<p>网站的设计现在没有雏形，但是实时性，与现实高交互性是我首要考虑
+现实的农场一开始也不会超过3平方米（或者仅仅是我宿舍的一个桶的面积）
+机器人的设计我大概有个想法，一个红外探头的可扫描二维码的机器附带诸如摄像头等设备，二维码对应用户ID，农场地上有一条路线供机器人寻路，简单的农务机械操作若简单设计的话也并非一件难事</p>
+
+<p><img src="http://i.minus.com/i3wiyV0xUoUYn.png" alt=""></p>]]></content:encoded></item><item><title><![CDATA[从制作一个自行车公里计数器说方法论]]></title><description><![CDATA[<p>我主要想focus在思路上，</p>
+
+<p>这其实是一个方法论的问题，抽象到更高一层可应用到其它很多的场合中，决定于抽象的程度</p>
+
+<p><strong>直观Focus型</strong></p>
+
+<p>我们会很直接的将目光聚焦到事物表面上，很自然的会想到（这仅仅是我的猜测而已）</p>
+
+<ul>
+<li><em>路程=周长*转数</em></li>
+</ul>
+
+<p>周长直接可得，设置一个记录转数的装置，至于这个装置应该怎么设计呢？</p>
+
+<p><a href="http://files.blogcn.com/wp03/M00/03/EA/wKgKC09siWcAAAAAAATdPBLe55c382.png"><img src="http://files.blogcn.com/wp06/M00/06/00/wKgKDE9siXoAAAAAAACPzFsBXEA401.png" alt="" title=""></a></p>
+
+<p>方式可以有很多，譬如前架上设置一个装置，车轮的杆上也设置一个装置，类似光学接收仪， 每转一圈就会记录一次</p>
+
+<p>当然，还有很多种入手的方式，譬如从车轴入手，用一些电板</p>
+
+<p>再或者，将想法脱离事物的直观层面外，即到车轮之外，</p>
+
+<p>譬如从脚踏板入手，脚踏板每转一圈都与车轮相关，这里也有着某种想法，</p>
+
+<p>譬如记录脚踏板的转的次数，怎么记录？同样有着车轮的构造，很多想法可以借鉴过来，</p>
+
+<p>抽象来说:</p>
+
+<p><strong>可以说是寻找我们需要的变量（这里是公里数）影响到的参数，包括所有周边环境的所有参数、因数，无论是正相关抑或是负相关，又或者是影响我们所求的参数的可能性</strong></p>
+
+<p><strong><!-- more --></strong></p>
+
+<p>正如一个链表那样，找到该节点的前后的部分节点（因为找到大部分或者全部的节点需要很长时间的时间，这取决于实物的复杂程度，而且并非所有都是有用的信息）</p>
+
+<p><a href="http://files.blogcn.com/wp03/M00/03/EF/wKgKC09vNTUAAAAAAATbR0mDX_o137.png"><img src="http://files.blogcn.com/wp02/M00/04/6B/wKgKCk9vNTcAAAAAAABdA0kHJZQ598.png" alt="" title=""></a></p>
+
+<p>但是，既然脚踏板与我们的大腿相接，即直观事物有着联系的对等对象，我们是否可以从大腿入手呢？</p>]]></description><link>http://localhost:2368/e4bb8ee588b6e4bd9ce4b880e4b8aae887aae8a18ce8bda6e585ace9878ce8aea1e695b0e599a8e8afb4e5bc80e58ebb/</link><guid isPermaLink="false">e2393a93-82ff-49fd-b80c-85feda61f699</guid><category><![CDATA[未分类]]></category><category><![CDATA[idea]]></category><dc:creator><![CDATA[lanstonpeng]]></dc:creator><pubDate>Mon, 26 Mar 2012 00:34:27 GMT</pubDate><content:encoded><![CDATA[<p>我主要想focus在思路上，</p>
+
+<p>这其实是一个方法论的问题，抽象到更高一层可应用到其它很多的场合中，决定于抽象的程度</p>
+
+<p><strong>直观Focus型</strong></p>
+
+<p>我们会很直接的将目光聚焦到事物表面上，很自然的会想到（这仅仅是我的猜测而已）</p>
+
+<ul>
+<li><em>路程=周长*转数</em></li>
+</ul>
+
+<p>周长直接可得，设置一个记录转数的装置，至于这个装置应该怎么设计呢？</p>
+
+<p><a href="http://files.blogcn.com/wp03/M00/03/EA/wKgKC09siWcAAAAAAATdPBLe55c382.png"><img src="http://files.blogcn.com/wp06/M00/06/00/wKgKDE9siXoAAAAAAACPzFsBXEA401.png" alt="" title=""></a></p>
+
+<p>方式可以有很多，譬如前架上设置一个装置，车轮的杆上也设置一个装置，类似光学接收仪， 每转一圈就会记录一次</p>
+
+<p>当然，还有很多种入手的方式，譬如从车轴入手，用一些电板</p>
+
+<p>再或者，将想法脱离事物的直观层面外，即到车轮之外，</p>
+
+<p>譬如从脚踏板入手，脚踏板每转一圈都与车轮相关，这里也有着某种想法，</p>
+
+<p>譬如记录脚踏板的转的次数，怎么记录？同样有着车轮的构造，很多想法可以借鉴过来，</p>
+
+<p>抽象来说:</p>
+
+<p><strong>可以说是寻找我们需要的变量（这里是公里数）影响到的参数，包括所有周边环境的所有参数、因数，无论是正相关抑或是负相关，又或者是影响我们所求的参数的可能性</strong></p>
+
+<p><strong><!-- more --></strong></p>
+
+<p>正如一个链表那样，找到该节点的前后的部分节点（因为找到大部分或者全部的节点需要很长时间的时间，这取决于实物的复杂程度，而且并非所有都是有用的信息）</p>
+
+<p><a href="http://files.blogcn.com/wp03/M00/03/EF/wKgKC09vNTUAAAAAAATbR0mDX_o137.png"><img src="http://files.blogcn.com/wp02/M00/04/6B/wKgKCk9vNTcAAAAAAABdA0kHJZQ598.png" alt="" title=""></a></p>
+
+<p>但是，既然脚踏板与我们的大腿相接，即直观事物有着联系的对等对象，我们是否可以从大腿入手呢？</p>
+
+<p>譬如安装一个记录步数的app来模拟记录踩的次数（假设自行车走的是平地且该app良好）</p>
+
+<p><strong>转换对等型：</strong></p>
+
+<p>很多情况之下不必与其正面相碰，寻找与其相等的容易寻找到方法的实物，真实世界中的事物错中复杂，本质上都是是非线性，线性关系仅仅存在于某种层面上，</p>
+
+<p>影响与被影响的因数并非简单的二者的因果关系，并非简单正负相关亦或简单的方程函数的解</p>
+
+<p><a href="http://files.blogcn.com/wp04/M00/04/3D/wKgKDU9vtIgAAAAAAAYbCUC-feE186.png"><img src="http://files.blogcn.com/wp02/M00/03/F5/wKgKC09vtIoAAAAAAAC0rliEq10322.png" alt="" title=""></a></p>
+
+<p>本质上，最核心的观点我已经在上面提出了，无非就是正面与侧面求解的问题</p>
+
+<p>譬如在物理上计算的时候，运用运动学、能量守恒</p>
+
+<p>假设单车装有电力发生器，问题很容易就转化为</p>
+
+<ul>
+<li><em>公里数=总发电能/单转发生电能</em></li>
+</ul>
+
+<p>记得在OS课上，老师讲到File System的存储问题的时候 ，既然运用几何的方式无法解决问题，那么就采用代数的方式，</p>
+
+<p>譬如在存储文件的时候，分组链式到后来的Hash</p>
+
+<p>回到这个主题之上，关于计算这个路程的变量，我想大家都有着一定的想法了</p>
+
+<p>譬如我们拥有一个仅与转数有关的发电机，电能对应路程</p>
+
+<p>譬如我们拥有一个卡路里计测器</p>
+
+<p>只要我们能测量到影响所求量或者被影响的因数，或许就能测量出相应的结果了</p>
+
+<p>估计大家肯定会想到利用手机GPS定位的功能，download一个tracking的app，忽略掉一些误差，也是可以做到的</p>
+
+<p>好吧，上面所有的废话简单来说就是</p>
+
+<p>从正面、侧面入手解决问题，其实是一个很简单的问题，正如许多的方法那样，心里知道只是执行起来困难，所以我们要亲身体验与经历啊</p>
+
+<p>假设让你计算一个数中含有0的个数</p>
+
+<p>你或许会</p>
+
+<pre><code>var count=0,num=10086;
+while(num&gt;1){
+  if(parseInt(num%10)==0){count++}
+  num/=10;
+}
+</code></pre>
+
+<p>或许还可以这样</p>
+
+<pre><code>(num+"").length-(num+"").replace(/0/g,"").length
+</code></pre>
+
+<p>但是，实行起来我认为有两点难点</p>
+
+<ul>
+<li><p><strong>清晰认识到我们所求的那个结点（找到问题的本质）</strong></p></li>
+<li><p><strong>有效找出关系网（寻找到相关因数）</strong></p></li>
+</ul>
+
+<p>最后，我还是想重复说说</p>
+
+<p><strong>观点建立在我发这篇文章时我已知的事实与个人的逻辑推理能力</strong></p>
+
+<p><em>与此同时，附上一个我自己的案例：</em> <br>
+我住的小区的地方，楼下的保安每天早上都要打卡开门让人们出入（我们都是有门卡的，只是大家懒，然后保安一直都是帮大家开门的）
+于是我在想，在上下班高峰期，保安每次都要刷卡开门，这样重复的工作太郁闷了，为什么不设置一个简便的控制装置来完成这些工作呢？
+当然，不能用一块砖头什么的来挡住自动门，因为保安头头看到的话，这位保安就悲剧了
+我在心中设计了一个小装置，思路是模拟打卡动作的机械装置，保安只需轻轻点击遥控便可开门，不需要亲自到门前刷卡
+后来，我彻底的发现我的思维的局限性，强大的保安同学在门内用透明胶将内部开门按钮粘住，于是，门是没有关的，只需要推开即可
+但是保安头头是不会注意到的（他往往是站在很远的地方巡查的），保安只需要站在那里发呆即可
+这个例子很有趣，因为是我亲身经历的，印象很是深刻，其实本质上是一致的</p>]]></content:encoded></item></channel></rss>

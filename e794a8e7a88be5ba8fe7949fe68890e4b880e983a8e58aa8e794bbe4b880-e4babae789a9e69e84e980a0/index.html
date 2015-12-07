@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from localhost:2368/e794a8e7a88be5ba8fe7949fe68890e4b880e983a8e58aa8e794bbe4b880-e4babae789a9e69e84e980a0/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 03:24:37 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>用程序生成&quot;一部动画&quot;(一)----人物构造</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="用程序生成&quot;一部动画&quot;(一)----人物构造">
+    <meta name="twitter:description" content="">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="用程序生成&quot;一部动画&quot;(一)----人物构造">
+    <meta property="og:description" content="">
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <link href="../assets/images/favicon.png" rel="shortcut icon" type="image/png">
+    <link href="../apple-touch-icon-precomposed.png/index.html" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/vno86b5.css?v=8e02a3de55" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/tomorrow86b5.css?v=8e02a3de55">
+    
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="Lanston Peng's ideas" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="用程序生成&quot;一部动画&quot;(一)----人物构造" />
+    <meta property="og:description" content="又是在睡觉的时候乱想东西...... 好吧，就将之前学的一点东西放到这个上面吧 漫迷的我对于动画人物的构造有了些心得：特别是《宠物小精灵》，人物的脸部的每一个器官都是 一个组件，动画家只是将他们组合在一起。 为什么要这样呢？ 可以看到，这样既可以统一标准（人物构造在每一集中保持不变，不因画家的手感什么的而变化），又可以节约成本（每个人只是各个零件的拼接而已） 好了，说了这么多，到正题了吧？    行，让我们一起来设计这个人物吧 传统的思维，现建立一个人物脸型的基类 class Baseface(object) 好吧，可能有人会想到要有 self.mouth   self.nose    self.eyes....等等这些东西 好吧，这样是没有问题的，仅仅是对于普通人物而言，当你对某些动画譬如《Naruto》..." />
+    <meta property="og:url" content="index.html" />
+    <meta property="article:published_time" content="2011-03-29T10:37:10.000Z" />
+    <meta property="article:modified_time" content="2011-03-29T10:37:10.000Z" />
+    <meta property="article:tag" content="未分类" />
+    <meta property="article:tag" content="idea" />
+    <meta property="article:tag" content="python" />
+    <meta property="article:tag" content="&amp;quot;geek&amp;quot;" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="用程序生成&quot;一部动画&quot;(一)----人物构造" />
+    <meta name="twitter:description" content="又是在睡觉的时候乱想东西...... 好吧，就将之前学的一点东西放到这个上面吧 漫迷的我对于动画人物的构造有了些心得：特别是《宠物小精灵》，人物的脸部的每一个器官都是 一个组件，动画家只是将他们组合在一起。 为什么要这样呢？ 可以看到，这样既可以统一标准（人物构造在每一集中保持不变，不因画家的手感什么的而变化），又可以节约成本（每个人只是各个零件的拼接而已） 好了，说了这么多，到正题了吧？    行，让我们一起来设计这个人物吧 传统的思维，现建立一个人物脸型的基类 class Baseface(object) 好吧，可能有人会想到要有 self.mouth   self.nose    self.eyes....等等这些东西 好吧，这样是没有问题的，仅仅是对于普通人物而言，当你对某些动画譬如《Naruto》..." />
+    <meta name="twitter:url" content="index.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Lanston Peng's ideas",
+    "author": {
+        "@type": "Person",
+        "name": "lanstonpeng",
+        "url": "http://localhost:2368/author/lanstonpeng",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "用程序生成&quot;一部动画&quot;(一)----人物构造",
+    "url": "http://localhost:2368/e794a8e7a88be5ba8fe7949fe68890e4b880e983a8e58aa8e794bbe4b880-e4babae789a9e69e84e980a0/",
+    "datePublished": "2011-03-29T10:37:10.000Z",
+    "dateModified": "2011-03-29T10:37:10.000Z",
+    "keywords": "未分类, idea, python, &amp;quot;geek&amp;quot;",
+    "description": "又是在睡觉的时候乱想东西...... 好吧，就将之前学的一点东西放到这个上面吧 漫迷的我对于动画人物的构造有了些心得：特别是《宠物小精灵》，人物的脸部的每一个器官都是 一个组件，动画家只是将他们组合在一起。 为什么要这样呢？ 可以看到，这样既可以统一标准（人物构造在每一集中保持不变，不因画家的手感什么的而变化），又可以节约成本（每个人只是各个零件的拼接而已） 好了，说了这么多，到正题了吧？    行，让我们一起来设计这个人物吧 传统的思维，现建立一个人物脸型的基类 class Baseface(object) 好吧，可能有人会想到要有 self.mouth   self.nose    self.eyes....等等这些东西 好吧，这样是没有问题的，仅仅是对于普通人物而言，当你对某些动画譬如《Naruto》..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="Lanston Peng&#x27;s ideas" href="../rss/index.html" />
+
+</head>
+<body class="post-template tag-wei-fen-lei tag-idea tag-python tag-geek no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url(../content/images/2015/12/John-William-Waterhouse-Hylas-and-the-Nymphs.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <h1 class="panel-cover__title panel-title"><a href="../index.html" title="前往 Lanston Peng&#x27;s ideas 的主页">Lanston Peng&#x27;s ideas</a></h1>
+        <span class="panel-cover__subtitle panel-subtitle"></span>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">能不断品尝那无限的美好作品
+做一个有趣,简单且随和的人</p>
+        <!--
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        -->
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="../index.html#blog" title="访问博客" class="blog-button">博客</a></li>
+              <li class="navigation__item"><a href="http://douban.com/people/lanstonpeng" target="_blank" title="我的豆瓣">豆瓣</a></li>
+              <!--
+              <li class="navigation__item"><a href="" title="了解更多关于我">关于</a></li>
+              -->
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+
+  <!-- 豆瓣 
+  <li class="navigation__item">
+    <a href="http://www.douban.com/people/lanstonpeng/" title="诚实的奸商" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">豆瓣</span>
+    </a>
+  </li>
+  -->
+
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/lanstonpeng" title="Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/lanstonpeng" title="@lanstonpeng" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="../rss/index.html" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:lanstonpeng@gmail.com" title="邮件联系我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+  </ul>
+</nav>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-purple"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            
+
+  <article class="post-container post-container--single">
+
+    <header class="post-header">
+      <div class="post-meta">
+        <time datetime="29 Mar 2011" class="post-meta__date date">29 Mar 2011</time> &#8226; <span class="post-meta__tags tags">于 <a href="../tag/wei-fen-lei/index.html">未分类</a>, <a href="../tag/idea/index.html">idea</a>, <a href="../tag/python/index.html">python</a>, <a href="../tag/geek/index.html">&quot;geek&quot;</a></span>
+        <!--<span class="post-meta__author author"><img src="" alt="profile image for lanstonpeng" class="avatar post-meta__avatar" /> by lanstonpeng</span>-->
+      </div>
+      <h1 class="post-title">用程序生成&quot;一部动画&quot;(一)----人物构造</h1>
+    </header>
+
+    <section class="post tag-wei-fen-lei tag-idea tag-python tag-geek">
+      <p>又是在睡觉的时候乱想东西......</p>
+
+<p>好吧，就将之前学的一点东西放到这个上面吧</p>
+
+<p>漫迷的我对于动画人物的构造有了些心得：特别是《宠物小精灵》，人物的脸部的每一个器官都是</p>
+
+<p>一个组件，动画家只是将他们<strong>组合</strong>在一起。</p>
+
+<p><strong>为什么要这样呢？</strong></p>
+
+<p>可以看到，这样既可以统一标准（人物构造在每一集中保持不变，不因画家的手感什么的而变化），又可以节约成本（每个人只是各个零件的拼接而已）</p>
+
+好了，说了这么多，到正题了吧？
+<!-- more -->  
+
+<p>行，让我们一起来设计这个人物吧</p>
+
+<p>传统的思维，现建立一个人物脸型的基类
+<code>class Baseface(object)</code>
+好吧，可能有人会想到要有</p>
+
+<p>self.mouth   self.nose    self.eyes....等等这些东西</p>
+
+<p>好吧，这样是没有问题的，仅仅是对于普通人物而言，当你对某些动画譬如《Naruto》《One piece》有些了解的话，那里某些人物都有严重的扭曲....</p>
+
+<p>有些没头发，有些戴个眼罩，好吧，你可能会想到</p>
+
+<p><em>self.hair=None  self.eyes=eyes</em>data<em>with</em>goggles<em>,对于其他的<strong>装饰</strong>，你可能会想到有一个抽象的东西去封装他们，因为他们总是变化的嘛，恩，的确是这样子的，那反过来问，这些  _self.mouth   self.nose    self.eyes</em> 岂不也是不断变化的？</p>
+
+<p>好吧，这里我将人物的任何一个器官都当作一个组件</p>
+
+<pre><code>class Decorator(object):
+  def __init__(self,data):
+  self.data=data
+  mouth=Decorator([ [0,0,0,0],[0,0,0,0],[1,0,0,1],[0,1,1,0]  ])
+</code></pre>
+
+<p>这个mouth就是下面这个（好吧，我承认这的确很丑，给点想象力吧）</p>
+
+<p>[0, 0, 0, 0]</p>
+
+<p>[0, 0, 0, 0]</p>
+
+<p>[1, 0, 0, 1]</p>
+
+<p>[0, 1, 1, 0]</p>
+
+<p>重点在于我的mouth是一个组件，眼睛是一个组件。。。。</p>
+
+<h3 id=""> </h3>
+
+<p>def Decorate(self,obj):</p>
+
+<p>if not isinstance(obj,Decorator):pass  #do something else</p>
+
+<p>else:</p>
+
+<p>return Decorator(splite<em>to</em>2d_array(combine(self.data,obj.data)))</p>
+
+<h3 id=""> </h3>
+
+<p>其余函数可以先不管，其实我也实现得太恶心了，也没什么可以讲的了，贴出代码就知道了</p>
+
+<pre><code>def display_array(data):
+   for i in data:
+      print i
+def list_or_tuple(x):
+  return isinstance(x,(list,tuple))
+
+def flatten(seq,is_expandable=list_or_tuple):
+  for item in seq:
+    if is_expandable(item):
+      for subitem in flatten(item,is_expandable):
+        yield subitem
+    else:
+        yield item
+
+def splite_to_2d_array(data,num=4):
+  temp=[]
+  i=0
+  a=[]
+  for j in data:
+    if i==num:
+      temp.append(a)
+      a=[]
+      i=0
+    a.append(j)
+    i=i+1
+  else:temp.append(a)
+  return temp
+
+def combine(data1,data2):
+  data1=[i for i in flatten(data1)]
+  data2=[i for i in flatten(data2)]
+  temp=zip(data1,data2)
+  result=[]
+  map(lambda x:result.append(max(x)),temp)
+  return result
+
+class Decorator(object):
+  def __init__(self,data):
+    self.data=data
+  def Decorate(self,obj):
+    if not isinstance(obj,Decorator):pass
+    else:
+      return Decorator(splite_to_2d_array(combine(self.data,obj.data)))
+
+#print splite_to_2d_array(combine([1,2,9,[5]],[1,8,8,6]))
+
+eyes=Decorator([ [0,0,0,0],[0,1,1,0],[0,0,0,0],[0,0,0,0] ])
+mouth=Decorator([ [0,0,0,0],[0,0,0,0],[1,0,0,1],[0,1,1,0]   ])
+a=eyes.Decorate(mouth)
+#print a.data
+display_array(a.data)
+
+#print splite_to_2d_array([0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0])
+#print eyes.data
+</code></pre>
+
+<p>(PS:如果看不到，可以访问这里：<a href="http://jsfiddle.net/lanston/p6aLs/">http://jsfiddle.net/lanston/p6aLs/</a>)
+这个是mouth和eyes放在一起的图样（好吧，继续发挥你的想象力）</p>
+
+<p>[0, 0, 0, 0]
+[0, 1, 1, 0]
+[1, 0, 0, 1]
+[0, 1, 1, 0]
+BTW:</p>
+
+<p>其实这又牵涉到软件设计思想的地步了，类似<a href="http://sexybuttons.googlecode.com/svn/tags/1.0/index.html#">Sexy button </a>那样，组件化的设计具有其灵活性，在其原型上添加新的东西，并且相互可以装饰，接口一致。</p>
+    </section>
+
+  </article>
+
+  <section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+      
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+            <footer class="footer">
+    <span class="footer__copyright">&copy; 2015  All rights reserved.</span>
+    <span class="footer__copyright"><a href="https://github.com/onevcat/vno">Vno</a> theme by <a href="http://im.onevcat.com/">@onevcat</a></span>
+</footer>        </div>
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45773367-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <!-- Compatibility for Ghost 0.7.0: http://dev.ghost.org/no-more-jquery/ -->
+    <script type="text/javascript">  
+      if (typeof jQuery == 'undefined') {
+        document.write('<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></'+'script>');
+      }
+    </script>
+    
+    <script type="text/javascript" src="../assets/js/main86b5.js?v=8e02a3de55"></script>
+
+    <script type="text/javascript" src="../assets/js/highlight.pack86b5.js?v=8e02a3de55"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+<!-- Mirrored from localhost:2368/e794a8e7a88be5ba8fe7949fe68890e4b880e983a8e58aa8e794bbe4b880-e4babae789a9e69e84e980a0/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 03:24:37 GMT -->
+</html>

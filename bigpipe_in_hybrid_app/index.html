@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from localhost:2368/bigpipe_in_hybrid_app/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 02:46:14 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>BigPipe in Hybrid App</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="BigPipe in Hybrid App">
+    <meta name="twitter:description" content="">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="BigPipe in Hybrid App">
+    <meta property="og:description" content="">
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <link href="../assets/images/favicon.png" rel="shortcut icon" type="image/png">
+    <link href="../apple-touch-icon-precomposed.png/index.html" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/vno86b5.css?v=8e02a3de55" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/tomorrow86b5.css?v=8e02a3de55">
+    
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="Lanston Peng's ideas" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="BigPipe in Hybrid App" />
+    <meta property="og:description" content="或许很多人已经听过Facebook的运用其“BigPipe”技术来加速其页面加载速度，其核心思想是将页面分成若干个组件(pagelet)，准备好一个后立即推到client而不是等待所有内容准备完毕后再一起push，说白了就是server一段段地返回html到broswer进行渲染 背景 最近作了一个调研，打算利用这种思想，为某地图APP提速 该App是一个Hybrid的产品，在显示商家信息以及某些迭代速度，需求易变性较高的部分都采用WebView的形式减低成本与提高产品响应速度  而现在的问题是在展示这些信息当中，大部分是采用 拉取线上json，本地模板绑定的方式进行，而json部分的数据是一次全量拉取，而实际上非首屏数据的拉取时间可以被优化 一个问题 因为该App利用Native的优势，将所有的html，css，javascript都内置于App当中，打开WebView读取本地html文件(如index.html),每次请求json数据，再在本地进行模板绑定，咋一看貌似无法运用“传统”的bigpipe方案，因为返回的只有数据，而非最终的html 一个方案 既然是数据是一次返回，能否将bigpipe的思想进行迁移，发一个请求，返回多段json，..." />
+    <meta property="og:url" content="index.html" />
+    <meta property="article:published_time" content="2014-01-30T23:38:49.000Z" />
+    <meta property="article:modified_time" content="2015-12-03T08:06:45.590Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="BigPipe in Hybrid App" />
+    <meta name="twitter:description" content="或许很多人已经听过Facebook的运用其“BigPipe”技术来加速其页面加载速度，其核心思想是将页面分成若干个组件(pagelet)，准备好一个后立即推到client而不是等待所有内容准备完毕后再一起push，说白了就是server一段段地返回html到broswer进行渲染 背景 最近作了一个调研，打算利用这种思想，为某地图APP提速 该App是一个Hybrid的产品，在显示商家信息以及某些迭代速度，需求易变性较高的部分都采用WebView的形式减低成本与提高产品响应速度  而现在的问题是在展示这些信息当中，大部分是采用 拉取线上json，本地模板绑定的方式进行，而json部分的数据是一次全量拉取，而实际上非首屏数据的拉取时间可以被优化 一个问题 因为该App利用Native的优势，将所有的html，css，javascript都内置于App当中，打开WebView读取本地html文件(如index.html),每次请求json数据，再在本地进行模板绑定，咋一看貌似无法运用“传统”的bigpipe方案，因为返回的只有数据，而非最终的html 一个方案 既然是数据是一次返回，能否将bigpipe的思想进行迁移，发一个请求，返回多段json，..." />
+    <meta name="twitter:url" content="index.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Lanston Peng's ideas",
+    "author": {
+        "@type": "Person",
+        "name": "lanstonpeng",
+        "url": "http://localhost:2368/author/lanstonpeng",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "BigPipe in Hybrid App",
+    "url": "http://localhost:2368/bigpipe_in_hybrid_app/",
+    "datePublished": "2014-01-30T23:38:49.000Z",
+    "dateModified": "2015-12-03T08:06:45.590Z",
+    "description": "或许很多人已经听过Facebook的运用其“BigPipe”技术来加速其页面加载速度，其核心思想是将页面分成若干个组件(pagelet)，准备好一个后立即推到client而不是等待所有内容准备完毕后再一起push，说白了就是server一段段地返回html到broswer进行渲染 背景 最近作了一个调研，打算利用这种思想，为某地图APP提速 该App是一个Hybrid的产品，在显示商家信息以及某些迭代速度，需求易变性较高的部分都采用WebView的形式减低成本与提高产品响应速度  而现在的问题是在展示这些信息当中，大部分是采用 拉取线上json，本地模板绑定的方式进行，而json部分的数据是一次全量拉取，而实际上非首屏数据的拉取时间可以被优化 一个问题 因为该App利用Native的优势，将所有的html，css，javascript都内置于App当中，打开WebView读取本地html文件(如index.html),每次请求json数据，再在本地进行模板绑定，咋一看貌似无法运用“传统”的bigpipe方案，因为返回的只有数据，而非最终的html 一个方案 既然是数据是一次返回，能否将bigpipe的思想进行迁移，发一个请求，返回多段json，..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="Lanston Peng&#x27;s ideas" href="../rss/index.html" />
+
+</head>
+<body class="post-template no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url(../content/images/2015/12/John-William-Waterhouse-Hylas-and-the-Nymphs.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <h1 class="panel-cover__title panel-title"><a href="../index.html" title="前往 Lanston Peng&#x27;s ideas 的主页">Lanston Peng&#x27;s ideas</a></h1>
+        <span class="panel-cover__subtitle panel-subtitle"></span>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">能不断品尝那无限的美好作品
+做一个有趣,简单且随和的人</p>
+        <!--
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        -->
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="../index.html#blog" title="访问博客" class="blog-button">博客</a></li>
+              <li class="navigation__item"><a href="http://douban.com/people/lanstonpeng" target="_blank" title="我的豆瓣">豆瓣</a></li>
+              <!--
+              <li class="navigation__item"><a href="" title="了解更多关于我">关于</a></li>
+              -->
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+
+  <!-- 豆瓣 
+  <li class="navigation__item">
+    <a href="http://www.douban.com/people/lanstonpeng/" title="诚实的奸商" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">豆瓣</span>
+    </a>
+  </li>
+  -->
+
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/lanstonpeng" title="Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/lanstonpeng" title="@lanstonpeng" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="../rss/index.html" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:lanstonpeng@gmail.com" title="邮件联系我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+  </ul>
+</nav>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-purple"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            
+
+  <article class="post-container post-container--single">
+
+    <header class="post-header">
+      <div class="post-meta">
+        <time datetime="31 Jan 2014" class="post-meta__date date">31 Jan 2014</time> &#8226; <span class="post-meta__tags tags"></span>
+        <!--<span class="post-meta__author author"><img src="" alt="profile image for lanstonpeng" class="avatar post-meta__avatar" /> by lanstonpeng</span>-->
+      </div>
+      <h1 class="post-title">BigPipe in Hybrid App</h1>
+    </header>
+
+    <section class="post">
+      <p>或许很多人已经听过Facebook的运用其“BigPipe”技术来加速其页面加载速度，其核心思想是将页面分成若干个组件(pagelet)，准备好一个后立即推到client而不是等待所有内容准备完毕后再一起push，说白了就是server一段段地返回html到broswer进行渲染</p>
+
+<h4 id="">背景</h4>
+
+<p>最近作了一个调研，打算利用这种思想，为某地图APP提速
+该App是一个Hybrid的产品，在显示商家信息以及某些迭代速度，需求易变性较高的部分都采用WebView的形式减低成本与提高产品响应速度 </p>
+
+<p>而现在的问题是在展示这些信息当中，大部分是采用 拉取线上json，本地模板绑定的方式进行，而json部分的数据是一次全量拉取，而实际上非首屏数据的拉取时间可以被优化</p>
+
+<h4 id="">一个问题</h4>
+
+<p>因为该App利用Native的优势，将所有的html，css，javascript都内置于App当中，打开WebView读取本地html文件(如index.html),每次请求json数据，再在本地进行模板绑定，咋一看貌似无法运用“传统”的bigpipe方案，因为返回的只有数据，而非最终的html</p>
+
+<h4 id="">一个方案</h4>
+
+<p>既然是数据是一次返回，能否将bigpipe的思想进行迁移，发一个请求，返回多段json，及时进行模板绑定与渲染，<strong>说白了就是将数据下载的时间与模板绑定、渲染时间进行并行</strong>
+<img src="../assets/bigpipe1.jpeg/index.html" alt="image" /></p>
+
+<p>那么如何做到，我画了一张图
+<img src="../assets/bigpipe2.jpeg/index.html" alt="image" />
+插入一个iframe，由iframe拉取数据,再与本地文件进行通信，这里存着的跨域问题使用postMessage解决，幸运的是，该接口在移动平台上的支持<a href="http://caniuse.com/#feat=x-doc-messaging">比较全面</a> 
+Server部分采用Node写了一些代码，关键是多次write一些设计好的stream</p>
+
+<pre><code>    //prepare something
+    _data1 = split(data,"header");
+    _data2 = split(data,"body");
+    response.write(SOME_BAISC_HTML);
+    response.write("&lt;script&gt;Pipe.sendMessage(" + JSON.stringify(_data1) + ")&lt;/script&gt;");
+    response.write("&lt;script&gt;Pipe.sendMessage(" + JSON.stringify(_data2) + ")&lt;/script&gt;");
+    response.end("&lt;body&gt;&lt;/html&gt;");
+</code></pre>
+
+<p>Client部分的iframe在<em>message</em>事件中接收数据，通过<em>postMessage</em>回传数据到index.html，完成该数据的绑定与渲染</p>
+
+<pre><code>    window.addEventListener("message",function(e){
+        Pipe.sendMessageToParent(e.data);
+    });
+</code></pre>
+
+<h4 id="conclusion">Conclusion</h4>
+
+<ul>
+<li>成本过大，server部分需要进行数据切分，切割类似各个pagelet</li>
+<li>一次请求，多个模板数据,减少不必要的请求,失败成本大</li>
+<li>一次请求，多个模板数据,减少不必要的请求,减少发起请求时间</li>
+</ul>
+    </section>
+
+  </article>
+
+  <section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+      
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+            <footer class="footer">
+    <span class="footer__copyright">&copy; 2015  All rights reserved.</span>
+    <span class="footer__copyright"><a href="https://github.com/onevcat/vno">Vno</a> theme by <a href="http://im.onevcat.com/">@onevcat</a></span>
+</footer>        </div>
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45773367-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <!-- Compatibility for Ghost 0.7.0: http://dev.ghost.org/no-more-jquery/ -->
+    <script type="text/javascript">  
+      if (typeof jQuery == 'undefined') {
+        document.write('<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></'+'script>');
+      }
+    </script>
+    
+    <script type="text/javascript" src="../assets/js/main86b5.js?v=8e02a3de55"></script>
+
+    <script type="text/javascript" src="../assets/js/highlight.pack86b5.js?v=8e02a3de55"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+<!-- Mirrored from localhost:2368/bigpipe_in_hybrid_app/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 02:47:45 GMT -->
+</html>

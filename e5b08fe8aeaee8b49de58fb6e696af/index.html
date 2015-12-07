@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from localhost:2368/e5b08fe8aeaee8b49de58fb6e696af/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 02:53:49 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>小议贝叶斯</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="小议贝叶斯">
+    <meta name="twitter:description" content="">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="小议贝叶斯">
+    <meta property="og:description" content="">
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <link href="../assets/images/favicon.png" rel="shortcut icon" type="image/png">
+    <link href="../apple-touch-icon-precomposed.png/index.html" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/vno86b5.css?v=8e02a3de55" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/tomorrow86b5.css?v=8e02a3de55">
+    
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="Lanston Peng's ideas" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="小议贝叶斯" />
+    <meta property="og:description" content="前段时间写一个简易的单词订正器，一直想找个机会记录一下关于贝叶斯这个强大美妙的东西，但是苦于没有找到一个比较满意的切入点 最近发现了一个比较经典的问题,Monty Hall problem 一个颇为有趣的问题，一开始真的被愚弄了一番 文章先以这个例子展开，之后回到单词订正器的设计思想 我们知道，Bayes的简单形式是这样的 P(A|B) = P(B|A)P(A) / P(B)  让我们作出那么一点点的小变动 P(A|B) = P(A) * ( P(B|A) / P(B) )  只是将P(A)单独放置出来，我认为这便是Bayes的magic了 上述式子讲述的是这样一个推倒： =&gt; (new..." />
+    <meta property="og:url" content="index.html" />
+    <meta property="article:published_time" content="2012-10-06T11:24:33.000Z" />
+    <meta property="article:modified_time" content="2012-10-06T11:24:33.000Z" />
+    <meta property="article:tag" content="未分类" />
+    <meta property="article:tag" content="mathematics" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="小议贝叶斯" />
+    <meta name="twitter:description" content="前段时间写一个简易的单词订正器，一直想找个机会记录一下关于贝叶斯这个强大美妙的东西，但是苦于没有找到一个比较满意的切入点 最近发现了一个比较经典的问题,Monty Hall problem 一个颇为有趣的问题，一开始真的被愚弄了一番 文章先以这个例子展开，之后回到单词订正器的设计思想 我们知道，Bayes的简单形式是这样的 P(A|B) = P(B|A)P(A) / P(B)  让我们作出那么一点点的小变动 P(A|B) = P(A) * ( P(B|A) / P(B) )  只是将P(A)单独放置出来，我认为这便是Bayes的magic了 上述式子讲述的是这样一个推倒： =&gt; (new..." />
+    <meta name="twitter:url" content="index.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Lanston Peng's ideas",
+    "author": {
+        "@type": "Person",
+        "name": "lanstonpeng",
+        "url": "http://localhost:2368/author/lanstonpeng",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "小议贝叶斯",
+    "url": "http://localhost:2368/e5b08fe8aeaee8b49de58fb6e696af/",
+    "datePublished": "2012-10-06T11:24:33.000Z",
+    "dateModified": "2012-10-06T11:24:33.000Z",
+    "keywords": "未分类, mathematics",
+    "description": "前段时间写一个简易的单词订正器，一直想找个机会记录一下关于贝叶斯这个强大美妙的东西，但是苦于没有找到一个比较满意的切入点 最近发现了一个比较经典的问题,Monty Hall problem 一个颇为有趣的问题，一开始真的被愚弄了一番 文章先以这个例子展开，之后回到单词订正器的设计思想 我们知道，Bayes的简单形式是这样的 P(A|B) = P(B|A)P(A) / P(B)  让我们作出那么一点点的小变动 P(A|B) = P(A) * ( P(B|A) / P(B) )  只是将P(A)单独放置出来，我认为这便是Bayes的magic了 上述式子讲述的是这样一个推倒： =&gt; (new..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="Lanston Peng&#x27;s ideas" href="../rss/index.html" />
+
+</head>
+<body class="post-template tag-wei-fen-lei tag-mathematics no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url(../content/images/2015/12/John-William-Waterhouse-Hylas-and-the-Nymphs.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <h1 class="panel-cover__title panel-title"><a href="../index.html" title="前往 Lanston Peng&#x27;s ideas 的主页">Lanston Peng&#x27;s ideas</a></h1>
+        <span class="panel-cover__subtitle panel-subtitle"></span>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">能不断品尝那无限的美好作品
+做一个有趣,简单且随和的人</p>
+        <!--
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        -->
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="../index.html#blog" title="访问博客" class="blog-button">博客</a></li>
+              <li class="navigation__item"><a href="http://douban.com/people/lanstonpeng" target="_blank" title="我的豆瓣">豆瓣</a></li>
+              <!--
+              <li class="navigation__item"><a href="" title="了解更多关于我">关于</a></li>
+              -->
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+
+  <!-- 豆瓣 
+  <li class="navigation__item">
+    <a href="http://www.douban.com/people/lanstonpeng/" title="诚实的奸商" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">豆瓣</span>
+    </a>
+  </li>
+  -->
+
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/lanstonpeng" title="Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/lanstonpeng" title="@lanstonpeng" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="../rss/index.html" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:lanstonpeng@gmail.com" title="邮件联系我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+  </ul>
+</nav>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-purple"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            
+
+  <article class="post-container post-container--single">
+
+    <header class="post-header">
+      <div class="post-meta">
+        <time datetime="06 Oct 2012" class="post-meta__date date">06 Oct 2012</time> &#8226; <span class="post-meta__tags tags">于 <a href="../tag/wei-fen-lei/index.html">未分类</a>, <a href="../tag/mathematics/index.html">mathematics</a></span>
+        <!--<span class="post-meta__author author"><img src="" alt="profile image for lanstonpeng" class="avatar post-meta__avatar" /> by lanstonpeng</span>-->
+      </div>
+      <h1 class="post-title">小议贝叶斯</h1>
+    </header>
+
+    <section class="post tag-wei-fen-lei tag-mathematics">
+      <p>前段时间写<a href="https://github.com/lanstonpeng/BabyWordCorrector">一个简易的单词订正器</a>，一直想找个机会记录一下关于贝叶斯这个强大美妙的东西，但是苦于没有找到一个比较满意的切入点
+最近发现了一个比较经典的问题,<a href="http://en.wikipedia.org/wiki/Monty_Hall_Problem">Monty Hall problem</a>
+一个颇为有趣的问题，一开始真的被愚弄了一番</p>
+
+<p>文章先以这个例子展开，之后回到单词订正器的设计思想</p>
+
+<p>我们知道，Bayes的简单形式是这样的
+P(A|B) = P(B|A)P(A) / P(B) <br />
+让我们作出那么一点点的小变动
+P(A|B) = P(A) * ( P(B|A) / P(B) ) <br />
+只是将P(A)单独放置出来，我认为这便是Bayes的magic了
+上述式子讲述的是这样一个推倒：
+<strong>=> (new plausibility) = (old plausibility) × (evidence adjustment)</strong>
+其中，对于上述式子， P(B|A) / P(B) 便是 evidence adjustment了
+简单来说，就是新出现的事件B，对于事件A的影响程度，但需要在事件A,B相关联的情况下
+如果B于A是相互独立事件，那么P(B|A) = P(B), 所以P(A|B) = P(A),事件B的出现没有贡献任何有价值的内容</p>
+
+<p><strong>Monty Hall problem</strong></p>
+
+<p>P( C | H , S) <br />
+C = i ，代表车子在Door i <br />
+H = j , 代表Hall打开的是 Door j <br />
+S = k, 代表的是用户选择的Door k</p>
+
+<p>P( C = i | H = j ,S = k ) = P( C = i | S = k ) * [ P( H = j | C = i , S = k ) / P( H = j, S = k ) ] <br />
+其中，j &lt;> k &lt;> i</p>
+
+<p>其中，old plausibility 即 P( C = i | S = k ) 都是一样的，不管用户怎么选择，Car在哪扇门后概率都是1/3
+于是，将两种情况进行相比，得：</p>
+
+<p>P( H = j | C = i , S = k )        1 <br />
+--------------------------- = ------
+P( H = j | C = k , S = k )      1/2</p>
+
+<p>可见，倘若选择switch，那么拿到车子的概率足足多了1倍！</p>
+
+<!-- more -->
+
+<p><strong>关于这个<a href="https://github.com/lanstonpeng/BabyWordCorrector">一个简易的单词订正器</a></strong>
+花那么一点点时间想想，
+倘若用户输入 thy 这几个字母，你是一台计算机，你会返回什么单词呢？
+1.直接返回 thy <br />
+2.返回 the <br />
+3.返回 they <br />
+......
+不可否认，thy是一个合法的单词，但是基于你的经验，倘若你是用户，真正想输入thy的概率会有多大？
+现在假设
+P(c) : 输入一个单词是正确的概率 <br />
+P(w): 输入一个单词是错误的概率</p>
+
+<p>我们所要求的就是max P( c | w ),在输入一个错误单词的情况下，挑选一个拥有最大概率的正确单词
+很好，让我们继续分析下去
+看回上面的小例子：
+用户输入thy,
+我们要计算的就是诸如
+P( the | thy ) , P( they | thy ) , P( thy | thy ) 等等 <br />
+要计算这些概率，我们需要什么？
+一个错误转化为正确单词的表，那么怎么获取如 P( the | thy )的值呢？
+按照条件概率分解一下，
+P( the | thy ) <br />
+= P( the ^ thy ) / P( thy ) {看似没什么帮助，继续分析下去}
+= P (thy | the ) P (the) / P(thy) { 看似有用多了}</p>
+
+<p>P ( the ) 是可计算的( 一篇足够长的现代通俗文章有n个单词，那么P(the) 在计算机的帮助下可以很容易计算出来 ) <br />
+P ( thy | the ) 也是可以很方便计算的，从the出发，列举有可能出现的错误单词，如thy,they ,them ...... （当然，这样会有取舍，错误的“距离”，如上面3个单词，距离是1，2，2），同样，得到的错误单词可以继续用同样的方法计算P(thy)....</p>
+
+<p>仔细想想，上述公式可以化解为</p>
+
+<p>P( c | w ) =    P( w | c ) * P( c )  /  P( w ) <br />
+写到这里，其实这个单词订正器已经算是完成了，精髓便在于将该合并的 P (c | w ) 进行变化
+之后便是细节，性能处理的问题了，
+如 ,若P(they | thy) == P(the | thy),该如何取舍（这里采用"距离"小的）</p>
+
+<p>以上的两个问题都是通过贝叶斯来解决的
+<strong>本质上采用了基于统计学的方法，贝叶斯通过新进相关事件不断修正模型准确度</strong>
+其应用非常广泛
+如google著名的page ranking
+又如一些垃圾邮件，垃圾微博的过滤，分词等等</p>
+
+<p>ref: <br />
+<a href="http://en.wikipedia.org/wiki/Bayes'_theorem">http://en.wikipedia.org/wiki/Bayes'_theorem</a> <br />
+<a href="http://norvig.com/spell-correct.html">http://norvig.com/spell-correct.html</a> <br />
+<a href="http://blog.moertel.com/articles/2011/01/01/the-bayesian-meets-monty-hall">http://blog.moertel.com/articles/2011/01/01/the-bayesian-meets-monty-hall</a> <br />
+<a href="http://oscarbonilla.com/2009/05/the-monty-hall-problem/">http://oscarbonilla.com/2009/05/the-monty-hall-problem/</a></p>
+    </section>
+
+  </article>
+
+  <section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+      
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+            <footer class="footer">
+    <span class="footer__copyright">&copy; 2015  All rights reserved.</span>
+    <span class="footer__copyright"><a href="https://github.com/onevcat/vno">Vno</a> theme by <a href="http://im.onevcat.com/">@onevcat</a></span>
+</footer>        </div>
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45773367-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <!-- Compatibility for Ghost 0.7.0: http://dev.ghost.org/no-more-jquery/ -->
+    <script type="text/javascript">  
+      if (typeof jQuery == 'undefined') {
+        document.write('<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></'+'script>');
+      }
+    </script>
+    
+    <script type="text/javascript" src="../assets/js/main86b5.js?v=8e02a3de55"></script>
+
+    <script type="text/javascript" src="../assets/js/highlight.pack86b5.js?v=8e02a3de55"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+<!-- Mirrored from localhost:2368/e5b08fe8aeaee8b49de58fb6e696af/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 02:53:49 GMT -->
+</html>

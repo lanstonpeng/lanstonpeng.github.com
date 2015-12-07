@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from localhost:2368/viewcontroller_transition/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 02:43:42 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>iOS7 到 iOS8 的ViewController Transition</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="iOS7 到 iOS8 的ViewController Transition">
+    <meta name="twitter:description" content="">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="iOS7 到 iOS8 的ViewController Transition">
+    <meta property="og:description" content="">
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <link href="../assets/images/favicon.png" rel="shortcut icon" type="image/png">
+    <link href="../apple-touch-icon-precomposed.png/index.html" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/vno86b5.css?v=8e02a3de55" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/tomorrow86b5.css?v=8e02a3de55">
+    
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="Lanston Peng's ideas" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="iOS7 到 iOS8 的ViewController Transition" />
+    <meta property="og:description" content="有时候, 页面关系简单的时候, 我会更加喜欢用一个ViewController来控制整个App, 各个页面都只是各个不同的View进行堆积和切换, 各种View直接的切换动画也相对容易发挥想象力 但是页面关系、需要处理的事件一旦复杂的时候, 就需要用用多个ViewController来划分逻辑界限, 分开处理, 那么页面之间的切换就没有那么舒畅了, 所以, 有必要总结一下iOS中几种常见的ViewController切换方式 Aricle OverView 1.了解iOS中几种ViewControllers的切换方式(是什么, 怎么样)  2.为什么是这么设计 Container ViewController Based 在iOS7以前, 可以使用 ViewController Container这种方式来进行VC管理, 下面以一个简单的代码来快速带过( Demo中并无此例子 ): [self addChildViewController:enqueViewController]; [self.view addSubview:enqueViewController.view]; CGRect offSetRect = CGRectOffset(..." />
+    <meta property="og:url" content="index.html" />
+    <meta property="article:published_time" content="2014-07-16T23:38:49.000Z" />
+    <meta property="article:modified_time" content="2015-12-01T06:28:24.461Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="iOS7 到 iOS8 的ViewController Transition" />
+    <meta name="twitter:description" content="有时候, 页面关系简单的时候, 我会更加喜欢用一个ViewController来控制整个App, 各个页面都只是各个不同的View进行堆积和切换, 各种View直接的切换动画也相对容易发挥想象力 但是页面关系、需要处理的事件一旦复杂的时候, 就需要用用多个ViewController来划分逻辑界限, 分开处理, 那么页面之间的切换就没有那么舒畅了, 所以, 有必要总结一下iOS中几种常见的ViewController切换方式 Aricle OverView 1.了解iOS中几种ViewControllers的切换方式(是什么, 怎么样)  2.为什么是这么设计 Container ViewController Based 在iOS7以前, 可以使用 ViewController Container这种方式来进行VC管理, 下面以一个简单的代码来快速带过( Demo中并无此例子 ): [self addChildViewController:enqueViewController]; [self.view addSubview:enqueViewController.view]; CGRect offSetRect = CGRectOffset(..." />
+    <meta name="twitter:url" content="index.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Lanston Peng's ideas",
+    "author": {
+        "@type": "Person",
+        "name": "lanstonpeng",
+        "url": "http://localhost:2368/author/lanstonpeng",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "iOS7 到 iOS8 的ViewController Transition",
+    "url": "http://localhost:2368/viewcontroller_transition/",
+    "datePublished": "2014-07-16T23:38:49.000Z",
+    "dateModified": "2015-12-01T06:28:24.461Z",
+    "description": "有时候, 页面关系简单的时候, 我会更加喜欢用一个ViewController来控制整个App, 各个页面都只是各个不同的View进行堆积和切换, 各种View直接的切换动画也相对容易发挥想象力 但是页面关系、需要处理的事件一旦复杂的时候, 就需要用用多个ViewController来划分逻辑界限, 分开处理, 那么页面之间的切换就没有那么舒畅了, 所以, 有必要总结一下iOS中几种常见的ViewController切换方式 Aricle OverView 1.了解iOS中几种ViewControllers的切换方式(是什么, 怎么样)  2.为什么是这么设计 Container ViewController Based 在iOS7以前, 可以使用 ViewController Container这种方式来进行VC管理, 下面以一个简单的代码来快速带过( Demo中并无此例子 ): [self addChildViewController:enqueViewController]; [self.view addSubview:enqueViewController.view]; CGRect offSetRect = CGRectOffset(..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="Lanston Peng&#x27;s ideas" href="../rss/index.html" />
+
+</head>
+<body class="post-template no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url(../content/images/2015/12/John-William-Waterhouse-Hylas-and-the-Nymphs.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <h1 class="panel-cover__title panel-title"><a href="../index.html" title="前往 Lanston Peng&#x27;s ideas 的主页">Lanston Peng&#x27;s ideas</a></h1>
+        <span class="panel-cover__subtitle panel-subtitle"></span>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">能不断品尝那无限的美好作品
+做一个有趣,简单且随和的人</p>
+        <!--
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        -->
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="../index.html#blog" title="访问博客" class="blog-button">博客</a></li>
+              <li class="navigation__item"><a href="http://douban.com/people/lanstonpeng" target="_blank" title="我的豆瓣">豆瓣</a></li>
+              <!--
+              <li class="navigation__item"><a href="" title="了解更多关于我">关于</a></li>
+              -->
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+
+  <!-- 豆瓣 
+  <li class="navigation__item">
+    <a href="http://www.douban.com/people/lanstonpeng/" title="诚实的奸商" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">豆瓣</span>
+    </a>
+  </li>
+  -->
+
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/lanstonpeng" title="Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/lanstonpeng" title="@lanstonpeng" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="../rss/index.html" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:lanstonpeng@gmail.com" title="邮件联系我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+  </ul>
+</nav>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-purple"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            
+
+  <article class="post-container post-container--single">
+
+    <header class="post-header">
+      <div class="post-meta">
+        <time datetime="17 Jul 2014" class="post-meta__date date">17 Jul 2014</time> &#8226; <span class="post-meta__tags tags"></span>
+        <!--<span class="post-meta__author author"><img src="" alt="profile image for lanstonpeng" class="avatar post-meta__avatar" /> by lanstonpeng</span>-->
+      </div>
+      <h1 class="post-title">iOS7 到 iOS8 的ViewController Transition</h1>
+    </header>
+
+    <section class="post">
+      <p>有时候, 页面关系简单的时候, 我会更加喜欢用<strong>一个</strong>ViewController来控制整个App, 各个页面都只是各个不同的View进行堆积和切换, 各种View直接的切换动画也相对容易发挥想象力</p>
+
+<p>但是页面关系、需要处理的事件一旦复杂的时候, 就需要用用多个ViewController来划分逻辑界限, 分开处理, 那么页面之间的切换就没有那么舒畅了, 所以, 有必要总结一下iOS中几种常见的ViewController切换方式</p>
+
+<h3 id="aricleoverview">Aricle OverView</h3>
+
+<p>1.了解iOS中几种ViewControllers的切换方式(是什么, 怎么样) <br />
+2.为什么是这么设计</p>
+
+<hr />
+
+<h3 id="containerviewcontrollerbased">Container ViewController Based</h3>
+
+<p>在iOS7以前, 可以使用 ViewController Container这种方式来进行VC管理, 下面以一个简单的代码来快速带过( Demo中并无此例子 ):</p>
+
+<pre><code>[self addChildViewController:enqueViewController];
+[self.view addSubview:enqueViewController.view];
+
+CGRect offSetRect = CGRectOffset(newFrame,  0,  -inputViewHeight);  
+CGRect otherOffsetRect = CGRectOffset(self.currentViewController.view.frame,  
+0,  -inputViewHeight);
+
+[UIView animateWithDuration:0.6 delay:0 options:UIViewAnimationOptionCurveEaseIn 
+animations:^{  
+    enqueViewController.view.frame = offSetRect;
+    _currentViewController.view.frame = otherOffsetRect;
+} completion:^(BOOL finished) {
+    [_currentViewController.view removeFromSuperview];
+    [_currentViewController removeFromParentViewController];
+    _currentViewController = enqueViewController;
+    [enqueViewController didMoveToParentViewController:self];
+}];
+</code></pre>
+
+<p>当然, 亦可使用<strong>transitionFromViewController:fromVC...</strong>来做响应的动画转化, 
+上面只是为了更好的演示整个过程</p>
+
+<hr />
+
+<h3 id="uiviewcontrollertransitioningdelegateuiviewcontrollercontexttransitioning">UIViewControllerTransitioningDelegate 与 UIViewControllerContextTransitioning</h3>
+
+<p>iOS7中引入了VC的自定义转场动画, 这是两个重要的delegate, 这样使用delegate的方式给予开发者很大的自由度, <br />
+转场动画与实际的VC具体业务可以最大程度的分离, 并且实现的转场动画可以完全复用到别的地方( 如在示例代码中几个Demo使用的同样的转场处理逻辑类<strong>TransitionManager</strong>, 但是在iOS8中新增的<strong>UIPresentationController</strong>有稍许区别, 下面会提及到 )</p>
+
+<p>先让我们来完成一个简单的Demo, 因为网上存在较多的点击式切换的案例, 所以这里就省略了点击的案例, 使用交互式的转场, <strong>Present</strong>和<strong>Dismiss</strong>都使用<strong>UIPercentDrivenInteractiveTransition</strong>, 效果如下
+<img src="http://lanstonpeng.github.io/assets/custom_transition_demo.gif" alt="Demo" /></p>
+
+<h5 id="1conformtouiviewcontrolleranimatedtransitioningprotocal">1.Conform to<strong>UIViewControllerAnimatedTransitioning</strong>protocal</h5>
+
+<ul>
+<li>animateTransition</li>
+<li>transitionDuration     </li>
+</ul>
+
+<p>关于<em>animateTransition</em>, 举个例子:</p>
+
+<pre><code>func animateTransition(transitionContext: UIViewControllerContextTransitioning!)  
+{
+    if isPresent
+    {
+        self.animationForPresentTransition(transitionContext)
+    }
+    else
+    {
+        self.animationForDismissTransition(transitionContext)
+    }
+}    
+</code></pre>
+
+<pre><code>func animationForDismissTransition(transitionContext:UIViewControllerContextTransitioning!)  
+{
+    //get everything prepared
+    let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+    let toViewContrller = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
+    let containerView  = transitionContext.containerView()
+    let duration  =  self.transitionDuration(transitionContext)
+
+
+
+    let screenBounds = UIScreen.mainScreen().bounds
+    let finalFrame = transitionContext.finalFrameForViewController(toViewContrller)
+
+    //setting toViewContrller.view.frame, we hide it at the beginning
+    toViewContrller.view.frame =  CGRectOffset(finalFrame, -screenBounds.size.width, 0)
+
+    //insert toViewContrller.view to containerView in proper hierarchy
+    containerView.insertSubview(toViewContrller.view,  aboveSubview: fromViewController.view)
+
+    UIView.animateWithDuration(duration,  delay: 0.0,  options: UIViewAnimationOptions.CurveEaseIn,  animations: {()-&gt;Void in
+
+        toViewContrller.view.frame = finalFrame
+        fromViewController.view.frame =  CGRectOffset(fromViewController.view.frame,  160,  0);
+
+        },  completion: {(completed:Bool) -&gt; Void in
+            //remember to add this snippet
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+        })
+}
+</code></pre>
+
+<p>这个类主要负责<strong>如何</strong>处理转场动画的,  Demo中处理动画的逻辑做得较简单, 但这里存在巨大的想象力 <br />
+这里一个较为重要的概念是<strong>containerView</strong>, 正如名字所表示的那样, 大家不妨把它看成是一个Apple自己封装好的<em>Container ViewController Based</em>的View, 负责在转场中控制切入切出的逻辑, 所以, 这里需要我们手动把二者<strong>正确的</strong>(主要是注意层级关系)插入至<strong>containerView</strong></p>
+
+<h5 id="2conformtouiviewcontrollertransitioningdelegateprotocal">2.Conform to <strong>UIViewControllerTransitioningDelegate</strong> Protocal</h5>
+
+<p>这部分比较简单, 都是按照接口的意思返回相应的处理这块逻辑的实例</p>
+
+<ul>
+<li>animationControllerForPresentedController...</li>
+<li>animationControllerForDismissedController...</li>
+<li>interactionControllerForPresentation...</li>
+<li>interactionControllerForDismissal...</li>
+</ul>
+
+<h5 id="3">3.处理交互</h5>
+
+<p>Demo里面直接使用<strong>UIPercentDrivenInteractiveTransition</strong>, 实际过程中可以根据自己需要扩展 <br />
+新建一个ScreenEdgepan手势</p>
+
+<pre><code>let edgeSwipeGestureRight = UIScreenEdgePanGestureRecognizer(target: self,  action: "handleTransitionRight:")  
+edgeSwipeGestureRight.edges = .Right  
+</code></pre>
+
+<p>处理Pan方面可以分为两部分:  </p>
+
+<p>1.定义交互过程动作完成程度, 这里定义为手指横向滑动整块屏幕为一个完整运动轨迹  </p>
+
+<pre><code>var progress:CGFloat  = recognizer.locationInView(self.view.superview).x / (self.view.superview.bounds.size.width * 1.0)  
+progress = 1.0 - min(1.0, max(0.0, progress))  
+</code></pre>
+
+<p>2.初始化转向的<strong>ViewController</strong> <br />
+这里有一点需要注意, 注意分清<strong>UIPercentDrivenInteractiveTransition</strong>从属的关系, 因为在<em>Present</em>和<em>Dimiss</em>过程中都是使用同一个<strong>UIPercentDrivenInteractiveTransition</strong>, 稍微不注意的话会直接进入非交互式的转场</p>
+
+<pre><code>if recognizer.state == .Began  
+{
+    self.interactSlideTransition = UIPercentDrivenInteractiveTransition()
+    let toVC = self.storyboard.instantiateViewControllerWithIdentifier("PaperViewController") as PaperViewController
+    toVC.interactSlideTransition = self.interactSlideTransition //be careful
+    self.presentViewController(toVC,  animated: true,  completion: nil)
+}
+</code></pre>
+
+<p>好了, 这个Demo的主要部分就已经完成了, 下面让我们继续看看别的方式</p>
+
+<hr />
+
+<h3 id="navigationbased">Navigation Based</h3>
+
+<p>如果 ViewControllers 是通过 NavigationController 进行切换管理, 主要涉及到<strong>UINavigationControllerDelegate</strong>这个协议 </p>
+
+<p>要加工的部分也仅仅是多了一点点, 但本质上也是告诉系统什么时候返回<strong>UIViewControllerTransitioningDelegate</strong>, 大家可以参考Demo1的代码来  </p>
+
+<p><img src="http://lanstonpeng.github.io/assets/navigationtransition.gif" alt="navigationtransition" /></p>
+
+<hr />
+
+<h3 id="presentationviewcontroller">Presentation ViewController</h3>
+
+<p>在iOS8中引入了新的<strong>UIPresentationController</strong>对<em>ViewController</em>的切换增加更多内容, 其为增加更多的可能
+但是在处理<strong>UIViewControllerTransitioningDelegate</strong>协议的时候会稍有不同( 这个行为让我颇为疑惑 )
+让我们先看看最终效果  </p>
+
+<p><img src="http://lanstonpeng.github.io/assets/presentationController.gif" alt="presentationGif" />
+<img src="http://lanstonpeng.github.io/assets/presentingView.png" alt="presenting" />
+<img src="http://lanstonpeng.github.io/assets/presentedView.png" alt="presented" title="" />  </p>
+
+<p>先解释几个概念:</p>
+
+<ul>
+<li>ChromeView ( 图中遮盖灰色的View, 主要可以用来覆盖切入切出VC的view之间的空隙, 进行额外的动画 )</li>
+<li>Presenting View( 切出的View, 即带有Present的那个胖子:) )</li>
+<li>Presented View ( 蓝色的带有Back的View )</li>
+</ul>
+
+<p>这个我现在也不知道是bug还是feature(囧) <br />
+在遵循<strong>UIViewControllerAnimatedTransitioning</strong>的实例中, 在<strong>containerView</strong>(遗忘的同学可以回头看看)中添加的view实际会与iOS7中转场有所区别  </p>
+
+<p>之前的<strong>containerView</strong>是处理<em>切入( FromViewController )</em>和<em>切出( ToViewController )</em>各自的View的层级与插入关系, 上面的示例代码也有提及到  </p>
+
+<p>而在<strong>Presentaion ViewControoler</strong>的例子中, 我们需要处理<em>chromeView(在<strong>UIPresentationController</strong>中)</em>和<em>ToViewController.view(在<strong>UIViewControllerAnimatedTransitioning</strong>)</em>, 具体的代码分散在两个文件, 大家可以直接看Demo2里面的示例  </p>
+
+<p>值得留意的还有一个叫做<strong>transitionCoordinator</strong>, 主要用来与动画进行同步运动的, 下面的snippet是让<strong>chromeView</strong>与转场动画进行同步, 让<strong>chromeView</strong>的alpha随转场动画一起变动</p>
+
+<pre><code>let transitionCoordinator = self.presentingViewController.transitionCoordinator()  
+    transitionCoordinator.animateAlongsideTransition({(context: UIViewControllerTransitionCoordinatorContext!) -&gt; Void in
+        self.chromeView.alpha  = 0.6
+},  completion:nil)
+</code></pre>
+
+<p>这里我们也可以看到这个解耦的设计, 我们不需要在具体的转场动画中添加响应的同步动画逻辑, 而是通过一个叫<strong>transitionCoordinator</strong>的桥接器来完成, 不过这是iOS7中接口了</p>
+
+<hr />
+
+<h3 id="">为什么是这样设计</h3>
+
+<p>这部分在开篇的时候也已经提及到, 大家可以从案例里面体验一下, 几个Demo用的是同一个处理动画转场的逻辑, 甚至在iOS8中的<strong>UIPresentationController</strong>也适用, 非常灵活, 也与VC各自的逻辑解耦</p>
+
+<p>示例代码在<a href="https://github.com/lanstonpeng/CustomTransition">这里</a> <br />
+里面包含几个Demo, 想看效果的可以快速拖动StoryBoard的入口箭头</p>
+
+<h4 id="refs">Refs</h4>
+
+<ul>
+<li><a href="http://www.teehanlax.com/blog/custom-uiviewcontroller-transitions/">Custom UIViewController Transitions</a></li>
+<li><a href="http://dativestudios.com/blog/2013/09/29/interactive-transitions/">iOS7 interactive transitions</a></li>
+</ul>
+    </section>
+
+  </article>
+
+  <section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+      
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+            <footer class="footer">
+    <span class="footer__copyright">&copy; 2015  All rights reserved.</span>
+    <span class="footer__copyright"><a href="https://github.com/onevcat/vno">Vno</a> theme by <a href="http://im.onevcat.com/">@onevcat</a></span>
+</footer>        </div>
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45773367-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <!-- Compatibility for Ghost 0.7.0: http://dev.ghost.org/no-more-jquery/ -->
+    <script type="text/javascript">  
+      if (typeof jQuery == 'undefined') {
+        document.write('<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></'+'script>');
+      }
+    </script>
+    
+    <script type="text/javascript" src="../assets/js/main86b5.js?v=8e02a3de55"></script>
+
+    <script type="text/javascript" src="../assets/js/highlight.pack86b5.js?v=8e02a3de55"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+<!-- Mirrored from localhost:2368/viewcontroller_transition/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 02:43:42 GMT -->
+</html>

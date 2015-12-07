@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from localhost:2368/xhr-e4b88ae4bca0e69687e4bbb6e696b9e6b395e5b08fe8aeae/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 03:25:37 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>小议 xhr 上传文件</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="小议 xhr 上传文件">
+    <meta name="twitter:description" content="">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="小议 xhr 上传文件">
+    <meta property="og:description" content="">
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <link href="../assets/images/favicon.png" rel="shortcut icon" type="image/png">
+    <link href="../apple-touch-icon-precomposed.png/index.html" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/vno86b5.css?v=8e02a3de55" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/tomorrow86b5.css?v=8e02a3de55">
+    
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="Lanston Peng's ideas" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="小议 xhr 上传文件" />
+    <meta property="og:description" content="以前想用xhr上传文件,感觉方法不太那么优雅 最近在弄一个姑且命名为anyDragBox的小web应用，就是WYSIWYW类型...不多说了，在开发的过程中，遇到上传的问题了，跨域先不说，这里主要想讨论一下xhr上传文件的方法 1.base64方案 var reader=new FileReader()   reader.onloadend=function(e){   //var img=document.createElement(&quot;img&quot;) //img.src=e.target.result //document.body.appendChild(img) xhr.onload=function(e){   document.write(xhr...." />
+    <meta property="og:url" content="index.html" />
+    <meta property="article:published_time" content="2011-09-12T15:27:15.000Z" />
+    <meta property="article:modified_time" content="2015-12-03T08:22:09.089Z" />
+    <meta property="article:tag" content="未分类" />
+    <meta property="article:tag" content="javascript" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="小议 xhr 上传文件" />
+    <meta name="twitter:description" content="以前想用xhr上传文件,感觉方法不太那么优雅 最近在弄一个姑且命名为anyDragBox的小web应用，就是WYSIWYW类型...不多说了，在开发的过程中，遇到上传的问题了，跨域先不说，这里主要想讨论一下xhr上传文件的方法 1.base64方案 var reader=new FileReader()   reader.onloadend=function(e){   //var img=document.createElement(&quot;img&quot;) //img.src=e.target.result //document.body.appendChild(img) xhr.onload=function(e){   document.write(xhr...." />
+    <meta name="twitter:url" content="index.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Lanston Peng's ideas",
+    "author": {
+        "@type": "Person",
+        "name": "lanstonpeng",
+        "url": "http://localhost:2368/author/lanstonpeng",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "小议 xhr 上传文件",
+    "url": "http://localhost:2368/xhr-e4b88ae4bca0e69687e4bbb6e696b9e6b395e5b08fe8aeae/",
+    "datePublished": "2011-09-12T15:27:15.000Z",
+    "dateModified": "2015-12-03T08:22:09.089Z",
+    "keywords": "未分类, javascript",
+    "description": "以前想用xhr上传文件,感觉方法不太那么优雅 最近在弄一个姑且命名为anyDragBox的小web应用，就是WYSIWYW类型...不多说了，在开发的过程中，遇到上传的问题了，跨域先不说，这里主要想讨论一下xhr上传文件的方法 1.base64方案 var reader=new FileReader()   reader.onloadend=function(e){   //var img=document.createElement(&quot;img&quot;) //img.src=e.target.result //document.body.appendChild(img) xhr.onload=function(e){   document.write(xhr...."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="Lanston Peng&#x27;s ideas" href="../rss/index.html" />
+
+</head>
+<body class="post-template tag-wei-fen-lei tag-javascript no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url(../content/images/2015/12/John-William-Waterhouse-Hylas-and-the-Nymphs.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <h1 class="panel-cover__title panel-title"><a href="../index.html" title="前往 Lanston Peng&#x27;s ideas 的主页">Lanston Peng&#x27;s ideas</a></h1>
+        <span class="panel-cover__subtitle panel-subtitle"></span>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">能不断品尝那无限的美好作品
+做一个有趣,简单且随和的人</p>
+        <!--
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        -->
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="../index.html#blog" title="访问博客" class="blog-button">博客</a></li>
+              <li class="navigation__item"><a href="http://douban.com/people/lanstonpeng" target="_blank" title="我的豆瓣">豆瓣</a></li>
+              <!--
+              <li class="navigation__item"><a href="" title="了解更多关于我">关于</a></li>
+              -->
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+
+  <!-- 豆瓣 
+  <li class="navigation__item">
+    <a href="http://www.douban.com/people/lanstonpeng/" title="诚实的奸商" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">豆瓣</span>
+    </a>
+  </li>
+  -->
+
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/lanstonpeng" title="Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/lanstonpeng" title="@lanstonpeng" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="../rss/index.html" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:lanstonpeng@gmail.com" title="邮件联系我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+  </ul>
+</nav>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-purple"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            
+
+  <article class="post-container post-container--single">
+
+    <header class="post-header">
+      <div class="post-meta">
+        <time datetime="12 Sep 2011" class="post-meta__date date">12 Sep 2011</time> &#8226; <span class="post-meta__tags tags">于 <a href="../tag/wei-fen-lei/index.html">未分类</a>, <a href="../tag/javascript/index.html">javascript</a></span>
+        <!--<span class="post-meta__author author"><img src="" alt="profile image for lanstonpeng" class="avatar post-meta__avatar" /> by lanstonpeng</span>-->
+      </div>
+      <h1 class="post-title">小议 xhr 上传文件</h1>
+    </header>
+
+    <section class="post tag-wei-fen-lei tag-javascript">
+      <p>以前想用xhr上传文件,感觉方法不太那么优雅</p>
+
+<p>最近在弄一个姑且命名为anyDragBox的小web应用，就是WYSIWYW类型...不多说了，在开发的过程中，遇到上传的问题了，跨域先不说，这里主要想讨论一下xhr上传文件的方法</p>
+
+<p><strong>1.base64方案</strong></p>
+
+<pre><code>var reader=new FileReader()  
+reader.onloadend=function(e){  
+//var img=document.createElement("img")
+//img.src=e.target.result
+//document.body.appendChild(img)
+xhr.onload=function(e){  
+document.write(xhr.responseText)  
+}
+upload=xhr.upload  
+upload.addEventListener("progress",function(e){  
+console.log("loaded: "+e.loaded)  
+console.log("total: "+e.total)  
+},false)
+xhr.open("POST","upload2.php");  
+xhr.setRequestHeader("Cache-Control", "no-cache");  
+xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");  
+xhr.setRequestHeader("X-File-Name", file.name);  
+//xhr.setRequestHeader("X-File-Type",file.type)
+xhr.send(e.target.result.match(/,(.*)$/)[1]) //注意 (1)  
+}
+reader.readAsDataURL(file)  
+</code></pre>
+
+本地使用FileReader API的readAsDataURL获取文件的base64编码，发送给server，server再解码存储
+<!-- more -->  
+
+<p>_ 注意(1)_ <br />
+FileReaer.readAsDataURL 获取的并非全是文件的base64编码的内容，其中夹杂着一些其它内容 <br />
+data:[<MIME-type>][;charset=<encoding>][;base64],<data> <br />
+<data> <br />
+服务器方面，这里采用php</p>
+
+<p>所以，为了获取其精确的内容，需要将前面内容去掉，留取<data>部分</p>
+
+<pre><code>$postdata = file_get_contents("php://input");
+file_put_contents( $_SERVER['HTTP_X_FILE_NAME'], base64_decode($postdata));  
+`
+
+在上面的js代码中，大家可以看到注释部分，我打算将拖拉的图片顺便显示在浏览器里面，但是这里存在一个问题，如果图片太大的话， base64会很多，浏览器解析非常慢，经常卡死甚至崩溃（我这里是Ubuntu10.10+chromium14）
+我认为，如果想让用户得知自己所上传的图片的时候，采用本方案比较方便
+** 2.二进制方案**
+
+****
+这种方式在client端所用的代码比较少
+`
+var files=e.dataTransfer.files  
+//这里我采用的拖拉的方式将文件上传，若是传统的点击选取文件，则使用e.target.files
+var file=files[0]  
+var xhr=new XMLHttpRequest()  
+xhr.open("POST","upload.php");  
+xhr.onload=function(e){  
+document.write(xhr.responseText)  
+}
+xhr.send(file);  
+</code></pre>
+
+<p>在服务端方面，核心代码：</p>
+
+<pre><code>file_put_contents(  
+$this-&gt;path . $this-&gt;fileName,
+file_get_contents("php://input")  
+);
+</code></pre>
+
+<p>采用本方案，高效简单，不用作过多的处理
+网上有许多方案是模拟表单，代码都类似这样：</p>
+
+<pre><code>xhr.setRequestHeader("Content-Type", "multipart/form-data, boundary="+boundary); // simulate a file MIME POST request.  
+xhr.setRequestHeader("Content-Length", fileSize);  
+var body = '';  
+body += "--" + boundary + "\r\n";  
+body += "Content-Disposition: form-data; name=\""+dropbox.getAttribute('name')+"\"; filename=\"" + fileName + "\"\r\n";  
+body += "Content-Type: "+fileType+"\r\n\r\n";  
+body += fileData + "\r\n";  
+body += "--" + boundary + "--\r\n";  
+xhr.sendAsBinary(body);  
+</code></pre>
+
+<p>其实，本质上也不过是跟二进制一样</p>
+    </section>
+
+  </article>
+
+  <section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+      
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+            <footer class="footer">
+    <span class="footer__copyright">&copy; 2015  All rights reserved.</span>
+    <span class="footer__copyright"><a href="https://github.com/onevcat/vno">Vno</a> theme by <a href="http://im.onevcat.com/">@onevcat</a></span>
+</footer>        </div>
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45773367-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <!-- Compatibility for Ghost 0.7.0: http://dev.ghost.org/no-more-jquery/ -->
+    <script type="text/javascript">  
+      if (typeof jQuery == 'undefined') {
+        document.write('<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></'+'script>');
+      }
+    </script>
+    
+    <script type="text/javascript" src="../assets/js/main86b5.js?v=8e02a3de55"></script>
+
+    <script type="text/javascript" src="../assets/js/highlight.pack86b5.js?v=8e02a3de55"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+<!-- Mirrored from localhost:2368/xhr-e4b88ae4bca0e69687e4bbb6e696b9e6b395e5b08fe8aeae/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 03:25:37 GMT -->
+</html>

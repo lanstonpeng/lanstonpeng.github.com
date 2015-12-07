@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from localhost:2368/ios_bounce_ball/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 02:37:39 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>如何在 iOS 中实现一个弹性球</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="如何在 iOS 中实现一个弹性球">
+    <meta name="twitter:description" content="">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="如何在 iOS 中实现一个弹性球">
+    <meta property="og:description" content="">
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <link href="../assets/images/favicon.png" rel="shortcut icon" type="image/png">
+    <link href="../apple-touch-icon-precomposed.png/index.html" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/vno86b5.css?v=8e02a3de55" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/tomorrow86b5.css?v=8e02a3de55">
+    
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="Lanston Peng's ideas" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="如何在 iOS 中实现一个弹性球" />
+    <meta property="og:description" content="最近一个Pet Project中想要实现一个弹性球的效果,类似足球少年中在球碰撞过程中发生形变,在这个教程的最后，你可以实现一个简单的弹性球 如果把这个球抽象成一个View,那么首先想到的时候这个View需要一个物理系统的支持,纵观iOS系统，提供物理支持的框架大致上有 SpriteKit , UIDynamic, 第三方Lib(如Box2D) 我想到的方式是通过某种形式把这个形变的圆画出来，然后用一套物理系统操作画圆的轨迹  基本上，我把问题分成两大块 作图 嵌入物理系统 作图 因为平时作图的时候自己时长需要用到钢笔工具，本质上就是在操作一个多阶贝塞尔曲线，而细心的同学会发现在作图工具中有这么一个东西 既然Sketch中可以用贝塞尔曲线作出一个光滑的圆，那么这个用这种方式作图肯定是可以的，如果对贝塞尔曲线不是非常了解的同学，可以看看文末的两篇链接 我们把问题最小化，先把四分之一圆画出来，后续用同样的方式进行迁移即可把整个圆画出 好了，回到我们的思路当中，根据Sketch作图给的提示，这个路径需要两个control points来作画，映射到iOS的实现是这个函数 - (void)addCurveToPoint:(CGPoint)..." />
+    <meta property="og:url" content="index.html" />
+    <meta property="article:published_time" content="2015-12-05T13:35:33.316Z" />
+    <meta property="article:modified_time" content="2015-12-06T01:06:17.212Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="如何在 iOS 中实现一个弹性球" />
+    <meta name="twitter:description" content="最近一个Pet Project中想要实现一个弹性球的效果,类似足球少年中在球碰撞过程中发生形变,在这个教程的最后，你可以实现一个简单的弹性球 如果把这个球抽象成一个View,那么首先想到的时候这个View需要一个物理系统的支持,纵观iOS系统，提供物理支持的框架大致上有 SpriteKit , UIDynamic, 第三方Lib(如Box2D) 我想到的方式是通过某种形式把这个形变的圆画出来，然后用一套物理系统操作画圆的轨迹  基本上，我把问题分成两大块 作图 嵌入物理系统 作图 因为平时作图的时候自己时长需要用到钢笔工具，本质上就是在操作一个多阶贝塞尔曲线，而细心的同学会发现在作图工具中有这么一个东西 既然Sketch中可以用贝塞尔曲线作出一个光滑的圆，那么这个用这种方式作图肯定是可以的，如果对贝塞尔曲线不是非常了解的同学，可以看看文末的两篇链接 我们把问题最小化，先把四分之一圆画出来，后续用同样的方式进行迁移即可把整个圆画出 好了，回到我们的思路当中，根据Sketch作图给的提示，这个路径需要两个control points来作画，映射到iOS的实现是这个函数 - (void)addCurveToPoint:(CGPoint)..." />
+    <meta name="twitter:url" content="index.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Lanston Peng's ideas",
+    "author": {
+        "@type": "Person",
+        "name": "lanstonpeng",
+        "url": "http://localhost:2368/author/lanstonpeng",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "如何在 iOS 中实现一个弹性球",
+    "url": "http://localhost:2368/ios_bounce_ball/",
+    "datePublished": "2015-12-05T13:35:33.316Z",
+    "dateModified": "2015-12-06T01:06:17.212Z",
+    "description": "最近一个Pet Project中想要实现一个弹性球的效果,类似足球少年中在球碰撞过程中发生形变,在这个教程的最后，你可以实现一个简单的弹性球 如果把这个球抽象成一个View,那么首先想到的时候这个View需要一个物理系统的支持,纵观iOS系统，提供物理支持的框架大致上有 SpriteKit , UIDynamic, 第三方Lib(如Box2D) 我想到的方式是通过某种形式把这个形变的圆画出来，然后用一套物理系统操作画圆的轨迹  基本上，我把问题分成两大块 作图 嵌入物理系统 作图 因为平时作图的时候自己时长需要用到钢笔工具，本质上就是在操作一个多阶贝塞尔曲线，而细心的同学会发现在作图工具中有这么一个东西 既然Sketch中可以用贝塞尔曲线作出一个光滑的圆，那么这个用这种方式作图肯定是可以的，如果对贝塞尔曲线不是非常了解的同学，可以看看文末的两篇链接 我们把问题最小化，先把四分之一圆画出来，后续用同样的方式进行迁移即可把整个圆画出 好了，回到我们的思路当中，根据Sketch作图给的提示，这个路径需要两个control points来作画，映射到iOS的实现是这个函数 - (void)addCurveToPoint:(CGPoint)..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="Lanston Peng&#x27;s ideas" href="../rss/index.html" />
+
+</head>
+<body class="post-template no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url(../content/images/2015/12/John-William-Waterhouse-Hylas-and-the-Nymphs.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <h1 class="panel-cover__title panel-title"><a href="../index.html" title="前往 Lanston Peng&#x27;s ideas 的主页">Lanston Peng&#x27;s ideas</a></h1>
+        <span class="panel-cover__subtitle panel-subtitle"></span>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">能不断品尝那无限的美好作品
+做一个有趣,简单且随和的人</p>
+        <!--
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        -->
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="../index.html#blog" title="访问博客" class="blog-button">博客</a></li>
+              <li class="navigation__item"><a href="http://douban.com/people/lanstonpeng" target="_blank" title="我的豆瓣">豆瓣</a></li>
+              <!--
+              <li class="navigation__item"><a href="" title="了解更多关于我">关于</a></li>
+              -->
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+
+  <!-- 豆瓣 
+  <li class="navigation__item">
+    <a href="http://www.douban.com/people/lanstonpeng/" title="诚实的奸商" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">豆瓣</span>
+    </a>
+  </li>
+  -->
+
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/lanstonpeng" title="Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/lanstonpeng" title="@lanstonpeng" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="../rss/index.html" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:lanstonpeng@gmail.com" title="邮件联系我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+  </ul>
+</nav>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-purple"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            
+
+  <article class="post-container post-container--single">
+
+    <header class="post-header">
+      <div class="post-meta">
+        <time datetime="05 Dec 2015" class="post-meta__date date">05 Dec 2015</time> &#8226; <span class="post-meta__tags tags"></span>
+        <!--<span class="post-meta__author author"><img src="" alt="profile image for lanstonpeng" class="avatar post-meta__avatar" /> by lanstonpeng</span>-->
+      </div>
+      <h1 class="post-title">如何在 iOS 中实现一个弹性球</h1>
+    </header>
+
+    <section class="post">
+      <p><img src="../content/images/2015/12/bounce_ball-1.jpg" alt="image" /></p>
+
+<p>最近一个Pet Project中想要实现一个弹性球的效果,类似足球少年中在球碰撞过程中发生形变,在这个教程的最后，你可以实现一个简单的<code>弹性球</code>
+<img src="../content/images/2015/12/BounceBallDemo.gif" alt="image" /></p>
+
+<p>如果把这个球抽象成一个<strong>View</strong>,那么首先想到的时候这个<strong>View</strong>需要一个物理系统的支持,纵观iOS系统，提供物理支持的框架大致上有 <code>SpriteKit</code> , <code>UIDynamic</code>, <code>第三方Lib(如Box2D)</code></p>
+
+<p>我想到的方式是通过某种形式把这个形变的圆画出来，然后用一套物理系统操作画圆的轨迹 </p>
+
+<p>基本上，我把问题分成两大块</p>
+
+<ul>
+<li>作图</li>
+<li>嵌入物理系统</li>
+</ul>
+
+<h2 id="">作图</h2>
+
+<p>因为平时作图的时候自己时长需要用到钢笔工具，本质上就是在操作一个多阶贝塞尔曲线，而细心的同学会发现在作图工具中有这么一个东西
+<img src="../content/images/2015/12/QQ20151205-0-2x.png" alt="image" />
+既然Sketch中可以用贝塞尔曲线作出一个光滑的圆，那么这个用这种方式作图肯定是可以的，如果对贝塞尔曲线不是非常了解的同学，可以看看文末的两篇链接</p>
+
+<p>我们把问题最小化，先把四分之一圆画出来，后续用同样的方式进行迁移即可把整个圆画出
+好了，回到我们的思路当中，根据Sketch作图给的提示，这个路径需要两个<strong>control point</strong>s来作画，映射到iOS的实现是这个函数</p>
+
+<pre><code>- (void)addCurveToPoint:(CGPoint)endPoint
+          controlPoint1:(CGPoint)controlPoint1
+          controlPoint2:(CGPoint)controlPoint2
+</code></pre>
+
+<p>那么问题来了，
+究竟如何确定下面的A,B两点呢
+<img src="../content/images/2015/12/QQ20151205-1-2x.png" alt="image" />
+说实话，其实一开始我也不知道怎么弄，但是我猜想这是一个线性比例关系，就是我只要知道半径为1的圆的A点在那里，那么所有的A点都是可以计算的</p>
+
+<p>所以，我按照Sketch的单位，计算了一番
+<img src="../content/images/2015/12/QQ20151205-2-2x.png" alt="image" />
+如上图所示，定点坐标是 <code>(100,0)</code> ,A点坐标是 <code>(155.23,0)</code> ,那么我们很容易就猜想半径比例系数是 <code>1.5523</code> ,尝试放大缩小这个圆，也能得出同样的系数，且慢，我们不能满足于这个结果，我们要需要<strong>证明</strong>一下!</p>
+
+<p>本质上我们需要求得c的大小(<code>P1</code>和<code>P3</code>的对称性决定其值一致)
+<img src="../content/images/2015/12/QQ20151205-5-2x.png" alt="image" /></p>
+
+<p>搜索一下 <a href="https://zh.wikipedia.org/wiki/貝茲曲線">3次贝塞尔曲线</a>的方程</p>
+
+<pre><code>B(t) = (1-t)^3*P_0 +  
+       3*(1-t)^2*t*P_1 + 
+       3*(1-t)*t^2*P_2 + 
+       t^3*P_3, t in [0,1]
+</code></pre>
+
+<p>以及圆的方程</p>
+
+<pre><code>x = r * cos(a)  
+y = r * sin(a)
+</code></pre>
+
+<p><strong>t</strong> 是这条曲线上上任意一点，
+我们可以根据圆的方程(上上所示)知道 <code>(sqrt(0.5),sqrt(0.5))</code>是其中一个点，那么，根据我们图中给出的点可以得出关于x轴坐标的解:</p>
+
+<pre><code>sqrt(0.5) = 0.5^3 * 0  + 3 * 0.5^2 * 0.5 * c + 3 * 0.5 * 0.5^2 * 1 + 0.5^3 * 1
+
+sqrt(0.5) = 4 / 8 + 3c / 8
+
+c =  4 * (sqrt(2) - 1) / 3  
+</code></pre>
+
+<p>好了，按一下计算器，可以得到这个常量<strong>约为</strong> <code>0.552284749831</code>，跟Sketch里面猜想很接近:-)</p>
+
+<h2 id="">物理系统</h2>
+
+<p>So far so good, 我们根据这个特性，现在能画出正个圆了， <br />
+接下来就是模拟球被<code>挤压</code>,<code>拉伸</code>等自然状态了，我在这个项目中选择了<strong>UIDynamic</strong>这个引擎,下面是实现的理论模型，其实就是用5个隐藏的<code>dynamic item</code>来构成弹性球的<code>"骨架"</code>,然后用几条弹簧将他们连接起来，然后根据我们第一步的方式，把几个顶点的<code>dynamic item</code>的动态坐标事实连接起来就ok了
+<img src="../content/images/2015/12/QQ20151205-6-2x.png" alt="image" />
+实现出来在模拟器里面会是这样的
+<img src="../content/images/2015/12/68889528-0587-45E2-93C3-D988EE2542B6.png" alt="image" />
+具体会使用 <code>CADisplayLink</code> 来保证刷新频率</p>
+
+<p>整体流程大致上是这样的</p>
+
+<pre><code>- (void)startShow
+{
+    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(renderShape)];
+
+    [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+
+}
+
+- (void)renderShape
+{
+    [self setNeedsDisplay];
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    CGContextRef aRef = UIGraphicsGetCurrentContext();
+    CGContextClearRect(aRef, self.bounds);
+
+    //set color code
+    [self calculatePoints];//动态计算几个control points
+
+
+    UIBezierPath* bezier = [self getCalculateBorderPath]; //根据control point画出相应路径
+
+    [bezier stroke];
+    [bezier closePath];
+}
+</code></pre>
+
+<p>但是，实际操作过程中会遇到不少问题
+如动态坐标计算，就是如何把几个<code>control point</code>s实际坐标计算出来，我是根据中间的<code>dynamic item</code>和4个顶点的斜率来得出垂直斜率，再根据第一步计算的比例分别得出距离4个顶点的距离，得出坐标，特别需要注意的是垂直的特殊情况,这里我也有一个地方没有处理好，我特意在gif图里面显示出来了</p>
+
+<p>另外一个可以提升的点是碰撞边界，<del>具体我没有实现</del>(其实是实现失败了) 
+利用iOS9的新特性，重写</p>
+
+<pre><code>-  (UIBezierPath *)collisionBoundingPath
+-  (UIDynamicItemCollisionBoundsType) collisionBoundsType
+</code></pre>
+
+<p>另外，感兴趣的同学也可以用 <code>SKSpriteNode</code> 来实现弹性球的载体，其实有蛮多效果本质都是结合 <code>CADisplayLink</code> 和<code>UIBezierPath</code>来实现了，深入了解二者和<strong>CoreAnimation</strong>的Layer对实现一个动效很有帮助，当然，还有很多别的方式，多多思考原理，然后在具体平台中寻找方案</p>
+
+<p>最后，附上代码的 <a href="https://www.dropbox.com/sh/2ql0oy1bv7ej3ry/AAA00_OUfzarnBeJSofoaaFaa?dl=0">dropbox地址</a>，谢谢各位</p>
+
+<h6 id="">关于贝塞尔曲线知识的相关链接:</h6>
+
+<ul>
+<li><a href="http://www.html-js.com/article/1628">贝塞尔曲线扫盲</a></li>
+<li><a href="http://pomax.github.io/bezierinfo/">A Primer on Bézier Curves</a></li>
+</ul>
+    </section>
+
+  </article>
+
+  <section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+      
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+            <footer class="footer">
+    <span class="footer__copyright">&copy; 2015  All rights reserved.</span>
+    <span class="footer__copyright"><a href="https://github.com/onevcat/vno">Vno</a> theme by <a href="http://im.onevcat.com/">@onevcat</a></span>
+</footer>        </div>
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45773367-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <!-- Compatibility for Ghost 0.7.0: http://dev.ghost.org/no-more-jquery/ -->
+    <script type="text/javascript">  
+      if (typeof jQuery == 'undefined') {
+        document.write('<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></'+'script>');
+      }
+    </script>
+    
+    <script type="text/javascript" src="../assets/js/main86b5.js?v=8e02a3de55"></script>
+
+    <script type="text/javascript" src="../assets/js/highlight.pack86b5.js?v=8e02a3de55"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+<!-- Mirrored from localhost:2368/ios_bounce_ball/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 02:42:42 GMT -->
+</html>

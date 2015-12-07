@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from localhost:2368/e4bb8ee588b6e4bd9ce4b880e4b8aae887aae8a18ce8bda6e585ace9878ce8aea1e695b0e599a8e8afb4e5bc80e58ebb/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 02:55:20 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>从制作一个自行车公里计数器说方法论</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="从制作一个自行车公里计数器说方法论">
+    <meta name="twitter:description" content="">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="从制作一个自行车公里计数器说方法论">
+    <meta property="og:description" content="">
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <link href="../assets/images/favicon.png" rel="shortcut icon" type="image/png">
+    <link href="../apple-touch-icon-precomposed.png/index.html" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/vno86b5.css?v=8e02a3de55" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/tomorrow86b5.css?v=8e02a3de55">
+    
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="Lanston Peng's ideas" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="从制作一个自行车公里计数器说方法论" />
+    <meta property="og:description" content="我主要想focus在思路上， 这其实是一个方法论的问题，抽象到更高一层可应用到其它很多的场合中，决定于抽象的程度 直观Focus型 我们会很直接的将目光聚焦到事物表面上，很自然的会想到（这仅仅是我的猜测而已） 路程=周长*转数 周长直接可得，设置一个记录转数的装置，至于这个装置应该怎么设计呢？ 方式可以有很多，譬如前架上设置一个装置，车轮的杆上也设置一个装置，类似光学接收仪， 每转一圈就会记录一次 当然，还有很多种入手的方式，譬如从车轴入手，用一些电板 再或者，将想法脱离事物的直观层面外，即到车轮之外， 譬如从脚踏板入手，脚踏板每转一圈都与车轮相关，这里也有着某种想法， 譬如记录脚踏板的转的次数，怎么记录？同样有着车轮的构造，很多想法可以借鉴过来， 抽象来说: 可以说是寻找我们需要的变量（这里是公里数）影响到的参数，包括所有周边环境的所有参数、因数，无论是正相关抑或是负相关，..." />
+    <meta property="og:url" content="index.html" />
+    <meta property="article:published_time" content="2012-03-26T00:34:27.000Z" />
+    <meta property="article:modified_time" content="2012-03-26T00:34:27.000Z" />
+    <meta property="article:tag" content="未分类" />
+    <meta property="article:tag" content="idea" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="从制作一个自行车公里计数器说方法论" />
+    <meta name="twitter:description" content="我主要想focus在思路上， 这其实是一个方法论的问题，抽象到更高一层可应用到其它很多的场合中，决定于抽象的程度 直观Focus型 我们会很直接的将目光聚焦到事物表面上，很自然的会想到（这仅仅是我的猜测而已） 路程=周长*转数 周长直接可得，设置一个记录转数的装置，至于这个装置应该怎么设计呢？ 方式可以有很多，譬如前架上设置一个装置，车轮的杆上也设置一个装置，类似光学接收仪， 每转一圈就会记录一次 当然，还有很多种入手的方式，譬如从车轴入手，用一些电板 再或者，将想法脱离事物的直观层面外，即到车轮之外， 譬如从脚踏板入手，脚踏板每转一圈都与车轮相关，这里也有着某种想法， 譬如记录脚踏板的转的次数，怎么记录？同样有着车轮的构造，很多想法可以借鉴过来， 抽象来说: 可以说是寻找我们需要的变量（这里是公里数）影响到的参数，包括所有周边环境的所有参数、因数，无论是正相关抑或是负相关，..." />
+    <meta name="twitter:url" content="index.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Lanston Peng's ideas",
+    "author": {
+        "@type": "Person",
+        "name": "lanstonpeng",
+        "url": "http://localhost:2368/author/lanstonpeng",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "从制作一个自行车公里计数器说方法论",
+    "url": "http://localhost:2368/e4bb8ee588b6e4bd9ce4b880e4b8aae887aae8a18ce8bda6e585ace9878ce8aea1e695b0e599a8e8afb4e5bc80e58ebb/",
+    "datePublished": "2012-03-26T00:34:27.000Z",
+    "dateModified": "2012-03-26T00:34:27.000Z",
+    "keywords": "未分类, idea",
+    "description": "我主要想focus在思路上， 这其实是一个方法论的问题，抽象到更高一层可应用到其它很多的场合中，决定于抽象的程度 直观Focus型 我们会很直接的将目光聚焦到事物表面上，很自然的会想到（这仅仅是我的猜测而已） 路程=周长*转数 周长直接可得，设置一个记录转数的装置，至于这个装置应该怎么设计呢？ 方式可以有很多，譬如前架上设置一个装置，车轮的杆上也设置一个装置，类似光学接收仪， 每转一圈就会记录一次 当然，还有很多种入手的方式，譬如从车轴入手，用一些电板 再或者，将想法脱离事物的直观层面外，即到车轮之外， 譬如从脚踏板入手，脚踏板每转一圈都与车轮相关，这里也有着某种想法， 譬如记录脚踏板的转的次数，怎么记录？同样有着车轮的构造，很多想法可以借鉴过来， 抽象来说: 可以说是寻找我们需要的变量（这里是公里数）影响到的参数，包括所有周边环境的所有参数、因数，无论是正相关抑或是负相关，..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="Lanston Peng&#x27;s ideas" href="../rss/index.html" />
+
+</head>
+<body class="post-template tag-wei-fen-lei tag-idea no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url(../content/images/2015/12/John-William-Waterhouse-Hylas-and-the-Nymphs.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <h1 class="panel-cover__title panel-title"><a href="../index.html" title="前往 Lanston Peng&#x27;s ideas 的主页">Lanston Peng&#x27;s ideas</a></h1>
+        <span class="panel-cover__subtitle panel-subtitle"></span>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">能不断品尝那无限的美好作品
+做一个有趣,简单且随和的人</p>
+        <!--
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        -->
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="../index.html#blog" title="访问博客" class="blog-button">博客</a></li>
+              <li class="navigation__item"><a href="http://douban.com/people/lanstonpeng" target="_blank" title="我的豆瓣">豆瓣</a></li>
+              <!--
+              <li class="navigation__item"><a href="" title="了解更多关于我">关于</a></li>
+              -->
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+
+  <!-- 豆瓣 
+  <li class="navigation__item">
+    <a href="http://www.douban.com/people/lanstonpeng/" title="诚实的奸商" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">豆瓣</span>
+    </a>
+  </li>
+  -->
+
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/lanstonpeng" title="Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/lanstonpeng" title="@lanstonpeng" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="../rss/index.html" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:lanstonpeng@gmail.com" title="邮件联系我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+  </ul>
+</nav>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-purple"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            
+
+  <article class="post-container post-container--single">
+
+    <header class="post-header">
+      <div class="post-meta">
+        <time datetime="26 Mar 2012" class="post-meta__date date">26 Mar 2012</time> &#8226; <span class="post-meta__tags tags">于 <a href="../tag/wei-fen-lei/index.html">未分类</a>, <a href="../tag/idea/index.html">idea</a></span>
+        <!--<span class="post-meta__author author"><img src="" alt="profile image for lanstonpeng" class="avatar post-meta__avatar" /> by lanstonpeng</span>-->
+      </div>
+      <h1 class="post-title">从制作一个自行车公里计数器说方法论</h1>
+    </header>
+
+    <section class="post tag-wei-fen-lei tag-idea">
+      <p>我主要想focus在思路上，</p>
+
+<p>这其实是一个方法论的问题，抽象到更高一层可应用到其它很多的场合中，决定于抽象的程度</p>
+
+<p><strong>直观Focus型</strong></p>
+
+<p>我们会很直接的将目光聚焦到事物表面上，很自然的会想到（这仅仅是我的猜测而已）</p>
+
+<ul>
+<li><em>路程=周长*转数</em></li>
+</ul>
+
+<p>周长直接可得，设置一个记录转数的装置，至于这个装置应该怎么设计呢？</p>
+
+<p><a href="http://files.blogcn.com/wp03/M00/03/EA/wKgKC09siWcAAAAAAATdPBLe55c382.png"><img src="http://files.blogcn.com/wp06/M00/06/00/wKgKDE9siXoAAAAAAACPzFsBXEA401.png" alt="" title="" /></a></p>
+
+<p>方式可以有很多，譬如前架上设置一个装置，车轮的杆上也设置一个装置，类似光学接收仪， 每转一圈就会记录一次</p>
+
+<p>当然，还有很多种入手的方式，譬如从车轴入手，用一些电板</p>
+
+<p>再或者，将想法脱离事物的直观层面外，即到车轮之外，</p>
+
+<p>譬如从脚踏板入手，脚踏板每转一圈都与车轮相关，这里也有着某种想法，</p>
+
+<p>譬如记录脚踏板的转的次数，怎么记录？同样有着车轮的构造，很多想法可以借鉴过来，</p>
+
+<p>抽象来说:</p>
+
+<p><strong>可以说是寻找我们需要的变量（这里是公里数）影响到的参数，包括所有周边环境的所有参数、因数，无论是正相关抑或是负相关，又或者是影响我们所求的参数的可能性</strong></p>
+
+<p><strong><!-- more --></strong></p>
+
+<p>正如一个链表那样，找到该节点的前后的部分节点（因为找到大部分或者全部的节点需要很长时间的时间，这取决于实物的复杂程度，而且并非所有都是有用的信息）</p>
+
+<p><a href="http://files.blogcn.com/wp03/M00/03/EF/wKgKC09vNTUAAAAAAATbR0mDX_o137.png"><img src="http://files.blogcn.com/wp02/M00/04/6B/wKgKCk9vNTcAAAAAAABdA0kHJZQ598.png" alt="" title="" /></a></p>
+
+<p>但是，既然脚踏板与我们的大腿相接，即直观事物有着联系的对等对象，我们是否可以从大腿入手呢？</p>
+
+<p>譬如安装一个记录步数的app来模拟记录踩的次数（假设自行车走的是平地且该app良好）</p>
+
+<p><strong>转换对等型：</strong></p>
+
+<p>很多情况之下不必与其正面相碰，寻找与其相等的容易寻找到方法的实物，真实世界中的事物错中复杂，本质上都是是非线性，线性关系仅仅存在于某种层面上，</p>
+
+<p>影响与被影响的因数并非简单的二者的因果关系，并非简单正负相关亦或简单的方程函数的解</p>
+
+<p><a href="http://files.blogcn.com/wp04/M00/04/3D/wKgKDU9vtIgAAAAAAAYbCUC-feE186.png"><img src="http://files.blogcn.com/wp02/M00/03/F5/wKgKC09vtIoAAAAAAAC0rliEq10322.png" alt="" title="" /></a></p>
+
+<p>本质上，最核心的观点我已经在上面提出了，无非就是正面与侧面求解的问题</p>
+
+<p>譬如在物理上计算的时候，运用运动学、能量守恒</p>
+
+<p>假设单车装有电力发生器，问题很容易就转化为</p>
+
+<ul>
+<li><em>公里数=总发电能/单转发生电能</em></li>
+</ul>
+
+<p>记得在OS课上，老师讲到File System的存储问题的时候 ，既然运用几何的方式无法解决问题，那么就采用代数的方式，</p>
+
+<p>譬如在存储文件的时候，分组链式到后来的Hash</p>
+
+<p>回到这个主题之上，关于计算这个路程的变量，我想大家都有着一定的想法了</p>
+
+<p>譬如我们拥有一个仅与转数有关的发电机，电能对应路程</p>
+
+<p>譬如我们拥有一个卡路里计测器</p>
+
+<p>只要我们能测量到影响所求量或者被影响的因数，或许就能测量出相应的结果了</p>
+
+<p>估计大家肯定会想到利用手机GPS定位的功能，download一个tracking的app，忽略掉一些误差，也是可以做到的</p>
+
+<p>好吧，上面所有的废话简单来说就是</p>
+
+<p>从正面、侧面入手解决问题，其实是一个很简单的问题，正如许多的方法那样，心里知道只是执行起来困难，所以我们要亲身体验与经历啊</p>
+
+<p>假设让你计算一个数中含有0的个数</p>
+
+<p>你或许会</p>
+
+<pre><code>var count=0,num=10086;
+while(num&gt;1){
+  if(parseInt(num%10)==0){count++}
+  num/=10;
+}
+</code></pre>
+
+<p>或许还可以这样</p>
+
+<pre><code>(num+"").length-(num+"").replace(/0/g,"").length
+</code></pre>
+
+<p>但是，实行起来我认为有两点难点</p>
+
+<ul>
+<li><p><strong>清晰认识到我们所求的那个结点（找到问题的本质）</strong></p></li>
+<li><p><strong>有效找出关系网（寻找到相关因数）</strong></p></li>
+</ul>
+
+<p>最后，我还是想重复说说</p>
+
+<p><strong>观点建立在我发这篇文章时我已知的事实与个人的逻辑推理能力</strong></p>
+
+<p><em>与此同时，附上一个我自己的案例：</em> <br />
+我住的小区的地方，楼下的保安每天早上都要打卡开门让人们出入（我们都是有门卡的，只是大家懒，然后保安一直都是帮大家开门的）
+于是我在想，在上下班高峰期，保安每次都要刷卡开门，这样重复的工作太郁闷了，为什么不设置一个简便的控制装置来完成这些工作呢？
+当然，不能用一块砖头什么的来挡住自动门，因为保安头头看到的话，这位保安就悲剧了
+我在心中设计了一个小装置，思路是模拟打卡动作的机械装置，保安只需轻轻点击遥控便可开门，不需要亲自到门前刷卡
+后来，我彻底的发现我的思维的局限性，强大的保安同学在门内用透明胶将内部开门按钮粘住，于是，门是没有关的，只需要推开即可
+但是保安头头是不会注意到的（他往往是站在很远的地方巡查的），保安只需要站在那里发呆即可
+这个例子很有趣，因为是我亲身经历的，印象很是深刻，其实本质上是一致的</p>
+    </section>
+
+  </article>
+
+  <section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+      
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+            <footer class="footer">
+    <span class="footer__copyright">&copy; 2015  All rights reserved.</span>
+    <span class="footer__copyright"><a href="https://github.com/onevcat/vno">Vno</a> theme by <a href="http://im.onevcat.com/">@onevcat</a></span>
+</footer>        </div>
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45773367-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <!-- Compatibility for Ghost 0.7.0: http://dev.ghost.org/no-more-jquery/ -->
+    <script type="text/javascript">  
+      if (typeof jQuery == 'undefined') {
+        document.write('<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></'+'script>');
+      }
+    </script>
+    
+    <script type="text/javascript" src="../assets/js/main86b5.js?v=8e02a3de55"></script>
+
+    <script type="text/javascript" src="../assets/js/highlight.pack86b5.js?v=8e02a3de55"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+<!-- Mirrored from localhost:2368/e4bb8ee588b6e4bd9ce4b880e4b8aae887aae8a18ce8bda6e585ace9878ce8aea1e695b0e599a8e8afb4e5bc80e58ebb/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 02:55:20 GMT -->
+</html>

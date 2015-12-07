@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from localhost:2368/wirte-a-simple-promise-2/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 02:48:16 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Write A Simple Promise in 100 Lines Part2</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Write A Simple Promise in 100 Lines Part2">
+    <meta name="twitter:description" content="">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Write A Simple Promise in 100 Lines Part2">
+    <meta property="og:description" content="">
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <link href="../assets/images/favicon.png" rel="shortcut icon" type="image/png">
+    <link href="../apple-touch-icon-precomposed.png/index.html" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/vno86b5.css?v=8e02a3de55" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/tomorrow86b5.css?v=8e02a3de55">
+    
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="Lanston Peng's ideas" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Write A Simple Promise in 100 Lines Part2" />
+    <meta property="og:description" content="We&#x27;ve known a bit about  why we need Promise and start to build our own version of Promise  Let&#x27;s continue,first we get the following work       guruPromise.when_done_call_this(playPokemon).when_done_call_this(playPokemon); This is so..." />
+    <meta property="og:url" content="index.html" />
+    <meta property="article:published_time" content="2013-12-14T23:38:49.000Z" />
+    <meta property="article:modified_time" content="2013-12-14T23:38:49.000Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Write A Simple Promise in 100 Lines Part2" />
+    <meta name="twitter:description" content="We&#x27;ve known a bit about  why we need Promise and start to build our own version of Promise  Let&#x27;s continue,first we get the following work       guruPromise.when_done_call_this(playPokemon).when_done_call_this(playPokemon); This is so..." />
+    <meta name="twitter:url" content="index.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Lanston Peng's ideas",
+    "author": {
+        "@type": "Person",
+        "name": "lanstonpeng",
+        "url": "http://localhost:2368/author/lanstonpeng",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "Write A Simple Promise in 100 Lines Part2",
+    "url": "http://localhost:2368/wirte-a-simple-promise-2/",
+    "datePublished": "2013-12-14T23:38:49.000Z",
+    "dateModified": "2013-12-14T23:38:49.000Z",
+    "description": "We&#x27;ve known a bit about  why we need Promise and start to build our own version of Promise  Let&#x27;s continue,first we get the following work       guruPromise.when_done_call_this(playPokemon).when_done_call_this(playPokemon); This is so..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="Lanston Peng&#x27;s ideas" href="../rss/index.html" />
+
+</head>
+<body class="post-template no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url(../content/images/2015/12/John-William-Waterhouse-Hylas-and-the-Nymphs.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <h1 class="panel-cover__title panel-title"><a href="../index.html" title="前往 Lanston Peng&#x27;s ideas 的主页">Lanston Peng&#x27;s ideas</a></h1>
+        <span class="panel-cover__subtitle panel-subtitle"></span>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">能不断品尝那无限的美好作品
+做一个有趣,简单且随和的人</p>
+        <!--
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        -->
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="../index.html#blog" title="访问博客" class="blog-button">博客</a></li>
+              <li class="navigation__item"><a href="http://douban.com/people/lanstonpeng" target="_blank" title="我的豆瓣">豆瓣</a></li>
+              <!--
+              <li class="navigation__item"><a href="" title="了解更多关于我">关于</a></li>
+              -->
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+
+  <!-- 豆瓣 
+  <li class="navigation__item">
+    <a href="http://www.douban.com/people/lanstonpeng/" title="诚实的奸商" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">豆瓣</span>
+    </a>
+  </li>
+  -->
+
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/lanstonpeng" title="Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/lanstonpeng" title="@lanstonpeng" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="../rss/index.html" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:lanstonpeng@gmail.com" title="邮件联系我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+  </ul>
+</nav>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-purple"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            
+
+  <article class="post-container post-container--single">
+
+    <header class="post-header">
+      <div class="post-meta">
+        <time datetime="15 Dec 2013" class="post-meta__date date">15 Dec 2013</time> &#8226; <span class="post-meta__tags tags"></span>
+        <!--<span class="post-meta__author author"><img src="" alt="profile image for lanstonpeng" class="avatar post-meta__avatar" /> by lanstonpeng</span>-->
+      </div>
+      <h1 class="post-title">Write A Simple Promise in 100 Lines Part2</h1>
+    </header>
+
+    <section class="post">
+      <p>We've known a bit about  why we need Promise and start to build our own version of <em>Promise</em> <br />
+Let's continue,first we get the following work  </p>
+
+<pre>
+<code data-language="javascript">
+    guruPromise.when_done_call_this(playPokemon).when_done_call_this(playPokemon);
+</code>
+</pre>
+
+<p>This is so called <em>chainable</em> <br />
+we've seen this pattern so much in JQuery <br />
+<code>$(ele).hide().show()</code> <br />
+maybe we can get a little bit hints from how JQuery does <br />
+the <code>$</code> method, <code>hide</code>,<code>show</code> and others that can make chainable are simply just return <code>this</code> at the end of the function</p>
+
+<p>So, we may divert such methodology into Guru  </p>
+
+<p><em>Every time after Guru's storing what he has to do in his memory,he       just returns the a promise,so that he has the same ability to fulfill     another promise</em>  </p>
+
+<p>So,let's add a few lines of code  </p>
+
+<pre>
+<code  data-language="javascript">
+    function cleanDesk(){
+        var guru = guruGenerator();
+        setTimeout(function(){
+            guru.fulfill("Tony's finishing cleaning the nifty desk");
+        },1000);
+        return guru.promise;
+    }
+    function guruGenerator(){
+        var memory = [];
+        var promise = {
+            when_done_call_this:function( things_need_to_do ){
+                var anotherGuru = new guruGenerator();//we generate a new Guru here so that we can return a promise     
+                memory.push(things_need_to_do);
+                return anotherGuru.promise;
+            }
+        };
+        return {
+            fulfill:function(val){
+                memory.forEach(function(thing,idx){
+                    thing.call(null,val);
+                });
+            },
+            promise:promise
+        }
+    }
+    //let poor Tony play Pokemon twice~
+    cleanDesk().when_done_call_this(playPokemon).when_done_call_this(playPokemon);
+    //print one "Go,Pikachu" after ~1000ms
+    //cleanDesk().when_done_call_this(washDish()).when_donw_call_this(playPokemon);
+    //didn't work yet
+</code>
+</pre>
+
+<p>We create another Guru inside the <strong>when<em>done</em>call<em>this</strong> function and return another promise after putting the <strong>things</em>need<em>to</em>do</strong> into the original Guru's memory <br />
+but Tony actually play Pokemon once, what's going wrong? <br />
+as we can see, while the <code>cleanDesk</code>'s done , the Guru will tell us by calling <code>fulfill</code>,ok, <br />
+Since the first <code>playPokemon</code> didn't tell the second <code>playPokemon</code> that he's already done, the second one doesn't know that he should be called or not, So, follow this hints,we can alter a bit  </p>
+
+<pre>
+<code  data-language="javascript">
+    function playPokemon(guru){
+        console.log("Go,Pikachu");
+        guru.fulfill();
+    }
+
+    function guruGenerator(){
+        var memory = [];
+        var promise = {
+            when_done_call_this:function( things_need_to_do ){
+                var anotherGuru = new guruGenerator();
+                var callback = function(){
+                    things_need_to_do(anotherGuru);
+                }
+                memory.push(callback);
+                return anotherGuru.promise;
+            }
+        };
+        return {
+            fulfill:function(val){
+                memory.forEach(function(thing,idx){
+                    thing.call(null,val);
+                });
+            },
+            promise:promise
+        }
+    }
+    cleanDesk().when_done_call_this(playPokemon).when_done_call_this(playPokemon);
+    //after ~1000ms print:
+    //Go,Pikachu 
+    //Go,Pikachu
+    //cleanDesk().when_done_call_this(washDish()).when_donw_call_this(playPokemon);
+    //didn't work yet,we make it possible in the next step
+</code>
+</pre>
+
+<p>We update a bit of <em>playPokemon</em> , we accept a <em>Guru</em> parameter so that we can get the Guru know that Tony has already played Pokemon <br />
+And it works <br />
+wait,are there any new problems here? <br />
+Yes,there's a problem,as <code>playPokemon</code> is not an async function,it won't generate any timer,remember the mission of <em>Promise</em> written above,we don't have to insert extra codes in these plain function,if so ,we have to update all the plain functions! </p>
+
+<p>The next big step is finding a way to pack those inside the <code>guruGenerator</code> <br />
+Since we can fill <code>when_done_call_this</code> with plain or async function wrapped by promise ,we have to distinguish them by a simple <code>isPromise</code> <br />
+if <code>things_need_to_do</code> is  a <em>Promise</em>, we fill the memory with <code>anotherGuru.fulfill</code> to the other Guru,So that while the current <code>things_need_to_do</code> is done , the other Guru will carry out what's inside his memory; <br />
+if <code>things_need_to_do</code> is  a  plain function, we just execute it  </p>
+
+<pre>
+<code  data-language="javascript">
+    function isPromise(func){
+        return func.when_done_call_this; // we simplify things here
+    }
+    function guruGenerator(){
+        var memory = [];
+        var promise = {
+            when_done_call_this:function( things_need_to_do ){
+                var anotherGuru = new guruGenerator();  
+
+                var callback = function(){
+                    if( isPromise( things_need_to_do) ){
+                        things_need_to_do.when_done_call_this(
+                            function(){
+                               anotherGuru.fulfill(); 
+                            }
+                        );
+                    }
+                    else{
+                        things_need_to_do();
+                        anotherGuru.fulfill();
+                    }
+                }
+                memory.push(callback);
+                return anotherGuru.promise;
+            }
+        };
+        return {
+            fulfill:function(val){
+                memory.forEach(function(thing,idx){
+                    thing.call(null,val);
+                });
+            },
+            promise:promise
+        }
+    }
+    //cleanDesk().when_done_call_this(washDish()).when_done_call_this(playPokemon);
+    //cleanDesk done --> washDish done --> Go,Pikachu
+
+    //washDish().when_done_call_this(cleanDesk()).when_done_call_this(playPokemon);
+    //cleanDesk done --> washDish done 
+</code>
+</pre>
+
+<p>And the last thing is that (what?I'm enough about that) <br />
+As we can see that we change the position of <code>cleanDesk</code> and <code>washDish</code> ,and Tony's ending not playing Pokemon <br />
+Why? <br />
+Since <code>cleanDesk</code> takes around 1000ms and <code>washDish</code> takes around 1500ms, while <code>washDish</code>'s finished, the <code>cleanDesk</code> <br />
+has already execute what's inside his memory  </p>
+
+<p>The last step is to fix this problem <br />
+because while the Guru promise to do a thing that is already done , it's not necessary to waste the memory of Guru(he's so old,don't blame the Guru),he can just immediately do what he was told to do ,without putting anything into the memory So,let's write down the final version of it,we just add a <em>isDone</em> which indicate that if the comming <em>things_need_to_do</em> is already done or not  </p>
+
+<pre>
+<code  data-language="javascript">
+function guruGenerator(){
+        var memory = [],
+            isDone = false;
+        var promise = {
+            when_done_call_this:function( things_need_to_do ){
+                var anotherGuru = new guruGenerator();  
+
+                var callback = function(){
+                    if( isPromise( things_need_to_do) ){
+                        things_need_to_do.when_done_call_this(
+                            function(){
+                               anotherGuru.fulfil(); 
+                            }
+                        );
+                    }
+                    else{
+                        things_need_to_do();
+                        anotherGuru.fulfil();
+                    }
+                }
+                if(!isDone){
+                    memory.push(callback);
+                }
+                else{
+                    callback();
+                }
+                return anotherGuru.promise;
+            }
+        };
+        return {
+            fulfil:function(val){
+                memory.forEach(function(thing,idx){
+                    thing.call(null,val);
+                });
+            },
+            promise:promise
+        }
+    }
+</code>
+</pre>
+
+<h4 id="thingstobecovered">Things to be covered</h4>
+
+<ul>
+<li>No Error Handle Functionality</li>
+</ul>
+
+<h4 id="seealso">See Also</h4>
+
+<p><a href="http://callbackhell.com/">callbackhell</a></p>
+    </section>
+
+  </article>
+
+  <section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+      
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+            <footer class="footer">
+    <span class="footer__copyright">&copy; 2015  All rights reserved.</span>
+    <span class="footer__copyright"><a href="https://github.com/onevcat/vno">Vno</a> theme by <a href="http://im.onevcat.com/">@onevcat</a></span>
+</footer>        </div>
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45773367-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <!-- Compatibility for Ghost 0.7.0: http://dev.ghost.org/no-more-jquery/ -->
+    <script type="text/javascript">  
+      if (typeof jQuery == 'undefined') {
+        document.write('<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></'+'script>');
+      }
+    </script>
+    
+    <script type="text/javascript" src="../assets/js/main86b5.js?v=8e02a3de55"></script>
+
+    <script type="text/javascript" src="../assets/js/highlight.pack86b5.js?v=8e02a3de55"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+<!-- Mirrored from localhost:2368/wirte-a-simple-promise-2/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 02:48:16 GMT -->
+</html>

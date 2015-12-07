@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from localhost:2368/javascripte7bba7e689bfe696b9e6a188e79a84e8bf9be58c96/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 03:26:08 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>javascript继承方案的进化</title>
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="javascript继承方案的进化">
+    <meta name="twitter:description" content="">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="javascript继承方案的进化">
+    <meta property="og:description" content="">
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <link href="../assets/images/favicon.png" rel="shortcut icon" type="image/png">
+    <link href="../apple-touch-icon-precomposed.png/index.html" rel="apple-touch-icon">
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/vno86b5.css?v=8e02a3de55" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/tomorrow86b5.css?v=8e02a3de55">
+    
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="Lanston Peng's ideas" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="javascript继承方案的进化" />
+    <meta property="og:description" content="在javascript中，继承是一个颇为热门的话题 var Human=function(name,age){     this.name=name;     this.age=age; } Human.prototype.sayName=function(){ console.log(this.name); } 然后，我们让一个对象继承Human var lanston=function(name,age){     Human.call(this,name,age);     this.isVeryBad=true; } lanston.prototype=new Human(..." />
+    <meta property="og:url" content="index.html" />
+    <meta property="article:published_time" content="2011-09-07T11:36:56.000Z" />
+    <meta property="article:modified_time" content="2011-09-07T11:36:56.000Z" />
+    <meta property="article:tag" content="未分类" />
+    <meta property="article:tag" content="javascript" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="javascript继承方案的进化" />
+    <meta name="twitter:description" content="在javascript中，继承是一个颇为热门的话题 var Human=function(name,age){     this.name=name;     this.age=age; } Human.prototype.sayName=function(){ console.log(this.name); } 然后，我们让一个对象继承Human var lanston=function(name,age){     Human.call(this,name,age);     this.isVeryBad=true; } lanston.prototype=new Human(..." />
+    <meta name="twitter:url" content="index.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Lanston Peng's ideas",
+    "author": {
+        "@type": "Person",
+        "name": "lanstonpeng",
+        "url": "http://localhost:2368/author/lanstonpeng",
+        "sameAs": null,
+        "description": null
+    },
+    "headline": "javascript继承方案的进化",
+    "url": "http://localhost:2368/javascripte7bba7e689bfe696b9e6a188e79a84e8bf9be58c96/",
+    "datePublished": "2011-09-07T11:36:56.000Z",
+    "dateModified": "2011-09-07T11:36:56.000Z",
+    "keywords": "未分类, javascript",
+    "description": "在javascript中，继承是一个颇为热门的话题 var Human=function(name,age){     this.name=name;     this.age=age; } Human.prototype.sayName=function(){ console.log(this.name); } 然后，我们让一个对象继承Human var lanston=function(name,age){     Human.call(this,name,age);     this.isVeryBad=true; } lanston.prototype=new Human(..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="Lanston Peng&#x27;s ideas" href="../rss/index.html" />
+
+</head>
+<body class="post-template tag-wei-fen-lei tag-javascript no-js">
+
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    <header class="panel-cover panel-cover--collapsed" style="background-image: url(../content/images/2015/12/John-William-Waterhouse-Hylas-and-the-Nymphs.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <h1 class="panel-cover__title panel-title"><a href="../index.html" title="前往 Lanston Peng&#x27;s ideas 的主页">Lanston Peng&#x27;s ideas</a></h1>
+        <span class="panel-cover__subtitle panel-subtitle"></span>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">能不断品尝那无限的美好作品
+做一个有趣,简单且随和的人</p>
+        <!--
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        -->
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="../index.html#blog" title="访问博客" class="blog-button">博客</a></li>
+              <li class="navigation__item"><a href="http://douban.com/people/lanstonpeng" target="_blank" title="我的豆瓣">豆瓣</a></li>
+              <!--
+              <li class="navigation__item"><a href="" title="了解更多关于我">关于</a></li>
+              -->
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+
+  <!-- 豆瓣 
+  <li class="navigation__item">
+    <a href="http://www.douban.com/people/lanstonpeng/" title="诚实的奸商" target="_blank">
+      <i class='social fa fa-facebook'></i>
+      <span class="label">豆瓣</span>
+    </a>
+  </li>
+  -->
+
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/lanstonpeng" title="Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/lanstonpeng" title="@lanstonpeng" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="../rss/index.html" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:lanstonpeng@gmail.com" title="邮件联系我">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+
+  </ul>
+</nav>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-purple"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            
+
+  <article class="post-container post-container--single">
+
+    <header class="post-header">
+      <div class="post-meta">
+        <time datetime="07 Sep 2011" class="post-meta__date date">07 Sep 2011</time> &#8226; <span class="post-meta__tags tags">于 <a href="../tag/wei-fen-lei/index.html">未分类</a>, <a href="../tag/javascript/index.html">javascript</a></span>
+        <!--<span class="post-meta__author author"><img src="" alt="profile image for lanstonpeng" class="avatar post-meta__avatar" /> by lanstonpeng</span>-->
+      </div>
+      <h1 class="post-title">javascript继承方案的进化</h1>
+    </header>
+
+    <section class="post tag-wei-fen-lei tag-javascript">
+      <p>在javascript中，继承是一个颇为热门的话题</p>
+
+<pre><code>var Human=function(name,age){
+    this.name=name;
+    this.age=age;
+}
+Human.prototype.sayName=function(){ console.log(this.name); }
+</code></pre>
+
+<p>然后，我们让一个对象继承Human</p>
+
+<pre><code>var lanston=function(name,age){
+    Human.call(this,name,age);
+    this.isVeryBad=true;
+}
+lanston.prototype=new Human();
+var check=new lanston("lanstonpeng",21);
+check.name=="lanstonpeng";
+check.sayName(); //lanstonpeng
+</code></pre>
+
+<p>虽然这种方式比较常见，但是却存在一点效率问题：
+因为其两次调用了Human
+在这种情况下，实际上在 lanston 中与lanston.prototype 中都存在name,age
+一个name，age是在new Human()时创建的
+另一个是在Human.call时创建的</p>
+
+通过翻阅了一些资料，发现了一种比较好的办法，就是取消 new Human() 这一步，用一下方法来替代
+<!-- more -->
+
+<pre><code>function beget(obj){
+    var f=function(){};
+    f.prototype=obj;
+    return new f();
+}
+function extend(Super,Sub){
+   Sub.prototype=beget(Super.prototype);
+}
+</code></pre>
+
+<p>稍微分析一下代码，beget函数其实就是新建一个对象，起原型指向我们指定的那个需要被继承的父对象（即代码中的obj),
+我相信看过The good parts 的朋友肯定对这个函数名有印象
+至于我们一开始需要</p>
+
+<pre><code>lanston.prototype=new Human()
+</code></pre>
+
+<p>无非是想继承<strong>Human</strong>的方法，但是带来的弊端就是多余的属性，这里就是name跟age了,
+我们只需要在<strong>lanston</strong>上需要name跟age，不需要在其prototype上面拥有这些属性，我们要的
+仅仅是方法而已
+至于extend方法就是为了解决这个问题的，beget函数在上面已经说明了，其它的也不难理解
+所以，用同样的方法，将上面的代码改改</p>
+
+<pre><code>extend(Human,lanston)
+</code></pre>
+
+<p>ref--> <br />
+<a href="http://www.crockford.com/javascript/inheritance.html">Classical Inheritance in JavaScript</a>
+<a href="http://javascript.crockford.com/prototypal.html">Prototypal Inheritance in JavaScript</a></p>
+    </section>
+
+  </article>
+
+  <section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'lanston'; // required: replace example with your forum shortname
+      
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+            <footer class="footer">
+    <span class="footer__copyright">&copy; 2015  All rights reserved.</span>
+    <span class="footer__copyright"><a href="https://github.com/onevcat/vno">Vno</a> theme by <a href="http://im.onevcat.com/">@onevcat</a></span>
+</footer>        </div>
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45773367-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <!-- Compatibility for Ghost 0.7.0: http://dev.ghost.org/no-more-jquery/ -->
+    <script type="text/javascript">  
+      if (typeof jQuery == 'undefined') {
+        document.write('<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></'+'script>');
+      }
+    </script>
+    
+    <script type="text/javascript" src="../assets/js/main86b5.js?v=8e02a3de55"></script>
+
+    <script type="text/javascript" src="../assets/js/highlight.pack86b5.js?v=8e02a3de55"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+
+<!-- Mirrored from localhost:2368/javascripte7bba7e689bfe696b9e6a188e79a84e8bf9be58c96/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 06 Dec 2015 03:26:08 GMT -->
+</html>
