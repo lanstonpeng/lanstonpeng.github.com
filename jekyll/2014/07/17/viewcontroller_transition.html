@@ -36,21 +36,27 @@
 
 <p>在iOS7以前, 可以使用 ViewController Container这种方式来进行VC管理, 下面以一个简单的代码来快速带过( Demo中并无此例子 ):</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="lineno"> 1</span> <span class="o">[</span><span class="nb">self</span> <span class="ss">addChildViewController</span><span class="p">:</span><span class="n">enqueViewController</span><span class="o">]</span><span class="p">;</span>
-<span class="lineno"> 2</span> <span class="o">[</span><span class="nb">self</span><span class="o">.</span><span class="n">view</span> <span class="ss">addSubview</span><span class="p">:</span><span class="n">enqueViewController</span><span class="o">.</span><span class="n">view</span><span class="o">]</span><span class="p">;</span>
-<span class="lineno"> 3</span> 
-<span class="lineno"> 4</span> <span class="no">CGRect</span> <span class="n">offSetRect</span><span class="o">=</span><span class="no">CGRectOffset</span><span class="p">(</span><span class="n">newFrame</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="o">-</span><span class="n">inputViewHeight</span><span class="p">);</span>
-<span class="lineno"> 5</span> <span class="no">CGRect</span> <span class="n">otherOffsetRect</span><span class="o">=</span><span class="no">CGRectOffset</span><span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">currentViewController</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="o">-</span><span class="n">inputViewHeight</span><span class="p">);</span>
-<span class="lineno"> 6</span> 
-<span class="lineno"> 7</span> <span class="o">[</span><span class="no">UIView</span> <span class="ss">animateWithDuration</span><span class="p">:</span><span class="mi">0</span><span class="o">.</span><span class="mi">6</span> <span class="ss">delay</span><span class="p">:</span><span class="mi">0</span> <span class="ss">options</span><span class="p">:</span><span class="no">UIViewAnimationOptionCurveEaseIn</span> <span class="ss">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
-<span class="lineno"> 8</span>     <span class="n">enqueViewController</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">offSetRect</span><span class="p">;</span>
-<span class="lineno"> 9</span>     <span class="n">_currentViewController</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">otherOffsetRect</span><span class="p">;</span>
-<span class="lineno">10</span> <span class="p">}</span> <span class="ss">completion</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="no">BOOL</span> <span class="n">finished</span><span class="p">)</span> <span class="p">{</span>
-<span class="lineno">11</span>     <span class="o">[</span><span class="n">_currentViewController</span><span class="o">.</span><span class="n">view</span> <span class="n">removeFromSuperview</span><span class="o">]</span><span class="p">;</span>
-<span class="lineno">12</span>     <span class="o">[</span><span class="n">_currentViewController</span> <span class="n">removeFromParentViewController</span><span class="o">]</span><span class="p">;</span>
-<span class="lineno">13</span>     <span class="n">_currentViewController</span> <span class="o">=</span> <span class="n">enqueViewController</span><span class="p">;</span>
-<span class="lineno">14</span>     <span class="o">[</span><span class="n">enqueViewController</span> <span class="ss">didMoveToParentViewController</span><span class="p">:</span><span class="nb">self</span><span class="o">]</span><span class="p">;</span>
-<span class="lineno">15</span> <span class="p">}</span><span class="o">]</span><span class="p">;</span></code></pre></div>
+<pre>
+<code>
+
+[self addChildViewController:enqueViewController];
+[self.view addSubview:enqueViewController.view];
+
+CGRect offSetRect=CGRectOffset(newFrame,  0,  -inputViewHeight);
+CGRect otherOffsetRect=CGRectOffset(self.currentViewController.view.frame, 0,  -inputViewHeight);
+
+[UIView animateWithDuration:0.6 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    enqueViewController.view.frame = offSetRect;
+    _currentViewController.view.frame = otherOffsetRect;
+} completion:^(BOOL finished) {
+    [_currentViewController.view removeFromSuperview];
+    [_currentViewController removeFromParentViewController];
+    _currentViewController = enqueViewController;
+    [enqueViewController didMoveToParentViewController:self];
+}];
+
+</code>
+</pre>
 
 
 <p>当然, 亦可使用<strong>transitionFromViewController:fromVC...</strong>来做响应的动画转化,
