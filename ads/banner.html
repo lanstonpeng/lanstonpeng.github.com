@@ -1,15 +1,23 @@
-<script type="text/javascript">
-var ad_idzone = "2176917",
-    ad_width = "468",
-    ad_height = "60",
-    v_pos = "middle",
-    h_pos = "left",
-    eventMethod = window.addEventListener ? "addEventListener" : "attachEvent",
-    eventer = window[eventMethod],
-    messageEvent = (eventMethod == "attachEvent") ? "onmessage" : "message";
+<html>
+    <head></head>
+    <body>
+        <script type="text/javascript">
+            var ad_idzone = "2176917",
+                ad_width = "468",
+                ad_height = "60",
+                v_pos = "middle",
+                h_pos = "left",
+                eventMethod = window.addEventListener ? "addEventListener" : "attachEvent",
+                eventer = window[eventMethod],
+                messageEvent = (eventMethod == "attachEvent") ? "onmessage" : "message";
+            
+                eventer(messageEvent, (function(ad_idzone){
+                    return function(e) { if (e.data == "show-iframe-" + ad_idzone) document.getElementById("sticky-banner-" + ad_idzone).style.display = ""; };
+                })(ad_idzone), false);
+            </script>
+            <script type="text/javascript" src="https://ads.exdynsrv.com/js.php?t=17&idzone=2176917"></script>
+    </body>
+</html>
 
-    eventer(messageEvent, (function(ad_idzone){
-        return function(e) { if (e.data == "show-iframe-" + ad_idzone) document.getElementById("sticky-banner-" + ad_idzone).style.display = ""; };
-    })(ad_idzone), false);
-</script>
-<script type="text/javascript" src="https://ads.exdynsrv.com/js.php?t=17&idzone=2176917"></script>
+
+
